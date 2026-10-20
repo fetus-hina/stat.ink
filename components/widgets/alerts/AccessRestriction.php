@@ -16,7 +16,6 @@ use yii\helpers\Html;
 
 use function array_keys;
 use function array_map;
-use function array_values;
 use function count;
 use function implode;
 
@@ -77,7 +76,7 @@ final class AccessRestriction extends Alert
                         'class' => $index === count($messages) - 1 ? 'mb-0' : null,
                     ],
                 ),
-                array_values($messages),
+                $messages,
                 array_keys($messages),
             ),
         );

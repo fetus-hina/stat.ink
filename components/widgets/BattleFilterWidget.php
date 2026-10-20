@@ -163,7 +163,7 @@ final class BattleFilterWidget extends Widget
                     ->all();
                 $mode = [];
                 if (count($rules) > 1) {
-                    $mode['@' . $gameMode['key']] = Yii::t('app-rule', 'All of {0}', $gameModeText);
+                    $mode['@' . $gameMode['key']] = Yii::t('app-rule', 'All of {0}', [$gameModeText]);
                 }
                 foreach ($rules as $rule) {
                     $mode[$rule['key']] = Yii::t('app-rule', $rule['name']);
@@ -242,7 +242,7 @@ final class BattleFilterWidget extends Widget
             if (count($tmp) > 1) {
                 uasort($tmp, strnatcasecmp(...));
                 $ret[$typeName] = array_merge(
-                    ['@' . $type['key'] => Yii::t('app-weapon', 'All of {0}', $typeName)],
+                    ['@' . $type['key'] => Yii::t('app-weapon', 'All of {0}', [$typeName])],
                     $tmp,
                 );
             } elseif (count($tmp) === 1) {
@@ -269,7 +269,7 @@ final class BattleFilterWidget extends Widget
                     ->asArray()
                     ->all();
                 foreach ($list as $item) {
-                    $ret['~' . $item['key']] = Yii::t('app', '{0} etc.', Yii::t('app-weapon', $item['name']));
+                    $ret['~' . $item['key']] = Yii::t('app', '{0} etc.', [Yii::t('app-weapon', $item['name'])]);
                 }
                 uasort($ret, strnatcasecmp(...));
                 return $ret;

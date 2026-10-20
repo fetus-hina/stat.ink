@@ -21,8 +21,8 @@ return [
       $model->kill === null
         ? Html::encode('?')
         : ($model->death !== null && $model->kill >= $model->death
-          ? Html::tag('strong', Html::encode($model->kill))
-          : Html::encode($model->kill)
+          ? Html::tag('strong', Html::encode((string)$model->kill))
+          : Html::encode((string)$model->kill)
         ),
       ['class' => 'kill']
     ),
@@ -32,8 +32,8 @@ return [
       $model->death === null
         ? Html::encode('?')
         : ($model->kill !== null && $model->kill <= $model->death
-          ? Html::tag('strong', Html::encode($model->death))
-          : Html::encode($model->death)
+          ? Html::tag('strong', Html::encode((string)$model->death))
+          : Html::encode((string)$model->death)
         ),
       ['class' => 'death']
     ),

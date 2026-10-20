@@ -297,7 +297,7 @@ final class CreateBattleWidget extends Dialog
 
         foreach (WeaponType3::find()->orderBy(['rank' => SORT_ASC])->all() as $type) {
             $typeWeapons = ArrayHelper::asort(
-                ArrayHelper::getValue($weapons, $type->id, []),
+                $weapons[$type->id] ?? [],
                 SORT_LOCALE_STRING,
             );
             if ($typeWeapons !== []) {

@@ -50,9 +50,9 @@ if ($player->is_me) {
       ? Html::tag('div', Icon::thisPlayer())
       : '',
     [
-      'class' => array_filter([
+      'class' => [
         'text-center',
-      ]),
+      ],
     ],
   ) . "\n" ?>
   <td>
@@ -103,7 +103,7 @@ if ($player->is_me) {
         echo $f->asInteger($player->kill);
       }
     } elseif ($player->kill_or_assist !== null) {
-      echo vsprintf('≪%s≫', $f->asInteger($player->kill_or_assist));
+      echo sprintf('≪%s≫', $f->asInteger($player->kill_or_assist));
     }
   ?></td>
   <td class="text-right"><?= $f->asInteger($player->death) ?></td>

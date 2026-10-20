@@ -68,8 +68,8 @@ $datasetHistogram = [
 ];
 
 $makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chartMax): array {
-  assert($abstract);
-  assert($chartMax);
+  assert($abstract !== null);
+  assert($chartMax > 0);
 
   $results = [];
   $makeStep = 2;

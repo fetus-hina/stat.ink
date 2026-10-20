@@ -2,7 +2,7 @@ includes:
   - vendor/mspirkov/yii2-phpstan/extension.neon
 
 parameters:
-  level: 4
+  level: 5
   phpVersion: 80500
 
   paths:
@@ -116,6 +116,41 @@ parameters:
       # config/git-revision.php is generated at deployment and may be absent
       identifier: nullCoalesce.offset
       path: views/layouts/footer.php
+    -
+      # asArray() queries return arrays, but ActiveQuery types the results by the model
+      identifier: argument.type
+      message: '#^Parameter \#\d+ \$callback of function (array_map|usort) expects .+, Closure\(array(, array)?\): .+ given\.$#'
+      paths:
+        - actions/api/info/GearAction.php
+        - actions/api/info/Weapon2Action.php
+        - actions/api/info/WeaponAction.php
+        - actions/entire/users/Splatoon2.php
+        - actions/show/v2/UserStatReportAction.php
+    -
+      # The grid passes the row models of TModel, which the native type of the closures cannot express
+      identifier: argument.type
+      message: '#^Parameter \#1 \$model of method app\\components\\grid\\KillRatioColumn<TModel of yii\\db\\ActiveRecord>::getKillRat(e|io)\(\) expects TModel of yii\\db\\ActiveRecord, yii\\base\\Model given\.$#'
+      path: components/grid/KillRatioColumn.php
+    -
+      # Reads the template after __halt_compiler()
+      identifier: argument.invalidConstant
+      path: components/widgets/SalmonStatsHistoryWidget.php
+    -
+      # The API reports the errors of the players nested under the attribute
+      identifier: argument.type
+      message: '#^Parameter \#2 \$error of method yii\\base\\Model::addError\(\) expects string, array<string, array<string>> given\.$#'
+      paths:
+        - models/api/v1/PostBattleForm.php
+        - models/api/v2/PostBattleForm.php
+    -
+      # registerJsVar() encodes any value with Json::htmlEncode()
+      identifier: argument.type
+      message: '#^Parameter \#2 \$value of method yii\\web\\View::registerJsVar\(\) expects array\|string, .+ given\.$#'
+    -
+      # false omits the name attribute of the select element
+      identifier: argument.type
+      message: '#^Parameter \#1 \$name of static method yii\\helpers\\BaseHtml::dropDownList\(\) expects string, false given\.$#'
+      path: views/entire/weapon2.php
 
   typeAliases:
     DailyData: 'array{rule_id: int, date: string, count: int, avg: float, final: ?float, max: float, max_id: int, min: float}'

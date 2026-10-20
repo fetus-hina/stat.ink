@@ -56,25 +56,23 @@ $this->registerJs('$(".splatfest3-chart-win-rate").easyChartJs();');
 $valueData = [
   'backgroundColor' => new JsExpression('window.colorScheme.graph1'),
   'borderColor' => new JsExpression('window.colorScheme.graph1'),
-  'data' => array_values(
-    array_map(
-      function (Splatfest3StatsWeapon $model, int $i): array {
-        $data = StandardError::winpct($model->wins, $model->battles);
-        return $data
-          ? [
-            'x' => $data['rate'] * 100,
-            'xMax' => [$data['max95ci'] * 100, $data['max99ci'] * 100],
-            'xMin' => [$data['min95ci'] * 100, $data['min99ci'] * 100],
-            'y' => $i,
-          ]
-          : [
-            'x' => $model->wins / $model->battles * 100,
-            'y' => $i,
-          ];
-      },
-      $models,
-      range(0, count($models) - 1),
-    ),
+  'data' => array_map(
+    function (Splatfest3StatsWeapon $model, int $i): array {
+      $data = StandardError::winpct($model->wins, $model->battles);
+      return $data
+        ? [
+          'x' => $data['rate'] * 100,
+          'xMax' => [$data['max95ci'] * 100, $data['max99ci'] * 100],
+          'xMin' => [$data['min95ci'] * 100, $data['min99ci'] * 100],
+          'y' => $i,
+        ]
+        : [
+          'x' => $model->wins / $model->battles * 100,
+          'y' => $i,
+        ];
+    },
+    $models,
+    range(0, count($models) - 1),
   ),
   'fill' => true,
   'label' => Yii::t('app-results', 'Win %'),

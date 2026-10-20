@@ -110,7 +110,7 @@ trait WeaponDropdownListTrait
                 ]),
             ],
             ArrayHelper::asort(
-                ArrayHelper::getValue($weapons, $type->id),
+                $weapons[$type->id] ?? [],
                 SORT_LOCALE_STRING,
             ),
         );

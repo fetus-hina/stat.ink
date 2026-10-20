@@ -346,7 +346,7 @@ final class Splatfest3Action extends Action
             vsprintf('(%s.%s = %s) = %s.%s', [
                 $db->quoteTableName('{{%battle3}}'),
                 $db->quoteColumnName('our_team_role_id'),
-                (string)$db->quoteValue($attackers->id),
+                (string)(int)$attackers->id,
                 $db->quoteTableName('{{%result3}}'),
                 $db->quoteColumnName('is_win'),
             ]),

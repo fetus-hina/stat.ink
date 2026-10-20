@@ -243,7 +243,7 @@ foreach ($players as $i => $player) {
         'td',
         sprintf(
           '%2$s%1$s',
-          Html::encode($player->level),
+          Html::encode((string)$player->level),
           (($player->star_rank ?? 0) > 0)
             ? Html::tag('span', Html::encode('★'), [
               'style' => [

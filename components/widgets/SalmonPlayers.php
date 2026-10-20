@@ -109,7 +109,7 @@ class SalmonPlayers extends Widget
 
     protected function renderBody(): string
     {
-        $data = array_filter([
+        $data = [
             [
                 'label' => Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1]),
                 'format' => 'text',
@@ -167,7 +167,7 @@ class SalmonPlayers extends Widget
                 'attribute' => 'power_egg_collected',
                 'format' => 'integer',
             ],
-        ]);
+        ];
         return Html::tag('tbody', implode('', array_map(
             fn (array $row): string => $this->renderRow($row),
             $data,

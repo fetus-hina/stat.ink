@@ -55,7 +55,6 @@ use yii\web\AssetManager;
 use yii\web\View;
 
 use function array_filter;
-use function array_values;
 use function in_array;
 use function is_array;
 use function is_string;
@@ -1023,8 +1022,7 @@ final class Icon
                     default => null,
                 },
             ]
-                |> array_filter(...)
-                |> array_values(...),
+                |> array_filter(...),
             'draggable' => 'false',
             'style' => [
                 '--icon-height' => $size ?? '1em',

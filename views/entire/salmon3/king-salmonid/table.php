@@ -47,7 +47,7 @@ $this->registerCss(
 $results = ArrayHelper::index(
   $data,
   'king_id',
-  fn (StatSalmon3MapKing $model): int => $model->map_id ?? (0x100 + $model->big_map_id),
+  [fn (StatSalmon3MapKing $model): int => $model->map_id ?? (0x100 + $model->big_map_id)],
 );
 
 $resultsTide = ArrayHelper::index(

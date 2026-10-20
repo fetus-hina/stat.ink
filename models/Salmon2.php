@@ -781,7 +781,7 @@ class Salmon2 extends ActiveRecord
                 ];
             }, range(0, 3)),
             array_map(fn (SalmonBoss2 $boss): array => [
-                (int)ArrayHelper::getValue($bossAppearances, $boss->id, 0),
+                (int)($bossAppearances[$boss->id] ?? 0),
                 $bossKillMap[0][$boss->id] ?? null,
                 $bossKillMap[1][$boss->id] ?? null,
                 $bossKillMap[2][$boss->id] ?? null,

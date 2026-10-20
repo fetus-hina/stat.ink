@@ -13,7 +13,6 @@ use Yii;
 use yii\base\Model;
 
 use function array_map;
-use function array_values;
 use function implode;
 use function preg_match;
 use function strlen;
@@ -69,7 +68,7 @@ class SfList extends Model
             usort($items, SfItem::compare(...));
         }
 
-        $this->items = array_values($items);
+        $this->items = $items;
         return true;
     }
 }

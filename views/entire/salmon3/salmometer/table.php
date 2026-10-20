@@ -73,7 +73,7 @@ $maxSamples = (int)max(ArrayHelper::getColumn($data, 'jobs'));
       '',
       array_map(
         function (int $level) use ($data, $fmt, $maxSamples): string {
-          $row = ArrayHelper::getValue($data, $level);
+          $row = $data[$level] ?? null;
           return Html::tag(
             'tr',
             implode('', [

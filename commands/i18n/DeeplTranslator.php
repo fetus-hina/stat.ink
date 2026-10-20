@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands\i18n;
 
 use DOMDocument;
+use DOMElement;
 use DOMNode;
 use DOMXPath;
 use DateTimeImmutable;
@@ -22,7 +23,6 @@ use Throwable;
 use Yii;
 use app\models\Language;
 use yii\base\Component;
-use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\httpclient\Client as HttpClient;
@@ -33,7 +33,6 @@ use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_merge;
-use function array_reduce;
 use function array_slice;
 use function array_unique;
 use function array_values;
@@ -143,7 +142,6 @@ class DeeplTranslator extends Component
             $englishTexts = array_filter($englishTexts, fn ($text) => $text !== 'Salmon Run');
 
             usort($englishTexts, fn ($a, $b) => strnatcasecmp($a, $b) ?: strcmp($a, $b));
-            $englishTexts = array_values($englishTexts);
             $localizedTexts = array_map(
                 fn ($text) => self::xml2template($text),
                 $this->translate(
@@ -460,18 +458,15 @@ class DeeplTranslator extends Component
         DOMNode $node,
         bool $isRoot = true,
     ): ?string {
-        if ($node->nodeType !== XML_ELEMENT_NODE) {
+        if (!$node instanceof DOMElement) {
             return null;
         }
 
-        $startTag = Html::beginTag($node->nodeName, array_reduce(
-            ArrayHelper::getColumn(
-                $node->attributes,
-                fn (DOMNode $attr): array => [$attr->nodeName => $attr->nodeValue],
-            ),
-            fn (array $acc, array $cur) => array_merge($acc, $cur),
-            [],
-        ));
+        $attributes = [];
+        foreach ($node->attributes as $attr) {
+            $attributes[$attr->nodeName] = $attr->nodeValue;
+        }
+        $startTag = Html::beginTag($node->nodeName, $attributes);
 
         // process empty element
         if (isset(Html::$voidElements[strtolower($node->nodeName)])) {

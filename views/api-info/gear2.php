@@ -155,7 +155,7 @@ $inkipediaIcon = $icon->inkipedia;
               ),
               Html::tag(
                 'td',
-                $_gear->splatnet === null ? '' : Html::tag('code', Html::encode($_gear->splatnet)),
+                $_gear->splatnet === null ? '' : Html::tag('code', Html::encode((string)$_gear->splatnet)),
                 ['data-sort-value' => $_gear->splatnet ?? -1]
               ),
             ],

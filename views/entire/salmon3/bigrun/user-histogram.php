@@ -47,19 +47,17 @@ $datasetHistogram = [
   'borderColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderWidth' => 1,
   'categoryPercentage' => 1.0,
-  'data' => array_values(
-    array_map(
-      fn (int $x, int $y): array => compact('x', 'y'),
-      array_keys($histogram),
-      array_values($histogram),
-    ),
+  'data' => array_map(
+    fn (int $x, int $y): array => compact('x', 'y'),
+    array_keys($histogram),
+    array_values($histogram),
   ),
   'label' => Yii::t('app', 'Users'),
   'type' => 'bar',
 ];
 
 $makeDistributionData = function (NormalDistribution $nd) use ($abstract): array {
-  assert($abstract);
+  assert($abstract !== null);
 
   $average = $nd->mean();
   $stddev = sqrt($nd->variance());

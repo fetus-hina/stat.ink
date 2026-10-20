@@ -84,8 +84,8 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
         ]);
     }
     $v = $draw(
-        $model->my_team_percent,
-        $model->his_team_percent,
+        (float)$model->my_team_percent,
+        (float)$model->his_team_percent,
         $fmt->asPercent($model->my_team_percent / 100, 1),
         $fmt->asPercent($model->his_team_percent / 100, 1),
         $myTitle,

@@ -15,7 +15,7 @@ use yii\web\AssetManager;
 use yii\web\View;
 
 /**
- * @var Rule3 $rules
+ * @var Rule3[] $rules
  * @var View $this
  */
 

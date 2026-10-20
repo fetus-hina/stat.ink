@@ -20,7 +20,7 @@ use const SORT_ASC;
  * @property integer|null $ability_id
  *
  * @property GearConfiguration2 $config
- * @property GearConfiguration2|null $ability
+ * @property Ability2|null $ability
  */
 class GearConfigurationSecondary2 extends ActiveRecord
 {

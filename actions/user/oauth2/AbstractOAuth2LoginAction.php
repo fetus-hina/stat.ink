@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\actions\user\oauth2;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
+use League\OAuth2\Client\Token\AccessToken;
 use Override;
 use Yii;
 use app\components\helpers\TypeHelper;
@@ -70,9 +71,12 @@ abstract class AbstractOAuth2LoginAction extends Action
                 throw new BadRequestHttpException('Invalid state parameter.');
             }
 
-            $token = $provider->getAccessToken('authorization_code', [
-                'code' => (string)$request->get('code'),
-            ]);
+            $token = TypeHelper::instanceOf(
+                $provider->getAccessToken('authorization_code', [
+                    'code' => (string)$request->get('code'),
+                ]),
+                AccessToken::class,
+            );
             $resourceOwner = $provider->getResourceOwner($token);
             $externalId = $resourceOwner->getId();
             if ($externalId !== null && $externalId !== '') {

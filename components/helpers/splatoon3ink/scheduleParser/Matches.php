@@ -18,7 +18,6 @@ use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
-use function array_values;
 use function ceil;
 use function filter_var;
 use function is_int;
@@ -93,7 +92,7 @@ trait Matches
             fn (array $a, array $b): int => $a['period'] <=> $b['period'],
         );
 
-        return array_values($results);
+        return $results;
     }
 
     private static function processNode(array $dataStructure, string $startTimeStr): array

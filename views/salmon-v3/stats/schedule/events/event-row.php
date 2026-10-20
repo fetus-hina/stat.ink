@@ -25,7 +25,7 @@ use yii\web\View;
  * @var array<int, SalmonWaterLevel2> $tides
  */
 
-$tideStats = ArrayHelper::getValue($eventStats, $event->id ?? 0);
+$tideStats = $eventStats[$event->id ?? 0] ?? null;
 if (!$tideStats) {
   return;
 }
@@ -49,7 +49,7 @@ foreach ($eventStats as $row1) {
     ['class' => $event ? 'text-left' : 'text-center'],
   ) . "\n" ?>
 <?php foreach ($tides as $tide) { ?>
-<?php $row = ArrayHelper::getValue($tideStats, $tide->id); ?>
+<?php $row = $tideStats[$tide->id] ?? null; ?>
   <?= $this->render('event-row/tide', [
     'cleared' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'cleared')),
     'tideWaves' => $totalWavesPerTide[$tide->id] ?? 0,

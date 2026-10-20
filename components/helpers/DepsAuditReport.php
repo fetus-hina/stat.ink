@@ -455,7 +455,7 @@ final class DepsAuditReport
                 ?: strcmp($a['package'], $b['package'])
                 ?: strcmp($a['id'], $b['id']),
         );
-        return array_values($advisories);
+        return $advisories;
     }
 
     private static function stringOrNull(mixed $value): ?string

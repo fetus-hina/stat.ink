@@ -217,7 +217,7 @@ trait UpdateSalmonSchedule
             return false;
         }
 
-        foreach (array_values($weapons) as $i => $weapon) {
+        foreach ($weapons as $i => $weapon) {
             if ($weapon instanceof SalmonWeapon3) {
                 if ($dbWeapons[$i]->weapon_id !== $weapon->id) {
                     return false;
