@@ -18,6 +18,10 @@ use yii\web\View;
  * @var View $this
  */
 
+if (!$battle->weapon) {
+  return;
+}
+
 $icons = Spl2WeaponAsset::register($this);
 $rows = [];
 $rows[] = implode(' ', [
