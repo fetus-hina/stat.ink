@@ -10,6 +10,7 @@ namespace app\controllers;
 use Yii;
 use app\actions\api\v2\battle\CreateAction;
 use app\components\filters\auth\RequestBodyAuth;
+use app\components\helpers\TypeHelper;
 use app\models\ApiV2BattleListForm;
 use app\models\ApiV2UserBattleListForm;
 use app\models\Battle2;
@@ -141,7 +142,7 @@ class ApiV2BattleController extends Controller
             return $model->getErrors();
         }
         return $this->createList(
-            Yii::$app->user->identity,
+            TypeHelper::instanceOf(Yii::$app->user->identity, User::class),
             $model,
             $req->get('format') === 'pretty' ? 'pretty' : null,
         );

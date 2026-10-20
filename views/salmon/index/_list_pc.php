@@ -456,7 +456,7 @@ SalmonWorkListAsset::register($this);
               'weapon',
             );
 
-            $asset = $weapons ? Spl2WeaponAsset::register(Yii::$app->getView()) : null;
+            $asset = $weapons ? Spl2WeaponAsset::register($this) : null;
 
             return vsprintf('%s %s - %s (%s)', [
               Html::a(
