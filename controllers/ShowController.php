@@ -34,14 +34,14 @@ class ShowController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'edit-battle' => [ 'head', 'get', 'post' ],
                     '*' => [ 'head', 'get' ],
                 ],
             ],
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => [ 'edit-battle' ],
                 'rules' => [
                     [
@@ -51,7 +51,7 @@ class ShowController extends Controller
                     ],
                 ],
                 'ruleConfig' => [
-                    'class' => AccessRule::className(),
+                    'class' => AccessRule::class,
                     'matchCallback' => fn ($rule, $action) => $action->isEditable,
                 ],
             ],

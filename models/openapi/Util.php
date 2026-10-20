@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\models\openapi;
 
+use Closure;
 use ParagonIE\ConstantTime\Base32;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -83,14 +84,14 @@ trait Util
     /**
      * @param string|callable $category
      * @param array<mixed> $items
-     * @param string|callable|null $keyColumn
+     * @param string|Closure|null $keyColumn
      * @param string|string[]|null $splatnetKeys
      */
     public static function oapiKeyValueTable(
         string $valueLabel,
         /* string|callable */ $category,
         array $items,
-        /* ?string|callable */ $keyColumn = 'key',
+        /* ?string|Closure */ $keyColumn = 'key',
         ?string $valueColumn = 'name',
         ?string $keyLabelHtml = null,
         /* null|string|array */ $splatnetKeys = null,

@@ -668,6 +668,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
+    /**
+     * @return ActiveQuery<BattleDeathReason2>
+     */
     public function getBattleDeathReasons(): ActiveQuery
     {
         return $this->hasMany(BattleDeathReason2::class, ['battle_id' => 'id'])
@@ -728,6 +731,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Environment::class, ['id' => 'env_id']);
     }
 
+    /**
+     * @return ActiveQuery<BattleEvents2>
+     */
     public function getEvents(): ActiveQuery
     {
         return $this->hasOne(BattleEvents2::class, ['id' => 'id']);
@@ -778,6 +784,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(TurfwarWinBonus2::class, ['id' => 'bonus_id']);
     }
 
+    /**
+     * @return ActiveQuery<Battle2Splatnet>
+     */
     public function getSplatnetJson(): ActiveQuery
     {
         return $this->hasOne(Battle2Splatnet::class, ['id' => 'id']);

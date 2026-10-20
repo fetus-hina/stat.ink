@@ -356,7 +356,7 @@ class PostBattleForm extends Model
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }
-        foreach ($value as $k => $v) {
+        foreach ((array)$value as $k => $v) {
             $tmp = filter_var($v, FILTER_VALIDATE_INT);
             if ($tmp === false || $tmp < 1 || $tmp > 99) {
                 $this->addError($attribute, "Value of {$attribute}[{$k}] (= {$v}) looks broken.");
@@ -730,7 +730,7 @@ class PostBattleForm extends Model
     {
         if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
-            foreach ($this->death_reasons as $key => $count) {
+            foreach ((array)$this->death_reasons as $key => $count) {
                 $reason = DeathReason::findOne(['key' => $key]);
                 if ($key === 'unknown' || !$reason) {
                     $unknownCount += (int)$count;

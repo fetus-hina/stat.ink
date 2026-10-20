@@ -16,11 +16,11 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\TypeHelper;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
 use function array_filter;
 use function array_map;
 use function array_merge;
-use function call_user_func;
 use function date;
 use function explode;
 use function implode;
@@ -284,19 +284,21 @@ class Battle2FilterForm extends Model
         foreach (['id_from', 'id_to'] as $key) {
             if (isset($data[$key])) {
                 $value = $data[$key];
-                if (is_scalar($value) && trim($value) !== '') {
-                    $this->$key = trim($value);
+                if (is_scalar($value) && trim((string)$value) !== '') {
+                    $this->$key = trim((string)$value);
                 }
             }
         }
         return parent::load($data, $formName);
     }
 
+    /**
+     * @param array{modelClass: class-string<ActiveRecord>} $params
+     */
     public function validateWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
-        $method = [$params['modelClass'], 'findOne'];
-        $isExist = !!call_user_func($method, ['key' => $value]);
+        $isExist = !!$params['modelClass']::findOne(['key' => $value]);
         if (!$isExist) {
             $this->addError(
                 $attr,

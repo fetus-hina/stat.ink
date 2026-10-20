@@ -56,7 +56,11 @@ use const SORT_DESC;
  * @property-read SalmonPlayerBossKill2[] $bossKills
  * @property-read SalmonPlayerSpecialUse2[] $specialUses
  * @property-read SalmonPlayerWeapon2[] $weapons
- * @property-read bool $isForceBlackout
+ * @property-read string $anonymizeSeed
+ * @property-read string $iconUrl
+ * @property-read bool $isForceBlackouted
+ * @property-read string $jdenticonHash
+ * @property-read User|null $user
  */
 class SalmonPlayer2 extends ActiveRecord
 {
