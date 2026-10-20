@@ -105,7 +105,6 @@ final class StatController extends Controller
     {
         $this->updateEntireWeapons3();
         // $this->updateEntireWeapons2();
-        // $this->updateEntireWeapons1();
     }
 
     public function actionUpdateEntireEvent3(int $force = 0): int
@@ -430,8 +429,6 @@ final class StatController extends Controller
     public function actionUpdateKnockout()
     {
         $this->updateKnockout3();
-        // $this->updateKnockout2();
-        // $this->updateKnockout1();
     }
 
     /**
