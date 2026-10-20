@@ -12,6 +12,7 @@ namespace app\components\widgets\v3;
 use Override;
 use Yii;
 use app\assets\CreateBattle3Asset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\Dialog;
 use app\components\widgets\Icon;
 use app\models\Lobby3;
@@ -299,7 +300,7 @@ final class CreateBattleWidget extends Dialog
 
         foreach (WeaponType3::find()->orderBy(['rank' => SORT_ASC])->all() as $type) {
             $typeWeapons = ArrayHelper::asort(
-                $weapons[$type->id] ?? [],
+                TypeHelper::array($weapons[$type->id] ?? []),
                 SORT_LOCALE_STRING,
             );
             if ($typeWeapons !== []) {

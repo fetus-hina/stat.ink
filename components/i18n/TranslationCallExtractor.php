@@ -170,7 +170,7 @@ final class TranslationCallExtractor
     }
 
     /**
-     * @param list<PhpToken> $tokens
+     * @param PhpToken[] $tokens
      * @return list<PhpToken>
      */
     private static function significantTokens(array $tokens): array

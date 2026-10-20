@@ -22,23 +22,29 @@ class IdnToPunycodeFilterValidator extends FilterValidator
     {
         $this->filter = function ($value) {
             if (!str_contains($value, '/')) {
-                return $value |> idn_to_ascii(...) |> strtolower(...);
+                return self::toAscii($value);
             }
             if (str_contains($value, '//')) {
                 return preg_replace_callback(
                     '!(?<=//)([^/:]+)!',
-                    fn ($match) => $match[1] |> idn_to_ascii(...) |> strtolower(...),
+                    fn ($match) => self::toAscii($match[1]),
                     $value,
                     1,
                 );
             }
             return preg_replace_callback(
                 '!^([^/:]+)!',
-                fn ($match) => $match[1] |> idn_to_ascii(...) |> strtolower(...),
+                fn ($match) => self::toAscii($match[1]),
                 $value,
                 1,
             );
         };
         parent::init();
+    }
+
+    private static function toAscii(string $host): string
+    {
+        $ascii = idn_to_ascii($host);
+        return strtolower($ascii === false ? $host : $ascii);
     }
 }

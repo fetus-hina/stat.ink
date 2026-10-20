@@ -12,6 +12,7 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\IrasutoyaAsset;
 use app\components\helpers\TypeHelper;
+use app\models\SalmonPlayer2;
 use app\models\User;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\base\Widget;
@@ -28,6 +29,9 @@ use function vsprintf;
 
 class PlayerName2Widget extends Widget
 {
+    /**
+     * @var SalmonPlayer2|null
+     */
     public ?object $player = null;
     public ?User $user = null;
     public bool $nameOnly = false;
@@ -201,7 +205,7 @@ class PlayerName2Widget extends Widget
 
     private function renderSpeciesIcon(): string
     {
-        if (!isset($this->player->species) || !$this->player->species) {
+        if (!isset($this->player->species)) {
             return '';
         }
 

@@ -11,12 +11,18 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Override;
 use Yii;
+use app\models\Battle3;
 
 use function sprintf;
 use function vsprintf;
 
 final class BattleItem3Widget extends BaseWidget
 {
+    /**
+     * @var Battle3
+     */
+    public $model;
+
     public function getBattleEndAt(): ?DateTimeImmutable
     {
         if (!$endAt = $this->model->end_at) {
