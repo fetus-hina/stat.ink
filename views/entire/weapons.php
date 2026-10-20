@@ -489,7 +489,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <h2><?= Html::encode(
     Yii::t('app-entire', 'Favorite Weapons of This Site Member')
   ) ?></h2>
-<?php $_max = max(array_map(
+<?php $_max = max(0, ...array_map(
   function (stdClass $a): int {
     return $a->user_count;
   },

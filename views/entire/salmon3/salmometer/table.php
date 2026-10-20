@@ -24,11 +24,11 @@ use yii\web\View;
 
 $fmt = Yii::$app->formatter;
 
-if ($totalSamples < 1) {
+if ($totalSamples < 1 || !$data) {
   return;
 }
 
-$maxSamples = (int)max(ArrayHelper::getColumn($data, 'jobs'));
+$maxSamples = max(array_map(fn (StatSalmon3Salmometer $model): int => $model->jobs, $data));
 
 ?>
 <table class="table table-bordered table-striped m-0">

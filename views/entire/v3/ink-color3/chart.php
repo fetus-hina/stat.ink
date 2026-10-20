@@ -84,8 +84,9 @@ $regression = abs($correlationCoefficient) >= 0.2
   )
   : null;
 
-$minX = $regression ? min(ArrayHelper::getColumn($pointData, 'x')) : null;
-$maxX = $regression ? max(ArrayHelper::getColumn($pointData, 'x')) : null;
+$xList = array_map(fn (array $v): mixed => $v['x'], $pointData);
+$minX = $regression && $xList ? min($xList) : null;
+$maxX = $regression && $xList ? max($xList) : null;
 
 $chartData = [
   'data' => [

@@ -146,7 +146,7 @@ final class SalmonBosses extends Widget
             ])
             ->all();
 
-        $maxAppearances = max(ArrayHelper::getColumn($data, 'appearances'));
+        $maxAppearances = max(0, ...ArrayHelper::getColumn($data, 'appearances'));
         $body = implode(
             '',
             ArrayHelper::getColumn(

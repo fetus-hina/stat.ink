@@ -18,9 +18,13 @@ use yii\web\View;
  * @var array<int, array{battles: int, wins: int}> $data
  */
 
+if (!$data) {
+  return;
+}
+
 $fmt = Yii::$app->formatter;
 $maxUses = $data |> array_keys(...) |> max(...);
-$maxSamples = max(ArrayHelper::getColumn($data, 'battles'));
+$maxSamples = max(array_map(fn (array $v): int => $v['battles'], $data));
 
 ?>
 <?= Html::beginTag(

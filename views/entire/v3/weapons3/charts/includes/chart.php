@@ -105,7 +105,7 @@ $datasetPoints = [
 
 $datasetLinerRegression = null;
 if ($regression) {
-  $tmpXList = ArrayHelper::getColumn($xyPoints, 'x');
+  $tmpXList = array_map(fn (array $v): mixed => $v['x'], $xyPoints);
   $tmpMinX = min($tmpXList);
   $tmpMaxX = max($tmpXList);
 

@@ -89,6 +89,10 @@ final class AgentAction extends Action
             ];
         }
 
+        if ($ret === []) {
+            return [];
+        }
+
         // 歯抜けデータの処理
         $minDate = $ret |> array_keys(...) |> min(...);
         $maxDate = $ret |> array_keys(...) |> max(...);
