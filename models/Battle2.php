@@ -117,7 +117,7 @@ use const SORT_STRING;
  * @property integer|null $bonus_id
  * @property integer|null $env_id
  * @property string $client_uuid
- * @property-read array|null $ua_variables
+ * @property-read array|string|null $ua_variables
  * @property-write array|string|null $ua_variables
  * @property string|null $ua_custom
  * @property integer|null $agent_game_version_id
@@ -885,7 +885,7 @@ class Battle2 extends ActiveRecord
         }
         try {
             return (function () use ($json): array {
-                $decoded = Json::decode($json);
+                $decoded = is_array($json) ? $json : Json::decode($json);
                 if (!$decoded) {
                     return [];
                 }

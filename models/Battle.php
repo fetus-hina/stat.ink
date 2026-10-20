@@ -94,7 +94,7 @@ use const SORT_STRING;
  * @property integer|null $his_team_count
  * @property integer $period
  * @property string|null $ua_custom
- * @property-read array|null $ua_variables
+ * @property-read array|string|null $ua_variables
  * @property-write array|string|null $ua_variables
  * @property integer|null $env_id
  * @property boolean $is_automated
@@ -915,11 +915,10 @@ class Battle extends ActiveRecord
                 'game_version_date' => $this->agent_game_version_date,
                 'custom' => $this->ua_custom,
                 'variables' => $this->ua_variables
-                    ? match (true) {
-                        is_array($this->ua_variables) => $this->ua_variables,
-                        is_string($this->ua_variables) => @json_decode($this->ua_variables, false),
-                        default => null,
-                    }
+                    ? (is_string($this->ua_variables)
+                        ? @json_decode($this->ua_variables, false)
+                        : $this->ua_variables
+                    )
                     : null,
             ],
             'automated' => !!$this->is_automated,
