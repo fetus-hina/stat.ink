@@ -13,6 +13,7 @@ use app\components\helpers\db\Now;
 use app\models\query\SalmonSchedule2Query;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use app\components\helpers\TypeHelper;
 
 use function strtotime;
 
@@ -89,7 +90,7 @@ class SalmonSchedule2 extends ActiveRecord
 
     public function getPeriod(): int
     {
-        return $this->start_at |> strtotime(...) |> BattleHelper::calcPeriod2(...);
+        return $this->start_at |> strtotime(...) |> TypeHelper::int(...) |> BattleHelper::calcPeriod2(...);
     }
 
     public function delete()

@@ -14,6 +14,7 @@ use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
 
 use function array_filter;
@@ -513,7 +514,7 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'yesterday':
-                $t = mktime(12, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now));
+                $t = TypeHelper::int(mktime(12, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now)));
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d 00:00:00', $t));
                 $push('term_to', date('Y-m-d 23:59:59', $t));

@@ -20,6 +20,7 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\components\helpers\TypeHelper;
 
 use function array_filter;
 use function array_map;
@@ -737,7 +738,7 @@ class Salmon2 extends ActiveRecord
                 (string)$this->id,
                 (string)$this->shift_period,
                 $this->start_at ? (string)strtotime($this->start_at) : '',
-                $this->start_at ? date(DATE_ATOM, strtotime($this->start_at)) : '',
+                $this->start_at ? date(DATE_ATOM, $this->start_at |> strtotime(...) |> TypeHelper::int(...)) : '',
                 (string)$this->splatnet_number,
                 $this->stage_id ? $this->stage->key : '',
                 $this->stage_id ? Yii::t('app-salmon-map2', $this->stage->name) : '',

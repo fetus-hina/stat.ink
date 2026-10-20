@@ -14,6 +14,7 @@ use app\components\ability\Effect;
 use app\components\ability\effect\Base as AbilityEffect;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\models\query\BattleQuery;
 use stdClass;
@@ -969,7 +970,7 @@ class Battle extends ActiveRecord
 
         // t_str = t.strftime("%Y,%m,%d,%H,%M")
         // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
-        $t = strtotime($this->end_at ?: $this->at);
+        $t = ($this->end_at ?: $this->at) |> strtotime(...) |> TypeHelper::int(...);
         return [
             (string)$t,
             date('Y', $t),
@@ -1255,6 +1256,6 @@ class Battle extends ActiveRecord
 
     public function getCreatedAt(): int
     {
-        return strtotime($this->at);
+        return $this->at |> strtotime(...) |> TypeHelper::int(...);
     }
 }

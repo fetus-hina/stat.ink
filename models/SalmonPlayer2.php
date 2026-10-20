@@ -12,6 +12,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use app\components\helpers\TypeHelper;
 
 use function array_map;
 use function array_merge;
@@ -189,7 +190,7 @@ class SalmonPlayer2 extends ActiveRecord
     {
         $id = $this->getAnonymizeSeed();
         if (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $id, $match)) {
-            $id = hex2bin($match[1]);
+            $id = TypeHelper::string(hex2bin($match[1]));
         }
         return substr(
             hash('sha256', $id, false),

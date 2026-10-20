@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
 
 use function array_find;
@@ -15,10 +16,13 @@ use function array_merge;
 use function count;
 use function gmdate;
 use function is_array;
+use function is_string;
 use function json_decode;
 use function json_encode;
 use function printf;
 use function sprintf;
+
+use const JSON_THROW_ON_ERROR;
 
 class BattleRerecognizeForm extends Model
 {
@@ -134,13 +138,17 @@ class BattleRerecognizeForm extends Model
             return true;
         }
 
-        $battle->ua_variables = json_encode(array_merge(
-            @json_decode($battle->ua_variables, true) ?: [],
-            [
-                'rerecognized_agent' => sprintf('%s/%s', $this->agent ?: 'unknown', $this->agent_version ?: 'unknown'),
-                'rerecognized_at' => gmdate('Y-m-d\TH:i:sP', $this->recognition_at),
-            ],
-        ));
+        $uaVariables = $battle->ua_variables;
+        $battle->ua_variables = json_encode(
+            array_merge(
+                (is_string($uaVariables) ? @json_decode($uaVariables, true) : $uaVariables) ?: [],
+                [
+                    'rerecognized_agent' => sprintf('%s/%s', $this->agent ?: 'unknown', $this->agent_version ?: 'unknown'),
+                    'rerecognized_at' => gmdate('Y-m-d\TH:i:sP', TypeHelper::int($this->recognition_at)),
+                ],
+            ),
+            JSON_THROW_ON_ERROR,
+        );
 
         foreach (array_keys($battle->dirtyAttributes) as $k) {
             if ($k === 'weapon_id') {

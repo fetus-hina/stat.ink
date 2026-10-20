@@ -1365,7 +1365,7 @@ class PostBattleForm extends Model
         if ($this->hasErrors($attribute)) {
             return;
         }
-        if (!@imagecreatefromstring($binary)) {
+        if ($binary === false || !@imagecreatefromstring($binary)) {
             $this->addError($attribute, 'Could not decode binary that contained an image data.');
             return;
         }

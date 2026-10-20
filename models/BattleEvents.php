@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Override;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveRecord;
 
 use function base64_decode;
@@ -71,7 +72,12 @@ class BattleEvents extends ActiveRecord
         if (substr($this->events, 0, 2) !== '[{') {
             return;
         }
-        $encoded = 'gz' . base64_encode(gzencode($this->events, 9, FORCE_GZIP));
+        $compressed = gzencode($this->events, 9, FORCE_GZIP);
+        if ($compressed === false) {
+            return;
+        }
+
+        $encoded = 'gz' . base64_encode($compressed);
         if (strlen($this->events) > strlen($encoded)) {
             $this->events = $encoded;
         }
@@ -86,7 +92,7 @@ class BattleEvents extends ActiveRecord
 
             case 'gz':
                 $binary = base64_decode(substr($this->events, 2));
-                $this->events = gzdecode($binary);
+                $this->events = TypeHelper::string(gzdecode($binary));
                 break;
         }
     }

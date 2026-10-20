@@ -18,6 +18,7 @@ use app\components\behaviors\RemotePortBehavior;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\components\jobs\UserStatsJob;
 use app\models\query\Battle2Query;
@@ -351,10 +352,10 @@ class Battle2 extends ActiveRecord
                     }
                     $time = (function () use ($battle): ?int {
                         if (is_string($battle->end_at) && trim($battle->end_at) !== '') {
-                            return strtotime($battle->end_at);
+                            return $battle->end_at |> strtotime(...) |> TypeHelper::int(...);
                         }
                         if (is_string($battle->created_at) && trim($battle->created_at) !== '') {
-                            return strtotime($battle->created_at);
+                            return $battle->created_at |> strtotime(...) |> TypeHelper::int(...);
                         }
                         return null;
                     })();
@@ -946,7 +947,7 @@ class Battle2 extends ActiveRecord
 
     public function getCreatedAt(): int
     {
-        return strtotime($this->created_at);
+        return $this->created_at |> strtotime(...) |> TypeHelper::int(...);
     }
 
     public function getIsNawabari(): bool
@@ -1236,7 +1237,7 @@ class Battle2 extends ActiveRecord
 
         // t_str = t.strftime("%Y,%m,%d,%H,%M")
         // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
-        $t = strtotime($this->end_at ?: $this->created_at);
+        $t = ($this->end_at ?: $this->created_at) |> strtotime(...) |> TypeHelper::int(...);
         return [
             (string)$t,
             date('Y', $t),
@@ -1260,7 +1261,7 @@ class Battle2 extends ActiveRecord
      */
     public function toCsvArray(): array
     {
-        $t = strtotime($this->end_at ?: $this->created_at);
+        $t = ($this->end_at ?: $this->created_at) |> strtotime(...) |> TypeHelper::int(...);
         $mode = (function (): string {
             if ($this->lobby && $this->lobby->key === 'private') {
                 return 'Private Battle';
