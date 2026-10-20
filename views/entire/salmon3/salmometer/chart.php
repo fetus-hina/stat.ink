@@ -29,7 +29,7 @@ if (!$totalSamples || !$data) {
   return;
 }
 
-$makeData = fn (int $index, int $jobs, int $cleared): array => $jobs > 0
+$makeData = fn (int $index, int $jobs, int $cleared): ?array => $jobs > 0
   ? (($err = StandardError::winpct($cleared, $jobs))
     ? [
       'x' => $err['rate'] * 100,
@@ -51,7 +51,8 @@ $dataList[] = $makeData(0, $totalSamples, $totalCleared); // total
 $labels[] = Yii::t('app', 'Total');
 
 foreach (range(0, 5) as $i) {
-  if ($tmp = $makeData($i + 1, (int)$data[$i]?->jobs, (int)$data[$i]?->cleared)) {
+  $model = $data[$i] ?? null;
+  if ($tmp = $makeData($i + 1, (int)$model?->jobs, (int)$model?->cleared)) {
     $dataList[] = $tmp;
     $labels[] = sprintf('%d / %d', $i, 5);
   }
