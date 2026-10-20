@@ -22,8 +22,11 @@ final class BossForm extends Model
 {
     use TypeHelperTrait;
 
+    /** @var mixed */
     public $appearances;
+    /** @var mixed */
     public $defeated;
+    /** @var mixed */
     public $defeated_by_me;
 
     public function behaviors()

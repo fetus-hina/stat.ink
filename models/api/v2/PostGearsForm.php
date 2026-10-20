@@ -11,8 +11,17 @@ use yii\base\Model;
 
 class PostGearsForm extends Model
 {
+    /**
+     * @var PostHeadgearForm|mixed
+     */
     public $headgear;
+    /**
+     * @var PostClothingForm|mixed
+     */
     public $clothing;
+    /**
+     * @var PostShoesForm|mixed
+     */
     public $shoes;
 
     public function rules()
@@ -24,22 +33,25 @@ class PostGearsForm extends Model
         ];
     }
 
-    public function validateHeadgear($attribute, $params)
+    public function validateHeadgear(string $attribute, mixed $params): void
     {
-        return $this->validateGear(PostHeadgearForm::class, $attribute, $params);
+        $this->validateGear(PostHeadgearForm::class, $attribute, $params);
     }
 
-    public function validateClothing($attribute, $params)
+    public function validateClothing(string $attribute, mixed $params): void
     {
-        return $this->validateGear(PostClothingForm::class, $attribute, $params);
+        $this->validateGear(PostClothingForm::class, $attribute, $params);
     }
 
-    public function validateShoes($attribute, $params)
+    public function validateShoes(string $attribute, mixed $params): void
     {
-        return $this->validateGear(PostShoesForm::class, $attribute, $params);
+        $this->validateGear(PostShoesForm::class, $attribute, $params);
     }
 
-    private function validateGear($klass, $attribute, $params)
+    /**
+     * @param class-string<BaseGearForm> $klass
+     */
+    private function validateGear(string $klass, string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;

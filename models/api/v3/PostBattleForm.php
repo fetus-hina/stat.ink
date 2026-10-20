@@ -90,78 +90,150 @@ final class PostBattleForm extends Model
     use TypeHelperTrait;
     use UserAgentTrait;
 
+    /** @var mixed */
     public $test;
 
+    /** @var mixed */
     public $uuid;
+    /** @var mixed */
     public $lobby;
+    /** @var mixed */
     public $rule;
+    /** @var mixed */
     public $stage;
+    /** @var mixed */
     public $weapon;
+    /** @var mixed */
     public $result;
+    /** @var mixed */
     public $knockout;
+    /** @var mixed */
     public $rank_in_team;
+    /** @var mixed */
     public $kill;
+    /** @var mixed */
     public $assist;
+    /** @var mixed */
     public $kill_or_assist;
+    /** @var mixed */
     public $death;
+    /** @var mixed */
     public $special;
+    /** @var mixed */
     public $signal;
+    /** @var mixed */
     public $inked;
+    /** @var mixed */
     public $our_team_inked;
+    /** @var mixed */
     public $their_team_inked;
+    /** @var mixed */
     public $third_team_inked;
+    /** @var mixed */
     public $our_team_percent;
+    /** @var mixed */
     public $their_team_percent;
+    /** @var mixed */
     public $third_team_percent;
+    /** @var mixed */
     public $our_team_count;
+    /** @var mixed */
     public $their_team_count;
+    /** @var mixed */
     public $level_before;
+    /** @var mixed */
     public $level_after;
+    /** @var mixed */
     public $rank_before;
+    /** @var mixed */
     public $rank_before_s_plus;
+    /** @var mixed */
     public $rank_before_exp;
+    /** @var mixed */
     public $rank_after;
+    /** @var mixed */
     public $rank_after_s_plus;
+    /** @var mixed */
     public $rank_after_exp;
+    /** @var mixed */
     public $rank_exp_change;
+    /** @var mixed */
     public $rank_up_battle;
+    /** @var mixed */
     public $challenge_win;
+    /** @var mixed */
     public $challenge_lose;
+    /** @var mixed */
     public $x_power_before;
+    /** @var mixed */
     public $x_power_after;
+    /** @var mixed */
     public $fest_power;
+    /** @var mixed */
     public $fest_dragon;
+    /** @var mixed */
     public $conch_clash;
+    /** @var mixed */
     public $bankara_power_before;
+    /** @var mixed */
     public $bankara_power_after;
+    /** @var mixed */
     public $series_weapon_power_before;
+    /** @var mixed */
     public $series_weapon_power_after;
+    /** @var mixed */
     public $clout_before;
+    /** @var mixed */
     public $clout_after;
+    /** @var mixed */
     public $clout_change;
+    /** @var mixed */
     public $event;
+    /** @var mixed */
     public $event_power;
+    /** @var mixed */
     public $cash_before;
+    /** @var mixed */
     public $cash_after;
+    /** @var mixed */
     public $our_team_color;
+    /** @var mixed */
     public $their_team_color;
+    /** @var mixed */
     public $third_team_color;
+    /** @var mixed */
     public $our_team_role;
+    /** @var mixed */
     public $their_team_role;
+    /** @var mixed */
     public $third_team_role;
+    /** @var mixed */
     public $our_team_theme;
+    /** @var mixed */
     public $their_team_theme;
+    /** @var mixed */
     public $third_team_theme;
+    /** @var mixed */
     public $our_team_players;
+    /** @var mixed */
     public $their_team_players;
+    /** @var mixed */
     public $third_team_players;
+    /** @var mixed */
     public $note;
+    /** @var mixed */
     public $private_note;
+    /** @var mixed */
     public $link_url;
+    /** @var mixed */
     public $agent;
+    /** @var mixed */
     public $agent_version;
+    /** @var mixed */
     public $automated;
+    /** @var mixed */
     public $start_at;
+    /** @var mixed */
     public $end_at;
 
     /** @var string[] */
@@ -179,6 +251,7 @@ final class PostBattleForm extends Model
     /** @var UploadedFile|string|null */
     public $image_gear;
 
+    /** @var mixed */
     public $splatnet_json;
 
     public ?bool $isCreated = null;
@@ -626,6 +699,9 @@ final class PostBattleForm extends Model
         return true;
     }
 
+    /**
+     * @param array<mixed> $playerData
+     */
     private function savePlayerImpl(
         Battle3 $battle,
         array $playerData,

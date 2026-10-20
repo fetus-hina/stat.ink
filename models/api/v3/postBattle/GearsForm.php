@@ -17,8 +17,11 @@ use function is_array;
 
 final class GearsForm extends Model
 {
+    /** @var mixed */
     public $headgear;
+    /** @var mixed */
     public $clothing;
+    /** @var mixed */
     public $shoes;
 
     public ?GearForm $headgearForm = null;
@@ -32,7 +35,7 @@ final class GearsForm extends Model
         ];
     }
 
-    public function validateGear(string $attribute)
+    public function validateGear(string $attribute): void
     {
         if ($this->hasErrors($attribute)) {
             return;

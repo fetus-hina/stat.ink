@@ -17,7 +17,9 @@ use yii\base\Model;
  */
 class WeaponTrendsGetForm extends Model
 {
+    /** @var mixed */
     public $rule;
+    /** @var mixed */
     public $map;
 
     public function rules()

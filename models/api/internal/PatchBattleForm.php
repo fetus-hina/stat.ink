@@ -14,8 +14,17 @@ use function trim;
 
 class PatchBattleForm extends Model
 {
+    /**
+     * @var string|array<mixed>|null
+     */
     public $link_url;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $note;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $private_note;
 
     public function rules()

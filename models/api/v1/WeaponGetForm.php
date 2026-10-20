@@ -16,9 +16,13 @@ use yii\db\ActiveQuery;
 
 class WeaponGetForm extends Model
 {
+    /** @var mixed */
     public $weapon;
+    /** @var mixed */
     public $type;
+    /** @var mixed */
     public $sub;
+    /** @var mixed */
     public $special;
 
     public function rules()
@@ -52,7 +56,7 @@ class WeaponGetForm extends Model
         ];
     }
 
-    public function filterQuery(ActiveQuery $query)
+    public function filterQuery(ActiveQuery $query): ActiveQuery
     {
         if ($this->weapon) {
             $query->andWhere(['{{weapon}}.[[key]]' => $this->weapon]);

@@ -15,8 +15,11 @@ use yii\db\ActiveQuery;
 
 class GearGetForm extends Model
 {
+    /** @var mixed */
     public $type;
+    /** @var mixed */
     public $brand;
+    /** @var mixed */
     public $ability;
 
     public function rules()
@@ -46,7 +49,7 @@ class GearGetForm extends Model
         ];
     }
 
-    public function filterQuery(ActiveQuery $query)
+    public function filterQuery(ActiveQuery $query): ActiveQuery
     {
         if ($this->type) {
             $query

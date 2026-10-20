@@ -7,9 +7,12 @@
 
 namespace app\models\api\v1;
 
+use Override;
+
 class PostHeadgearForm extends BaseGearForm
 {
-    public function getType()
+    #[Override]
+    public function getType(): string
     {
         return 'headgear';
     }

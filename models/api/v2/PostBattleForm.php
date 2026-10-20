@@ -10,6 +10,7 @@ namespace app\models\api\v2;
 use DateInterval;
 use DateTimeImmutable;
 use Exception;
+use Generator;
 use RuntimeException;
 use Throwable;
 use Yii;
@@ -17,6 +18,7 @@ use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\SplatnetNumberBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\helpers\CriticalSection;
+use app\components\helpers\Resource;
 use app\components\helpers\db\Now;
 use app\models\Ability2;
 use app\models\Agent;
@@ -95,82 +97,310 @@ class PostBattleForm extends Model
 {
     public const SAME_BATTLE_THRESHOLD_TIME = 86400;
 
+    /**
+     * @var mixed
+     */
     public $test;
 
+    /**
+     * @var mixed
+     */
     public $splatnet_number;
+    /**
+     * @var mixed
+     */
     public $uuid;
+    /**
+     * @var mixed
+     */
     public $lobby;
+    /**
+     * @var mixed
+     */
     public $mode;
+    /**
+     * @var mixed
+     */
     public $rule;
+    /**
+     * @var mixed
+     */
     public $stage;
+    /**
+     * @var mixed
+     */
     public $weapon;
+    /**
+     * @var mixed
+     */
     public $result;
+    /**
+     * @var mixed
+     */
     public $knock_out;
+    /**
+     * @var mixed
+     */
     public $rank_in_team;
+    /**
+     * @var mixed
+     */
     public $kill;
+    /**
+     * @var mixed
+     */
     public $death;
+    /**
+     * @var mixed
+     */
     public $kill_or_assist;
+    /**
+     * @var mixed
+     */
     public $special;
+    /**
+     * @var mixed
+     */
     public $max_kill_combo;
+    /**
+     * @var mixed
+     */
     public $max_kill_streak;
+    /**
+     * @var mixed
+     */
     public $level;
+    /**
+     * @var mixed
+     */
     public $level_after;
+    /**
+     * @var mixed
+     */
     public $star_rank;
+    /**
+     * @var mixed
+     */
     public $rank;
+    /**
+     * @var mixed
+     */
     public $rank_exp;
+    /**
+     * @var mixed
+     */
     public $rank_after;
+    /**
+     * @var mixed
+     */
     public $rank_exp_after;
+    /**
+     * @var mixed
+     */
     public $x_power;
+    /**
+     * @var mixed
+     */
     public $x_power_after;
+    /**
+     * @var mixed
+     */
     public $estimate_x_power;
+    /**
+     * @var mixed
+     */
     public $my_point;
+    /**
+     * @var mixed
+     */
     public $estimate_gachi_power;
+    /**
+     * @var mixed
+     */
     public $my_team_estimate_league_point;
+    /**
+     * @var mixed
+     */
     public $his_team_estimate_league_point;
+    /**
+     * @var mixed
+     */
     public $league_point;
+    /**
+     * @var mixed
+     */
     public $my_team_point;
+    /**
+     * @var mixed
+     */
     public $his_team_point;
+    /**
+     * @var mixed
+     */
     public $my_team_percent;
+    /**
+     * @var mixed
+     */
     public $his_team_percent;
+    /**
+     * @var mixed
+     */
     public $my_team_count;
+    /**
+     * @var mixed
+     */
     public $his_team_count;
+    /**
+     * @var mixed
+     */
     public $my_team_id;
+    /**
+     * @var mixed
+     */
     public $his_team_id;
+    /**
+     * @var mixed
+     */
     public $species;
+    /**
+     * @var mixed
+     */
     public $gender;
+    /**
+     * @var mixed
+     */
     public $fest_title;
+    /**
+     * @var mixed
+     */
     public $fest_exp;
+    /**
+     * @var mixed
+     */
     public $fest_title_after;
+    /**
+     * @var mixed
+     */
     public $fest_exp_after;
+    /**
+     * @var mixed
+     */
     public $fest_power;
+    /**
+     * @var mixed
+     */
     public $my_team_estimate_fest_power;
+    /**
+     * @var mixed
+     */
     public $his_team_estimate_fest_power;
+    /**
+     * @var mixed
+     */
     public $my_team_fest_theme;
+    /**
+     * @var mixed
+     */
     public $his_team_fest_theme;
+    /**
+     * @var mixed
+     */
     public $my_team_nickname;
+    /**
+     * @var mixed
+     */
     public $his_team_nickname;
+    /**
+     * @var mixed
+     */
     public $special_battle;
+    /**
+     * @var mixed
+     */
     public $clout;
+    /**
+     * @var mixed
+     */
     public $total_clout;
+    /**
+     * @var mixed
+     */
     public $total_clout_after;
+    /**
+     * @var mixed
+     */
     public $my_team_win_streak;
+    /**
+     * @var mixed
+     */
     public $his_team_win_streak;
+    /**
+     * @var mixed
+     */
     public $synergy_bonus;
+    /**
+     * @var PostGearsForm|mixed
+     */
     public $gears;
+    /**
+     * @var list<PostBattlePlayerForm>|mixed
+     */
     public $players;
+    /**
+     * @var mixed
+     */
     public $death_reasons;
+    /**
+     * @var mixed
+     */
     public $events;
+    /**
+     * @var mixed
+     */
     public $splatnet_json;
+    /**
+     * @var mixed
+     */
     public $automated;
+    /**
+     * @var mixed
+     */
     public $link_url;
+    /**
+     * @var mixed
+     */
     public $note;
+    /**
+     * @var mixed
+     */
     public $private_note;
+    /**
+     * @var mixed
+     */
     public $agent;
+    /**
+     * @var mixed
+     */
     public $agent_version;
+    /**
+     * @var mixed
+     */
     public $agent_custom;
+    /**
+     * @var mixed
+     */
     public $agent_variables;
+    /**
+     * @var mixed
+     */
     public $freshness;
+    /**
+     * @var mixed
+     */
     public $start_at;
+    /**
+     * @var mixed
+     */
     public $end_at;
 
     /** @var UploadedFile|string|null */
@@ -457,7 +687,7 @@ class PostBattleForm extends Model
         return $value !== '' && $value !== 'no';
     }
 
-    public function setMap($key): self
+    public function setMap(mixed $key): self
     {
         $this->stage = $key;
         return $this;
@@ -673,7 +903,10 @@ class PostBattleForm extends Model
         ]);
     }
 
-    public function toDeathReasons(Battle2 $battle)
+    /**
+     * @return Generator<int, BattleDeathReason2, mixed, void>
+     */
+    public function toDeathReasons(Battle2 $battle): Generator
     {
         if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
@@ -704,7 +937,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function toSplatnetJson(Battle2 $battle)
+    public function toSplatnetJson(Battle2 $battle): ?Battle2Splatnet
     {
         if (!$this->splatnet_json) {
             return null;
@@ -716,7 +949,10 @@ class PostBattleForm extends Model
         ]);
     }
 
-    public function toPlayers(Battle2 $battle)
+    /**
+     * @return Generator<int, BattlePlayer2, mixed, void>
+     */
+    public function toPlayers(Battle2 $battle): Generator
     {
         if (is_array($this->players) && $this->players) {
             foreach ($this->players as $form) {
@@ -784,17 +1020,17 @@ class PostBattleForm extends Model
         }
     }
 
-    public function toImageJudge(Battle2 $battle)
+    public function toImageJudge(Battle2 $battle): ?BattleImage2
     {
         return $this->toImage($battle, BattleImageType::ID_JUDGE, 'image_judge');
     }
 
-    public function toImageResult(Battle2 $battle)
+    public function toImageResult(Battle2 $battle): ?BattleImage2
     {
         return $this->toImage($battle, BattleImageType::ID_RESULT, 'image_result');
     }
 
-    public function toImageGear(Battle2 $battle)
+    public function toImageGear(Battle2 $battle): ?BattleImage2
     {
         return $this->toImage($battle, BattleImageType::ID_GEAR, 'image_gear');
     }
@@ -802,7 +1038,7 @@ class PostBattleForm extends Model
     /**
      * @param 'image_judge'|'image_result'|'image_gear' $attr
      */
-    protected function toImage(Battle2 $battle, int $imageTypeId, string $attr)
+    protected function toImage(Battle2 $battle, int $imageTypeId, string $attr): ?BattleImage2
     {
         if ($this->getIsTest()) {
             return null;
@@ -819,7 +1055,7 @@ class PostBattleForm extends Model
         ]);
     }
 
-    public function estimateAutomatedAgent()
+    public function estimateAutomatedAgent(): void
     {
         if ($this->hasErrors()) {
             return;
@@ -837,7 +1073,7 @@ class PostBattleForm extends Model
         }
     }
 
-    protected function processGear($key): ?int
+    protected function processGear(string $key): ?int
     {
         if ($this->getIsTest() || !($this->gears instanceof PostGearsForm)) {
             return null;
@@ -902,7 +1138,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function getIsUsableForEntireStats()
+    public function getIsUsableForEntireStats(): bool
     {
         if ($this->automated !== 'yes') {
             return false;
@@ -915,7 +1151,7 @@ class PostBattleForm extends Model
         return $startAt >= time() - 86400;
     }
 
-    public function getCriticalSectionName()
+    public function getCriticalSectionName(): string
     {
         $values = [
             'class' => self::class,
@@ -936,7 +1172,7 @@ class PostBattleForm extends Model
         );
     }
 
-    public function acquireLock($timeout = 60)
+    public function acquireLock(int $timeout = 60): Resource|false
     {
         try {
             return CriticalSection::lock($this->getCriticalSectionName(), $timeout);
@@ -945,7 +1181,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function validateEvents(string $attribute, $params)
+    public function validateEvents(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -982,7 +1218,7 @@ class PostBattleForm extends Model
         $this->$attribute = $newValues;
     }
 
-    public function validateAgentVariables(string $attribute, $params)
+    public function validateAgentVariables(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -1030,7 +1266,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function validateGears($attribute, $params): void
+    public function validateGears(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -1049,7 +1285,7 @@ class PostBattleForm extends Model
         $this->$attribute = $form;
     }
 
-    public function validatePlayers(string $attribute, $params)
+    public function validatePlayers(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -1081,7 +1317,7 @@ class PostBattleForm extends Model
         $this->$attribute = $newValues;
     }
 
-    public function validateDeathReasons(string $attribute, $params)
+    public function validateDeathReasons(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -1103,7 +1339,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function validateImageFile($attribute, $params)
+    public function validateImageFile(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -1113,18 +1349,18 @@ class PostBattleForm extends Model
             $this->addError($attribute, '[BUG?] $attributes is not an instance of UploadedFile');
             return;
         }
-        return $this->validateImageStringImpl(
+        $this->validateImageStringImpl(
             file_get_contents($this->$attribute->tempName, false, null),
             $attribute,
         );
     }
 
-    public function validateImageString($attribute, $params)
+    public function validateImageString(string $attribute, mixed $params): void
     {
-        return $this->validateImageStringImpl($this->$attribute, $attribute);
+        $this->validateImageStringImpl($this->$attribute, $attribute);
     }
 
-    private function validateImageStringImpl($binary, $attribute)
+    private function validateImageStringImpl(string|false $binary, string $attribute): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -1135,7 +1371,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function validateJson($attr, $params)
+    public function validateJson(string $attr, mixed $params): void
     {
         if ($this->hasErrors($attr)) {
             return;

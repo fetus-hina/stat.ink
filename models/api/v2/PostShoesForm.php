@@ -7,6 +7,7 @@
 
 namespace app\models\api\v2;
 
+use Override;
 use app\components\behaviors\FixAttributesBehavior;
 
 use function array_merge;
@@ -27,7 +28,8 @@ class PostShoesForm extends BaseGearForm
         ]);
     }
 
-    public function getType()
+    #[Override]
+    public function getType(): string
     {
         return 'shoes';
     }
