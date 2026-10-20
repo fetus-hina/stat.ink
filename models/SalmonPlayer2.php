@@ -53,7 +53,7 @@ use const SORT_DESC;
  *
  * @property-read ForceBlackout2|null $forceBlackout
  * @property-read SalmonPlayerBossKill2[] $bossKills
- * @property-read SalmonPlayerSpecialUse2 $specialUses
+ * @property-read SalmonPlayerSpecialUse2[] $specialUses
  * @property-read SalmonPlayerWeapon2[] $weapons
  * @property-read bool $isForceBlackout
  */

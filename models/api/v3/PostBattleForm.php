@@ -167,7 +167,7 @@ final class PostBattleForm extends Model
     /** @var string[] */
     public $medals;
 
-    /** @var array<string, string> */
+    /** @var array<string, string>|null */
     public $agent_variables;
 
     /** @var UploadedFile|string|null */

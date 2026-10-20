@@ -111,7 +111,7 @@ final class PostSalmonForm extends Model
     public $start_at;
     public $end_at;
 
-    /** @var array<string, string> */
+    /** @var array<string, string>|null */
     public $agent_variables;
 
     public function behaviors()

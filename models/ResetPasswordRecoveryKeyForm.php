@@ -35,7 +35,7 @@ final class ResetPasswordRecoveryKeyForm extends Model
     public string|null $password_repeat = null;
     public string|null $cf_turnstile_response = null;
 
-    private UserPasswordRecoveryKey|false|null $foundKey = false;
+    private ?UserPasswordRecoveryKey $foundKey = null;
 
     /**
      * @inheritdoc
