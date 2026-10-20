@@ -57,7 +57,7 @@ $datasetHistogram = [
 ];
 
 $makeDistributionData = function (NormalDistribution $nd) use ($abstract): array {
-  assert($abstract);
+  assert($abstract !== null);
 
   $average = $nd->mean();
   $stddev = sqrt($nd->variance());
