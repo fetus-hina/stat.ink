@@ -107,7 +107,7 @@ trait ModelUtilTrait
             );
 
             foreach (array_slice($subs, 0, 3) as $sub) {
-                $key = $sub?->ability?->key;
+                $key = $sub->ability?->key;
                 if ($key) {
                     $results[$key] = ($results[$key] ?? 0) + ($double ? 6 : 3);
                 }

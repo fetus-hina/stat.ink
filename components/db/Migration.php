@@ -12,7 +12,6 @@ namespace app\components\db;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\db\ColumnSchemaBuilder;
-use yii\db\Connection;
 use yii\db\Migration as BaseMigration;
 use yii\db\Query;
 use yii\db\Schema;
@@ -20,7 +19,6 @@ use yii\db\Schema;
 use function array_keys;
 use function array_map;
 use function array_values;
-use function assert;
 use function filter_var;
 use function implode;
 use function is_int;
@@ -90,9 +88,6 @@ class Migration extends BaseMigration
         if (!$tables = $this->vacuumTables()) {
             return;
         }
-
-        $db = $this->db;
-        assert($db instanceof Connection);
 
         $time = $this->beginCommand(sprintf('vacuum table %s', implode(', ', $tables)));
         $this->analyze($tables);
@@ -178,13 +173,16 @@ class Migration extends BaseMigration
     {
         if (is_string($columns)) {
             $columns = preg_split('/\s*,\s*/', $columns, -1, PREG_SPLIT_NO_EMPTY);
+            if ($columns === false) {
+                throw new InvalidArgumentException('Failed to split the column list');
+            }
         }
 
         return sprintf(
             'PRIMARY KEY ( %s )',
             implode(', ', array_map(
-                fn (string $column): string => $this->db->quoteColumnName($column),
-                (array)$columns,
+                fn (string $column): string => $this->getDb()->quoteColumnName($column),
+                $columns,
             )),
         );
     }
@@ -200,7 +198,7 @@ class Migration extends BaseMigration
             $table,
         ));
 
-        $db = $this->db;
+        $db = $this->getDb();
         $alter = [];
         $comments = [];
         foreach ($columns as $column => $type) {
@@ -255,7 +253,7 @@ class Migration extends BaseMigration
             $table,
         ));
 
-        $db = $this->db;
+        $db = $this->getDb();
         $sql = vsprintf('ALTER TABLE %s %s', [
             $db->quoteTableName($table),
             implode(
@@ -277,7 +275,7 @@ class Migration extends BaseMigration
      */
     public function analyze(string|array $table): void
     {
-        $db = $this->db;
+        $db = $this->getDb();
         $this->execute(
             vsprintf('VACUUM ( ANALYZE ) %s', [
                 implode(

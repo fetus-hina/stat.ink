@@ -58,6 +58,10 @@ class ImageConverter
         array|false $blackoutPosList = false,
         ?string $outPathArchivePng = null,
     ): bool {
+        if ($binary === false) {
+            return false;
+        }
+
         if (!is_array($blackoutPosList)) {
             $blackoutPosList = [];
         }
@@ -87,10 +91,9 @@ class ImageConverter
     }
 
     /**
-     * @param string|false $binary
      * @param array<int> $blackoutPosList
      */
-    protected static function convertImpl($binary, array $blackoutPosList): Resource|false
+    protected static function convertImpl(string $binary, array $blackoutPosList): Resource|false
     {
         try {
             $in = @imagecreatefromstring($binary);

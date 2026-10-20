@@ -19,6 +19,7 @@ use yii\db\Query;
 
 use function array_combine;
 use function array_map;
+use function array_values;
 use function time;
 
 use const SORT_ASC;
@@ -115,7 +116,7 @@ final class CurrentSchedule3Action extends Action
                 'key' => $rule->key,
                 'name' => Yii::t('app-rule3', $rule->name),
             ],
-            'stages' => array_map(
+            'stages' => array_values(array_map(
                 function (ScheduleMap3 $entry): array {
                     $map = $entry->map;
                     return [
@@ -124,7 +125,7 @@ final class CurrentSchedule3Action extends Action
                     ];
                 },
                 $schedule->scheduleMap3s,
-            ),
+            )),
         ];
     }
 }

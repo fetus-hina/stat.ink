@@ -19,6 +19,9 @@ use yii\base\Component;
 use function file_exists;
 use function substr;
 
+/**
+ * @property-read string $lang
+ */
 final class GeoIP extends Component
 {
     public string $dbCity = '@geoip/GeoLite2-City.mmdb';

@@ -17,6 +17,7 @@ use app\models\Language;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
 
+use function is_array;
 use function time;
 
 class EditEmailVerifyAction extends ViewAction
@@ -26,7 +27,8 @@ class EditEmailVerifyAction extends ViewAction
     {
         $request = Yii::$app->request;
         $form = Yii::createObject(EmailVerifyForm::class);
-        $form->load($request->bodyParams);
+        $params = $request->bodyParams;
+        $form->load(is_array($params) ? $params : []);
         if (!$realEmail = $form->realEmail) {
             throw new BadRequestHttpException('Bad request');
         }

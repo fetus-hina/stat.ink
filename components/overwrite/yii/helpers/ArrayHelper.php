@@ -9,8 +9,11 @@ declare(strict_types=1);
 
 namespace yii\helpers;
 
+use yii\base\InvalidArgumentException;
+
 use function asort;
 use function is_array;
+use function is_callable;
 use function sort;
 use function uasort;
 use function usort;
@@ -46,9 +49,10 @@ class ArrayHelper extends BaseArrayHelper
     }
 
     /**
-     * @param array<mixed> $array
-     * @param int|callable|null $callback
-     * @return list<mixed>
+     * @template T
+     * @param array<T> $array
+     * @param int|(callable(T, T): int)|null $callback
+     * @return list<T>
      */
     public static function sort(array $array, $callback = null): array
     {
@@ -66,17 +70,21 @@ class ArrayHelper extends BaseArrayHelper
             $callback === (SORT_FLAG_CASE | SORT_NATURAL)
         ) {
             sort($array, $callback);
-        } else {
+        } elseif (is_callable($callback)) {
             usort($array, $callback);
+        } else {
+            throw new InvalidArgumentException('Unsupported sort flags');
         }
 
         return $array;
     }
 
     /**
-     * @param array<mixed> $array
-     * @param int|callable|null $callback
-     * @return array<mixed>
+     * @template TKey of array-key
+     * @template T
+     * @param array<TKey, T> $array
+     * @param int|(callable(T, T): int)|null $callback
+     * @return array<TKey, T>
      */
     public static function asort(array $array, $callback = null): array
     {
@@ -94,8 +102,10 @@ class ArrayHelper extends BaseArrayHelper
             $callback === (SORT_FLAG_CASE | SORT_NATURAL)
         ) {
             asort($array, $callback);
-        } else {
+        } elseif (is_callable($callback)) {
             uasort($array, $callback);
+        } else {
+            throw new InvalidArgumentException('Unsupported sort flags');
         }
 
         return $array;

@@ -34,7 +34,7 @@ if (!$models) {
 
 $models = ArrayHelper::sort(
   $models,
-  fn (Splatfest3StatsWeapon $a, Splatfest3StatsWeapon $b): float =>
+  fn (Splatfest3StatsWeapon $a, Splatfest3StatsWeapon $b): int =>
     ($b->wins / $b->battles) <=> ($a->wins / $a->battles)
       ?: $a->battles <=> $b->battles,
 );

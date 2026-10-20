@@ -17,7 +17,7 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 
-use function is_scalar;
+use function is_string;
 use function preg_match;
 
 class PatchBattleAction extends ViewAction
@@ -44,11 +44,11 @@ class PatchBattleAction extends ViewAction
         }
 
         $id = $req->get('id');
-        if (!is_scalar($id) || !preg_match('/^\d+$/', $id)) {
+        if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
             throw new BadRequestHttpException();
         }
 
-        if (!$this->battle = Battle::findOne(['id' => $id])) {
+        if (!$this->battle = Battle::findOne(['id' => (int)$id])) {
             throw new NotFoundHttpException();
         }
 

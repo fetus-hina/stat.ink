@@ -9,12 +9,11 @@ declare(strict_types=1);
 
 namespace app\components\validators;
 
-use ArrayAccess;
 use Override;
 use yii\validators\EachValidator;
 
 use function count;
-use function is_array;
+use function is_countable;
 
 final class ArrayValidator extends EachValidator
 {
@@ -48,7 +47,7 @@ final class ArrayValidator extends EachValidator
     public function validateAttribute($model, $attribute): void
     {
         $arrayOfValues = $model->$attribute;
-        if (is_array($arrayOfValues) || $arrayOfValues instanceof ArrayAccess) {
+        if (is_countable($arrayOfValues)) {
             if ($this->min !== null && count($arrayOfValues) < $this->min) {
                 $this->addError($model, $attribute, $this->tooSmall, ['min' => $this->min]);
                 return;
@@ -70,7 +69,7 @@ final class ArrayValidator extends EachValidator
     #[Override]
     protected function validateValue($value)
     {
-        if (is_array($value) || $value instanceof ArrayAccess) {
+        if (is_countable($value)) {
             if ($this->min !== null && count($value) < $this->min) {
                 return [$this->tooSmall, ['min' => $this->min]];
             }

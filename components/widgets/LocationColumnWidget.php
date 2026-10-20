@@ -13,6 +13,7 @@ use GeoIp2\Model\City;
 use Override;
 use Throwable;
 use Yii;
+use app\components\GeoIP;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -26,7 +27,7 @@ use function strtolower;
 
 class LocationColumnWidget extends Widget
 {
-    public ?object $geoip = null;
+    public ?GeoIP $geoip = null;
     private City|false|null $cityInfo = false;
 
     public ?string $remoteAddr = null;
@@ -180,11 +181,15 @@ class LocationColumnWidget extends Widget
     {
         if ($this->cityInfo === false) {
             try {
-                $this->cityInfo = $this->geoip->city($this->remoteAddr);
+                $cityInfo = $this->geoip->city($this->remoteAddr);
             } catch (Throwable $e) {
-                $this->cityInfo = null;
+                $cityInfo = null;
             }
+
+            $this->cityInfo = $cityInfo;
+            return $cityInfo;
         }
+
         return $this->cityInfo;
     }
 }

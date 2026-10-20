@@ -18,6 +18,7 @@ use app\components\behaviors\RemotePortBehavior;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\components\jobs\UserStatsJob;
 use app\models\query\Battle2Query;
@@ -351,10 +352,10 @@ class Battle2 extends ActiveRecord
                     }
                     $time = (function () use ($battle): ?int {
                         if (is_string($battle->end_at) && trim($battle->end_at) !== '') {
-                            return strtotime($battle->end_at);
+                            return $battle->end_at |> strtotime(...) |> TypeHelper::int(...);
                         }
                         if (is_string($battle->created_at) && trim($battle->created_at) !== '') {
-                            return strtotime($battle->created_at);
+                            return $battle->created_at |> strtotime(...) |> TypeHelper::int(...);
                         }
                         return null;
                     })();
@@ -667,6 +668,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
+    /**
+     * @return ActiveQuery<BattleDeathReason2>
+     */
     public function getBattleDeathReasons(): ActiveQuery
     {
         return $this->hasMany(BattleDeathReason2::class, ['battle_id' => 'id'])
@@ -727,6 +731,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Environment::class, ['id' => 'env_id']);
     }
 
+    /**
+     * @return ActiveQuery<BattleEvents2>
+     */
     public function getEvents(): ActiveQuery
     {
         return $this->hasOne(BattleEvents2::class, ['id' => 'id']);
@@ -777,6 +784,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(TurfwarWinBonus2::class, ['id' => 'bonus_id']);
     }
 
+    /**
+     * @return ActiveQuery<Battle2Splatnet>
+     */
     public function getSplatnetJson(): ActiveQuery
     {
         return $this->hasOne(Battle2Splatnet::class, ['id' => 'id']);
@@ -946,7 +956,7 @@ class Battle2 extends ActiveRecord
 
     public function getCreatedAt(): int
     {
-        return strtotime($this->created_at);
+        return $this->created_at |> strtotime(...) |> TypeHelper::int(...);
     }
 
     public function getIsNawabari(): bool
@@ -1236,7 +1246,7 @@ class Battle2 extends ActiveRecord
 
         // t_str = t.strftime("%Y,%m,%d,%H,%M")
         // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
-        $t = strtotime($this->end_at ?: $this->created_at);
+        $t = ($this->end_at ?: $this->created_at) |> strtotime(...) |> TypeHelper::int(...);
         return [
             (string)$t,
             date('Y', $t),
@@ -1260,7 +1270,7 @@ class Battle2 extends ActiveRecord
      */
     public function toCsvArray(): array
     {
-        $t = strtotime($this->end_at ?: $this->created_at);
+        $t = ($this->end_at ?: $this->created_at) |> strtotime(...) |> TypeHelper::int(...);
         $mode = (function (): string {
             if ($this->lobby && $this->lobby->key === 'private') {
                 return 'Private Battle';

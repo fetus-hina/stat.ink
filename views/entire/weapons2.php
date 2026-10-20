@@ -226,7 +226,7 @@ EntireWeaponsAsset::register($this);
     ]) ?>
   </p>
 <?php
-$maxWP = max(array_map(
+$maxWP = max(0.0, ...array_map(
   function ($model) : float {
     return (float)$model->wp;
   },

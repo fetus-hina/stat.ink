@@ -100,7 +100,7 @@ class Battle
                 '(%s) {{t}}',
                 $subQuery->createCommand()->rawSql,
             ));
-        return $query->createCommand()->queryOne();
+        return $query->createCommand()->queryOne() ?: null;
     }
 
     /**
@@ -134,7 +134,7 @@ class Battle
                 $subQuery->createCommand()->rawSql,
             ));
 
-        return $query->createCommand()->queryOne();
+        return $query->createCommand()->queryOne() ?: null;
     }
 
     /**

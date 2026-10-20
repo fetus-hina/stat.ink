@@ -16,7 +16,7 @@ use yii\web\View;
 /**
  * @var DateTimeInterface $month
  * @var View $this
- * @var object[] $rules
+ * @var stdClass[] $rules
  * @var string|null $nextUrl
  * @var string|null $prevUrl
  */

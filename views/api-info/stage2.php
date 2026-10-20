@@ -108,7 +108,7 @@ $fmt = Yii::$app->formatter;
               : Html::tag(
                 'time',
                 Html::encode($fmt->asDateTime($stage->release_at)),
-                ['datetime' => gmdate(DateTime::ATOM, strtotime($stage->release_at))]
+                ['datetime' => gmdate(DateTime::ATOM, TypeHelper::int(strtotime($stage->release_at)))]
               ),
             ['data' => [
               'sort-value' => $stage->release_at === null ? -1 : strtotime($stage->release_at),

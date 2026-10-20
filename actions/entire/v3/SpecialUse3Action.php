@@ -128,6 +128,10 @@ final class SpecialUse3Action extends Action
 
         $results = [];
         foreach ($models as $model) {
+            if ($model->rule_id === null) {
+                continue;
+            }
+
             if (!isset($results[$model->rule_id])) {
                 $results[$model->rule_id] = [];
             }

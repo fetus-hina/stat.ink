@@ -20,6 +20,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 use function array_map;
+use function array_values;
 use function assert;
 use function implode;
 use function sprintf;
@@ -111,7 +112,7 @@ final class WinRateAction extends Action
             ])
             ->all();
 
-        return array_map(
+        return array_values(array_map(
             function (array $row): array {
                 foreach ($row as $k => $v) {
                     $row[$k] = (int)$v;
@@ -120,7 +121,7 @@ final class WinRateAction extends Action
                 return $row;
             },
             $list,
-        );
+        ));
     }
 
     private static function buildStatsAggregate(bool $filterIsWin, ?bool $filterIsKO): string

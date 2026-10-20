@@ -17,6 +17,7 @@ use yii\helpers\ArrayHelper;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 use function call_user_func;
 use function count;
 use function is_callable;
@@ -230,7 +231,7 @@ class Map2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::sort(
                 static::find()
@@ -242,6 +243,6 @@ class Map2 extends ActiveRecord
                     ])
                     ->all(),
             ),
-        );
+        ));
     }
 }

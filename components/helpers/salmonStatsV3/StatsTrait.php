@@ -21,6 +21,7 @@ use yii\db\Query;
 use function array_merge;
 use function implode;
 use function vsprintf;
+use function is_array;
 
 use const SORT_DESC;
 
@@ -76,7 +77,7 @@ trait StatsTrait
             ],
         );
 
-        return new Query()
+        $row = new Query()
             ->select([
                 'jobs' => 'COUNT(*)',
                 'agg_jobs' => $aggregate(),
@@ -107,6 +108,8 @@ trait StatsTrait
                 '{{%salmon3}}.[[is_deleted]]' => false,
             ])
             ->one($db);
+
+        return is_array($row) ? $row : [];
     }
 
     /**
@@ -114,7 +117,7 @@ trait StatsTrait
      */
     private static function makeTitleStats(Connection $db, User $user, DateTimeImmutable $now): array
     {
-        return new Query()
+        $row = new Query()
             ->select([
                 'peak_title_id' => '{{%salmon3}}.[[title_after_id]]',
                 'peak_title_exp' => 'MAX({{%salmon3}}.[[title_exp_after]])',
@@ -140,6 +143,8 @@ trait StatsTrait
             ])
             ->limit(1)
             ->one($db);
+
+        return is_array($row) ? $row : [];
     }
 
     private static function getBasicStatsCond(): string

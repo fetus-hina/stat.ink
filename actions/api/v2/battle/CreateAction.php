@@ -23,6 +23,7 @@ use yii\web\ViewAction as BaseAction;
 use function array_merge;
 use function base64_encode;
 use function file_get_contents;
+use function is_array;
 use function is_string;
 use function json_encode;
 use function sprintf;
@@ -41,7 +42,8 @@ class CreateAction extends BaseAction
         // {{{
         $request = Yii::$app->getRequest();
         $form = new PostBattleForm();
-        $form->attributes = $request->getBodyParams();
+        $params = $request->getBodyParams();
+        $form->attributes = is_array($params) ? $params : [];
         foreach (['image_judge', 'image_result', 'image_gear'] as $key) {
             if ($form->$key == '') {
                 $form->$key = UploadedFile::getInstanceByName($key);

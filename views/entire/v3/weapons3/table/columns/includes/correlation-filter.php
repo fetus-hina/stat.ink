@@ -14,7 +14,7 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-return function (callable|string $columnGetter): callable {
+return function (Closure|string $columnGetter): callable {
   return function (Model $unused1, DataColumn $unused2, GridView $grid) use ($columnGetter): string {
     if (!$models = $grid->dataProvider->getModels()) {
       return '';

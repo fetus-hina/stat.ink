@@ -16,7 +16,6 @@ use cebe\markdown\GithubMarkdown;
 use yii\base\Widget;
 use yii\helpers\Html;
 
-use function call_user_func;
 use function file_exists;
 use function file_get_contents;
 use function hash;
@@ -78,7 +77,7 @@ final class MarkdownRendererWidget extends Widget
     {
         Yii::beginProfile(__METHOD__, __METHOD__);
         try {
-            $markdown = file_get_contents($markdownPath);
+            $markdown = TypeHelper::string(file_get_contents($markdownPath));
             $html = Yii::$app->cache->getOrSet(
                 [__METHOD__, hash('sha256', $markdown)],
                 fn (): string => $this->renderMarkdownImpl($markdown),
@@ -104,9 +103,7 @@ final class MarkdownRendererWidget extends Widget
             $parser->enableNewlines = false; // true means: all new lines to <br>
             return preg_replace_callback(
                 '/\{icon:([\w]+)\}/i',
-                fn (array $match): string => TypeHelper::string(
-                    call_user_func([Icon::class, $match[1]]),
-                ),
+                fn (array $match): string => TypeHelper::string(Icon::{$match[1]}()),
                 $parser->parse($markdown),
             );
         } finally {
@@ -122,7 +119,7 @@ final class MarkdownRendererWidget extends Widget
             Budoux::begin(['lang' => $this->lang]);
             echo $html;
             Budoux::end();
-            return ob_get_clean();
+            return TypeHelper::string(ob_get_clean());
         } finally {
             Yii::endProfile(__METHOD__, __METHOD__);
         }

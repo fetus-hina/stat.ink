@@ -26,6 +26,7 @@ use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\components\helpers\TypeHelper;
 
 use function array_filter;
 use function array_map;
@@ -181,8 +182,8 @@ final class FeedAction extends Action
                 'name' => $user->name,
                 'uri' => Url::to(['salmon-v3/index', 'screen_name' => $user->screen_name], true),
             ]);
-            $entry->setDateCreated(strtotime($model->start_at ?? $model->created_at));
-            $entry->setDateModified(strtotime($model->updated_at));
+            $entry->setDateCreated(TypeHelper::int(strtotime($model->start_at ?? $model->created_at)));
+            $entry->setDateModified(TypeHelper::int(strtotime($model->updated_at)));
             $entry->setId(
                 Uuid::v5(
                     UuidNS::url(),

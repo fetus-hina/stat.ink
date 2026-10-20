@@ -7,6 +7,7 @@
 
 namespace app\actions\entire\users;
 
+use app\components\helpers\TypeHelper;
 use app\models\StatEntireUser;
 use yii\db\Query;
 
@@ -97,14 +98,14 @@ trait Splatoon1
     private function queryAgentStats(): array
     {
         $t2 = $_SERVER['REQUEST_TIME'] ?? time();
-        $t1 = gmmktime(
+        $t1 = TypeHelper::int(gmmktime(
             (int)gmdate('H', $t2),
             (int)gmdate('i', $t2),
             (int)gmdate('s', $t2) + 1,
             (int)gmdate('n', $t2),
             (int)gmdate('j', $t2) - 1,
             (int)gmdate('Y', $t2),
-        );
+        ));
         $query = new Query()
             ->select([
                 'agent_id',

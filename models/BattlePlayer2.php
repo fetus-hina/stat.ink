@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -284,7 +285,7 @@ class BattlePlayer2 extends ActiveRecord
     {
         $id = $this->getAnonymizeSeed();
         if (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $id, $match)) {
-            $id = hex2bin($match[1]);
+            $id = TypeHelper::string(hex2bin($match[1]));
         }
         return substr(
             hash('sha256', $id, false),

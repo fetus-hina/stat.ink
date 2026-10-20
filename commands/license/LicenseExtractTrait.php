@@ -160,7 +160,7 @@ trait LicenseExtractTrait
     private function hasLicense(string $path): bool
     {
         $text = file_get_contents($path, false);
-        return (bool)preg_match('/license|copyright/i', $text);
+        return $text !== false && preg_match('/license|copyright/i', $text);
     }
 
     private function sanitize(string $packageName): string

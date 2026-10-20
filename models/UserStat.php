@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -450,7 +451,7 @@ class UserStat extends ActiveRecord
             ->leftJoin('rank rank_after', '{{battle}}.[[rank_after_id]] = {{rank_after}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user_id]);
 
-        $this->attributes = $query->createCommand()->queryOne();
+        $this->attributes = $query->createCommand()->queryOne() |> TypeHelper::array(...);
 
         $keys = [
             'battle_count', 'total_kill', 'total_death', 'total_kd_battle_count',

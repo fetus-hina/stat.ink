@@ -143,7 +143,13 @@ trait OverfishingTrait
                 '{{%salmon3}}.[[schedule_id]]' => (int)$schedule->id,
                 '{{%salmon3}}.[[user_id]]' => (int)$user->id,
             ]);
-        return TypeHelper::array($select->createCommand($db)->queryOne());
+        $row = TypeHelper::array($select->createCommand($db)->queryOne());
+        return [
+            'total_3_night' => TypeHelper::intOrNull($row['total_3_night']),
+            'total_2_night' => TypeHelper::intOrNull($row['total_2_night']),
+            'total_1_night' => TypeHelper::intOrNull($row['total_1_night']),
+            'total_0_night' => TypeHelper::intOrNull($row['total_0_night']),
+        ];
     }
 
     /**

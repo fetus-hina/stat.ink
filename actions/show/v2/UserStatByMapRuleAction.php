@@ -103,47 +103,51 @@ class UserStatByMapRuleAction extends BaseAction
         $maps = Map2::sort(Map2::find()->all());
         $rules = Rule2::find()->orderBy(['id' => SORT_ASC])->all();
 
+        $empty = [
+            'win' => 0,
+            'lose' => 0,
+            'kill' => null,
+            'death' => null,
+            'kd_battle' => 0,
+        ];
+
         $ret = ['total' => []];
         foreach ($rules as $rule) {
-            $ret['total'][$rule->key] = [
-                'win' => 0,
-                'lose' => 0,
-                'kill' => null,
-                'death' => null,
-                'kd_battle' => 0,
-            ];
+            $ret['total'][$rule->key] = $empty;
         }
         foreach ($maps as $map) {
             $tmp = [];
             foreach ($rules as $rule) {
-                $tmp[$rule->key] = [
-                    'win' => 0,
-                    'lose' => 0,
-                    'kill' => null,
-                    'death' => null,
-                    'kd_battle' => 0,
-                ];
+                $tmp[$rule->key] = $empty;
             }
             $ret[$map->key] = $tmp;
         }
 
         foreach ($query->createCommand()->queryAll() as $row) {
             $row = (object)$row;
-            $ret[$row->map_key][$row->rule_key][$row->result] = (int)$row->count;
-            $ret['total'][$row->rule_key][$row->result] += (int)$row->count;
+            $mapKey = (string)$row->map_key;
+            $ruleKey = (string)$row->rule_key;
+            $result = $row->result === 'win' ? 'win' : 'lose';
+            $count = (int)$row->count;
+            $kill = (int)$row->total_kill;
+            $death = (int)$row->total_death;
+            $kdBattle = (int)$row->have_kill_death;
 
-            $ret[$row->map_key][$row->rule_key]['kill'] = (int)$row->total_kill;
-            $ret[$row->map_key][$row->rule_key]['death'] = (int)$row->total_death;
-            $ret[$row->map_key][$row->rule_key]['kd_battle'] = (int)$row->have_kill_death;
-            $ret['total'][$row->rule_key]['kill'] += (int)$row->total_kill;
-            $ret['total'][$row->rule_key]['death'] += (int)$row->total_death;
-            $ret['total'][$row->rule_key]['kd_battle'] += (int)$row->have_kill_death;
+            $cell = $ret[$mapKey][$ruleKey] ?? $empty;
+            $cell[$result] = $count;
+            $cell['kill'] = (int)$cell['kill'] + $kill;
+            $cell['death'] = (int)$cell['death'] + $death;
+            $cell['kd_battle'] += $kdBattle;
+            $ret[$mapKey][$ruleKey] = $cell;
 
-            if (substr($row->map_key, 0, 8) === 'mystery_') {
-                $ret['mystery'][$row->rule_key][$row->result] += (int)$row->count;
-                $ret['mystery'][$row->rule_key]['kill'] += (int)$row->total_kill;
-                $ret['mystery'][$row->rule_key]['death'] += (int)$row->total_death;
-                $ret['mystery'][$row->rule_key]['kd_battle'] += (int)$row->have_kill_death;
+            $sumTargets = substr($mapKey, 0, 8) === 'mystery_' ? ['total', 'mystery'] : ['total'];
+            foreach ($sumTargets as $target) {
+                $cell = $ret[$target][$ruleKey] ?? $empty;
+                $cell[$result] += $count;
+                $cell['kill'] = (int)$cell['kill'] + $kill;
+                $cell['death'] = (int)$cell['death'] + $death;
+                $cell['kd_battle'] += $kdBattle;
+                $ret[$target][$ruleKey] = $cell;
             }
         }
 

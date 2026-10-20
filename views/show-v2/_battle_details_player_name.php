@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\assets\IrasutoyaAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\FA;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
@@ -122,7 +123,7 @@ $namePartInner = trim(implode(' ', [
                 hash(
                   'sha256',
                   (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $raw, $match))
-                    ? hex2bin($match[1])
+                    ? TypeHelper::string(hex2bin($match[1]))
                     : $raw
                 ),
                 0,

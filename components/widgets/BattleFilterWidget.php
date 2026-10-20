@@ -9,6 +9,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\components\helpers\Resource;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\models\BattleFilterForm;
 use app\models\GameMode;
@@ -77,7 +78,7 @@ final class BattleFilterWidget extends Widget
             echo $this->drawFields($form);
             ActiveForm::end();
             echo Html::endTag('div');
-            return ob_get_contents();
+            return TypeHelper::string(ob_get_contents());
         } finally {
             unset($cleaner);
         }

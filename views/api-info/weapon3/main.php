@@ -137,18 +137,17 @@ $this->registerJs('$(".mr-value").matchingRange();');
     </thead>
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
+<?php $numericAliases = array_filter(
+  ArrayHelper::getColumn($weapon->weapon3Aliases, 'key'),
+  fn (string $key): bool => (bool)preg_match('/^\d+$/', $key),
+) ?>
       <tr>
         <?= Html::tag(
           'td',
           Icon::s3Weapon($weapon),
           [
             'data' => [
-              'sort-value' => (string)min(
-                array_filter(
-                  ArrayHelper::getColumn($weapon->weapon3Aliases, 'key'),
-                  fn (string $key): bool => (bool)preg_match('/^\d+$/', $key),
-                ),
-              ),
+              'sort-value' => $numericAliases ? (string)min($numericAliases) : '',
             ],
           ],
         ) . "\n" ?>

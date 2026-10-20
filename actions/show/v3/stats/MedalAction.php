@@ -11,6 +11,7 @@ namespace app\actions\show\v3\stats;
 
 use LogicException;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\Battle3FilterForm;
 use app\models\MedalCanonical3;
@@ -148,17 +149,19 @@ final class MedalAction extends Action
             Json::encode(
                 array_merge(
                     ['sql' => $query->createCommand($db)->rawSql],
-                    new Query()
-                        ->select([
-                            'max' => 'MAX([[id]])',
-                            'count' => 'COUNT(*)',
-                        ])
-                        ->from('{{%battle3}}')
-                        ->andWhere([
-                            'user_id' => $user->id,
-                            'is_deleted' => false,
-                        ])
-                        ->one($db),
+                    TypeHelper::array(
+                        new Query()
+                            ->select([
+                                'max' => 'MAX([[id]])',
+                                'count' => 'COUNT(*)',
+                            ])
+                            ->from('{{%battle3}}')
+                            ->andWhere([
+                                'user_id' => $user->id,
+                                'is_deleted' => false,
+                            ])
+                            ->one($db),
+                    ),
                 ),
             ),
             __METHOD__,

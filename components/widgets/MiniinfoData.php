@@ -12,6 +12,7 @@ namespace app\components\widgets;
 use Override;
 use Yii;
 use app\assets\UserMiniinfoAsset;
+use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
@@ -71,10 +72,10 @@ class MiniinfoData extends Widget
             $this->formatter = Formatter::class;
         }
         if (is_array($this->formatter) || is_string($this->formatter)) {
-            $this->formatter = Yii::createObject($this->formatter);
-        }
-        if (!($this->formatter instanceof \yii\i18n\Formatter)) {
-            $this->formatter = Yii::createObject(Formatter::class);
+            $formatter = Yii::createObject($this->formatter);
+            $this->formatter = $formatter instanceof \yii\i18n\Formatter
+                ? $formatter
+                : Yii::createObject(Formatter::class);
         }
     }
 
@@ -137,7 +138,7 @@ class MiniinfoData extends Widget
             $options['title'] = $valueTitle;
         }
 
-        $f = $this->formatter;
+        $f = TypeHelper::instanceOf($this->formatter, \yii\i18n\Formatter::class);
         if ($value === null && $nullDisplay !== null) {
             $value = $nullDisplay;
             $format = $nullDisplayFormat;

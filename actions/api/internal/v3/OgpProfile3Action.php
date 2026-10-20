@@ -24,6 +24,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function is_array;
 use function is_string;
 use function preg_match;
 use function sprintf;
@@ -134,7 +135,7 @@ final class OgpProfile3Action extends Action
             ->andWhere(['user_id' => $user->id])
             ->cache(300)
             ->one();
-        if (!$data) {
+        if (!is_array($data) || !$data) {
             return null;
         }
 

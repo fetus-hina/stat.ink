@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\behaviors;
 
+use ArrayAccess;
 use Override;
 use Traversable;
 use yii\base\Behavior;
@@ -76,7 +77,7 @@ class TrimAttributesBehavior extends Behavior
             return $value === '' ? null : $value;
         }
 
-        if (is_array($value) || $value instanceof Traversable) {
+        if (is_array($value) || ($value instanceof Traversable && $value instanceof ArrayAccess)) {
             if ($this->recursive) {
                 foreach ($value as $k => $v) {
                     $value[$k] = $this->doTrim($v);

@@ -2,7 +2,7 @@ includes:
   - vendor/mspirkov/yii2-phpstan/extension.neon
 
 parameters:
-  level: 6
+  level: 7
   phpVersion: 80500
 
   paths:
@@ -96,6 +96,11 @@ parameters:
         - nullCoalesce.offset
       path: commands/Api2MarkdownController.php
     -
+      # findMissing() keeps the extra fields of the calls (file, line), which its PHPDoc cannot express
+      identifier: offsetAccess.notFound
+      message: '#^Offset ''(file|line)'' might not exist on array\{category: string, message: string, reason: string, \.\.\.\}\.$#'
+      path: commands/i18n/CheckKeysAction.php
+    -
       # Runtime guard for values that only PHPDoc types
       identifier: function.alreadyNarrowedType
       path: commands/dlStats3/CsvUtilTrait.php
@@ -125,12 +130,33 @@ parameters:
         - actions/api/info/Weapon2Action.php
         - actions/api/info/WeaponAction.php
         - actions/entire/users/Splatoon2.php
+        - actions/entire/users/Splatoon3.php
         - actions/show/v2/UserStatReportAction.php
+        - components/widgets/Battle2FilterWidget.php
+        - models/EntireWeapon2Form.php
+        - views/entire/kd-win2.php
+    -
+      # asArray() queries return arrays, but ActiveQuery types the results by the model
+      identifier: return.type
+      message: '#^Method .+ should return array<int, array<string, mixed>> but returns array<T of array\|yii\\db\\ActiveRecord = array<mixed>\|yii\\db\\ActiveRecord>\.$#'
+      paths:
+        - actions/entire/AgentAction.php
+        - actions/entire/users/Splatoon2.php
     -
       # The grid passes the row models of TModel, which the native type of the closures cannot express
       identifier: argument.type
       message: '#^Parameter \#1 \$model of method app\\components\\grid\\KillRatioColumn<TModel of yii\\db\\ActiveRecord>::getKillRat(e|io)\(\) expects TModel of yii\\db\\ActiveRecord, yii\\base\\Model given\.$#'
       path: components/grid/KillRatioColumn.php
+    -
+      # EachValidator::validateValue() documents its [message, params] result only as array
+      identifier: return.type
+      message: '#^Method app\\components\\validators\\ArrayValidator::validateValue\(\) should return array\{string, array<string, mixed>\}\|null but returns array\|null\.$#'
+      path: components/validators/ArrayValidator.php
+    -
+      # host() returns an ObjectProxy for several hosts, which forwards set() to each Host
+      identifier: method.notFound
+      message: '#^Call to an undefined method Deployer\\Host\\Host\|Deployer\\Support\\ObjectProxy::set\(\)\.$#'
+      path: deploy/deploy.php
     -
       # Reads the template after __halt_compiler()
       identifier: argument.invalidConstant
@@ -157,7 +183,7 @@ parameters:
     EventStats: 'array<int, array<int, array{tide_id: int, event_id: int, waves: int, cleared: int, total_quota: int, total_delivered: int}>>'
     OverfishingStats: 'array{total: TotalEggs, waves: WaveStats[]}'
     PlayerStats: 'array{name: string, number: string, jobs: int, cleared: int, waves: int, max_danger_rate: int|float|numeric-string|null, clear_danger_rate: int|float|numeric-string|null, total_golden_result: int|null, avg_golden_result: int|float|numeric-string|null, max_golden_result: int|float|numeric-string|null, total_golden: int|null, avg_golden: int|float|numeric-string|null, max_golden: int|null, total_rescue: int|null, avg_rescue: int|float|numeric-string|null, total_rescued: int|null, avg_rescued: int|float|numeric-string|null, total_boss: int|null, avg_boss: int|float|numeric-string|null}'
-    TotalEggs: 'array{total_3_night: int, total_2_night: int, total_1_night: int, total_0_night: int}'
+    TotalEggs: 'array{total_3_night: int|null, total_2_night: int|null, total_1_night: int|null, total_0_night: int|null}'
     WaveStats: 'array{event_id: int, tide_id: int, golden_eggs: int}'
     WeaponStats: 'array{weapon_id: int, normal_waves: int, normal_cleared: int, xtra_waves: int, xtra_cleared: int}'
     SAssists: '\app\models\StatWeapon3Assist[]|\app\models\StatWeapon3AssistPerVersion[]'
@@ -186,6 +212,7 @@ parameters:
           - actions
           - assets
           - components/grid
+          - components/web
           - components/widgets
           - controllers
           - views

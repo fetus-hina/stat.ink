@@ -71,8 +71,8 @@ JqueryEasyChartjsAsset::register($this);
 
 $this->registerJs('$(".splatfest3-chart-attacker").easyChartJs();');
 
-$min99ci = min(ArrayHelper::getColumn($dataSets, 'xMin.1'));
-$max99ci = max(ArrayHelper::getColumn($dataSets, 'xMax.1'));
+$min99ci = min(array_map(fn (array $v): mixed => $v['xMin'][1], $dataSets));
+$max99ci = max(array_map(fn (array $v): mixed => $v['xMax'][1], $dataSets));
 
 $chartRangeOneSide = max(
     20,

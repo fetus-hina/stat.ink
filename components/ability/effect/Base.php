@@ -103,6 +103,9 @@ abstract class Base extends Component
         }
     }
 
+    /**
+     * @param int|float|numeric-string $baseDamage
+     */
     public function calcDamage(int|float|string $baseDamage, int $defMain, int $defSub): float
     {
         $def = $defMain * 10 + $defSub * 3;
@@ -113,6 +116,9 @@ abstract class Base extends Component
         );
     }
 
+    /**
+     * @param int|float|numeric-string $baseDamage
+     */
     protected function calcDamageImpl(int|float|string $baseDamage, ?float $a, float $d): float
     {
         $x = $a >= $d ? 1 + $a - $d : (1 + ($a - $d) / 1.8);

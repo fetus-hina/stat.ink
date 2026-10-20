@@ -73,6 +73,10 @@ class Btl2SplatnetJsonAction extends Action
                     ->orderBy(['id' => SORT_ASC])
                     ->limit(2000)
                     ->column();
+                if (!$idList) {
+                    return 0;
+                }
+
                 echo min($idList) . '-' . max($idList) . ' ';
                 $db->createCommand(
                     'UPDATE {{battle2_splatnet}} ' .

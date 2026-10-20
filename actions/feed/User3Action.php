@@ -15,6 +15,7 @@ use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version;
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\User;
 use app\models\User3FeedForm;
@@ -196,8 +197,8 @@ final class User3Action extends Action
                     true,
                 ),
             ]);
-            $entry->setDateCreated(strtotime($battle->start_at ?? $battle->created_at));
-            $entry->setDateModified(strtotime($battle->updated_at));
+            $entry->setDateCreated(TypeHelper::int(strtotime($battle->start_at ?? $battle->created_at)));
+            $entry->setDateModified(TypeHelper::int(strtotime($battle->updated_at)));
             $entry->setId(
                 Uuid::v5(
                     UuidNS::url(),

@@ -35,7 +35,8 @@ if (
 
 $maxUseRate = $samples > 0
   ? max(
-    array_map(
+    0.0,
+    ...array_map(
       fn (Event3StatsSpecial|Event3StatsWeapon $model): float => $model->battles / $samples,
       $provider->getModels(),
     ),
@@ -45,7 +46,8 @@ $maxUseRate = $samples > 0
 $maxWinRate = min(
   0.75,
   max(
-    array_filter(
+    0.0,
+    ...array_filter(
       array_map(
         function (Event3StatsSpecial|Event3StatsWeapon $model): ?float {
           $wins = $model->wins;

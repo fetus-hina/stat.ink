@@ -11,6 +11,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map;
 use app\models\Rule;
+use app\models\StatWeaponMapTrend;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -21,8 +22,8 @@ use yii\web\View;
  * @var View $this
  * @var array<string, string> $maps
  * @var array<string, string> $rules
- * @var object[] $history
- * @var object[] $weapons
+ * @var StatWeaponMapTrend[] $weapons
+ * @var stdClass[] $history
  */
 
 $formatter = Yii::$app->formatter;

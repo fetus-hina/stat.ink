@@ -22,6 +22,7 @@ use yii\console\ExitCode;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
+use app\components\helpers\TypeHelper;
 
 use function array_fill;
 use function array_map;
@@ -238,7 +239,7 @@ trait SalmonTrait
                 $csvColumns = [
                     self::season($battle),
                     $battle->schedule
-                        ? gmdate(DateTimeInterface::ATOM, strtotime($battle->schedule->start_at))
+                        ? gmdate(DateTimeInterface::ATOM, TypeHelper::int(strtotime($battle->schedule->start_at)))
                         : '',
                     $battle->version->tag,
                     match (true) {

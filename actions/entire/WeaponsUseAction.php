@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\actions\entire;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\components\validators\WeaponKeyValidator;
 use app\models\Event;
 use app\models\GameMode;
@@ -27,6 +28,7 @@ use function array_first;
 use function array_last;
 use function array_map;
 use function array_merge;
+use function array_values;
 use function count;
 use function date;
 use function implode;
@@ -215,20 +217,20 @@ final class WeaponsUseAction extends Action
             }
             $ret['data'][] = [
                 'legend' => $this->makeLegend($form->{"weapon{$i}"}, $form->{"rule{$i}"}),
-                'data' => array_map(
+                'data' => array_values(array_map(
                     function (array $row) use ($columnKey, $bColumnKey): array {
                         $battles = (int)$row[$bColumnKey];
                         return [
-                            date('Y-m-d', strtotime(sprintf(
+                            date('Y-m-d', TypeHelper::int(strtotime(sprintf(
                                 '%04d-W%02d',
                                 $row['isoyear'],
                                 $row['isoweek'],
-                            ))),
+                            )))),
                             $battles > 0 ? $row[$columnKey] * 100 / $battles : null,
                         ];
                     },
                     $list,
-                ),
+                )),
             ];
         }
         return $ret;
@@ -241,8 +243,8 @@ final class WeaponsUseAction extends Action
      */
     protected function getEventData(array $firstData, array $lastData): array
     {
-        $first = strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek']));
-        $last = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
+        $first = TypeHelper::int(strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek'])));
+        $last = TypeHelper::int(strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek'])));
 
         $query = Event::find()
             ->andWhere(['between',
@@ -253,7 +255,7 @@ final class WeaponsUseAction extends Action
             ->orderBy('[[date]] ASC');
 
         return array_map(fn (array $row): array => [
-            date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
+            date('Y-m-d', TypeHelper::int(strtotime(date('o-\WW', TypeHelper::int(strtotime($row['date'])))))),
             Yii::t('app-event', $row['name']),
             $row['icon'],
         ], $query->asArray()->all());

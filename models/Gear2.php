@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 
 use const SORT_ASC;
 
@@ -184,12 +185,12 @@ class Gear2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['key' => SORT_ASC])
                 ->limit(5)
                 ->all(),
-        );
+        ));
     }
 }

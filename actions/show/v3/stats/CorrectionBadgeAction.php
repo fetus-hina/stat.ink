@@ -24,6 +24,7 @@ use yii\web\Response;
 
 use function array_merge;
 use function filter_var;
+use function is_array;
 use function is_int;
 use function is_scalar;
 use function preg_match;
@@ -53,7 +54,8 @@ final class CorrectionBadgeAction extends Action
 
         if ($req->isPost) {
             $newData = [];
-            foreach ($req->post() as $k => $v) {
+            $params = $req->post();
+            foreach (is_array($params) ? $params : [] as $k => $v) {
                 $v = is_scalar($v) ? filter_var($v, FILTER_VALIDATE_INT) : false;
                 if (
                     is_int($v) &&

@@ -17,6 +17,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 use function implode;
 use function sprintf;
 
@@ -147,7 +148,7 @@ class SalmonMainWeapon2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->andWhere([
@@ -159,6 +160,6 @@ class SalmonMainWeapon2 extends ActiveRecord
                 ->sorted()
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

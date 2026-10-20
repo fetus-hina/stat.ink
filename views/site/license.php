@@ -14,8 +14,8 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var object $myself
- * @var object[] $depends
+ * @var stdClass $myself
+ * @var stdClass[] $depends
  */
 
 $title = implode(' | ', [

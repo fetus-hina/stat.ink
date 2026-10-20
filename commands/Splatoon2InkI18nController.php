@@ -14,6 +14,7 @@ use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\I18n as I18nHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Gear2;
 use app\models\GearType;
 use app\models\Map2;
@@ -302,7 +303,7 @@ class Splatoon2InkI18nController extends Controller
         }
 
         $json = ArrayHelper::getValue(
-            Json::decode(file_get_contents($cachePath)),
+            Json::decode(TypeHelper::string(file_get_contents($cachePath))),
             $jsonKey,
         );
         $data = [];
@@ -338,7 +339,7 @@ class Splatoon2InkI18nController extends Controller
         $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/{$fileName}.php";
         $currentData = require $filePath;
         $splatNetData = ArrayHelper::getValue(
-            Json::decode(file_get_contents($cachePath)),
+            Json::decode(TypeHelper::string(file_get_contents($cachePath))),
             $jsonKey,
         );
         $updated = false;
@@ -371,7 +372,7 @@ class Splatoon2InkI18nController extends Controller
 
     private static function normalize(string $string): string
     {
-        $string = Normalizer::normalize($string, Normalizer::FORM_C);
+        $string = TypeHelper::string(Normalizer::normalize($string, Normalizer::FORM_C));
         $string = mb_convert_kana($string, 'asKV', 'UTF-8');
         $string = trim($string);
         return $string;

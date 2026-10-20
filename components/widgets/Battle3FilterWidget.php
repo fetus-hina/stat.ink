@@ -11,6 +11,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\AutoTooltipAsset;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3FilterForm;
 use app\models\Battle3PlayedWith;
 use app\models\User;
@@ -79,7 +80,7 @@ final class Battle3FilterWidget extends Widget
             echo $this->drawFields($form);
             ActiveForm::end();
             echo Html::endTag('div');
-            return ob_get_contents();
+            return TypeHelper::string(ob_get_contents());
         } finally {
             ob_end_clean();
         }

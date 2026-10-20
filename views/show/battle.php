@@ -355,9 +355,9 @@ $specials = Special::find()->asArray()->all();
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Level')) ?></th>
             <td><?= implode(' ', [
-              Html::encode($battle->level ?: '?'),
+              Html::encode((string)($battle->level ?: '?')),
               (string)FA::fas('arrow-right')->fw(),
-              Html::encode($battle->level_after ?: '?'),
+              Html::encode((string)($battle->level_after ?: '?')),
             ]) ?></td>
           </tr>
 <?php } ?>
@@ -413,11 +413,11 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->my_team_power || $battle->his_team_power) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app-show', 'My Team Splatfest Power')) ?></th>
-            <td><?= Html::encode($battle->my_team_power ?: '?') ?></td>
+            <td><?= Html::encode((string)($battle->my_team_power ?: '?')) ?></td>
           </tr>
           <tr>
             <th><?= Html::encode(Yii::t('app-show', 'Their Team Splatfest Power')) ?></th>
-            <td><?= Html::encode($battle->his_team_power ?: '?') ?></td>
+            <td><?= Html::encode((string)($battle->his_team_power ?: '?')) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->is_win !== null) { ?>
@@ -579,11 +579,11 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->my_team_count || $battle->his_team_count) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app-battle', 'My Team Count')) ?></th>
-            <td><?= Html::encode($battle->my_team_count ?? '?') ?></td>
+            <td><?= Html::encode((string)($battle->my_team_count ?? '?')) ?></td>
           </tr>
           <tr>
             <th><?= Html::encode(Yii::t('app-battle', 'Their Team Count')) ?></th>
-            <td><?= Html::encode($battle->his_team_count ?? '?') ?></td>
+            <td><?= Html::encode((string)($battle->his_team_count ?? '?')) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->cash || $battle->cash_after) { ?>

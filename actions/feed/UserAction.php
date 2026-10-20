@@ -15,6 +15,7 @@ use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version;
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle;
 use app\models\User;
 use app\models\UserFeedForm;
@@ -178,7 +179,7 @@ final class UserAction extends Action
                 'name' => $user->name,
                 'uri' => Url::to(['show/user', 'screen_name' => $user->screen_name], true),
             ]);
-            $at = strtotime($battle->at);
+            $at = TypeHelper::int(strtotime($battle->at));
             $entry->setDateCreated($at);
             $entry->setDateModified($at);
             $entry->setId(
