@@ -121,7 +121,7 @@ final class UserMiniInfo3 extends Widget
     }
 
     /**
-     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
+     * @param array{group: ?LobbyGroup3, stats: UserStat3[]}[] $models
      */
     private function renderStatsTotal(array $models): string
     {

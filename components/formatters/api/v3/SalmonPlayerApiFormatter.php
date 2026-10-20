@@ -30,7 +30,7 @@ final class SalmonPlayerApiFormatter
     }
 
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?SalmonPlayer3 $model, bool $fullTranslate = false): ?array
     {

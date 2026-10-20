@@ -15,7 +15,7 @@ use yii\helpers\Url;
 final class UserApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(
         ?User $model,

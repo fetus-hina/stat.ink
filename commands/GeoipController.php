@@ -48,16 +48,16 @@ class GeoipController extends Controller
 
     // https://dev.maxmind.com/geoip/geoipupdate/#Direct_Downloads
     /**
-     * @var array<string, array{url: string, files: string[]}>|null
+     * @var array<string, array{url: string, files: string[]}>
      */
-    protected ?array $saveFiles = null;
+    protected array $saveFiles;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->saveFiles) {
+        if (!isset($this->saveFiles)) {
             $this->saveFiles = [
                 'GeoLite2-City.tar.gz' => [
                     'url' => vsprintf('%s?%s', [

@@ -185,7 +185,7 @@ final class PostSalmonForm extends Model
             [['clear_waves'], 'integer',
                 'min' => 0,
                 'max' => 5,
-                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work),
+                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work) === true,
             ],
             [['king_smell'], 'integer', 'min' => 0, 'max' => 5],
             [['title_exp_before', 'title_exp_after'], 'integer', 'min' => 0, 'max' => 999],
@@ -249,7 +249,7 @@ final class PostSalmonForm extends Model
                 'rule' => [SalmonWave3FormValidator::class, 'skipOnEmpty' => false],
                 'min' => 1,
                 'max' => 5,
-                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work),
+                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work) === true,
             ],
             [['bosses'], SalmonBoss3Validator::class],
         ];

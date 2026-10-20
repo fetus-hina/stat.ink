@@ -14,7 +14,7 @@ use app\models\Special3;
 final class SpecialApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?Special3 $model, bool $fullTranslate = false): ?array
     {

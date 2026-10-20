@@ -15,6 +15,7 @@ use DateTimeInterface;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
 use yii\console\ExitCode;
@@ -222,7 +223,10 @@ trait BattleTrait
 
                     $csvColumns = [
                         self::season($battle),
-                        gmdate(DateTimeInterface::ATOM, BattleHelper::periodToRange2($battle->period)[0]),
+                        gmdate(
+                            DateTimeInterface::ATOM,
+                            BattleHelper::periodToRange2(TypeHelper::int($battle->period))[0],
+                        ),
                         $battle->version?->tag,
                         $battle->lobby?->key,
                         $battle->rule?->key,

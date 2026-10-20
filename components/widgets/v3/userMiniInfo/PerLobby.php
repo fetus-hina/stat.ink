@@ -178,15 +178,16 @@ final class PerLobby extends Widget
      */
     private function attrPeakRank(): array
     {
-        if (!$this->peakRank) {
+        $peakRank = $this->peakRank;
+        if (!$peakRank) {
             return require __DIR__ . '/items/empty.php';
         }
 
         return [
             'label' => Yii::t('app', 'Peak'),
             'format' => 'raw',
-            'value' => function (): string {
-                [$rank, $sPlus] = $this->peakRank;
+            'value' => function () use ($peakRank): string {
+                [$rank, $sPlus] = $peakRank;
                 return Rank::widget([
                     'model' => $rank,
                     'splus' => $sPlus,

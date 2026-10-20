@@ -14,7 +14,7 @@ use app\models\SalmonUniform3;
 final class SalmonUniformApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?SalmonUniform3 $model, bool $fullTranslate = false): ?array
     {

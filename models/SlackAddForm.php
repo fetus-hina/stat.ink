@@ -37,7 +37,7 @@ final class SlackAddForm extends Model
     /** @var string|null */
     public $channel;
 
-    /** @var int */
+    /** @var int|null */
     public $language_id;
 
     public function rules()

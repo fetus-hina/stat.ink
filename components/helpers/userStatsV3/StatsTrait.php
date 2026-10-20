@@ -153,7 +153,7 @@ trait StatsTrait
         $model->attributes = $row;
         $model->id = ((int)$user->id << 32) | (int)$row['lobby_id'];
 
-        if (str_starts_with($lobby->key ?? '', 'bankara_')) {
+        if ($lobby !== null && str_starts_with($lobby->key, 'bankara_')) {
             $rankModel = Rank3::find()
                 ->andWhere(['rank' => (int)$row['_peak_rank_rank']])
                 ->limit(1)
@@ -184,7 +184,8 @@ trait StatsTrait
         }
 
         if (
-            ($lobby->key ?? '') === 'splatfest_challenge' &&
+            $lobby !== null &&
+            $lobby->key === 'splatfest_challenge' &&
             (float)$model->peak_fest_power > 0.0
         ) {
             $peakFestPower = (float)$model->peak_fest_power;
@@ -221,7 +222,7 @@ trait StatsTrait
             ->orderBy(['end_at' => SORT_DESC])
             ->limit(1)
             ->one();
-        return $battle
+        return $battle?->period !== null
             ? self::periodToSeason($battle->period)
             : null;
     }
@@ -238,7 +239,7 @@ trait StatsTrait
             ->orderBy(['end_at' => SORT_DESC])
             ->limit(1)
             ->one();
-        return $battle
+        return $battle?->period !== null
             ? self::periodToSeason($battle->period)
             : null;
     }

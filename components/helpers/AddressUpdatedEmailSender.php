@@ -30,13 +30,15 @@ final class AddressUpdatedEmailSender
         ?string $oldEmail,
         ?string $newEmail,
         User $user,
-        Language $language,
+        ?Language $language,
     ): void {
+        $languageId = $language?->getLanguageId() ?? Yii::$app->language;
+
         $mail = Yii::$app->mailer->compose(
             ['text' => '@app/views/email/update-email'],
             [
                 'user' => $user,
-                'lang' => $language->getLanguageId(),
+                'lang' => $languageId,
                 'old' => $oldEmail,
                 'new' => $newEmail,
             ],
@@ -50,7 +52,7 @@ final class AddressUpdatedEmailSender
                     'screen_name' => $user->screen_name,
                     'site' => Yii::$app->name,
                 ],
-                $language->getLanguageId(),
+                $languageId,
             ));
         if ($newEmail) {
             $mail->setTo($newEmail);

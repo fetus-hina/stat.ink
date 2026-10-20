@@ -14,7 +14,7 @@ use app\models\Species3;
 final class SpeciesApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?Species3 $model, bool $fullTranslate = false): ?array
     {

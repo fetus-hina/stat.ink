@@ -782,8 +782,11 @@ class User extends ActiveRecord implements IdentityInterface
             ])
             ->limit(1)
             ->scalar();
-        return ($regionID ? Region2::findOne(['id' => (int)$regionID]) : null)
-            ?: Region2::findOne(['key' => 'jp']); // default
+        return TypeHelper::instanceOf(
+            ($regionID ? Region2::findOne(['id' => (int)$regionID]) : null)
+                ?: Region2::findOne(['key' => 'jp']), // default
+            Region2::class,
+        );
     }
 
     public static function onLogin(self $user, int $loginMethod): void

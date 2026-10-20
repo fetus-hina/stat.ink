@@ -48,7 +48,7 @@ class Salmon2Query extends ActiveQuery
                     'salmon_player2.work_id = salmon2.id',
                     'salmon_player2.is_me = TRUE',
                 ]) . ')')
-                ->where($this->where)
+                ->where($this->where ?? [])
                 ->select(array_merge(
                     [
                         'count' => 'COUNT(*)',

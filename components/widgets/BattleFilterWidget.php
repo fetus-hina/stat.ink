@@ -197,7 +197,7 @@ final class BattleFilterWidget extends Widget
     protected function drawWeapon(ActiveForm $form): ActiveField
     {
         $user = User::findOne(['screen_name' => $this->screen_name]);
-        $weaponIdList = $this->getUsedWeaponIdList($user);
+        $weaponIdList = $this->getUsedWeaponIdList($user) ?? [];
         $list = array_merge(
             $this->createMainWeaponList($weaponIdList),
             $this->createGroupedMainWeaponList($weaponIdList),

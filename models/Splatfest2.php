@@ -12,6 +12,7 @@ namespace app\models;
 use DateTimeImmutable;
 use DateTimeZone;
 use RuntimeException;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -119,22 +120,22 @@ class Splatfest2 extends ActiveRecord
 
     public function getBeginTime(): DateTimeImmutable
     {
-        return $this->splitTerm()[0];
+        return TypeHelper::instanceOf($this->splitTerm()[0] ?? null, DateTimeImmutable::class);
     }
 
     public function getEndTime(): DateTimeImmutable
     {
-        return $this->splitTerm()[1];
+        return TypeHelper::instanceOf($this->splitTerm()[1] ?? null, DateTimeImmutable::class);
     }
 
     public function getQueryBeginTime(): DateTimeImmutable
     {
-        return $this->splitQueryTerm()[0];
+        return TypeHelper::instanceOf($this->splitQueryTerm()[0] ?? null, DateTimeImmutable::class);
     }
 
     public function getQueryEndTime(): DateTimeImmutable
     {
-        return $this->splitQueryTerm()[1];
+        return TypeHelper::instanceOf($this->splitQueryTerm()[1] ?? null, DateTimeImmutable::class);
     }
 
     public function getPermaID(): string

@@ -36,19 +36,26 @@ if ($abstract->shifts >= 10 && count($data) >= 5) {
   JqueryEasyChartjsAsset::register($this);
   RatioAsset::register($this);
 
-  $params = match (get_class($data[0] ?? throw new TypeError())) {
+  [$average, $stddev, $width] = match (get_class($data[0] ?? throw new TypeError())) {
     Salmon3UserStatsGoldenEggTeamHistogram::class => [
-      'average' => $abstract->average_team,
-      'stddev' => $abstract->stddev_team,
-      'width' => $abstract->histogram_width_team,
+      $abstract->average_team,
+      $abstract->stddev_team,
+      $abstract->histogram_width_team,
     ],
     Salmon3UserStatsGoldenEggIndividualHistogram::class => [
-      'average' => $abstract->average_individual,
-      'stddev' => $abstract->stddev_individual,
-      'width' => $abstract->histogram_width_individual,
+      $abstract->average_individual,
+      $abstract->stddev_individual,
+      $abstract->histogram_width_individual,
     ],
     default => throw new LogicException(),
   };
+  if ($average !== null && $stddev !== null && $width !== null) {
+    $params = [
+      'average' => $average,
+      'stddev' => $stddev,
+      'width' => $width,
+    ];
+  }
   $this->registerJs('$(".histogram").easyChartJs();');
 }
 

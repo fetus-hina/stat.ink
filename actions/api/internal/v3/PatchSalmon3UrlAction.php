@@ -95,9 +95,9 @@ final class PatchSalmon3UrlAction extends Action
     }
 
     /**
-     * @return array<string, mixed>|null
+     * @return array<string, mixed>
      */
-    public function run(): ?array
+    public function run(): array
     {
         $form = Yii::createObject(PatchBattle3UrlForm::class);
         $form->attributes = $_POST;

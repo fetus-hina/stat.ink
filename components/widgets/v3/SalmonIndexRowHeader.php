@@ -50,7 +50,11 @@ final class SalmonIndexRowHeader extends Widget
         return match (true) {
             $model->is_private => $this->renderPrivate($widget),
             $model->schedule_id === null => $this->renderUnknown($widget),
-            default => $this->renderSchedule($model, $model->schedule, $widget),
+            default => $this->renderSchedule(
+                $model,
+                TypeHelper::instanceOf($model->schedule, SalmonSchedule3::class),
+                $widget,
+            ),
         };
     }
 

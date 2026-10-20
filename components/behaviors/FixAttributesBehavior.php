@@ -24,9 +24,9 @@ class FixAttributesBehavior extends Behavior
     //   ],
     // ]
     /**
-     * @var array<string, array<string, string>>|null
+     * @var array<string, array<string, string>>
      */
-    public ?array $attributes = null;
+    public array $attributes;
     public string $trigger = Model::EVENT_BEFORE_VALIDATE;
 
     /**

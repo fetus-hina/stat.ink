@@ -282,7 +282,7 @@ final class ApidocController extends Controller
                                     round(16 * 4 / 3),
                                     implode('', array_map(
                                         fn (int $codepoint): string => sprintf('&#x%x;', $codepoint),
-                                        $country->regionalIndicatorSymbols,
+                                        $country->regionalIndicatorSymbols ?? [],
                                     )),
                                 ]),
                                 $tz->countries,

@@ -174,9 +174,10 @@ final class BigrunAction extends Action
     }
 
     private static function ruleOfThumbDistrib(
-        StatBigrunDistribJobAbstract3 $abstract,
+        ?StatBigrunDistribJobAbstract3 $abstract,
     ): ?NormalDistribution {
         if (
+            $abstract === null ||
             $abstract->users < 50 ||
             $abstract->stddev === null ||
             $abstract->p95 === null ||

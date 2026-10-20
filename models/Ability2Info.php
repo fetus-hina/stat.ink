@@ -389,10 +389,10 @@ class Ability2Info extends Model
                     return null;
 
                 case version_compare($vTag, '4.4.0', '<'):
-                    return (int)ceil(self::calcCoefficient($gp, 30, 0, 2 / 3));
+                    return (int)ceil(self::calcCoefficient($gp, 30, 0, 2 / 3) ?? 0.0);
 
                 default:
-                    return (int)ceil(self::calcCoefficient($gp, 39, 0, 2 / 3));
+                    return (int)ceil(self::calcCoefficient($gp, 39, 0, 2 / 3) ?? 0.0);
             }
             // }}}
         })();
@@ -761,7 +761,7 @@ class Ability2Info extends Model
         }
 
         $duration = function (int $baseFrames, int $maxExtends) use ($gp): array {
-            $c = (int)ceil(self::calcCoefficient($gp, $baseFrames + $maxExtends, $baseFrames));
+            $c = (int)ceil(self::calcCoefficient($gp, $baseFrames + $maxExtends, $baseFrames) ?? 0.0);
             return [
                 'durationFrames' => $c,
                 'durationRate' => $c / $baseFrames,
@@ -790,12 +790,12 @@ class Ability2Info extends Model
                 if ($this->version && version_compare($this->version->tag, '1.4.0', '<')) {
                     return [
                         'armorDurationFrames1' => 120,
-                        'armorDurationFrames2' => (int)ceil(self::calcCoefficient($gp, 540, 360)),
+                        'armorDurationFrames2' => (int)ceil(self::calcCoefficient($gp, 540, 360) ?? 0.0),
                     ];
                 }
                 return [
-                    'armorDurationFrames1' => (int)ceil(self::calcCoefficient($gp, 60, 120)),
-                    'armorDurationFrames2' => (int)ceil(self::calcCoefficient($gp, 540, 360)),
+                    'armorDurationFrames1' => (int)ceil(self::calcCoefficient($gp, 60, 120) ?? 0.0),
+                    'armorDurationFrames2' => (int)ceil(self::calcCoefficient($gp, 540, 360) ?? 0.0),
                 ];
 
             case 'bubble':

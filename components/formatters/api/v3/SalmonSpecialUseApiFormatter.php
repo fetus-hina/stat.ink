@@ -30,7 +30,7 @@ final class SalmonSpecialUseApiFormatter
     }
 
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?SalmonSpecialUse3 $model, bool $fullTranslate = false): ?array
     {

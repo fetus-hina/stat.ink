@@ -26,7 +26,7 @@ use const FILTER_VALIDATE_FLOAT;
 final class BattleApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(
         ?Battle3 $model,

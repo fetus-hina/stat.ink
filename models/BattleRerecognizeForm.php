@@ -100,7 +100,7 @@ class BattleRerecognizeForm extends Model
     public function getMyData(): ?array
     {
         return array_find(
-            $this->players,
+            $this->players ?? [],
             fn (array $p): bool => $p['is_me'] === 'yes' && $p['team'] === 'my',
         );
     }
@@ -118,7 +118,7 @@ class BattleRerecognizeForm extends Model
     protected function saveBattle(): bool
     {
         $my = new BattleRerecognizePlayerForm();
-        $my->attributes = $this->getMyData();
+        $my->attributes = $this->getMyData() ?? [];
         $weapon = $my->weaponModel;
         $rank = $my->rank ? Rank::findOne(['key' => $my->rank]) : null;
 
@@ -180,16 +180,17 @@ class BattleRerecognizeForm extends Model
 
     protected function savePlayers(): bool
     {
-        if (count($this->players) !== 8) {
+        $players = $this->players ?? [];
+        if (count($players) !== 8) {
             $count = BattlePlayer::find()->where(['battle_id' => $this->id])->count();
-            if (count($this->players) != $count) {
+            if (count($players) != $count) {
                 BattlePlayer::deleteAll([
                     'battle_id' => $this->id,
                 ]);
             }
         }
 
-        foreach ($this->players as $i => $player) {
+        foreach ($players as $i => $player) {
             $form = new BattleRerecognizePlayerForm();
             $form->attributes = $player;
 

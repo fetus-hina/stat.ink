@@ -16,6 +16,7 @@ use Throwable;
 use Yii;
 use ZipArchive;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
 use yii\console\Controller;
@@ -193,7 +194,7 @@ class DlStats2Controller extends Controller
                     printf("      #%d %s\n", $battle->id, $battle->start_at);
 
                     $csv = self::csvRow([
-                        gmdate(DateTime::ATOM, BattleHelper::periodToRange2($battle->period)[0]),
+                        gmdate(DateTime::ATOM, BattleHelper::periodToRange2(TypeHelper::int($battle->period))[0]),
                         $battle->version->tag ?? '',
                         $battle->mode->key ?? '',
                         $battle->lobby->key ?? '',

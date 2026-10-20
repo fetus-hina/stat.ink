@@ -16,6 +16,7 @@ use yii\console\controllers\MigrateController as BaseController;
 use function array_keys;
 use function array_merge;
 use function implode;
+use function is_string;
 use function sprintf;
 
 class MigrateController extends BaseController
@@ -68,15 +69,16 @@ class MigrateController extends BaseController
     #[Override]
     protected function generateMigrationSourceCode($params)
     {
-        if ($this->template !== 'default') {
-            if (!isset($this->generatorTemplateFiles[$this->template])) {
+        $template = $this->template;
+        if ($template !== 'default') {
+            if (!is_string($template) || !isset($this->generatorTemplateFiles[$template])) {
                 throw new InvalidConfigException(sprintf(
                     'You must specify --template={%s,default}',
                     implode(',', array_keys($this->generatorTemplateFiles)),
                 ));
             }
 
-            $this->templateFile = $this->generatorTemplateFiles[$this->template];
+            $this->templateFile = $this->generatorTemplateFiles[$template];
         }
 
         return parent::generateMigrationSourceCode($params);

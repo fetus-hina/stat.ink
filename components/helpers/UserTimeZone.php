@@ -78,7 +78,7 @@ final class UserTimeZone
                 );
             }
 
-            return self::isUsable($tz) ? $tz : null;
+            return $tz && self::isUsable($tz) ? $tz : null;
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }

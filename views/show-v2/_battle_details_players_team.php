@@ -195,7 +195,7 @@ foreach ($players as $i => $player) {
         'td',
         $this->render('_battle_details_player_name', array_merge(
           compact('battle', 'player', 'teamKey'),
-          ['historyCount' => $historyCount[$player->splatnet_id] ?? 0],
+          ['historyCount' => $historyCount[$player->splatnet_id ?? ''] ?? 0],
         )),
         [
           'class' => 'col-name',

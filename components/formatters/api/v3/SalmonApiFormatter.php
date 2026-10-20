@@ -21,7 +21,7 @@ final class SalmonApiFormatter
     use FloatValTrait;
 
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(
         ?Salmon3 $model,

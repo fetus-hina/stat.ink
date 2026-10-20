@@ -206,7 +206,7 @@ final class UserAction extends Action
                     ]),
                     __METHOD__,
                 ),
-                fn (): ?array => BattleApiFormatter::toJson(
+                fn (): array => BattleApiFormatter::toJson(
                     model: $model,
                     isAuthenticated: false,
                     fullTranslate: $fullTranslate,

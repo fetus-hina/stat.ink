@@ -13,6 +13,7 @@ use Override;
 use Yii;
 use app\assets\LeaguePowerHistoryAsset;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2;
 use app\models\User;
 use yii\base\Widget;
@@ -80,7 +81,7 @@ class LeaguePowerHistory extends Widget
             return '';
         }
 
-        $period = BattleHelper::periodToRange2($this->current->period);
+        $period = BattleHelper::periodToRange2(TypeHelper::int($this->current->period));
         $maxEver = $this->getSameTeamMax();
 
         LeaguePowerHistoryAsset::register($this->view);

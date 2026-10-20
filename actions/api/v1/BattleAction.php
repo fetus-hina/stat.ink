@@ -252,6 +252,9 @@ class BattleAction extends BaseAction
 
         // 保存時間の読み込みのために再読込する
         $battle = Battle::findOne(['id' => $battle->id]);
+        if (!$battle) {
+            throw new ServerErrorHttpException('Could not load the saved battle');
+        }
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
