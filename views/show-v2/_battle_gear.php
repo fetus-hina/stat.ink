@@ -36,7 +36,7 @@ $gears = [
       </tr>
     </thead>
     <tbody>
-<?php if ($battle->headgear->gear || $battle->clothing->gear || $battle->shoes->gear) { ?>
+<?php if ($battle->headgear?->gear || $battle->clothing?->gear || $battle->shoes?->gear) { ?>
       <tr>
         <th scope="row"><?= Html::encode(Yii::t('app-battle', 'Gear')) ?></th>
         <?= implode('', array_map(

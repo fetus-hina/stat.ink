@@ -198,7 +198,7 @@ final class SalmonPlayers extends Widget
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
                         ArrayHelper::getValue(
-                            $player,
+                            $player ?? [],
                             function (?SalmonPlayer3 $player) use ($isEggstraWork): string {
                                 if (!$player) {
                                     return Html::encode('-');
@@ -261,7 +261,7 @@ final class SalmonPlayers extends Widget
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
                         ArrayHelper::getValue(
-                            $player,
+                            $player ?? [],
                             function (?SalmonPlayer3 $player): string {
                                 if (!$player || !$player->special) {
                                     return Html::encode('-');
@@ -308,7 +308,7 @@ final class SalmonPlayers extends Widget
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
                         ArrayHelper::getValue(
-                            $player,
+                            $player ?? [],
                             function (?SalmonPlayer3 $player): string {
                                 if (!$player || $player->golden_eggs === null) {
                                     return Html::encode('-');
@@ -361,7 +361,7 @@ final class SalmonPlayers extends Widget
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
                         ArrayHelper::getValue(
-                            $player,
+                            $player ?? [],
                             function (?SalmonPlayer3 $player): string {
                                 if (!$player || $player->power_eggs === null) {
                                     return Html::encode('-');
@@ -399,7 +399,7 @@ final class SalmonPlayers extends Widget
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
                         ArrayHelper::getValue(
-                            $player,
+                            $player ?? [],
                             function (?SalmonPlayer3 $player): string {
                                 if (!$player || $player->rescue === null) {
                                     return Html::encode('-');
@@ -437,7 +437,7 @@ final class SalmonPlayers extends Widget
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
                         ArrayHelper::getValue(
-                            $player,
+                            $player ?? [],
                             function (?SalmonPlayer3 $player): string {
                                 if (!$player || $player->rescued === null) {
                                     return Html::encode('-');
@@ -472,7 +472,7 @@ final class SalmonPlayers extends Widget
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
                         ArrayHelper::getValue(
-                            $player,
+                            $player ?? [],
                             function (?SalmonPlayer3 $player): string {
                                 if (!$player || $player->defeat_boss === null) {
                                     return Html::encode('-');

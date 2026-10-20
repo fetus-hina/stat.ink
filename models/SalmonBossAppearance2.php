@@ -12,6 +12,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use app\components\helpers\TypeHelper;
 
 /**
  * This is the model class for table "salmon_boss_appearance2".
@@ -131,7 +132,7 @@ class SalmonBossAppearance2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        $boss = SalmonBoss2::findOne(['key' => 'steelhead']);
+        $boss = TypeHelper::instanceOf(SalmonBoss2::findOne(['key' => 'steelhead']), SalmonBoss2::class);
         return [
             'boss' => $boss->toJsonArray(),
             'count' => 42,

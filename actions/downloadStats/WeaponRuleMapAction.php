@@ -27,12 +27,12 @@ class WeaponRuleMapAction extends BaseAction
     #[Override]
     public function run(): array
     {
-        $lang = $this->config->lang;
+        $lang = $this->config?->lang;
         if (is_string($lang) && $lang !== '') {
             Yii::$app->language = $lang;
         }
 
-        $charset = Charset::findOne(['php_name' => $this->config->charset ?: 'UTF-8']);
+        $charset = Charset::findOne(['php_name' => $this->config?->charset ?: 'UTF-8']);
 
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('weapon-rule-map.csv', 'text/cvs', false, null);

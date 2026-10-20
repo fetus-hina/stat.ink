@@ -155,13 +155,14 @@ final class SalmonWaves extends Widget
                         ],
                     ];
 
-                    if (!isset($options[$wave->water->key])) {
+                    $waterKey = $wave->water?->key;
+                    if ($waterKey === null || !isset($options[$waterKey])) {
                         return Html::encode(
                             Yii::t('app-salmon-tide2', $wave->water->name ?? ''),
                         );
                     }
 
-                    $opt = $options[$wave->water->key];
+                    $opt = $options[$waterKey];
                     return Html::tag(
                         'div',
                         Html::tag(

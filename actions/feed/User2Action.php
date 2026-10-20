@@ -285,7 +285,7 @@ class User2Action extends BaseAction
                             return '?';
 
                         case 'regular':
-                            return Yii::t('app-rule2', $battle->mode->name, [], $lang);
+                            return Yii::t('app-rule2', $battle->mode->name ?? '', [], $lang);
 
                         case 'fest':
                             switch ($battle->lobby->key ?? '') {

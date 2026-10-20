@@ -55,7 +55,7 @@ final class PerLobby extends Widget
     {
         return Html::tag(
             'p',
-            Html::encode(Yii::t('app-lobby3', $model->lobby->name)),
+            Html::encode(Yii::t('app-lobby3', $model->lobby->name ?? '')),
             ['class' => 'label-user mb-1'],
         );
     }
@@ -93,7 +93,7 @@ final class PerLobby extends Widget
      */
     private function getListAttributes(User $user, UserStat3 $model): array
     {
-        switch ($model->lobby->key) {
+        switch ($model->lobby?->key) {
             case 'regular':
             case 'splatfest_challenge':
             case 'splatfest_open':
@@ -134,7 +134,7 @@ final class PerLobby extends Widget
         return [
             require __DIR__ . '/items/battles.php',
             require __DIR__ . '/items/win-pct.php',
-            $model->lobby->key === 'splatfest_challenge'
+            $model->lobby?->key === 'splatfest_challenge'
                 ? require __DIR__ . '/items/fest-power.php'
                 : require __DIR__ . '/items/inked.php',
             require __DIR__ . '/items/kill.php',

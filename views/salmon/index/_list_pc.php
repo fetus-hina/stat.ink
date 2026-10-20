@@ -115,7 +115,7 @@ SalmonWorkListAsset::register($this);
       'label' => Yii::t('app', 'Stage'),
       'value' => function (Salmon2 $model): ?string {
         return $model->stage_id
-          ? Yii::t('app-salmon-map2', $model->stage->name)
+          ? Yii::t('app-salmon-map2', $model->stage->name ?? '')
           : null;
       },
     ],
@@ -126,7 +126,7 @@ SalmonWorkListAsset::register($this);
       'label' => Yii::t('app', 'Stage'),
       'value' => function (Salmon2 $model): ?string {
         return $model->stage_id
-          ? Yii::t('app-salmon-map2', $model->stage->short_name)
+          ? Yii::t('app-salmon-map2', $model->stage->short_name ?? '')
           : null;
       },
     ],
@@ -169,11 +169,11 @@ SalmonWorkListAsset::register($this);
             ]),
             $model->fail_reason_id
               ? Label::widget([
-                'color' => $model->failReason->color,
+                'color' => $model->failReason?->color,
                 'content' => Yii::t('app-salmon2', $model->failReason->short_name ?? ''),
                 'options' => [
                   'class' => ['auto-tooltip'],
-                  'title' => Yii::t('app-salmon2', $model->failReason->name),
+                  'title' => Yii::t('app-salmon2', $model->failReason->name ?? ''),
                 ],
               ])
               : '',
@@ -387,7 +387,7 @@ SalmonWorkListAsset::register($this);
         }
 
         return implode(' ', [
-          Yii::t('app-salmon-title2', $model->titleBefore->name),
+          Yii::t('app-salmon-title2', $model->titleBefore->name ?? ''),
           $model->title_before_exp === null
             ? ''
             : Yii::$app->formatter->asInteger($model->title_before_exp),
@@ -404,7 +404,7 @@ SalmonWorkListAsset::register($this);
         }
 
         return implode(' ', [
-          Yii::t('app-salmon-title2', $model->titleAfter->name),
+          Yii::t('app-salmon-title2', $model->titleAfter->name ?? ''),
           $model->title_after_exp === null
             ? ''
             : Yii::$app->formatter->asInteger($model->title_after_exp),
@@ -481,7 +481,7 @@ SalmonWorkListAsset::register($this);
                   }
 
                   return Html::img(
-                    $asset->getIconUrl($weapon->key),
+                    TypeHelper::instanceOf($asset, Spl2WeaponAsset::class)->getIconUrl($weapon->key),
                     [
                       'style' => ['height' => '1.2em'],
                       'title' => Yii::t('app-weapon2', $weapon->name),

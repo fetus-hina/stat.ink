@@ -47,7 +47,7 @@ final class SalmonPlayerApiFormatter
             'special' => SpecialApiFormatter::toJson($model->special, $fullTranslate),
             'weapons' => array_map(
                 fn (?SalmonPlayerWeapon3 $model): ?array => SalmonWeaponApiFormatter::toJson(
-                    $model->weapon,
+                    $model?->weapon,
                     $fullTranslate,
                 ),
                 array_values($model->salmonPlayerWeapon3s),

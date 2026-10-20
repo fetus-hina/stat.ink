@@ -61,7 +61,7 @@ class EditEmailVerifyAction extends ViewAction
 
             $newEmailLang = Language::findOne(['lang' => Yii::$app->getLocale()]);
             $user->email = $realEmail;
-            $user->email_lang_id = $newEmailLang->id;
+            $user->email_lang_id = $newEmailLang?->id;
             $user->save();
 
             AddressUpdatedEmailSender::sendAddressUpdatedEmail(

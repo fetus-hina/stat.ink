@@ -51,12 +51,12 @@ foreach ($eventStats as $row1) {
 <?php foreach ($tides as $tide) { ?>
 <?php $row = $tideStats[$tide->id] ?? null; ?>
   <?= $this->render('event-row/tide', [
-    'cleared' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'cleared')),
+    'cleared' => TypeHelper::intOrNull(ArrayHelper::getValue($row ?? [], 'cleared')),
     'tideWaves' => $totalWavesPerTide[$tide->id] ?? 0,
-    'totalDelivered' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'total_delivered')),
-    'totalQuota' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'total_quota')),
+    'totalDelivered' => TypeHelper::intOrNull(ArrayHelper::getValue($row ?? [], 'total_delivered')),
+    'totalQuota' => TypeHelper::intOrNull(ArrayHelper::getValue($row ?? [], 'total_quota')),
     'totalWaves' => $totalWaves,
-    'waves' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'waves')),
+    'waves' => TypeHelper::intOrNull(ArrayHelper::getValue($row ?? [], 'waves')),
   ]) . "\n" ?>
 <?php } ?>
 </tr>

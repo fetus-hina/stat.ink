@@ -287,7 +287,7 @@ class Splatoon2InkController extends Controller
         );
 
         $currentWeapons = array_map(
-            fn (SalmonWeapon2 $weapon): int => $weapon->weapon->splatnet,
+            fn (SalmonWeapon2 $weapon): int => $weapon->weapon?->splatnet,
             SalmonWeapon2::find()
                 ->with('weapon')
                 ->andWhere(['schedule_id' => $schedule->id])

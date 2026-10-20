@@ -19,7 +19,7 @@ return [
     }
 
     return implode(' ', [
-      Yii::t('app-salmon-title3', $model->titleAfter->name),
+      Yii::t('app-salmon-title3', $model->titleAfter->name ?? ''),
       $model->title_exp_after === null
         ? ''
         : Yii::$app->formatter->asInteger($model->title_exp_after),

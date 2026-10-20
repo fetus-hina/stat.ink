@@ -1123,14 +1123,14 @@ class Battle2 extends ActiveRecord
             'fest_title' => $this->festTitle
                 ? $this->festTitle->toJsonArray(
                     $this->gender,
-                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null,
+                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme?->name : null,
                 )
                 : null,
             'fest_exp' => $this->fest_exp,
             'fest_title_after' => $this->festTitleAfter
                 ? $this->festTitleAfter->toJsonArray(
                     $this->gender,
-                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null,
+                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme?->name : null,
                 )
                 : null,
             'fest_exp_after' => $this->fest_exp_after,
@@ -1138,16 +1138,16 @@ class Battle2 extends ActiveRecord
             'my_team_estimate_fest_power' => $this->my_team_estimate_fest_power,
             'his_team_my_team_estimate_fest_power' => $this->his_team_estimate_fest_power,
             'my_team_fest_theme' => $this->my_team_fest_theme_id
-                ? $this->myTeamFestTheme->name
+                ? $this->myTeamFestTheme?->name
                 : null,
             'his_team_fest_theme' => $this->his_team_fest_theme_id
-                ? $this->hisTeamFestTheme->name
+                ? $this->hisTeamFestTheme?->name
                 : null,
             'my_team_nickname' => $this->my_team_nickname_id
-                ? $this->myTeamNickname->name
+                ? $this->myTeamNickname?->name
                 : null,
             'his_team_nickname' => $this->his_team_nickname_id
-                ? $this->hisTeamNickname->name
+                ? $this->hisTeamNickname?->name
                 : null,
             'clout' => $this->clout,
             'total_clout' => $this->total_clout,
@@ -1158,7 +1158,7 @@ class Battle2 extends ActiveRecord
                 ? null
                 : new JsExpression(sprintf('%.1f', $this->synergy_bonus)),
             'special_battle' => $this->special_battle_id
-                ? $this->specialBattle->toJsonArray()
+                ? $this->specialBattle?->toJsonArray()
                 : null,
             'image_judge' => $this->battleImageJudge
                 ? Url::to(
@@ -1181,9 +1181,9 @@ class Battle2 extends ActiveRecord
             'gears' => in_array('gears', $skips, true)
                 ? null
                 : [
-                    'headgear' => $this->headgear_id ? $this->headgear->toJsonArray() : null,
-                    'clothing' => $this->clothing_id ? $this->clothing->toJsonArray() : null,
-                    'shoes' => $this->shoes_id ? $this->shoes->toJsonArray() : null,
+                    'headgear' => $this->headgear_id ? $this->headgear?->toJsonArray() : null,
+                    'clothing' => $this->clothing_id ? $this->clothing?->toJsonArray() : null,
+                    'shoes' => $this->shoes_id ? $this->shoes?->toJsonArray() : null,
                 ],
             'period' => $this->period,
             'period_range' => (function () {
@@ -1547,7 +1547,7 @@ class Battle2 extends ActiveRecord
             return $b->get57Format() <=> $a->get57Format()
                 ?: $b->primary <=> $a->primary
                 ?: $b->secondary <=> $b->secondary
-                ?: strcmp($a->ability->name, $b->ability->name);
+                ?: strcmp($a->ability->name ?? '', $b->ability->name ?? '');
         });
 
         return $results;

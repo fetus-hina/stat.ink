@@ -24,7 +24,7 @@ use function is_string;
 
 final class PatchSalmon3UrlAction extends Action
 {
-    public Salmon3|null $model = null;
+    public Salmon3 $model;
 
     #[Override]
     public function init(): void
@@ -56,7 +56,7 @@ final class PatchSalmon3UrlAction extends Action
             throw new BadRequestHttpException();
         }
 
-        $this->model = Salmon3::find()
+        $model = Salmon3::find()
             ->with([
                 'agent',
                 'bigStage.bigrunMap3Aliases',
@@ -87,9 +87,11 @@ final class PatchSalmon3UrlAction extends Action
             ])
             ->limit(1)
             ->one();
-        if (!$this->model) {
+        if (!$model) {
             throw new NotFoundHttpException();
         }
+
+        $this->model = $model;
     }
 
     /**

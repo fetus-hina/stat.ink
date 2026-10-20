@@ -55,7 +55,7 @@ final class GearAction extends Action
             ],
             Gear::find()
                 ->with(['brand', 'ability'])
-                ->andWhere(['type_id' => $type->id])
+                ->andWhere(['type_id' => $type?->id])
                 ->asArray()
                 ->all(),
         );

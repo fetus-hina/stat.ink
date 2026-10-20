@@ -1326,8 +1326,8 @@ final class StatController extends Controller
                 ->from('battle2')
                 ->andWhere(['and',
                     [
-                        '{{battle2}}.[[lobby_id]]' => $lobby->id,
-                        '{{battle2}}.[[mode_id]]' => $mode->id,
+                        '{{battle2}}.[[lobby_id]]' => $lobby?->id,
+                        '{{battle2}}.[[mode_id]]' => $mode?->id,
                         '{{battle2}}.[[rule_id]]' => $ruleIds,
                         '{{battle2}}.[[is_win]]' => [true, false],
                         '{{battle2}}.[[is_automated]]' => true,
@@ -1440,8 +1440,8 @@ final class StatController extends Controller
     private function getHighestRankMap(): array
     {
         // {{{
-        $rankSP = Rank2::findOne(['key' => 's+']);
-        $rankX = Rank2::findOne(['key' => 'x']);
+        $rankSP = TypeHelper::instanceOf(Rank2::findOne(['key' => 's+']), Rank2::class);
+        $rankX = TypeHelper::instanceOf(Rank2::findOne(['key' => 'x']), Rank2::class);
         $xVersions = [];
         $spVersions = [];
         foreach ($this->getReleasedVersions() as $version) {

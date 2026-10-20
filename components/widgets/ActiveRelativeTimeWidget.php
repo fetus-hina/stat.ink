@@ -22,7 +22,7 @@ use function time;
 
 class ActiveRelativeTimeWidget extends Widget
 {
-    public ?DateTimeInterface $datetime = null;
+    public DateTimeInterface $datetime;
     public string $mode = 'long';
 
     public function run()

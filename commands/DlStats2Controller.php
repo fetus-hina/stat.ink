@@ -119,7 +119,7 @@ class DlStats2Controller extends Controller
                     }
 
                     if ($b->is_win == $p->is_my_team) {
-                        if ($b->rule->key === 'nawabari') {
+                        if ($b->rule?->key === 'nawabari') {
                             return $point - 1000;
                         }
                     }
@@ -195,10 +195,10 @@ class DlStats2Controller extends Controller
                     $csv = self::csvRow([
                         gmdate(DateTime::ATOM, BattleHelper::periodToRange2($battle->period)[0]),
                         $battle->version->tag ?? '',
-                        $battle->mode->key,
-                        $battle->lobby->key,
-                        $battle->rule->key,
-                        $battle->map->key,
+                        $battle->mode->key ?? '',
+                        $battle->lobby->key ?? '',
+                        $battle->rule->key ?? '',
+                        $battle->map->key ?? '',
                         (string)(strtotime($battle->end_at ?? '') - strtotime($battle->start_at ?? '')),
                         $battle->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),

@@ -25,8 +25,8 @@ use function uasort;
 
 class MapDetailAction extends BaseAction
 {
-    public ?Map $map = null;
-    public ?Rule $rule = null;
+    public Map $map;
+    public Rule $rule;
 
     #[Override]
     public function init(): void
@@ -34,12 +34,14 @@ class MapDetailAction extends BaseAction
         parent::init();
 
         $req = Yii::$app->request;
-        $this->map = Map::findOne(['key' => $req->get('map')]);
-        $this->rule = Rule::findOne(['key' => $req->get('rule')]);
-        if (!$this->map || !$this->rule) {
+        $map = Map::findOne(['key' => $req->get('map')]);
+        $rule = Rule::findOne(['key' => $req->get('rule')]);
+        if (!$map || !$rule) {
             self::http404();
-            return;
         }
+
+        $this->map = $map;
+        $this->rule = $rule;
     }
 
     #[Override]
@@ -55,7 +57,7 @@ class MapDetailAction extends BaseAction
         ]);
     }
 
-    private static function http404(): void
+    private static function http404(): never
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }

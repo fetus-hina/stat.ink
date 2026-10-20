@@ -22,8 +22,8 @@ return [
       'app-special3',
       match (true) {
         $model instanceof Event3StatsSpecial => $model->special->name,
-        $model instanceof Event3StatsWeapon => $model->weapon->special->name,
-      },
+        $model instanceof Event3StatsWeapon => $model->weapon->special?->name,
+      } ?? '',
     ),
   ],
   'format' => 'raw',

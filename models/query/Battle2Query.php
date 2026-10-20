@@ -123,31 +123,31 @@ final class Battle2Query extends ActiveQuery
             switch (substr($form->weapon, 0, 1)) {
                 default:
                     $weapon = Weapon2::findOne(['key' => $form->weapon]);
-                    $and[] = ['battle2.weapon_id' => $weapon->id];
+                    $and[] = ['battle2.weapon_id' => $weapon?->id];
                     break;
 
                 case '@': // type
                     $this->innerJoinWith('weapon');
                     $type = WeaponType2::findOne(['key' => substr($form->weapon, 1)]);
-                    $and[] = ['weapon2.type_id' => $type->id];
+                    $and[] = ['weapon2.type_id' => $type?->id];
                     break;
 
                 case '~': // main weapon
                     $this->innerJoinWith('weapon');
                     $main = Weapon2::findOne(['key' => substr($form->weapon, 1)]);
-                    $and[] = ['weapon2.main_group_id' => $main->id];
+                    $and[] = ['weapon2.main_group_id' => $main?->id];
                     break;
 
                 case '+': // sub weapon
                     $this->innerJoinWith('weapon');
                     $sub = Subweapon2::findOne(['key' => substr($form->weapon, 1)]);
-                    $and[] = ['weapon2.subweapon_id' => $sub->id];
+                    $and[] = ['weapon2.subweapon_id' => $sub?->id];
                     break;
 
                 case '*': // special
                     $this->innerJoinWith('weapon');
                     $sp = Special2::findOne(['key' => substr($form->weapon, 1)]);
-                    $and[] = ['weapon2.special_id' => $sp->id];
+                    $and[] = ['weapon2.special_id' => $sp?->id];
                     break;
             }
             // }}}

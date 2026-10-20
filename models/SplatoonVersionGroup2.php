@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace app\models;
 
 use DateTimeImmutable;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 
 use const SORT_ASC;
 use const SORT_DESC;
@@ -82,25 +82,27 @@ class SplatoonVersionGroup2 extends ActiveRecord
 
     public function getReleaseDate(): DateTimeImmutable
     {
-        return ArrayHelper::getValue(
-            SplatoonVersion2::find()
-                ->andWhere(['group_id' => $this->id])
-                ->orderBy(['released_at' => SORT_ASC])
-                ->limit(1)
-                ->one(),
-            fn (SplatoonVersion2 $model): DateTimeImmutable => new DateTimeImmutable(
-                $model->released_at,
-            ),
+        $firstVersion = SplatoonVersion2::find()
+            ->andWhere(['group_id' => $this->id])
+            ->orderBy(['released_at' => SORT_ASC])
+            ->limit(1)
+            ->one();
+
+        return new DateTimeImmutable(
+            TypeHelper::instanceOf($firstVersion, SplatoonVersion2::class)->released_at,
         );
     }
 
     public function getObsoleteDate(): ?DateTimeImmutable
     {
-        $lastVersionOfThisGroup = SplatoonVersion2::find()
-            ->andWhere(['group_id' => $this->id])
-            ->orderBy(['released_at' => SORT_DESC])
-            ->limit(1)
-            ->one();
+        $lastVersionOfThisGroup = TypeHelper::instanceOf(
+            SplatoonVersion2::find()
+                ->andWhere(['group_id' => $this->id])
+                ->orderBy(['released_at' => SORT_DESC])
+                ->limit(1)
+                ->one(),
+            SplatoonVersion2::class,
+        );
 
         $nextVersion = SplatoonVersion2::find()
             ->andWhere(['>', 'released_at', $lastVersionOfThisGroup->released_at])

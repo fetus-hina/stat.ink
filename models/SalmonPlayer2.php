@@ -266,17 +266,17 @@ class SalmonPlayer2 extends ActiveRecord
             'splatnet_id' => $this->splatnet_id,
             'name' => $anonymize ? str_repeat('*', 10) : $this->name,
             'special' => $this->special_id
-                ? $this->special->toJsonArray()
+                ? $this->special?->toJsonArray()
                 : null,
             'rescue' => $this->rescue,
             'death' => $this->death,
             'golden_egg_delivered' => $this->golden_egg_delivered,
             'power_egg_collected' => $this->power_egg_collected,
             'species' => $this->species_id
-                ? $this->species->toJsonArray()
+                ? $this->species?->toJsonArray()
                 : null,
             'gender' => $this->gender_id
-                ? $this->gender->toJsonArray()
+                ? $this->gender?->toJsonArray()
                 : null,
             'special_uses' => $this->specialUses
                 ? array_map(

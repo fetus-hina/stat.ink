@@ -80,7 +80,7 @@ final class WeaponAction extends Action
     {
         if (!$this->rule) {
             return TypeHelper::instanceOf($this->controller, Controller::class)->redirect(['entire/weapon',
-                'weapon' => $this->weapon->key,
+                'weapon' => $this->weapon?->key,
                 'rule' => 'nawabari',
             ]);
         }
@@ -122,8 +122,8 @@ final class WeaponAction extends Action
     {
         $tmp = StatWeaponKillDeath::find()
             ->andWhere([
-                'weapon_id' => $this->weapon->id,
-                'rule_id' => $this->rule->id,
+                'weapon_id' => $this->weapon?->id,
+                'rule_id' => $this->rule?->id,
             ])
             ->orderBy('kill, death')
             ->asArray()
@@ -190,8 +190,8 @@ final class WeaponAction extends Action
             ->from($table)
             ->innerJoin($map, "{{{$table}}}.[[map_id]] = {{{$map}}}.[[id]]")
             ->andWhere([
-                "{{{$table}}}.[[rule_id]]" => $this->rule->id,
-                "{{{$table}}}.[[weapon_id]]" => $this->weapon->id,
+                "{{{$table}}}.[[rule_id]]" => $this->rule?->id,
+                "{{{$table}}}.[[weapon_id]]" => $this->weapon?->id,
             ])
             ->groupBy("{{{$table}}}.[[map_id]]");
         return (function ($rows) {
@@ -211,7 +211,7 @@ final class WeaponAction extends Action
      */
     public function getUseCount(): array
     {
-        $weaponId = (int)$this->weapon->id;
+        $weaponId = (int)$this->weapon?->id;
         $query = new Query()
             ->select([
                 'isoyear' => 'isoyear',
@@ -222,7 +222,7 @@ final class WeaponAction extends Action
             ])
             ->from('stat_weapon_use_count_per_week')
             ->where(['and',
-                ['rule_id' => $this->rule->id],
+                ['rule_id' => $this->rule?->id],
                 ['or',
                     ['>', 'isoyear', 2015],
                     ['and',

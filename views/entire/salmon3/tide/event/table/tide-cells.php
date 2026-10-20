@@ -66,7 +66,7 @@ echo Html::tag(
   'td',
   Html::encode(
     (int)$model?->jobs > 0
-      ? Yii::$app->formatter->asPercent($model->cleared / $model->jobs, 2)
+      ? Yii::$app->formatter->asPercent($model?->cleared / $model?->jobs, 2)
       : '',
   ),
   ['class' => 'text-center'],

@@ -36,9 +36,9 @@ class PanelListWidget extends Widget
     public string|array|null $feedLink = null;
     public string $emptyText;
     /**
-     * @var class-string<Widget>|null
+     * @var class-string<Widget>
      */
-    public ?string $itemClass = null;
+    public string $itemClass;
 
     #[Override]
     public function init(): void
@@ -64,7 +64,7 @@ class PanelListWidget extends Widget
                 ['class' => 'panel-body'],
             );
         }
-        if (!$this->itemClass) {
+        if (!isset($this->itemClass)) {
             $this->itemClass = PanelListItemWidget::class;
         }
     }

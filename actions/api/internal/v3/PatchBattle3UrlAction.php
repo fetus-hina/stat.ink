@@ -26,7 +26,7 @@ use function is_string;
 
 final class PatchBattle3UrlAction extends Action
 {
-    public Battle3|null $model = null;
+    public Battle3 $model;
 
     #[Override]
     public function init(): void
@@ -58,7 +58,7 @@ final class PatchBattle3UrlAction extends Action
             throw new BadRequestHttpException();
         }
 
-        $this->model = Battle3::find()
+        $model = Battle3::find()
             ->with(
                 ArrayHelper::toFlatten([
                     [
@@ -90,9 +90,11 @@ final class PatchBattle3UrlAction extends Action
             ])
             ->limit(1)
             ->one();
-        if (!$this->model) {
+        if (!$model) {
             throw new NotFoundHttpException();
         }
+
+        $this->model = $model;
     }
 
     /**

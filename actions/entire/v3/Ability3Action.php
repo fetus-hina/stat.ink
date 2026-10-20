@@ -86,7 +86,7 @@ final class Ability3Action extends Action
             $ranges = $this->getXPowerRanges($db, $season);
             return $controller->redirect(['entire/ability3',
                 'rule' => $rule->key,
-                'xp' => array_pop($ranges)->id,
+                'xp' => array_pop($ranges)?->id,
                 self::PARAM_SEASON_ID => $season->id,
             ]);
         }

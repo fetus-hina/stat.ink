@@ -229,7 +229,7 @@ class UserStatGachiAction extends BaseAction
         }
 
         return (object)[
-            'rank' => Yii::t('app-rank', $battle->rankAfter->name),
+            'rank' => Yii::t('app-rank', $battle->rankAfter->name ?? ''),
             'rankExp' => (int)$battle->rank_exp_after,
             'deviation' => $deviation,
             'avgRank' => $avgRank,

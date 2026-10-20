@@ -68,7 +68,7 @@ class LanguageSupportLevelWarning extends Widget
                     Html::encode('This language support is really limited at this time.'),
                 ),
                 in_array(
-                    (int)$this->language->support_level_id,
+                    (int)$this->language?->support_level_id,
                     [SupportLevel::ALMOST, SupportLevel::PARTIAL],
                     true,
                 )
@@ -76,7 +76,7 @@ class LanguageSupportLevelWarning extends Widget
                     : Html::tag(
                         'p',
                         Html::encode(
-                            (int)$this->language->support_level_id === SupportLevel::MACHINE
+                            (int)$this->language?->support_level_id === SupportLevel::MACHINE
                                 ? 'Almost every text is machine translated.'
                                 : 'Only proper nouns (e.g., weapons, stages) translated.',
                         ),

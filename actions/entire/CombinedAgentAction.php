@@ -38,7 +38,7 @@ use const SORT_ASC;
 final class CombinedAgentAction extends Action
 {
     public ?EntireCombinedAgentForm $form = null;
-    public ?AgentGroup $agentGroup = null;
+    public AgentGroup $agentGroup;
 
     #[Override]
     public function init(): void
@@ -53,14 +53,14 @@ final class CombinedAgentAction extends Action
         if (!$form->validate()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
-        $this->agentGroup = $form->getAgentGroup();
+        $this->agentGroup = TypeHelper::instanceOf($form->getAgentGroup(), AgentGroup::class);
         $this->form = $form;
     }
 
     public function run(): string
     {
         try {
-            $name = Base32::decode(TypeHelper::string($this->form->b32name));
+            $name = Base32::decode(TypeHelper::string($this->form?->b32name));
         } catch (RangeException $e) {
             $name = '';
         }

@@ -27,7 +27,7 @@ use function strtolower;
 
 class LocationColumnWidget extends Widget
 {
-    public ?GeoIP $geoip = null;
+    public GeoIP $geoip;
     private City|false|null $cityInfo = false;
 
     public ?string $remoteAddr = null;
@@ -38,7 +38,7 @@ class LocationColumnWidget extends Widget
     public function init(): void
     {
         parent::init();
-        if (!$this->geoip) {
+        if (!isset($this->geoip)) {
             $this->geoip = Yii::$app->geoip;
         }
     }
@@ -181,7 +181,7 @@ class LocationColumnWidget extends Widget
     {
         if ($this->cityInfo === false) {
             try {
-                $cityInfo = $this->geoip->city($this->remoteAddr);
+                $cityInfo = $this->remoteAddr !== null ? $this->geoip->city($this->remoteAddr) : null;
             } catch (Throwable $e) {
                 $cityInfo = null;
             }

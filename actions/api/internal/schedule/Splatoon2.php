@@ -172,12 +172,12 @@ trait Splatoon2
                             function (SalmonWeapon2 $info) use ($am): array {
                                 $w = $info->weapon;
                                 return [
-                                    'key' => $w->key,
-                                    'name' => Yii::t('app-weapon2', $w->name),
+                                    'key' => $w?->key,
+                                    'name' => Yii::t('app-weapon2', $w->name ?? ''),
                                     'icon' => Url::to(
                                         $am->getAssetUrl(
                                             $am->getBundle(Spl2WeaponAsset::class, true),
-                                            $w->key . '.png',
+                                            $w?->key . '.png',
                                         ),
                                         true,
                                     ),

@@ -199,7 +199,7 @@ class Salmon2FilterForm extends Model
 
         if ($this->stage) {
             $stage = SalmonMap2::findOne(['key' => $this->stage]);
-            $query->andWhere(['{{salmon2}}.[[stage_id]]' => $stage->id]);
+            $query->andWhere(['{{salmon2}}.[[stage_id]]' => $stage?->id]);
         }
 
         if ($this->special) {
@@ -213,7 +213,7 @@ class Salmon2FilterForm extends Model
                     ]),
                 )
                 ->andWhere([
-                    '{{salmon_player2}}.[[special_id]]' => $special->id,
+                    '{{salmon_player2}}.[[special_id]]' => $special?->id,
                 ]);
         }
 
@@ -243,7 +243,7 @@ class Salmon2FilterForm extends Model
 
         if ($this->reason) {
             $reason = SalmonFailReason2::findOne(['key' => $this->reason]);
-            $query->andWhere(['{{salmon2}}.[[fail_reason_id]]' => $reason->id]);
+            $query->andWhere(['{{salmon2}}.[[fail_reason_id]]' => $reason?->id]);
         }
 
         if ($this->term) {

@@ -17,11 +17,11 @@ use yii\web\View;
  * @var View $this
  */
 
-$displayName = $user->loginWithGoogle->name;
-$email = $user->loginWithGoogle->email;
+$displayName = $user->loginWithGoogle?->name;
+$email = $user->loginWithGoogle?->email;
 
 echo implode(' ', [
-  Html::encode($displayName),
+  Html::encode($displayName ?? ''),
   $email !== null && $email !== ''
     ? sprintf('(%s)', Html::encode($email))
     : '',

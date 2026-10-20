@@ -92,8 +92,8 @@ echo Html::tag(
           ($battle->my_team_fest_theme_id !== null && $battle->his_team_fest_theme_id !== null)
             ? Yii::t('app-show-v2', 'Team {theme}', [
               'theme' => ($teamKey === 'my')
-                ? $battle->myTeamFestTheme->name
-                : $battle->hisTeamFestTheme->name,
+                ? $battle->myTeamFestTheme?->name
+                : $battle->hisTeamFestTheme?->name,
             ])
             : Yii::t('app', ($teamKey === 'my') ? 'Good Guys' : 'Bad Guys')
         ),
