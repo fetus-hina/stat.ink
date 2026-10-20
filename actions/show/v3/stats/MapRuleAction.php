@@ -97,8 +97,7 @@ final class MapRuleAction extends Action
                 'key',
                 fn (Map3 $v): Map3 => $v,
             ),
-            fn (Map3 $a, Map3 $b): int => 0
-                ?: strnatcasecmp(Yii::t('app-map3', $a->name), Yii::t('app-map3', $b->name))
+            fn (Map3 $a, Map3 $b): int => strnatcasecmp(Yii::t('app-map3', $a->name), Yii::t('app-map3', $b->name))
                 ?: strnatcasecmp($a->name, $b->name)
                 ?: strcmp($a->name, $b->name),
         );

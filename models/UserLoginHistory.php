@@ -175,7 +175,7 @@ class UserLoginHistory extends ActiveRecord
     {
         static $counter = 0;
 
-        if ($this->id === null) {
+        if ($this->isNewRecord) {
             return null;
         }
 

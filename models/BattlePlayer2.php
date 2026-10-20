@@ -343,7 +343,7 @@ class BattlePlayer2 extends ActiveRecord
             'fest_title' => $this->fest_title_id
                 ? $this->festTitle->toJsonArray(
                     $this->gender,
-                    $battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
+                    $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
                         ? ($this->is_my_team ? $battle->myTeamFestTheme->name : $battle->hisTeamFestTheme->name)
                         : null,
                 )

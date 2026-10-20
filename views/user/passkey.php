@@ -11,7 +11,6 @@ use app\assets\PasskeyAsset;
 use app\components\widgets\Icon;
 use app\models\User;
 use app\models\UserPasskey;
-use yii\db\ArrayExpression;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -54,10 +53,7 @@ $this->registerJs(sprintf(
 $isLastRequired = !$user->canDeletePasskey();
 
 $transportsOf = function (UserPasskey $p): array {
-    $v = $p->transports;
-    if ($v instanceof ArrayExpression) {
-        $v = $v->getValue();
-    }
+    $v = $p->transports->getValue();
     return is_array($v) ? $v : [];
 };
 ?>

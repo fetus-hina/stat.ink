@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3;
 
-use LogicException;
 use Yii;
 use app\assets\BattleListGroupHeaderAsset;
 use app\components\helpers\TypeHelper;
@@ -93,17 +92,10 @@ final class SalmonIndexRowHeader extends Widget
 
     private function renderMode(SalmonSchedule3 $schedule): ?string
     {
-        if (
-            !$schedule->is_eggstra_work &&
-            !$schedule->big_map_id
-        ) {
-            return null;
-        }
-
         return match (true) {
-            $schedule->is_eggstra_work === true => Icon::s3Eggstra(),
+            $schedule->is_eggstra_work => Icon::s3Eggstra(),
             $schedule->big_map_id !== null => Icon::s3BigRun(),
-            default => throw new LogicException(),
+            default => null,
         };
     }
 

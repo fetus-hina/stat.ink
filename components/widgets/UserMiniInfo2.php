@@ -760,7 +760,7 @@ class UserMiniInfo2 extends Widget
                         'format' => 'raw',
                         'value' => function (UserStat2 $model) use ($info): string {
                                 $value = $model->{$info['attribute']};
-                                if ($model->gachi_battles < 1 || $value === null) {
+                                if ($model->gachi_battles < 1) {
                                     return Html::encode(Yii::t('app', 'N/A'));
                                 }
 

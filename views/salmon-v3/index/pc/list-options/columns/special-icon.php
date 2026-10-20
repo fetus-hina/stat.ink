@@ -22,9 +22,7 @@ return [
       return null;
     }
 
-    if (!$player = array_shift($players)) {
-      return null;
-    }
+    $player = array_shift($players);
 
     return Icon::s3Special($player->special)
       ?? Icon::unknown();

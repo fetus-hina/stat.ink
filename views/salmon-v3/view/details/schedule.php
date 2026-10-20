@@ -47,7 +47,6 @@ return [
         'screen_name' => $model->user->screen_name,
         'f' => [
           'lobby' => match (true) {
-            $model->is_private => 'private',
             $model->is_eggstra_work => 'eggstra',
             $model->is_big_run => 'bigrun',
             default => 'normal',

@@ -67,7 +67,7 @@ $renderScale = fn (string $icon, int $number): string => Html::tag(
       <tr>
         <th scope="row">
           <?= Icon::s3BossSalmonid($kings[$kingId] ?? null) . "\n" ?>
-          <?= Html::encode(Yii::t('app-salmon-boss3', $kings[$kingId]?->name)) . "\n" ?>
+          <?= Html::encode(Yii::t('app-salmon-boss3', $kings[$kingId]->name ?? null)) . "\n" ?>
         </th>
         <td class="text-center"><?= $fmt->asInteger($row['appearances']) ?></td>
         <td class="text-center"><?= $fmt->asInteger($row['defeated']) ?></td>

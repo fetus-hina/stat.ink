@@ -59,7 +59,7 @@ $fmt = Yii::$app->formatter;
             ]),
             ['entire/special-use3-per-special',
               'season' => $season->id,
-              'special' => $specials[$model->special_id]?->key,
+              'special' => $specials[$model->special_id]->key ?? null,
               '#' => $rule?->key,
             ],
           ),

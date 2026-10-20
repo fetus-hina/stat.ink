@@ -72,7 +72,7 @@ if ($isXmatch && $useXMatchingRange && count($players) > 0) {
     0.0,
   );
 
-  if ($tmpTotal !== null && count($players) > 0) {
+  if ($tmpTotal !== null) {
     $avgMR = $tmpTotal / count($players);
   }
 }

@@ -172,10 +172,6 @@ $chart = [
   ],
 ];
 
-if (!$data) {
-  return;
-}
-
 echo Html::tag(
   'div',
   Html::tag(

@@ -56,7 +56,7 @@ use yii\web\View;
         ]),
         'headerOptions' => ['class' => 'text-center'],
         'format' => 'integer',
-        'value' => fn (Rule3 $model): ?int => $abstracts[$model->id]?->users,
+        'value' => fn (Rule3 $model): ?int => $abstracts[$model->id]->users ?? null,
         'contentOptions' => ['class' => 'text-right'],
       ],
       [
@@ -64,7 +64,7 @@ use yii\web\View;
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
-          $abstracts[$model->id]?->average,
+          $abstracts[$model->id]->average ?? null,
         ),
         'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
@@ -73,7 +73,7 @@ use yii\web\View;
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
-          $abstracts[$model->id]?->stddev,
+          $abstracts[$model->id]->stddev ?? null,
         ),
         'contentOptions' => ['class' => 'text-right'],
       ],
@@ -82,7 +82,7 @@ use yii\web\View;
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
-          $abstracts[$model->id]?->pct95,
+          $abstracts[$model->id]->pct95 ?? null,
         ),
         'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
@@ -91,7 +91,7 @@ use yii\web\View;
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
-          $abstracts[$model->id]?->pct80,
+          $abstracts[$model->id]->pct80 ?? null,
         ),
         'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
@@ -100,7 +100,7 @@ use yii\web\View;
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
-          $abstracts[$model->id]?->pct75,
+          $abstracts[$model->id]->pct75 ?? null,
         ),
         'contentOptions' => ['class' => 'text-right'],
       ],
@@ -109,7 +109,7 @@ use yii\web\View;
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
-          $abstracts[$model->id]?->median,
+          $abstracts[$model->id]->median ?? null,
         ),
         'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
@@ -118,7 +118,7 @@ use yii\web\View;
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
-          $abstracts[$model->id]?->pct25,
+          $abstracts[$model->id]->pct25 ?? null,
         ),
         'contentOptions' => ['class' => 'text-right'],
       ],

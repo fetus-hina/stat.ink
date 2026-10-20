@@ -148,10 +148,9 @@ trait UpdateEventSchedule
         }
 
         if (
+            $model->isNewRecord ||
             $model->event_id !== $event->id ||
             $model->rule_id !== $rule->id ||
-            $model->start_at === null ||
-            $model->end_at === null ||
             strtotime($model->start_at) !== $startAt ||
             strtotime($model->end_at) !== $endAt
         ) {

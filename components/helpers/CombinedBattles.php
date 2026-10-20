@@ -115,10 +115,7 @@ final class CombinedBattles
      */
     private static function getCreatedAt(?Model $model): ?int
     {
-        if (
-            method_exists($model, 'getCreatedAt') &&
-            is_callable([$model, 'getCreatedAt'])
-        ) {
+        if (method_exists($model, 'getCreatedAt')) {
             return self::prepareTimestamp($model->getCreatedAt());
         }
 

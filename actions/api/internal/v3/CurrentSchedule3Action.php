@@ -108,12 +108,10 @@ final class CurrentSchedule3Action extends Action
 
         $rule = $schedule->rule;
         return [
-            'rule' => $rule
-                ? [
-                    'key' => $rule->key,
-                    'name' => Yii::t('app-rule3', $rule->name),
-                ]
-                : null,
+            'rule' => [
+                'key' => $rule->key,
+                'name' => Yii::t('app-rule3', $rule->name),
+            ],
             'stages' => array_map(
                 function (ScheduleMap3 $entry): array {
                     $map = $entry->map;

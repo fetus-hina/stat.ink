@@ -333,7 +333,7 @@ echo DetailView::widget([
           ),
         ]),
       ],
-      isset($overfishing) && $overfishing
+      $overfishing
         ? [
           'label' => Yii::t('app-salmon-overfishing', 'Overfishing'),
           'format' => 'raw',

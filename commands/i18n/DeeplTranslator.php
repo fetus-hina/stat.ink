@@ -558,7 +558,7 @@ class DeeplTranslator extends Component
                 $start = $open;
             }
 
-            if ($depth !== 0 && ($open === false || $close === false)) {
+            if ($depth !== 0 && $close === false) {
                 break;
             }
         }

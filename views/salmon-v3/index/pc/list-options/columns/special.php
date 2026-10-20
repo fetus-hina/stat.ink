@@ -19,9 +19,7 @@ return [
       return null;
     }
 
-    if (!$player = array_shift($players)) {
-      return null;
-    }
+    $player = array_shift($players);
 
     if (!$special = $player->special) {
       return null;

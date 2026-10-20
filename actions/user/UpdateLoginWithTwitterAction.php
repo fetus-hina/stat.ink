@@ -61,7 +61,7 @@ final class UpdateLoginWithTwitterAction extends Action
                 );
 
                 $twUser = $this->fetchTwitterV2User($twitter, $tokenCredentials);
-                if (!is_array($twUser) || !isset($twUser['data']['id'])) {
+                if (!isset($twUser['data']['id'])) {
                     throw new RuntimeException('Failed to fetch your information from Twitter');
                 }
                 $user = Yii::$app->user->identity;

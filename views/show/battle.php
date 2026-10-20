@@ -435,9 +435,6 @@ $specials = Special::find()->asArray()->all();
                   ])
               ) . "\n" ?>
 <?php } ?>
-<?php if ($battle->is_win === null) { ?>
-              ?
-<?php } else { ?>
               <?= (
                 ($battle->is_win)
                   ? Html::tag('span', Html::encode(Yii::t('app-results', 'Won')), [
@@ -447,7 +444,6 @@ $specials = Special::find()->asArray()->all();
                     'class' => 'label label-danger',
                   ])
               ) . "\n" ?>
-<?php } ?>
             </td>
           </tr>
 <?php } ?>
@@ -1026,7 +1022,7 @@ foreach ($battle->$attr as $player) {
       </table>
 <?php } ?>
 <?php if ($battle->events) { ?>
-<?php $events = is_array($battle->events) ? $battle->events : @json_decode($battle->events, false) ?>
+<?php $events = @json_decode($battle->events, false) ?>
 <?php if ($events) { ?>
 <?php
 BattleTimelineAsset::register($this);

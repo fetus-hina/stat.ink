@@ -110,7 +110,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         'h2',
         Html::encode(
           match (true) {
-            $map === null && $schedule?->is_random_map_big_run => implode(' - ', [
+            $map === null && $schedule->is_random_map_big_run => implode(' - ', [
               Yii::t('app-salmon3', 'BIG Big Run'),
               Yii::t('app-map3', 'Multiple Sites'),
             ]),

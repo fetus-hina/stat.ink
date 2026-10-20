@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace app\components\helpers\dateTimeHelper;
 
 use IntlDatePatternGenerator;
-use LogicException;
 use RuntimeException;
 use Yii;
 
@@ -36,9 +35,6 @@ trait FormatTrait
     private static function getFormat(?string $locale, string $skeleton): string
     {
         $locale = $locale ?? Yii::$app->getLocale();
-        if (!is_string($locale)) {
-            throw new LogicException();
-        }
 
         if (!$generator = IntlDatePatternGenerator::create($locale)) {
             throw new RuntimeException('Failed to create IntlDatePatternGenerator');

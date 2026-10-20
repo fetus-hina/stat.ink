@@ -192,7 +192,7 @@ class SalmonUserInfo extends Widget
             ],
         ];
         $datetime = '';
-        if ($stats->as_of !== null && $stats->work_count) {
+        if (!$stats->isNewRecord && $stats->work_count) {
             ob_start();
             $historyWidget = SalmonStatsHistoryWidget::begin(['user' => $this->user]);
             SalmonStatsHistoryWidget::end();

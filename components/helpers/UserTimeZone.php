@@ -219,12 +219,7 @@ final class UserTimeZone
                 __METHOD__,
             );
 
-            if (!$location = $city->location) {
-                Yii::warning('Could not determinate user\'s city from IP ' . $ipAddr, __METHOD__);
-                return null;
-            }
-
-            $tz = trim((string)$location->timeZone);
+            $tz = trim((string)$city->location->timeZone);
             if ($tz === '') {
                 Yii::warning(
                     'GeoIP\'s record has not a time zone information, IP ' . $ipAddr,

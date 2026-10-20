@@ -23,11 +23,7 @@ $am = Yii::$app->assetManager;
 echo Html::tag(
   'h3',
   implode(' ', [
-    match (true) {
-      $map instanceof SalmonMap3 => Icon::s3SalmonStage($map),
-      $map instanceof BigrunMap3 => Icon::s3BigRun(),
-      default => '',
-    },
+    $map instanceof SalmonMap3 ? Icon::s3SalmonStage($map) : Icon::s3BigRun(),
     Html::encode(Yii::t('app-map3', $map->name)),
   ]),
   [

@@ -708,7 +708,7 @@ final class PostBattleForm extends Model
     private function findOrCreateMedal(string $text): ?Medal3
     {
         $text = trim($text);
-        if ($text === null) {
+        if ($text === '') {
             return null;
         }
 

@@ -188,7 +188,6 @@ final class UserAction extends Action
             ]),
         );
 
-        $isAuthenticated = false;
         $fullTranslate = (bool)$request->get('full');
         $cache = Yii::$app->cache;
 
@@ -203,13 +202,13 @@ final class UserAction extends Action
                         'at' => $model->updated_at,
                         'battle' => $model->id,
                         'fullTranslate' => $fullTranslate ? 'yes' : 'no',
-                        'isAuthenticated' => $isAuthenticated ? 'yes' : 'no',
+                        'isAuthenticated' => 'no',
                     ]),
                     __METHOD__,
                 ),
                 fn (): ?array => BattleApiFormatter::toJson(
                     model: $model,
-                    isAuthenticated: $isAuthenticated,
+                    isAuthenticated: false,
                     fullTranslate: $fullTranslate,
                 ),
                 duration: 7200,

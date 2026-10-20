@@ -195,7 +195,7 @@ class Battle extends ActiveRecord
         $total = 0;
         foreach ($list as $callback) {
             $tmp = $callback();
-            if ($tmp === false || $tmp === null) {
+            if ($tmp === null) {
                 return false;
             }
             $total += $tmp;
@@ -653,7 +653,7 @@ class Battle extends ActiveRecord
         $now = (int)(@$_SERVER['REQUEST_TIME'] ?: time());
 
         $time = false;
-        if ($time === false && is_string($this->start_at) && trim($this->start_at) !== '') {
+        if (is_string($this->start_at) && trim($this->start_at) !== '') {
             if (($t = strtotime($this->start_at)) !== false && $t >= $onSale && $t <= $now) {
                 $time = $t - 15;
             }

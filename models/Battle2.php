@@ -996,11 +996,7 @@ class Battle2 extends ActiveRecord
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
             if ($tmp = $this->events->events ?? null) {
-                if (is_array($tmp)) {
-                    $events = $tmp;
-                } elseif (is_string($tmp)) {
-                    $events = Json::decode($tmp);
-                }
+                $events = Json::decode($tmp);
             }
 
             if (is_array($events)) {
@@ -1015,10 +1011,8 @@ class Battle2 extends ActiveRecord
             if ($tmp = $this->splatnetJson->json ?? null) {
                 if (is_object($tmp)) {
                     $splatnetJson = $tmp;
-                } elseif (is_array($tmp) && ArrayHelper::isAssociative($tmp)) {
+                } elseif (ArrayHelper::isAssociative($tmp)) {
                     $splatnetJson = (object)$tmp;
-                } elseif (is_string($tmp)) {
-                    $splatnetJson = Json::decode($tmp, false);
                 }
                 unset($tmp);
             }
