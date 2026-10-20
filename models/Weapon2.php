@@ -19,6 +19,7 @@ use function array_filter;
 use function array_map;
 use function array_merge;
 use function array_shift;
+use function array_values;
 use function version_compare;
 
 use const SORT_ASC;
@@ -272,7 +273,7 @@ class Weapon2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->andWhere(['key' => [
@@ -285,6 +286,6 @@ class Weapon2 extends ActiveRecord
                 ])
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

@@ -15,6 +15,7 @@ use yii\helpers\ArrayHelper;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 
 use const SORT_ASC;
 
@@ -163,9 +164,9 @@ class Brand2 extends ActiveRecord
             ])
             ->orderBy(['key' => SORT_ASC])
             ->all();
-        return array_map(
+        return array_values(array_map(
             fn ($model) => $model->toJsonArray(),
             $models,
-        );
+        ));
     }
 }

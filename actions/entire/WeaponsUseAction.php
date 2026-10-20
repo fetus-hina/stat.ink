@@ -28,6 +28,7 @@ use function array_first;
 use function array_last;
 use function array_map;
 use function array_merge;
+use function array_values;
 use function count;
 use function date;
 use function implode;
@@ -216,7 +217,7 @@ final class WeaponsUseAction extends Action
             }
             $ret['data'][] = [
                 'legend' => $this->makeLegend($form->{"weapon{$i}"}, $form->{"rule{$i}"}),
-                'data' => array_map(
+                'data' => array_values(array_map(
                     function (array $row) use ($columnKey, $bColumnKey): array {
                         $battles = (int)$row[$bColumnKey];
                         return [
@@ -229,7 +230,7 @@ final class WeaponsUseAction extends Action
                         ];
                     },
                     $list,
-                ),
+                )),
             ];
         }
         return $ret;

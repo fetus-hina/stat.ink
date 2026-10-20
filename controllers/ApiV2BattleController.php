@@ -26,6 +26,7 @@ use yii\web\UnauthorizedHttpException;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 use function implode;
 use function is_string;
 use function preg_match;
@@ -275,10 +276,10 @@ class ApiV2BattleController extends Controller
             }
             return $result;
         } else {
-            return array_map(
+            return array_values(array_map(
                 fn ($model) => $model->toJsonArray(['events', 'splatnet_json']),
                 $query->all(),
-            );
+            ));
         }
     }
 

@@ -24,6 +24,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 use function array_map;
+use function array_values;
 use function array_walk;
 use function date;
 use function is_scalar;
@@ -127,7 +128,7 @@ final class WeaponAction extends Action
             ->orderBy('kill, death')
             ->asArray()
             ->all();
-        return array_map(
+        return array_values(array_map(
             fn ($a) => [
                 'kill' => (int)$a['kill'],
                 'death' => (int)$a['death'],
@@ -135,7 +136,7 @@ final class WeaponAction extends Action
                 'win' => (int)$a['win'],
             ],
             $tmp,
-        );
+        ));
     }
 
     /**
@@ -234,7 +235,7 @@ final class WeaponAction extends Action
             ->groupBy('isoyear, isoweek')
             ->having(['>', 'SUM([[battles]])', 0])
             ->orderBy('isoyear, isoweek');
-        return array_map(
+        return array_values(array_map(
             fn (array $row): array => [
                 'date' => date('Y-m-d', TypeHelper::int(strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek'])))),
                 'battles' => (int)$row['all_battles'],
@@ -242,6 +243,6 @@ final class WeaponAction extends Action
                 'win_pct' => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
             ],
             $query->createCommand()->queryAll(),
-        );
+        ));
     }
 }
