@@ -229,6 +229,10 @@ class LicenseAction extends SimpleAction
     private function loadFile(string $path, ?callable $checker): ?string
     {
         $text = file_get_contents($path, false);
+        if ($text === false) {
+            return null;
+        }
+
         if ($checker && !call_user_func($checker, $text)) {
             return null;
         }

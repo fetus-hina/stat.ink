@@ -14,6 +14,7 @@ use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\Resource;
+use app\components\helpers\TypeHelper;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
@@ -215,7 +216,7 @@ class MonthAction extends BaseAction
     public function getRelativeMonthUrl(int $rel): ?string
     {
         // {{{
-        $t = mktime(0, 0, 0, $this->month + $rel, 1, $this->year);
+        $t = TypeHelper::int(mktime(0, 0, 0, $this->month + $rel, 1, $this->year));
         $y = (int)date('Y', $t);
         $m = (int)date('n', $t);
         return self::isValidMonth($y, $m)
@@ -269,8 +270,8 @@ class MonthAction extends BaseAction
         }
 
         // データ持ってないかも
-        $periodS = BattleHelper::calcPeriod(mktime(0, 0, 0, $month, 1, $year));
-        $periodE = BattleHelper::calcPeriod(mktime(0, 0, -1, $month + 1, 1, $year));
+        $periodS = BattleHelper::calcPeriod(TypeHelper::int(mktime(0, 0, 0, $month, 1, $year)));
+        $periodE = BattleHelper::calcPeriod(TypeHelper::int(mktime(0, 0, -1, $month + 1, 1, $year)));
         return (bool)self::hasStageData($periodS, $periodE);
         // }}}
     }

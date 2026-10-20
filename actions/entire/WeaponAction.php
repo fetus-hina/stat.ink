@@ -236,7 +236,7 @@ final class WeaponAction extends Action
             ->orderBy('isoyear, isoweek');
         return array_map(
             fn (array $row): array => [
-                'date' => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
+                'date' => date('Y-m-d', TypeHelper::int(strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek'])))),
                 'battles' => (int)$row['all_battles'],
                 'use_pct' => $row['battles'] / $row['all_battles'] * 100,
                 'win_pct' => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,

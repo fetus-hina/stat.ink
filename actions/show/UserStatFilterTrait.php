@@ -8,6 +8,7 @@
 namespace app\actions\show;
 
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\BattleFilterForm;
 use app\models\SplatoonVersion;
 use app\models\Weapon;
@@ -151,15 +152,15 @@ trait UserStatFilterTrait
                 break;
 
             case 'today':
-                $t = mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now), (int)date('Y', $now));
+                $t = TypeHelper::int(mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now), (int)date('Y', $now)));
                 $query->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
                 break;
 
             case 'yesterday':
                 // 昨日の 00:00:00
-                $t1 = mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now));
+                $t1 = TypeHelper::int(mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now)));
                 // 今日の 00:00:00
-                $t2 = mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now), (int)date('Y', $now));
+                $t2 = TypeHelper::int(mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now), (int)date('Y', $now)));
                 $query->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t1)]);
                 $query->andWhere(['<', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t2)]);
                 break;

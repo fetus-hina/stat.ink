@@ -16,6 +16,7 @@ use Exception;
 use Override;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\YearMonth;
 use app\models\EntireWeapon2Form;
 use app\models\Rule2;
@@ -157,7 +158,7 @@ class Weapons2Action extends BaseAction
                 $total += $count;
             }
             return [
-                'date' => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek']))),
+                'date' => date('Y-m-d', TypeHelper::int(strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek'])))),
                 'battles' => (int)$_['battles'],
                 'weapons' => $w,
                 'others' => $_['battles'] - $total,
