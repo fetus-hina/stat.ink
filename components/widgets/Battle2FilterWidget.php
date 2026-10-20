@@ -305,7 +305,7 @@ class Battle2FilterWidget extends Widget
                     uasort($weapons, strnatcasecmp(...));
                     $ret[$groupLabel] = count($weapons) > 1
                         ? array_merge(
-                            ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
+                            ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', [$typeName])],
                             $weapons,
                         )
                         : $weapons;
@@ -488,13 +488,13 @@ class Battle2FilterWidget extends Widget
                     $result['v' . $version['tag']] = Yii::t(
                         'app',
                         'Version {0}',
-                        Yii::t('app-version2', $version['name']),
+                        [Yii::t('app-version2', $version['name'])],
                     );
                 } elseif ($n > 1) {
                     $result['~v' . $group['tag']] = Yii::t(
                         'app',
                         'Version {0}',
-                        Yii::t('app-version2', $group['name']),
+                        [Yii::t('app-version2', $group['name'])],
                     );
                     usort($group['versions'], fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
                     foreach ($group['versions'] as $i => $version) {
@@ -505,7 +505,7 @@ class Battle2FilterWidget extends Widget
                             Yii::t(
                                 'app',
                                 'Version {0}',
-                                Yii::t('app-version2', $version['name']),
+                                [Yii::t('app-version2', $version['name'])],
                             ),
                         );
                     }
