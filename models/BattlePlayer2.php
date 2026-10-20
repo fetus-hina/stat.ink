@@ -64,7 +64,7 @@ use const SORT_DESC;
  */
 class BattlePlayer2 extends ActiveRecord
 {
-    private $user = false;
+    private User|false|null $user = false;
 
     public function behaviors()
     {
@@ -182,22 +182,22 @@ class BattlePlayer2 extends ActiveRecord
         return $this->hasOne(Rank2::class, ['id' => 'rank_id']);
     }
 
-    public function getGender()
+    public function getGender(): ActiveQuery
     {
         return $this->hasOne(Gender::class, ['id' => 'gender_id']);
     }
 
-    public function getSpecies()
+    public function getSpecies(): ActiveQuery
     {
         return $this->hasOne(Species2::class, ['id' => 'species_id']);
     }
 
-    public function getFestTitle()
+    public function getFestTitle(): ActiveQuery
     {
         return $this->hasOne(FestTitle::class, ['id' => 'fest_title_id']);
     }
 
-    public function getForceBlackout()
+    public function getForceBlackout(): ActiveQuery
     {
         return $this->hasOne(ForceBlackout2::class, ['splatnet_id' => 'splatnet_id']);
     }
@@ -318,7 +318,10 @@ class BattlePlayer2 extends ActiveRecord
             : hash_hmac('sha256', (string)$this->id, (string)$this->battle_id);
     }
 
-    public function toJsonArray(?Battle2 $battle = null)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(?Battle2 $battle = null): array
     {
         if (!$battle && $this->fest_title_id) {
             $battle = $this->battle;

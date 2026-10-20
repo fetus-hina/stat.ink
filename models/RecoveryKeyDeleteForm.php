@@ -16,6 +16,9 @@ final class RecoveryKeyDeleteForm extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var int|string|null
+     */
     public $id;
 
     #[Override]

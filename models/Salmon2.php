@@ -85,7 +85,7 @@ use const SORT_DESC;
  * @property-read SalmonWave2[] $waves
  * @property-read bool $isEditable
  * @property-read SalmonPlayer2|null $myData
- * @property-read array|null $quota
+ * @property-read list<int>|null $quota
  */
 class Salmon2 extends ActiveRecord
 {
@@ -301,6 +301,9 @@ class Salmon2 extends ActiveRecord
         return array_find($list, fn (SalmonPlayer2 $player): bool => (bool)$player->is_me);
     }
 
+    /**
+     * @return array<int, SalmonPlayer2>|null
+     */
     public function getTeamMates(): ?array
     {
         if (!$list = $this->players) {
@@ -310,8 +313,14 @@ class Salmon2 extends ActiveRecord
         return array_filter($list, fn (SalmonPlayer2 $player): bool => !$player->is_me);
     }
 
-    private $sortedPlayersCache = false;
+    /**
+     * @var list<SalmonPlayer2>|false|null
+     */
+    private array|false|null $sortedPlayersCache = false;
 
+    /**
+     * @return list<SalmonPlayer2>|null
+     */
     public function getSortedPlayers(): ?array
     {
         if ($this->sortedPlayersCache === false) {
@@ -460,6 +469,9 @@ class Salmon2 extends ActiveRecord
         );
     }
 
+    /**
+     * @return array<int, stdClass|null>|null
+     */
     public function getTeamTotalGoldenEggsPerWave(): ?array
     {
         if (!$this->waves) {
@@ -499,6 +511,9 @@ class Salmon2 extends ActiveRecord
         );
     }
 
+    /**
+     * @return array<int, int|null>|null
+     */
     public function getTeamTotalPowerEggsPerWave(): ?array
     {
         if (!$this->waves) {
@@ -511,6 +526,9 @@ class Salmon2 extends ActiveRecord
         );
     }
 
+    /**
+     * @return list<int>|null
+     */
     public function getQuota(): ?array
     {
         if ($this->danger_rate === null) {
@@ -560,6 +578,9 @@ class Salmon2 extends ActiveRecord
         return null;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         $isCleared = $this->clear_waves === null ? null : ($this->clear_waves >= 3);
@@ -618,6 +639,9 @@ class Salmon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public static function csvArraySchema(): array
     {
         return ArrayHelper::toFlatten(array_merge(
@@ -685,6 +709,9 @@ class Salmon2 extends ActiveRecord
         ));
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function toCSVArray(): array
     {
         $gender = null;
@@ -790,6 +817,9 @@ class Salmon2 extends ActiveRecord
         ));
     }
 
+    /**
+     * @return array<int, array<string, mixed>>|null
+     */
     public function getBossAppearancesMap(): ?array
     {
         if (!$this->bossAppearances) {
@@ -802,6 +832,9 @@ class Salmon2 extends ActiveRecord
         );
     }
 
+    /**
+     * @return array<int, array<mixed>>
+     */
     public function getBossKillMap(): array
     {
         // $pks[player_index][boss_id] = count
@@ -815,6 +848,9 @@ class Salmon2 extends ActiveRecord
         );
     }
 
+    /**
+     * @return array<int, array<string, mixed>>|null
+     */
     public function getWavesMap(): ?array
     {
         if (!$this->waves) {
@@ -827,6 +863,9 @@ class Salmon2 extends ActiveRecord
         );
     }
 
+    /**
+     * @return list<array<string, mixed>>|null
+     */
     public function getTeammatesMap(): ?array
     {
         if (!$list = $this->getTeamMates()) {
@@ -885,6 +924,9 @@ class Salmon2 extends ActiveRecord
         });
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -1089,6 +1131,9 @@ class Salmon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -1103,6 +1148,9 @@ class Salmon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         $girl = Gender::findOne(['id' => 2]);

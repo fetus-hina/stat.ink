@@ -44,7 +44,7 @@ use function sprintf;
  */
 class UserLoginHistory extends ActiveRecord
 {
-    public $remote_addr_masked;
+    public ?string $remote_addr_masked = null;
 
     public static function login(User $user, int $methodId): ?self
     {

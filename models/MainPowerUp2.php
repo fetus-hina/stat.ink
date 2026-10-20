@@ -59,6 +59,9 @@ class MainPowerUp2 extends ActiveRecord
         return $this->hasMany(Weapon2::class, ['main_power_up_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -67,6 +70,9 @@ class MainPowerUp2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -91,6 +97,9 @@ class MainPowerUp2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -98,6 +107,9 @@ class MainPowerUp2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         return static::find()

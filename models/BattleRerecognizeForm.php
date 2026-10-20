@@ -22,13 +22,28 @@ use function sprintf;
 
 class BattleRerecognizeForm extends Model
 {
+    /**
+     * @var int|string|null
+     */
     public $id;
+    /**
+     * @var array<int|string, array<string, mixed>>|null
+     */
     public $players;
+    /**
+     * @var string|null
+     */
     public $agent;
+    /**
+     * @var string|null
+     */
     public $agent_version;
+    /**
+     * @var int|string|null
+     */
     public $recognition_at;
 
-    private $playersChanged = false;
+    private bool $playersChanged = false;
 
     public function rules()
     {
@@ -51,7 +66,7 @@ class BattleRerecognizeForm extends Model
         ];
     }
 
-    public function validateArrayOfPlayers($attr, $params)
+    public function validateArrayOfPlayers(string $attr, mixed $params): void
     {
         if (!is_array($this->$attr)) {
             $this->addError($attr, "{$attr} should be array");
@@ -75,7 +90,10 @@ class BattleRerecognizeForm extends Model
         }
     }
 
-    public function getMyData()
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function getMyData(): ?array
     {
         return array_find(
             $this->players,
@@ -83,17 +101,17 @@ class BattleRerecognizeForm extends Model
         );
     }
 
-    public function getBattle()
+    public function getBattle(): ?Battle
     {
         return Battle::findOne(['id' => $this->id]);
     }
 
-    public function save()
+    public function save(): bool
     {
         return $this->savePlayers() && $this->saveBattle();
     }
 
-    protected function saveBattle()
+    protected function saveBattle(): bool
     {
         $my = new BattleRerecognizePlayerForm();
         $my->attributes = $this->getMyData();
@@ -149,7 +167,7 @@ class BattleRerecognizeForm extends Model
         return $battle->save();
     }
 
-    protected function savePlayers()
+    protected function savePlayers(): bool
     {
         if (count($this->players) !== 8) {
             $count = BattlePlayer::find()->where(['battle_id' => $this->id])->count();

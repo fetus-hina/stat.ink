@@ -18,9 +18,21 @@ class PasswordForm extends Model
      */
     public const SCENARIO_SET = 'set';
 
+    /**
+     * @var string|null
+     */
     public $screen_name;
+    /**
+     * @var string|null
+     */
     public $password;
+    /**
+     * @var string|null
+     */
     public $new_password;
+    /**
+     * @var string|null
+     */
     public $new_password_repeat;
 
     public function rules()
@@ -54,7 +66,7 @@ class PasswordForm extends Model
         ];
     }
 
-    public function validateOldPassword($attribute, $model)
+    public function validateOldPassword(string $attribute, mixed $model): void
     {
         if ($this->hasErrors()) {
             return;

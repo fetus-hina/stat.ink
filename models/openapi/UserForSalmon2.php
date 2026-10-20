@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\models\openapi;
 
+use Override;
 use Yii;
 use app\models\SalmonStats2;
 use app\models\User;
@@ -25,6 +26,10 @@ class UserForSalmon2 extends User
         return str_replace('UserForSalmon2', 'User', parent::oapiRefName());
     }
 
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
     public static function openApiSchema(): array
     {
         return [
@@ -115,6 +120,10 @@ class UserForSalmon2 extends User
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
+    #[Override]
     public static function openApiDepends(): array
     {
         return [
@@ -122,6 +131,10 @@ class UserForSalmon2 extends User
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
     public static function openapiExample(): array
     {
         return [];

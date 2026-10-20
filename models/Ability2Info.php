@@ -37,11 +37,17 @@ class Ability2Info extends Model
     private const WEIGHT_MEDIUM = 1;
     private const WEIGHT_HEAVY = 2;
 
+    /** @var Weapon2|null */
     public $weapon;
+    /** @var SplatoonVersion2|null */
     public $version;
+    /** @var Ability2|null */
     public $ability;
+    /** @var int */
     public $primary = 0;
+    /** @var int */
     public $secondary = 0;
+    /** @var bool */
     public $haveNinja = false;
 
     public function getIsPrimaryOnly(): bool
@@ -60,7 +66,11 @@ class Ability2Info extends Model
     // @codingStandardsIgnoreStart
     // https://mntone.minibird.jp/splw/%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA:%E3%82%AE%E3%82%A2%E3%83%91%E3%83%AF%E3%83%BC
     // @codingStandardsIgnoreEnd
-    public function getCoefficient(bool $raw = false)
+
+    /**
+     * @return array<string, mixed>|float|string|null
+     */
+    public function getCoefficient(bool $raw = false): array|float|string|null
     {
         switch ($this->ability->key ?? null) {
             case 'ink_resistance_up': // {{{
@@ -356,6 +366,9 @@ class Ability2Info extends Model
         }
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function getInkResistanceUpCoefficient(): ?array
     {
         // {{{
@@ -403,7 +416,7 @@ class Ability2Info extends Model
         })();
         $runSpeedCharge = (function () use ($gp): ?float {
             // {{{
-            if (!$this->weapon || !$this->weapon->mainReference) {
+            if (!$this->weapon) {
                 return null;
             }
 
@@ -440,7 +453,7 @@ class Ability2Info extends Model
     private function getInkSaverMainCoefficient(): ?float
     {
         // {{{
-        if (!$this->weapon || !$this->weapon->mainReference) {
+        if (!$this->weapon) {
             return null;
         }
 
@@ -474,7 +487,7 @@ class Ability2Info extends Model
     private function getInkSaverSubCoefficient(): ?float
     {
         // {{{
-        if (!$this->weapon || !$this->weapon->subweapon) {
+        if (!$this->weapon) {
             return null;
         }
 
@@ -513,9 +526,12 @@ class Ability2Info extends Model
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function getMainPowerUpCoefficient(): ?array
     {
-        if (!$this->weapon || !$this->weapon->mainPowerUp || !$this->version) {
+        if (!$this->weapon || !$this->version) {
             return null;
         }
 
@@ -533,6 +549,9 @@ class Ability2Info extends Model
         }
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function getMainPowerUpCoefficientIncreaseDamage(
         ?Weapon2 $weapon,
         ?WeaponAttack2 $attack,
@@ -673,10 +692,13 @@ class Ability2Info extends Model
         return null;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function getRunSpeedUpCoefficient(): ?array
     {
         // {{{
-        if (!$this->weapon || !$this->weapon->mainReference) {
+        if (!$this->weapon) {
             return null;
         }
 
@@ -725,9 +747,12 @@ class Ability2Info extends Model
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function getSpecialPowerUpCoefficient(): ?array
     {
-        if (!$this->weapon || !$this->weapon->special) {
+        if (!$this->weapon) {
             return null;
         }
 
@@ -854,10 +879,13 @@ class Ability2Info extends Model
         return null;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function getSwimSpeedUpCoefficient(): ?array
     {
         // {{{
-        if (!$this->weapon || !$this->weapon->mainReference) {
+        if (!$this->weapon) {
             return null;
         }
 

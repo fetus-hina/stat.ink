@@ -93,6 +93,9 @@ class Language extends ActiveRecord
         return strtolower($this->splitLangId()[1]);
     }
 
+    /**
+     * @return array{string, string}
+     */
     private function splitLangId(): array
     {
         if (!preg_match('/^(\w+)[-_](\w+)/', $this->lang, $match)) {

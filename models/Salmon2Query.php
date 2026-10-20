@@ -19,8 +19,11 @@ use function sprintf;
  */
 class Salmon2Query extends ActiveQuery
 {
-    private $summaryCache = null;
+    private mixed $summaryCache = null;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function summary(): array
     {
         if (!$this->summaryCache) {

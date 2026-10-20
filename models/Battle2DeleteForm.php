@@ -13,7 +13,13 @@ use yii\web\ServerErrorHttpException;
 
 class Battle2DeleteForm extends Model
 {
+    /**
+     * @var int|string|null
+     */
     public $battle;
+    /**
+     * @var string|null
+     */
     public $agree;
 
     public function rules()

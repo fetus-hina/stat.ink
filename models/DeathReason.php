@@ -111,7 +111,10 @@ class DeathReason extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'type_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -125,7 +128,10 @@ class DeathReason extends ActiveRecord
         ];
     }
 
-    public function getTranslatedNameList()
+    /**
+     * @return array<string, string>
+     */
+    public function getTranslatedNameList(): array
     {
         if ($this->type) {
             switch ($this->type->key) {
@@ -142,7 +148,7 @@ class DeathReason extends ActiveRecord
         return Translator::translateToAll('app-death', $this->name);
     }
 
-    public function getTranslatedName()
+    public function getTranslatedName(): string
     {
         if ($this->type) {
             switch ($this->type->key) {
@@ -159,6 +165,9 @@ class DeathReason extends ActiveRecord
         return Yii::t('app-death', $this->name);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -196,6 +205,9 @@ class DeathReason extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -203,6 +215,9 @@ class DeathReason extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $model = static::find()

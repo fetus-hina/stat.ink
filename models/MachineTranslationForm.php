@@ -16,6 +16,9 @@ final class MachineTranslationForm extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var string|null
+     */
     public $direction;
 
     #[Override]

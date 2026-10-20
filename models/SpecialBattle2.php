@@ -62,6 +62,9 @@ class SpecialBattle2 extends ActiveRecord
         return $this->hasMany(Battle2::class, ['special_battle_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [

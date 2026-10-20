@@ -10,6 +10,7 @@ namespace app\models;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
+use Override;
 use Throwable;
 use Yii;
 use app\components\behaviors\RemoteAddrBehavior;
@@ -117,8 +118,8 @@ use const SORT_STRING;
  * @property integer|null $bonus_id
  * @property integer|null $env_id
  * @property string $client_uuid
- * @property-read array|string|null $ua_variables
- * @property-write array|string|null $ua_variables
+ * @property-read array<string, mixed>|string|null $ua_variables
+ * @property-write array<string, mixed>|string|null $ua_variables
  * @property string|null $ua_custom
  * @property integer|null $agent_game_version_id
  * @property string|null $agent_game_version_date
@@ -233,6 +234,9 @@ class Battle2 extends ActiveRecord
 {
     protected const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
 
+    /**
+     * @var int|string|null
+     */
     public $freshness_id;
 
     public static function getRoughCount(): ?int
@@ -259,7 +263,8 @@ class Battle2 extends ActiveRecord
         return new Battle2Query(static::class);
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         foreach ($this->events() as $event => $handler) {
@@ -382,7 +387,10 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public function events()
+    /**
+     * @return array<string, callable>
+     */
+    public function events(): array
     {
         return [
             static::EVENT_AFTER_INSERT => function ($event) {
@@ -406,7 +414,7 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public static function createClientUuid($value): string
+    public static function createClientUuid(mixed $value): string
     {
         if (!is_scalar($value)) {
             return Uuid::v4()->formatAsString();
@@ -668,19 +676,19 @@ class Battle2 extends ActiveRecord
             ]);
     }
 
-    public function getBattleImageJudge()
+    public function getBattleImageJudge(): ActiveQuery
     {
         return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_JUDGE]);
     }
 
-    public function getBattleImageResult()
+    public function getBattleImageResult(): ActiveQuery
     {
         return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
     }
 
-    public function getBattleImageGear()
+    public function getBattleImageGear(): ActiveQuery
     {
         return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_GEAR]);
@@ -877,6 +885,9 @@ class Battle2 extends ActiveRecord
             ->limit(1);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getExtraData(): array
     {
         $json = $this->ua_variables;
@@ -991,6 +1002,10 @@ class Battle2 extends ActiveRecord
         return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
     }
 
+    /**
+     * @param string[] $skips
+     * @return array<string, mixed>
+     */
     public function toJsonArray(array $skips = []): array
     {
         $events = null;
@@ -1211,6 +1226,9 @@ class Battle2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function toIkaLogCsv(): array
     {
         // https://github.com/hasegaw/IkaLog/blob/b2e3f3f1315719ad42837ffdb2362680ae09a5dc/ikalog/outputs/csv.py#L130
@@ -1237,6 +1255,9 @@ class Battle2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<mixed>
+     */
     public function toCsvArray(): array
     {
         $t = strtotime($this->end_at ?: $this->created_at);
@@ -1314,7 +1335,7 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public function getPrettyMode()
+    public function getPrettyMode(): ?string
     {
         $key = implode('-', [
             $this->lobby->key ?? '?',
@@ -1402,6 +1423,9 @@ class Battle2 extends ActiveRecord
         ));
     }
 
+    /**
+     * @param BattlePlayer2[] $players
+     */
     private function getPrivateTeamId(array $players): ?string
     {
         if (!$this->lobby || $this->lobby->key !== 'private') {
@@ -1439,6 +1463,9 @@ class Battle2 extends ActiveRecord
         return $this->kill_or_assist - $this->kill;
     }
 
+    /**
+     * @return array<string, Ability2Info>|null
+     */
     public function getGearAbilitySummary(): ?array
     {
         static $cache = false;
@@ -1448,6 +1475,9 @@ class Battle2 extends ActiveRecord
         return $cache;
     }
 
+    /**
+     * @return array<string, Ability2Info>|null
+     */
     private function getGearAbilitySummaryImpl(): ?array
     {
         $results = [];
@@ -1513,6 +1543,9 @@ class Battle2 extends ActiveRecord
         return $results;
     }
 
+    /**
+     * @param int|string|array<int|string|null>|null $weaponIds
+     */
     public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null): void
     {
         $weaponIds = array_unique(array_filter((array)$weaponIds, fn ($value) => $value > 0));

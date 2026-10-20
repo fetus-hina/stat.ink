@@ -20,6 +20,9 @@ use function sprintf;
 
 trait TermDropdownListTrait
 {
+    /**
+     * @return array{array<string, string|array<string, string>>, array<string, string>}
+     */
     public function getTermDropdown(): array
     {
         return [
@@ -33,6 +36,9 @@ trait TermDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getPeriodDropdown(): array
     {
         return [
@@ -41,6 +47,9 @@ trait TermDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getDateDropdown(): array
     {
         return [
@@ -50,6 +59,9 @@ trait TermDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     private function getTermSeasonDropdown(): array
     {
         return [
@@ -61,6 +73,9 @@ trait TermDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getSpecifyDropdown(): array
     {
         return [

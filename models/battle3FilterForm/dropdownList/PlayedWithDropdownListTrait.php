@@ -22,6 +22,9 @@ use const SORT_DESC;
 
 trait PlayedWithDropdownListTrait
 {
+    /**
+     * @return array{array<string, string>, array<string, string>}
+     */
     public function getPlayedWithDropdown(?User $user, ?Battle3PlayedWith $currentFilter): array
     {
         return [
@@ -35,6 +38,9 @@ trait PlayedWithDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getFrequentlyPlayedWithDropdown(
         ?User $user,
         ?Battle3PlayedWith $exclude,

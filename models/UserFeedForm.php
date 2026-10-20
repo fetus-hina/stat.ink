@@ -16,8 +16,17 @@ final class UserFeedForm extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var string|null
+     */
     public $lang;
+    /**
+     * @var string|null
+     */
     public $screen_name;
+    /**
+     * @var string|null
+     */
     public $type;
 
     #[Override]

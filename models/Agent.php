@@ -79,7 +79,7 @@ class Agent extends ActiveRecord
         return $this->hasMany(Battle::class, ['agent_id' => 'id']);
     }
 
-    public function getAgentAttribute()
+    public function getAgentAttribute(): ActiveQuery
     {
         return $this->hasOne(AgentAttribute::class, ['name' => 'name']);
     }
@@ -101,7 +101,7 @@ class Agent extends ActiveRecord
         return Yii::t('app-link', $attr->link_url);
     }
 
-    public function getVersionUrl()
+    public function getVersionUrl(): ?string
     {
         if ($this->getIsIkalog() && preg_match('/^[0-9a-f]{7,}/', $this->version, $match)) {
             $ikalog = IkalogVersion::findOneByRevision($match[0]);
@@ -126,7 +126,7 @@ class Agent extends ActiveRecord
         return null;
     }
 
-    public function getIsIkaRec()
+    public function getIsIkaRec(): bool
     {
         return in_array($this->name, [
             'IkaRec',
@@ -135,17 +135,17 @@ class Agent extends ActiveRecord
         ]);
     }
 
-    public function getIsIkalog()
+    public function getIsIkalog(): bool
     {
         return $this->name === 'IkaLog' || $this->name === 'TakoLog';
     }
 
-    public function getIsStatinkWeb()
+    public function getIsStatinkWeb(): bool
     {
         return $this->name === 'stat.ink web client';
     }
 
-    public function getIsOldIkalogAsAtTheTime($t = null)
+    public function getIsOldIkalogAsAtTheTime(mixed $t = null): bool
     {
         return false;
     }

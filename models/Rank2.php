@@ -85,6 +85,9 @@ class Rank2 extends ActiveRecord
         return $this->hasOne(RankGroup2::class, ['id' => 'group_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -94,6 +97,9 @@ class Rank2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array{string, int|null}|null
+     */
     public static function parseRankNumber(int $rankNumber): ?array
     {
         $numberInRank = $rankNumber % 100;

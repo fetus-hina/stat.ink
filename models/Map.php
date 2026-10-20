@@ -88,7 +88,7 @@ final class Map extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return ActiveQuery<PeriodMap>
      */
     public function getPeriodMaps()
     {
@@ -103,7 +103,10 @@ final class Map extends ActiveRecord
         return $this->hasMany(SplapiMap::class, ['map_id' => 'id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         $t = $this->release_at ? strtotime($this->release_at) : null;
         return [
@@ -119,6 +122,9 @@ final class Map extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -152,6 +158,9 @@ final class Map extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -159,6 +168,9 @@ final class Map extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $values = static::find()

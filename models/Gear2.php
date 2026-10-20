@@ -36,7 +36,7 @@ class Gear2 extends ActiveRecord
 {
     use openapi\Util;
 
-    private $translatedName;
+    private ?string $translatedName = null;
 
     /*
      * @inheritdoc
@@ -121,7 +121,10 @@ class Gear2 extends ActiveRecord
         return $this->translatedName;
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -133,6 +136,9 @@ class Gear2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $row = static::find()
@@ -159,6 +165,9 @@ class Gear2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -170,6 +179,9 @@ class Gear2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         return array_map(

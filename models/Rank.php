@@ -82,7 +82,10 @@ final class Rank extends ActiveRecord
         return $this->hasOne(RankGroup::class, ['id' => 'group_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,

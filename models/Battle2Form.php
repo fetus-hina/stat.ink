@@ -22,21 +22,69 @@ use function trim;
 
 class Battle2Form extends Model
 {
+    /**
+     * @var int|string|null
+     */
     public $lobby_id;
+    /**
+     * @var int|string|null
+     */
     public $mode_id;
+    /**
+     * @var int|string|null
+     */
     public $rule_id;
+    /**
+     * @var int|string|null
+     */
     public $map_id;
+    /**
+     * @var int|string|null
+     */
     public $weapon_id;
+    /**
+     * @var string|null
+     */
     public $result;
+    /**
+     * @var int|string|null
+     */
     public $kill;
+    /**
+     * @var int|string|null
+     */
     public $death;
+    /**
+     * @var int|string|null
+     */
     public $kill_or_assist;
+    /**
+     * @var int|string|null
+     */
     public $special;
+    /**
+     * @var int|string|null
+     */
     public $rank_id;
+    /**
+     * @var int|string|null
+     */
     public $rank_after_id;
+    /**
+     * @var int|string|null
+     */
     public $my_point;
+    /**
+     * @var string|null
+     */
     public $link_url;
+    /**
+     * @var string|null
+     */
     public $note;
+    /**
+     * @var string|null
+     */
     public $private_note;
 
     public function behaviors()
@@ -118,6 +166,9 @@ class Battle2Form extends Model
         ];
     }
 
+    /**
+     * @return array<string, string|array<string, string>>
+     */
     public function createModeList(): array
     {
         $solo = Yii::t('app-rule2', '(Solo)');

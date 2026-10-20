@@ -13,9 +13,13 @@ use yii\base\Model;
 
 class KDWin2FilterForm extends Model
 {
+    /** @var string|array<mixed>|null */
     public $map;
+    /** @var string|array<mixed>|null */
     public $weapon;
+    /** @var string|array<mixed>|null */
     public $rank;
+    /** @var string|array<mixed>|null */
     public $version;
 
     public function formName()

@@ -84,6 +84,9 @@ class SalmonTitle2 extends ActiveRecord
         ]);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(?Gender $gender = null): array
     {
         $text = $this->name;
@@ -106,6 +109,9 @@ class SalmonTitle2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -138,6 +144,9 @@ class SalmonTitle2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -145,6 +154,9 @@ class SalmonTitle2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         return array_map(

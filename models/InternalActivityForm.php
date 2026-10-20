@@ -16,7 +16,9 @@ final class InternalActivityForm extends Model
 {
     use ValidateDataTrait;
 
+    /** @var string|array<mixed>|null */
     public $screen_name;
+    /** @var string|array<mixed>|null */
     public $only;
 
     #[Override]

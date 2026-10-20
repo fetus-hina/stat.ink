@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "user_badge3_adjust".
  *
  * @property integer $user_id
- * @property array $data
+ * @property array<string, mixed> $data
  *
  * @property User $user
  */

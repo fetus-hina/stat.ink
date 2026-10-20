@@ -29,6 +29,9 @@ use const SORT_LOCALE_STRING;
 
 trait WeaponDropdownListTrait
 {
+    /**
+     * @return array{array<string, array<string, string>>, array<string, string>}
+     */
     public function getWeaponDropdown(?User $user): array
     {
         return [
@@ -42,6 +45,9 @@ trait WeaponDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     private function getFrequentlyUsedWeaponDropdown(?User $user): array
     {
         if (!$user) {
@@ -75,6 +81,9 @@ trait WeaponDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     private function getWeaponTypeDropdown(): array
     {
         $weapons = ArrayHelper::map(
@@ -95,6 +104,7 @@ trait WeaponDropdownListTrait
 
     /**
      * @param array<int, array<string, string>> $weapons
+     * @return array<string, string>
      */
     private function renderWeaponTypeList(WeaponType3 $type, array $weapons): array
     {
@@ -116,6 +126,9 @@ trait WeaponDropdownListTrait
         );
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     private function getSubweaponDropdown(): array
     {
         return [
@@ -133,6 +146,9 @@ trait WeaponDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     private function getSpecialDropdown(): array
     {
         return [

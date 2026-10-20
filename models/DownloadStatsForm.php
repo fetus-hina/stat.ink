@@ -16,9 +16,13 @@ final class DownloadStatsForm extends Model
 {
     use ValidateDataTrait;
 
+    /** @var string|array<mixed>|null */
     public $lang;
+    /** @var string|array<mixed>|null */
     public $charset;
+    /** @var string|array<mixed>|null */
     public $bom;
+    /** @var string|array<mixed>|null */
     public $tsv;
 
     #[Override]

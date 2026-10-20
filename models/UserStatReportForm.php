@@ -16,7 +16,13 @@ final class UserStatReportForm extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var int|string|null
+     */
     public $year;
+    /**
+     * @var int|string|null
+     */
     public $month;
 
     private int $maxYear = 0;

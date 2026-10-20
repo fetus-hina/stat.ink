@@ -16,6 +16,7 @@ final class ApiV2UserStatsForm extends Model
 {
     use ValidateDataTrait;
 
+    /** @var string|array<mixed>|null */
     public $screen_name;
 
     #[Override]

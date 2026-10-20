@@ -40,7 +40,7 @@ class UserAuthKey extends ActiveRecord
 {
     public const VALID_PERIOD = 30 * 86400;
 
-    public $auth_key_raw;
+    public ?string $auth_key_raw = null;
 
     public static function find()
     {

@@ -8,6 +8,7 @@
 namespace app\models;
 
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -52,7 +53,10 @@ class RankGroup extends ActiveRecord
         ];
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -60,7 +64,7 @@ class RankGroup extends ActiveRecord
         ];
     }
 
-    public function getRanks()
+    public function getRanks(): ActiveQuery
     {
         return $this->hasMany(Rank::class, ['group_id' => 'id']);
     }

@@ -16,6 +16,9 @@ final class UserStatSplatfest2Form extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var string|null
+     */
     public $region;
 
     #[Override]

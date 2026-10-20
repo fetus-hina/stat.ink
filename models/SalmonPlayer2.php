@@ -61,8 +61,8 @@ class SalmonPlayer2 extends ActiveRecord
 {
     use openapi\Util;
 
-    public $top_500 = false; // compat with BattlePlayer2 and used by PlayerName2Widget
-    private $user = false;
+    public bool $top_500 = false; // compat with BattlePlayer2 and used by PlayerName2Widget
+    private User|false|null $user = false;
 
     public static function tableName()
     {
@@ -215,7 +215,7 @@ class SalmonPlayer2 extends ActiveRecord
         return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
     }
 
-    public function getForceBlackout()
+    public function getForceBlackout(): ActiveQuery
     {
         return $this->hasOne(ForceBlackout2::class, ['splatnet_id' => 'splatnet_id']);
     }
@@ -244,6 +244,9 @@ class SalmonPlayer2 extends ActiveRecord
         return $this->user;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         if ($this->is_me) {
@@ -321,6 +324,9 @@ class SalmonPlayer2 extends ActiveRecord
         });
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -415,6 +421,9 @@ class SalmonPlayer2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -422,6 +431,9 @@ class SalmonPlayer2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function openApiExample(): array
     {
         return [];

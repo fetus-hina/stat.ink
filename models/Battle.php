@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\ability\Effect;
@@ -94,8 +95,8 @@ use const SORT_STRING;
  * @property integer|null $his_team_count
  * @property integer $period
  * @property string|null $ua_custom
- * @property-read array|string|null $ua_variables
- * @property-write array|string|null $ua_variables
+ * @property-read array<string, mixed>|string|null $ua_variables
+ * @property-write array<string, mixed>|string|null $ua_variables
  * @property integer|null $env_id
  * @property boolean $is_automated
  * @property integer|null $headgear_id
@@ -144,12 +145,13 @@ use const SORT_STRING;
  * @property-read BattleImage|null $battleImageResult
  * @property-read BattleEvents|null $battleEvents
  * @property-read string|null $events
- * @property-read array $extraData
+ * @property-read array<string, mixed> $extraData
  * @property-read AbilityEffect|null $abilityEffects
  * @property-read stdClass $gearAbilities
  * @property-read BattlePlayer[] $hisTeamPlayers
  * @property-read int|null $inked
  * @property-read bool $isGachi
+ * @property-read bool $isMeaningful
  * @property-read float|int|null $kill_rate
  * @property-read BattlePlayer[] $myTeamPlayers
  * @property-read Battle|null $nextBattle
@@ -158,7 +160,7 @@ use const SORT_STRING;
  */
 class Battle extends ActiveRecord
 {
-    public $skipSaveHistory = false;
+    public bool $skipSaveHistory = false;
 
     public static function find(): BattleQuery
     {
@@ -186,7 +188,7 @@ class Battle extends ActiveRecord
         return null;
     }
 
-    public static function getTotalRoughCount()
+    public static function getTotalRoughCount(): int|false
     {
         $list = [
             self::getRoughCount(...),
@@ -222,7 +224,8 @@ class Battle extends ActiveRecord
         return 'battle';
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->on(ActiveRecord::EVENT_BEFORE_INSERT, $this->setKillRatio(...));
@@ -474,7 +477,7 @@ class Battle extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
-    public function getWeaponAttack()
+    public function getWeaponAttack(): ?WeaponAttack
     {
         $weapon = $this->weapon;
         $version = $this->splatoonVersion;
@@ -511,13 +514,13 @@ class Battle extends ActiveRecord
             ->orderBy('{{battle_player}}.[[id]] ASC');
     }
 
-    public function getMyTeamPlayers()
+    public function getMyTeamPlayers(): ActiveQuery
     {
         return $this->getBattlePlayers()
             ->andWhere(['{{battle_player}}.[[is_my_team]]' => true]);
     }
 
-    public function getHisTeamPlayers()
+    public function getHisTeamPlayers(): ActiveQuery
     {
         return $this->getBattlePlayers()
             ->andWhere(['{{battle_player}}.[[is_my_team]]' => false]);
@@ -531,61 +534,64 @@ class Battle extends ActiveRecord
         return $this->hasMany(BattleImage::class, ['battle_id' => 'id']);
     }
 
-    public function getBattleImageJudge()
+    public function getBattleImageJudge(): ActiveQuery
     {
         return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_JUDGE]);
     }
 
-    public function getBattleImageResult()
+    public function getBattleImageResult(): ActiveQuery
     {
         return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
     }
 
-    public function getBattleImageGear()
+    public function getBattleImageGear(): ActiveQuery
     {
         return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_GEAR]);
     }
 
-    public function getBattleEvents()
+    public function getBattleEvents(): ActiveQuery
     {
         return $this->hasOne(BattleEvents::class, ['id' => 'id']);
     }
 
+    /**
+     * @return string|null
+     */
     public function getEvents()
     {
         $model = $this->battleEvents;
         return $model ? $model->events : null;
     }
 
-    public function getSplatoonVersion()
+    public function getSplatoonVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion::class, ['id' => 'version_id']);
     }
 
-    public function getAgentGameVersion()
+    public function getAgentGameVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion::class, ['id' => 'agent_game_version_id']);
     }
 
-    public function getBonus()
+    public function getBonus(): ActiveQuery
     {
         return $this->hasOne(TurfwarWinBonus::class, ['id' => 'bonus_id']);
     }
 
-    public function getIsNawabari()
+    public function getIsNawabari(): bool
     {
         return $this->getIsThisGameMode('regular');
     }
 
-    public function getIsGachi()
+    public function getIsGachi(): bool
     {
         return $this->getIsThisGameMode('gachi');
     }
 
-    private function getIsThisGameMode($key)
+    private function getIsThisGameMode(string $key): bool
     {
         if ($this->rule) {
             return $this->rule->mode->key === $key;
@@ -593,7 +599,7 @@ class Battle extends ActiveRecord
         return false;
     }
 
-    public function getIsMeaningful()
+    public function getIsMeaningful(): bool
     {
         $props = [
             'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team', 'kill', 'death',
@@ -607,11 +613,18 @@ class Battle extends ActiveRecord
     }
 
     // compat
+
+    /**
+     * @return int
+     */
     public function getPeriodId()
     {
         return $this->period;
     }
 
+    /**
+     * @return int|null
+     */
     public function getInked()
     {
         if (
@@ -628,7 +641,7 @@ class Battle extends ActiveRecord
             : $this->my_point;
     }
 
-    public function getPreviousBattle()
+    public function getPreviousBattle(): ActiveQuery
     {
         return $this->hasOne(static::class, ['user_id' => 'user_id'])
             ->andWhere(['<', '{{battle}}.[[id]]', $this->id])
@@ -636,7 +649,7 @@ class Battle extends ActiveRecord
             ->limit(1);
     }
 
-    public function getNextBattle()
+    public function getNextBattle(): ActiveQuery
     {
         return $this->hasOne(static::class, ['user_id' => 'user_id'])
             ->andWhere(['>', '{{battle}}.[[id]]', $this->id])
@@ -644,7 +657,7 @@ class Battle extends ActiveRecord
             ->limit(1);
     }
 
-    public function setPeriod()
+    public function setPeriod(): void
     {
         // 開始時間があれば開始時間から15秒(適当)引いた値を使うを使う。
         // 終了時間があれば終了時間から3分30秒(適当)引いた値を仕方ないので使う。
@@ -674,7 +687,7 @@ class Battle extends ActiveRecord
         $this->period = \app\components\helpers\Battle::calcPeriod($time);
     }
 
-    public function setBonus()
+    public function setBonus(): void
     {
         $this->bonus_id = null;
         if (!$this->rule_id) {
@@ -692,7 +705,7 @@ class Battle extends ActiveRecord
         $this->bonus_id = $bonus->id;
     }
 
-    public function setKillRatio()
+    public function setKillRatio(): void
     {
         if ($this->kill === null || $this->death === null) {
             $this->kill_ratio = null;
@@ -705,7 +718,7 @@ class Battle extends ActiveRecord
         $this->kill_ratio = sprintf('%.2f', $this->kill / $this->death);
     }
 
-    public function setSplatoonVersion()
+    public function setSplatoonVersion(): void
     {
         if ($this->version_id) {
             return;
@@ -726,7 +739,7 @@ class Battle extends ActiveRecord
         $this->version_id = $version ? $version->id : null;
     }
 
-    public function updateUserStat()
+    public function updateUserStat(): void
     {
         if (!$stat = UserStat::findOne(['user_id' => $this->user_id])) {
             $stat = new UserStat();
@@ -736,6 +749,9 @@ class Battle extends ActiveRecord
         $stat->save();
     }
 
+    /**
+     * @return false|void
+     */
     public function updateUserWeapon()
     {
         $dirty = $this->getDirtyAttributes();
@@ -820,7 +836,11 @@ class Battle extends ActiveRecord
         return true;
     }
 
-    public function toJsonArray(array $skips = [])
+    /**
+     * @param string[] $skips
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(array $skips = []): array
     {
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
@@ -939,7 +959,10 @@ class Battle extends ActiveRecord
         ];
     }
 
-    public function toIkaLogCsv()
+    /**
+     * @return string[]
+     */
+    public function toIkaLogCsv(): array
     {
         // https://github.com/hasegaw/IkaLog/blob/b2e3f3f1315719ad42837ffdb2362680ae09a5dc/ikalog/outputs/csv.py#L130
         // t_unix, t_str, map, rule, won
@@ -962,7 +985,10 @@ class Battle extends ActiveRecord
         ];
     }
 
-    public function toIkaLogJson()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toIkaLogJson(): array
     {
         $ret = [
             'time' => strtotime($this->end_at ?: $this->at),
@@ -1043,7 +1069,10 @@ class Battle extends ActiveRecord
         return $ret;
     }
 
-    public function getDeathReasonNamesFromEvents()
+    /**
+     * @return array<string, string|null>
+     */
+    public function getDeathReasonNamesFromEvents(): array
     {
         try {
             if ($this->events === null || $this->events === '') {
@@ -1082,7 +1111,7 @@ class Battle extends ActiveRecord
         }
     }
 
-    public function getGearAbilities()
+    public function getGearAbilities(): stdClass
     {
         $gears = [
             $this->headgear,
@@ -1128,12 +1157,12 @@ class Battle extends ActiveRecord
         return (object)$ret;
     }
 
-    public function getHasAbilities()
+    public function getHasAbilities(): bool
     {
         return $this->headgear && $this->clothing && $this->shoes;
     }
 
-    public function getAbilityEffects()
+    public function getAbilityEffects(): ?AbilityEffect
     {
         if (!$this->getHasAbilities()) {
             return null;
@@ -1141,6 +1170,9 @@ class Battle extends ActiveRecord
         return Effect::factory($this);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getExtraData(): array
     {
         $json = $this->ua_variables;
@@ -1165,7 +1197,7 @@ class Battle extends ActiveRecord
         })();
     }
 
-    public function getKillRate()
+    public function getKillRate(): int|float|null
     {
         if ($this->kill + $this->death === 0) {
             return null;
@@ -1173,7 +1205,7 @@ class Battle extends ActiveRecord
         return $this->kill / ($this->kill + $this->death);
     }
 
-    public function saveEditHistory()
+    public function saveEditHistory(): bool
     {
         if ($this->skipSaveHistory) {
             return true;
@@ -1193,7 +1225,7 @@ class Battle extends ActiveRecord
         );
     }
 
-    public function saveDeleteHistory()
+    public function saveDeleteHistory(): bool
     {
         if ($this->skipSaveHistory) {
             return true;
@@ -1205,7 +1237,7 @@ class Battle extends ActiveRecord
         );
     }
 
-    protected function saveEditHistoryImpl($jsonBefore, $jsonAfter)
+    protected function saveEditHistoryImpl(string $jsonBefore, string $jsonAfter): bool
     {
         try {
             $edit = new BattleEditHistory();

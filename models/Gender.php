@@ -90,7 +90,10 @@ class Gender extends ActiveRecord
             ->viaTable('fest_title_gender', ['gender_id' => 'id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => strtolower($this->name),
@@ -99,6 +102,9 @@ class Gender extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -133,6 +139,9 @@ class Gender extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -140,6 +149,9 @@ class Gender extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openApiExample(): array
     {
         return array_map(

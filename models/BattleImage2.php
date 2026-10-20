@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use Override;
 use Yii;
 use app\components\helpers\RandomFilename;
 use yii\db\ActiveQuery;
@@ -127,13 +128,13 @@ class BattleImage2 extends ActiveRecord
         return $this->hasOne(BattleImageType::class, ['id' => 'type_id']);
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
         $path = Yii::getAlias('@imageurl') . '/' . $this->filename;
         return Url::to($path, true);
     }
 
-    private $deleteFilename;
+    private ?string $deleteFilename = null;
 
     public function beforeDelete()
     {
@@ -144,7 +145,8 @@ class BattleImage2 extends ActiveRecord
         return true;
     }
 
-    public function afterDelete()
+    #[Override]
+    public function afterDelete(): void
     {
         if ($this->deleteFilename) {
             $path = Yii::getAlias('@app/web/images') . '/' . $this->deleteFilename;
@@ -155,6 +157,6 @@ class BattleImage2 extends ActiveRecord
                 }
             }
         }
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 }

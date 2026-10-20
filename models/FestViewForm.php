@@ -16,7 +16,9 @@ final class FestViewForm extends Model
 {
     use ValidateDataTrait;
 
+    /** @var string|array<mixed>|null */
     public $region;
+    /** @var string|array<mixed>|null */
     public $order;
 
     #[Override]

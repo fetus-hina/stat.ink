@@ -122,6 +122,9 @@ final class Rule extends ActiveRecord
         return $this->hasOne(StatWeaponBattleCount::class, ['rule_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -131,6 +134,9 @@ final class Rule extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -156,6 +162,9 @@ final class Rule extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -164,6 +173,9 @@ final class Rule extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $values = static::find()

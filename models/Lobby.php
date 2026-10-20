@@ -64,7 +64,10 @@ class Lobby extends ActiveRecord
         return $this->hasMany(Battle::class, ['lobby_id' => 'id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,

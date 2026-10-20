@@ -9,12 +9,17 @@ declare(strict_types=1);
 
 namespace app\models\openapi;
 
+use Override;
 use Yii;
 
 use function array_merge;
 
 class ShortName extends Name
 {
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
     public static function openApiSchema(): array
     {
         return array_merge(parent::openApiSchema(), [

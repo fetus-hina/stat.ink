@@ -69,6 +69,9 @@ class SalmonPlayerBossKill2 extends ActiveRecord
         return $this->hasOne(SalmonPlayer2::class, ['id' => 'player_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -77,6 +80,9 @@ class SalmonPlayerBossKill2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -94,6 +100,9 @@ class SalmonPlayerBossKill2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -101,6 +110,9 @@ class SalmonPlayerBossKill2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         return [

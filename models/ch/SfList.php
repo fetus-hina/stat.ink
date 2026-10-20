@@ -20,6 +20,9 @@ use function usort;
 
 class SfList extends Model
 {
+    /**
+     * @var array<mixed> list of SfItem
+     */
     public $items = [];
 
     public static function create(string $text, bool $sort = true): ?self

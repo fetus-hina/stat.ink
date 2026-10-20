@@ -37,7 +37,7 @@ trait DropdownListTrait
     use WeaponDropdownListTrait;
 
     /**
-     * @return array{array<string, string>, array}
+     * @return array{array<string, string|array<string, string>>, array<string, string>}
      */
     public function getLobbyDropdown(): array
     {
@@ -65,7 +65,7 @@ trait DropdownListTrait
     }
 
     /**
-     * @return array{array<string, string>, array}
+     * @return array{array<string, string|array<string, string>>, array<string, string>}
      */
     public function getRuleDropdown(): array
     {
@@ -85,7 +85,7 @@ trait DropdownListTrait
     }
 
     /**
-     * @return array{array<string, string>, array}
+     * @return array{array<string, string>, array<string, string>}
      */
     public function getMapDropdown(): array
     {
@@ -98,7 +98,7 @@ trait DropdownListTrait
     }
 
     /**
-     * @return array{array<string, string>, array}
+     * @return array{array<string, string|array<string, string>>, array<string, string>}
      */
     public function getResultDropdown(): array
     {
@@ -141,7 +141,7 @@ trait DropdownListTrait
     }
 
     /**
-     * @return array{array<string, string>, array}
+     * @return array{array<string, string>, array<string, string>}
      */
     public function getKnockoutDropdown(): array
     {
@@ -158,6 +158,7 @@ trait DropdownListTrait
 
     /**
      * @param ActiveRecord[] $models
+     * @return array{array<string, array<string, string>>, array<string, string>}
      */
     private function getGroupDropdown(
         array $models,
@@ -221,7 +222,7 @@ trait DropdownListTrait
 
     /**
      * @param ActiveRecord[] $models
-     * @return array{array<string, string>, array}
+     * @return array{array<string, string>, array<string, string>}
      */
     private function getSimpleDropdown(
         array $models,

@@ -93,7 +93,7 @@ class UserStat2 extends ActiveRecord
 {
     use openapi\Util;
 
-    public static function getLock(int $userId, float $timeout = 10.0, bool $autoRelease = true)
+    public static function getLock(int $userId, float $timeout = 10.0, bool $autoRelease = true): bool|Resource
     {
         // {{{
         $mutex = Yii::$app->pgMutex;
@@ -630,6 +630,9 @@ class UserStat2 extends ActiveRecord
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getLastBattle(string $ruleKey): array
     {
         $query = new Query()
@@ -677,6 +680,9 @@ class UserStat2 extends ActiveRecord
         return $query->one() ?: [];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -828,7 +834,7 @@ class UserStat2 extends ActiveRecord
         return $cache[$value];
     }
 
-    private function xPowerFormatForJson($value): JsExpression
+    private function xPowerFormatForJson(mixed $value): JsExpression
     {
         $value = filter_var($value, FILTER_VALIDATE_FLOAT);
         return is_float($value) && $value > 0.0
@@ -836,6 +842,9 @@ class UserStat2 extends ActiveRecord
             : new JsExpression('null');
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -1119,6 +1128,9 @@ class UserStat2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private static function openApiSchemaRule(string $rule): array
     {
         return [
@@ -1153,12 +1165,18 @@ class UserStat2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         $model = Yii::createObject([

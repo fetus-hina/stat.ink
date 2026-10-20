@@ -16,6 +16,9 @@ use yii\db\ActiveQuery;
  */
 final class StatWeaponVsWeaponQuery extends ActiveQuery
 {
+    /**
+     * @param Weapon|int|string $weapon
+     */
     public function weapon($weapon): self
     {
         return $this->weaponImpl(

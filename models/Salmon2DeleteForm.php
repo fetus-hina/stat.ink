@@ -15,7 +15,13 @@ use yii\web\ServerErrorHttpException;
 
 class Salmon2DeleteForm extends Model
 {
+    /**
+     * @var Salmon2|null
+     */
     public $model;
+    /**
+     * @var string|null
+     */
     public $agree;
 
     public function rules()

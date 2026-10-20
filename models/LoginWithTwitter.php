@@ -86,7 +86,7 @@ final class LoginWithTwitter extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function login()
+    public function login(): bool
     {
         $user = $this->user;
 

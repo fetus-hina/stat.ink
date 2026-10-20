@@ -10,6 +10,7 @@ namespace app\models;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
@@ -37,27 +38,78 @@ use function vsprintf;
 
 class Battle2FilterForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $screen_name;
 
+    /**
+     * @var string|null
+     */
     public $rule;
+    /**
+     * @var string|null
+     */
     public $map;
+    /**
+     * @var string|null
+     */
     public $weapon;
+    /**
+     * @var string|null
+     */
     public $rank;
+    /**
+     * @var string|bool|null
+     */
     public $result;
+    /**
+     * @var string|bool|null
+     */
     public $has_disconnect;
+    /**
+     * @var string|null
+     */
     public $term;
+    /**
+     * @var string|null
+     */
     public $term_from;
+    /**
+     * @var string|null
+     */
     public $term_to;
+    /**
+     * @var string|null
+     */
     public $timezone;
-    public $id_from; // old, for compatibility. Use filterIdRange.
-    public $id_to; // old, for compatibility. Use filterIdRange.
+    /**
+     * @var string|null old, for compatibility. Use filterIdRange.
+     */
+    public $id_from;
+    /**
+     * @var string|null old, for compatibility. Use filterIdRange.
+     */
+    public $id_to;
+    /**
+     * @var string|null
+     */
     public $filter;
-    public $with_team; // "good" or "bad", refs $filterWithPrincipalId
+    /**
+     * @var string|null "good" or "bad", refs $filterWithPrincipalId
+     */
+    public $with_team;
 
-    private $filterTeam;
-    private $filterIdRange; // [ from, to ]
-    private $filterPeriod; // [ from, to ]
-    private $filterWithPrincipalId;
+    private ?string $filterTeam = null;
+    /**
+     * @var array{int, int}|null [ from, to ]
+     */
+    private ?array $filterIdRange = null;
+    /**
+     * @var array{int, int}|null [ from, to ]
+     */
+    private ?array $filterPeriod = null;
+    private ?string $filterWithPrincipalId = null;
 
     public function formName()
     {
@@ -222,6 +274,10 @@ class Battle2FilterForm extends Model
         ];
     }
 
+    /**
+     * @param array<mixed> $data
+     */
+    #[Override]
     public function load($data, $formName = null)
     {
         foreach (['id_from', 'id_to'] as $key) {
@@ -235,7 +291,7 @@ class Battle2FilterForm extends Model
         return parent::load($data, $formName);
     }
 
-    public function validateWeapon(string $attr, $params): void
+    public function validateWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $method = [$params['modelClass'], 'findOne'];
@@ -250,7 +306,7 @@ class Battle2FilterForm extends Model
         }
     }
 
-    public function validateRepresentativeWeapon(string $attr, $params): void
+    public function validateRepresentativeWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $count = Weapon2::find()
@@ -267,7 +323,7 @@ class Battle2FilterForm extends Model
         }
     }
 
-    public function validateRankGroup(string $attr, $params): void
+    public function validateRankGroup(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $count = RankGroup2::find()
@@ -283,7 +339,7 @@ class Battle2FilterForm extends Model
         }
     }
 
-    public function validateTimezone($attr, $params)
+    public function validateTimezone(string $attr, mixed $params): void
     {
         $value = $this->$attr;
         if (is_scalar($value) && $value != '') {
@@ -295,7 +351,7 @@ class Battle2FilterForm extends Model
         $this->$attr = Yii::$app->timeZone;
     }
 
-    public function validateFilter($attr, $params)
+    public function validateFilter(string $attr, mixed $params): void
     {
         $value = trim((string)($this->$attr));
         if ($value === '' || $this->hasErrors($attr)) {
@@ -372,7 +428,10 @@ class Battle2FilterForm extends Model
         return !!preg_match('/^[0-9a-zA-Z]+$/', $value);
     }
 
-    public function toPermLink($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toPermLink(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();
@@ -550,7 +609,10 @@ class Battle2FilterForm extends Model
         return $ret;
     }
 
-    public function toQueryParams($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toQueryParams(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();
@@ -590,11 +652,17 @@ class Battle2FilterForm extends Model
         return $this->filterTeam;
     }
 
+    /**
+     * @return array{int, int}|null
+     */
     public function getFilterIdRange(): ?array
     {
         return $this->filterIdRange;
     }
 
+    /**
+     * @return array{int, int}|null
+     */
     public function getFilterPeriod(): ?array
     {
         return $this->filterPeriod;

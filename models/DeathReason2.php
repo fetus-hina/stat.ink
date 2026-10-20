@@ -116,7 +116,10 @@ class DeathReason2 extends ActiveRecord
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -130,7 +133,10 @@ class DeathReason2 extends ActiveRecord
         ];
     }
 
-    public function getTranslatedNameList()
+    /**
+     * @return array<string, string>
+     */
+    public function getTranslatedNameList(): array
     {
         if ($this->type) {
             switch ($this->type->key) {

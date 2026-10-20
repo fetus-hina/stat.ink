@@ -104,7 +104,10 @@ class BattlePlayer extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'team' => $this->is_my_team ? 'my' : 'his',

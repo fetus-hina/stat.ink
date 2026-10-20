@@ -106,7 +106,7 @@ class UserStat extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function createCurrentData()
+    public function createCurrentData(): static
     {
         $db = Yii::$app->db;
         static $rules = null;
@@ -465,7 +465,10 @@ class UserStat extends ActiveRecord
         return $this;
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'entire' => [

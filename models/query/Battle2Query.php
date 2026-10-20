@@ -217,6 +217,9 @@ final class Battle2Query extends ActiveQuery
         return $this;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function filterTerm(string $term, array $options): self
     {
         // DateTimeZone
@@ -410,7 +413,7 @@ final class Battle2Query extends ActiveQuery
         return $this;
     }
 
-    public function getSummary()
+    public function getSummary(): stdClass
     {
         return BattleSummarizer::getSummary2($this);
     }

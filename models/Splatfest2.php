@@ -67,9 +67,18 @@ class Splatfest2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @var array<mixed>|null
+     */
     private ?array $termCache = null;
+    /**
+     * @var array<mixed>|null
+     */
     private ?array $queryTermCache = null;
 
+    /**
+     * @return array<mixed>|null
+     */
     private function splitTerm(): ?array
     {
         if ($this->termCache === null) {
@@ -78,6 +87,9 @@ class Splatfest2 extends ActiveRecord
         return $this->termCache;
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     private function splitQueryTerm(): ?array
     {
         if ($this->queryTermCache === null) {
@@ -86,7 +98,10 @@ class Splatfest2 extends ActiveRecord
         return $this->queryTermCache;
     }
 
-    private function splitTermImpl($term): ?array
+    /**
+     * @return array<mixed>|null
+     */
+    private function splitTermImpl(mixed $term): ?array
     {
         // 将来ネイティブに range に対応が入ればたぶんこうなるんじゃないかな…
         if (is_array($term)) {

@@ -178,6 +178,9 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function filterByTerm(?string $value, array $options = []): self
     {
         $raii = null;
@@ -264,7 +267,7 @@ class BattleQuery extends ActiveQuery
         }
     }
 
-    public function filterByIdRange(?int $idFrom, ?int $idTo): self
+    public function filterByIdRange(int|string|null $idFrom, int|string|null $idTo): self
     {
         if ($idFrom != '' && $idFrom > 0) {
             $this->andWhere(['>=', '{{battle}}.[[id]]', (int)$idFrom]);
