@@ -148,18 +148,20 @@ final class ScheduleAction extends Action
         User $user,
         SalmonSchedule3 $schedule,
     ): array {
-        return new Query()
-            ->select([
-                'max' => 'MAX([[id]])',
-                'count' => 'COUNT(*)',
-            ])
-            ->from('{{%salmon3}}')
-            ->andWhere([
-                'is_deleted' => false,
-                'is_private' => false,
-                'schedule_id' => $schedule->id,
-                'user_id' => $user->id,
-            ])
-            ->one($db);
+        return TypeHelper::array(
+            new Query()
+                ->select([
+                    'max' => 'MAX([[id]])',
+                    'count' => 'COUNT(*)',
+                ])
+                ->from('{{%salmon3}}')
+                ->andWhere([
+                    'is_deleted' => false,
+                    'is_private' => false,
+                    'schedule_id' => $schedule->id,
+                    'user_id' => $user->id,
+                ])
+                ->one($db),
+        );
     }
 }

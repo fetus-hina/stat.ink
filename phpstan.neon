@@ -157,7 +157,7 @@ parameters:
     EventStats: 'array<int, array<int, array{tide_id: int, event_id: int, waves: int, cleared: int, total_quota: int, total_delivered: int}>>'
     OverfishingStats: 'array{total: TotalEggs, waves: WaveStats[]}'
     PlayerStats: 'array{name: string, number: string, jobs: int, cleared: int, waves: int, max_danger_rate: int|float|numeric-string|null, clear_danger_rate: int|float|numeric-string|null, total_golden_result: int|null, avg_golden_result: int|float|numeric-string|null, max_golden_result: int|float|numeric-string|null, total_golden: int|null, avg_golden: int|float|numeric-string|null, max_golden: int|null, total_rescue: int|null, avg_rescue: int|float|numeric-string|null, total_rescued: int|null, avg_rescued: int|float|numeric-string|null, total_boss: int|null, avg_boss: int|float|numeric-string|null}'
-    TotalEggs: 'array{total_3_night: int, total_2_night: int, total_1_night: int, total_0_night: int}'
+    TotalEggs: 'array{total_3_night: int|null, total_2_night: int|null, total_1_night: int|null, total_0_night: int|null}'
     WaveStats: 'array{event_id: int, tide_id: int, golden_eggs: int}'
     WeaponStats: 'array{weapon_id: int, normal_waves: int, normal_cleared: int, xtra_waves: int, xtra_cleared: int}'
     SAssists: '\app\models\StatWeapon3Assist[]|\app\models\StatWeapon3AssistPerVersion[]'
