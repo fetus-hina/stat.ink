@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use LogicException;
 use Override;
 use Yii;
 use app\components\helpers\TypeHelper;
@@ -41,7 +42,7 @@ class User extends \yii\web\User
     public const CRYPT_METHOD = 'aes-256-gcm';
     public const CRYPT_KEY_SALT_BYTES = 16;
 
-    public string $identityFixedKey;
+    public ?string $identityFixedKey = null;
 
     #[Override]
     protected function sendIdentityCookie($identity, $duration): void
@@ -196,7 +197,7 @@ class User extends \yii\web\User
         $result = Yii::$app->security->pbkdf2(
             'sha512',
             $saltBinary,
-            $this->identityFixedKey,
+            $this->identityFixedKey ?? throw new LogicException('identityFixedKey is not configured'),
             1000,
             static::CRYPT_KEY_BITS / 8,
         );

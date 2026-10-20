@@ -20,22 +20,17 @@ class Download2Action extends BaseAction
 {
     private User $user;
 
-    #[Override]
-    public function init(): void
-    {
-        parent::init();
-        if (!$user = Yii::$app->user->getIdentity()) {
-            throw new ServerErrorHttpException();
-        }
-        $this->user = $user;
-    }
-
     /**
      * @return array<string, mixed>
      */
     #[Override]
     public function run(): array
     {
+        if (!$user = Yii::$app->user->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
+        $this->user = $user;
+
         $type = Yii::$app->request->get('type');
         if (is_scalar($type)) {
             switch ((string)$type) {

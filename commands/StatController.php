@@ -1308,8 +1308,8 @@ final class StatController extends Controller
     public function actionUpdateWeaponTier2(): void
     {
         Yii::$app->db->transaction(function ($db): void {
-            $lobby = Lobby2::findOne(['key' => 'standard']);
-            $mode = Mode2::findOne(['key' => 'gachi']);
+            $lobby = TypeHelper::instanceOf(Lobby2::findOne(['key' => 'standard']), Lobby2::class);
+            $mode = TypeHelper::instanceOf(Mode2::findOne(['key' => 'gachi']), Mode2::class);
             $ruleIds = ArrayHelper::getColumn(
                 Rule2::findAll(['key' => ['area', 'yagura', 'hoko', 'asari']]),
                 'id',
@@ -1326,8 +1326,8 @@ final class StatController extends Controller
                 ->from('battle2')
                 ->andWhere(['and',
                     [
-                        '{{battle2}}.[[lobby_id]]' => $lobby?->id,
-                        '{{battle2}}.[[mode_id]]' => $mode?->id,
+                        '{{battle2}}.[[lobby_id]]' => $lobby->id,
+                        '{{battle2}}.[[mode_id]]' => $mode->id,
                         '{{battle2}}.[[rule_id]]' => $ruleIds,
                         '{{battle2}}.[[is_win]]' => [true, false],
                         '{{battle2}}.[[is_automated]]' => true,
