@@ -11,6 +11,7 @@ namespace app\commands\stat;
 
 use LogicException;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2;
 use app\models\Rank2;
 use yii\db\Query;
@@ -35,7 +36,7 @@ trait Weapon2Trait
     {
         // {{{
         $pointNormalize = 50;
-        $dummyRank = Rank2::findOne(['key' => 'c-'])->id;
+        $dummyRank = TypeHelper::instanceOf(Rank2::findOne(['key' => 'c-']), Rank2::class)->id;
         $select = Battle2::find() // {{{
             ->select([
                 'weapon_id' => 'battle_player2.weapon_id',

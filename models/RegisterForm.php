@@ -10,6 +10,7 @@ namespace app\models;
 use Override;
 use Yii;
 use app\components\helpers\Password;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use yii\base\Model;
 
@@ -105,16 +106,16 @@ class RegisterForm extends Model
 
     private function getCurrentLanguageId(): int
     {
-        return Language::findOne(['lang' => Yii::$app->language])->id;
+        return TypeHelper::instanceOf(Language::findOne(['lang' => Yii::$app->language]), Language::class)->id;
     }
 
     private function getCurrentRegionId(): int
     {
-        return Region::findOne(['key' => 'jp'])->id;
+        return TypeHelper::instanceOf(Region::findOne(['key' => 'jp']), Region::class)->id;
     }
 
     private function getDefaultLinkModeId(): int
     {
-        return LinkMode::findOne(['key' => 'in_game'])->id;
+        return TypeHelper::instanceOf(LinkMode::findOne(['key' => 'in_game']), LinkMode::class)->id;
     }
 }

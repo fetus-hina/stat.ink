@@ -11,6 +11,7 @@ namespace app\commands;
 
 use Yii;
 use app\components\helpers\Battle3Helper;
+use app\components\helpers\TypeHelper;
 use app\models\Ability3;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
@@ -123,7 +124,10 @@ final class Battle3Controller extends Controller
                     '{{%battle3}}.[[has_disconnect]]' => false,
                     '{{%battle3}}.[[is_automated]]' => true,
                     '{{%battle3}}.[[is_deleted]]' => false,
-                    '{{%battle3}}.[[lobby_id]]' => Lobby3::findOne(['key' => 'xmatch'])->id,
+                    '{{%battle3}}.[[lobby_id]]' => TypeHelper::instanceOf(
+                        Lobby3::findOne(['key' => 'xmatch']),
+                        Lobby3::class,
+                    )->id,
                     '{{%battle3}}.[[use_for_entire]]' => true,
                     '{{exclude1}}.[[player_id]]' => null,
                     // '{{exclude2}}.[[player_id]]' => null,

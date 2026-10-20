@@ -12,6 +12,7 @@ use Exception;
 use Override;
 use Yii;
 use app\components\helpers\Battle;
+use app\components\helpers\TypeHelper;
 use app\models\GameMode;
 use app\models\PeriodMap;
 use app\models\Rule;
@@ -108,7 +109,7 @@ class SplapiController extends Controller
 
         echo "Converting to insert data...\n";
         $map = $this->getMapTable();
-        $rule_id = Rule::findOne(['key' => 'nawabari'])->id;
+        $rule_id = TypeHelper::instanceOf(Rule::findOne(['key' => 'nawabari']), Rule::class)->id;
         $insert = [];
         foreach ($json as $item) {
             foreach ($item->maps as $mapName) {

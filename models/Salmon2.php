@@ -1155,7 +1155,10 @@ class Salmon2 extends ActiveRecord
     public static function openapiExample(): array
     {
         $girl = Gender::findOne(['id' => 2]);
-        $title = SalmonTitle2::findOne(['key' => 'profreshional'])->toJsonArray($girl);
+        $title = TypeHelper::instanceOf(
+            SalmonTitle2::findOne(['key' => 'profreshional']),
+            SalmonTitle2::class,
+        )->toJsonArray($girl);
         $bosses = ArrayHelper::map(
             SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
             'key',
@@ -1185,9 +1188,15 @@ class Salmon2 extends ActiveRecord
             'url' => Url::to(['salmon/view', 'screen_name' => 'fetus_hina', 'id' => 137857], true),
             'api_endpoint' => Url::to(['api-v2-salmon/view', 'id' => 137857], true),
             // user
-            'stage' => SalmonMap2::findOne(['key' => 'tokishirazu'])->toJsonArray(),
+            'stage' => TypeHelper::instanceOf(
+                SalmonMap2::findOne(['key' => 'tokishirazu']),
+                SalmonMap2::class,
+            )->toJsonArray(),
             'is_cleared' => false,
-            'fail_reason' => SalmonFailReason2::findOne(['key' => 'wipe_out'])->toJsonArray(),
+            'fail_reason' => TypeHelper::instanceOf(
+                SalmonFailReason2::findOne(['key' => 'wipe_out']),
+                SalmonFailReason2::class,
+            )->toJsonArray(),
             'clear_waves' => 1,
             'danger_rate' => '174.2',
             'quota' => [18, 20, 22],
@@ -1207,7 +1216,10 @@ class Salmon2 extends ActiveRecord
             'waves' => [
                 [
                     'known_occurrence' => null,
-                    'water_level' => SalmonWaterLevel2::findOne(['key' => 'high'])->toJsonArray(),
+                    'water_level' => TypeHelper::instanceOf(
+                        SalmonWaterLevel2::findOne(['key' => 'high']),
+                        SalmonWaterLevel2::class,
+                    )->toJsonArray(),
                     'golden_egg_quota' => 18,
                     'golden_egg_appearances' => 45,
                     'golden_egg_delivered' => 24,
@@ -1215,7 +1227,10 @@ class Salmon2 extends ActiveRecord
                 ],
                 [
                     'known_occurrence' => null,
-                    'water_level' => SalmonWaterLevel2::findOne(['key' => 'normal'])->toJsonArray(),
+                    'water_level' => TypeHelper::instanceOf(
+                        SalmonWaterLevel2::findOne(['key' => 'normal']),
+                        SalmonWaterLevel2::class,
+                    )->toJsonArray(),
                     'golden_egg_quota' => 20,
                     'golden_egg_appearances' => 33,
                     'golden_egg_delivered' => 19,
@@ -1225,12 +1240,18 @@ class Salmon2 extends ActiveRecord
             'my_data' => [
                 'splatnet_id' => '3f6fb10a91b0c551',
                 'name' => 'HINA',
-                'special' => Special2::findOne(['key' => 'presser'])->toJsonArray(),
+                'special' => TypeHelper::instanceOf(
+                    Special2::findOne(['key' => 'presser']),
+                    Special2::class,
+                )->toJsonArray(),
                 'rescue' => 3,
                 'death' => 3,
                 'golden_egg_delivered' => 13,
                 'power_egg_collected' => 318,
-                'species' => Species2::findOne(['key' => 'inkling'])->toJsonArray(),
+                'species' => TypeHelper::instanceOf(
+                    Species2::findOne(['key' => 'inkling']),
+                    Species2::class,
+                )->toJsonArray(),
                 'gender' => $girl->toJsonArray(),
                 'special_uses' => [0, 1],
                 'weapons' => [

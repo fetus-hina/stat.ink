@@ -142,7 +142,7 @@ class UserStat extends ActiveRecord
 
         static $private = null;
         if ($private === null) {
-            $private = Lobby::findOne(['key' => 'private'])->id;
+            $private = TypeHelper::instanceOf(Lobby::findOne(['key' => 'private']), Lobby::class)->id;
         }
         $condIsNotPrivate = sprintf(
             '({{battle}}.[[lobby_id]] IS NULL OR {{battle}}.[[lobby_id]] <> %s)',

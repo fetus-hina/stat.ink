@@ -14,6 +14,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Rule2;
 use stdClass;
 use yii\db\Query;
@@ -27,7 +28,7 @@ trait Splatoon2
     public static function getSummary2(Query $oldQuery): stdClass
     {
         $db = Yii::$app->db;
-        $turfWarId = Rule2::findOne(['key' => 'nawabari'])->id;
+        $turfWarId = TypeHelper::instanceOf(Rule2::findOne(['key' => 'nawabari']), Rule2::class)->id;
         $now = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());

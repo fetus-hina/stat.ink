@@ -12,6 +12,7 @@ use Generator;
 use RuntimeException;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\Resource;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\models\Ability;
 use app\models\AgentAttribute;
@@ -622,14 +623,24 @@ class PostBattleForm extends Model
         $o = new Battle();
         $o->user_id = $user->id;
         $o->env_id = $user->env_id;
-        $o->lobby_id = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
-        $o->rule_id = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
-        $o->map_id = $this->map ? Map::findOne(['key' => $this->map])->id : null;
-        $o->weapon_id = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
+        $o->lobby_id = $this->lobby
+            ? TypeHelper::instanceOf(Lobby::findOne(['key' => $this->lobby]), Lobby::class)->id
+            : null;
+        $o->rule_id = $this->rule
+            ? TypeHelper::instanceOf(Rule::findOne(['key' => $this->rule]), Rule::class)->id
+            : null;
+        $o->map_id = $this->map ? TypeHelper::instanceOf(Map::findOne(['key' => $this->map]), Map::class)->id : null;
+        $o->weapon_id = $this->weapon
+            ? TypeHelper::instanceOf(Weapon::findOne(['key' => $this->weapon]), Weapon::class)->id
+            : null;
         $o->level = $this->level ? (int)$this->level : null;
         $o->level_after = $this->level_after ? (int)$this->level_after : null;
-        $o->rank_id = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
-        $o->rank_after_id = $this->rank_after ? Rank::findOne(['key' => $this->rank_after])->id : null;
+        $o->rank_id = $this->rank
+            ? TypeHelper::instanceOf(Rank::findOne(['key' => $this->rank]), Rank::class)->id
+            : null;
+        $o->rank_after_id = $this->rank_after
+            ? TypeHelper::instanceOf(Rank::findOne(['key' => $this->rank_after]), Rank::class)->id
+            : null;
         $o->rank_exp = (string)$this->rank_exp != '' ? (int)$this->rank_exp : null;
         $o->rank_exp_after = (string)$this->rank_exp_after != '' ? (int)$this->rank_exp_after : null;
         $o->cash = (string)$this->cash != '' ? (int)$this->cash : null;
@@ -639,9 +650,11 @@ class PostBattleForm extends Model
         $o->kill = (string)$this->kill != '' ? (int)$this->kill : null;
         $o->death = (string)$this->death != '' ? (int)$this->death : null;
         $o->gender_id = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
-        $o->fest_title_id = $this->fest_title ? FestTitle::findOne(['key' => $this->fest_title])->id : null;
+        $o->fest_title_id = $this->fest_title
+            ? TypeHelper::instanceOf(FestTitle::findOne(['key' => $this->fest_title]), FestTitle::class)->id
+            : null;
         $o->fest_title_after_id = $this->fest_title_after
-            ? FestTitle::findOne(['key' => $this->fest_title_after])->id
+            ? TypeHelper::instanceOf(FestTitle::findOne(['key' => $this->fest_title_after]), FestTitle::class)->id
             : null;
         $o->fest_exp = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
         $o->fest_exp_after = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;

@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\models\Mode2;
 use app\models\Rule2;
 use yii\helpers\ArrayHelper;
@@ -20,7 +21,7 @@ use yii\web\View;
 
 $rules = ArrayHelper::sort(
   ArrayHelper::getColumn(
-    Mode2::findOne(['key' => 'gachi'])->rules,
+    TypeHelper::instanceOf(Mode2::findOne(['key' => 'gachi']), Mode2::class)->rules,
     fn (Rule2 $rule): array => $rule->attributes,
   ),
   fn (array $a, array $b): int => $a['id'] <=> $b['id'],
