@@ -7,6 +7,7 @@
 
 namespace app\controllers;
 
+use Override;
 use Yii;
 use app\actions\api\v2\battle\CreateAction;
 use app\components\filters\auth\RequestBodyAuth;
@@ -36,7 +37,8 @@ class ApiV2BattleController extends Controller
 {
     public $enableCsrfValidation = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         Yii::$app->language = 'en-US';
         Yii::$app->timeZone = 'Etc/UTC';
@@ -71,7 +73,11 @@ class ApiV2BattleController extends Controller
         ]);
     }
 
-    protected function verbs()
+    /**
+     * @return array<string, string[]>
+     */
+    #[Override]
+    protected function verbs(): array
     {
         return [
             'index' => ['GET', 'HEAD'],
@@ -91,7 +97,10 @@ class ApiV2BattleController extends Controller
         ];
     }
 
-    public function actionIndex()
+    /**
+     * @return array<string, string[]>|list<int>|list<array<string, mixed>>
+     */
+    public function actionIndex(): array
     {
         $req = Yii::$app->request;
         $params = [
@@ -118,7 +127,10 @@ class ApiV2BattleController extends Controller
         );
     }
 
-    public function actionIndexWithAuth()
+    /**
+     * @return array<string, string[]>|list<int>|list<array<string, mixed>>
+     */
+    public function actionIndexWithAuth(): array
     {
         if (!Yii::$app->user->identity) {
             $res = Yii::$app->response;
@@ -148,6 +160,9 @@ class ApiV2BattleController extends Controller
         );
     }
 
+    /**
+     * @return list<int>|list<array<string, mixed>>
+     */
     private function createList(?User $user, ApiV2BattleListForm|ApiV2UserBattleListForm $model, ?string $format = null): array
     {
         $query = Battle2::find()
@@ -267,7 +282,10 @@ class ApiV2BattleController extends Controller
         }
     }
 
-    public function actionView($id, ?string $format = null)
+    /**
+     * @return array<string, mixed>
+     */
+    public function actionView(mixed $id, ?string $format = null): array
     {
         if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));

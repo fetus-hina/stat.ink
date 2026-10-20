@@ -7,6 +7,7 @@
 
 namespace app\controllers;
 
+use Override;
 use Yii;
 use app\actions\api\v1\BattleAction;
 use app\actions\api\v1\DeathReasonAction;
@@ -23,7 +24,8 @@ class ApiV1Controller extends Controller
 {
     public $enableCsrfValidation = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         Yii::$app->language = 'en-us';
         parent::init();

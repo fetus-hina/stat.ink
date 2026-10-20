@@ -195,7 +195,7 @@ class SalmonController extends Controller
         return 'standard';
     }
 
-    public function actionEdit(string $screen_name, int $id)
+    public function actionEdit(string $screen_name, int $id): ?string
     {
         $model = Salmon2::findOne([
             'id' => $id,
@@ -222,7 +222,7 @@ class SalmonController extends Controller
         ]);
     }
 
-    public function actionDelete(string $screen_name, int $id)
+    public function actionDelete(string $screen_name, int $id): ?string
     {
         $model = Salmon2::findOne([
             'id' => $id,
