@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use Override;
 use Yii;
 use yii\web\AssetBundle;
 
@@ -21,7 +22,8 @@ class IntlPolyfillAsset extends AssetBundle
     public $baseUrl = '@web';
     public $js = [];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

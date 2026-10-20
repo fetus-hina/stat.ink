@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use Override;
 use Yii;
 use app\components\widgets\BattleSummaryDialog;
 use jp3cki\yii2\flot\FlotAsset;
@@ -37,7 +38,8 @@ class BattleSummaryDialogAsset extends AssetBundle
         JqueryAsset::class,
     ];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

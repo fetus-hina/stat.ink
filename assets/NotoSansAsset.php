@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use Override;
 use yii\web\AssetBundle;
 
 use function array_keys;
@@ -23,7 +24,8 @@ class NotoSansAsset extends AssetBundle
 {
     public $css = [];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -44,6 +46,9 @@ class NotoSansAsset extends AssetBundle
         ]);
     }
 
+    /**
+     * @param array<string, string|string[]> $parameters
+     */
     private function buildQuery(array $parameters): string
     {
         return implode('&', array_map(
