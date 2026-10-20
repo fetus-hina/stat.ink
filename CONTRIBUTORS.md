@@ -38,6 +38,7 @@ tags in our PHP source files. The complete history of contributions lives in
 - Yifan Liu <yifanliu00@gmail.com>
 - Yoshiyuki Kawashima <ykawashi7@gmail.com>
 - Zyliqx <100963654+Zyliqx@users.noreply.github.com>
+- Максим Спирков <spirkov.2001@mail.ru>
 
 ## Translations
 

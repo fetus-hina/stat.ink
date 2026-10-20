@@ -205,34 +205,34 @@ parameters:
     enableAllRules: false
     enableValidationRules: true
     aliases:
-      '@app': %currentWorkingDirectory%
+      '@app': .
     yiiAppTypes:
       -
         paths:
-          - %currentWorkingDirectory%/actions
-          - %currentWorkingDirectory%/assets
-          - %currentWorkingDirectory%/components/grid
-          - %currentWorkingDirectory%/components/web
-          - %currentWorkingDirectory%/components/widgets
-          - %currentWorkingDirectory%/controllers
-          - %currentWorkingDirectory%/views
+          - actions
+          - assets
+          - components/grid
+          - components/web
+          - components/widgets
+          - controllers
+          - views
         type: app\components\web\Application
       -
         paths:
-          - %currentWorkingDirectory%/commands
+          - commands
         type: yii\console\Application
       -
         paths:
-          - %currentWorkingDirectory%
+          - .
         type: yii\console\Application|app\components\web\Application
     applicationConfigs:
       -
         paths:
-          - %currentWorkingDirectory%
+          - .
         files:
-          - %currentWorkingDirectory%/config/web.php
+          - config/web.php
       -
         paths:
-          - %currentWorkingDirectory%/commands
+          - commands
         files:
-          - %currentWorkingDirectory%/config/console.php
+          - config/console.php
