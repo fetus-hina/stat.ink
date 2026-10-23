@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90b737102ce3f68cebded8cbeda59049",
+    "content-hash": "9090d4fa7feaf626f40e4b109dab240b",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1623,16 +1623,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v7.5.0",
+            "version": "v7.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "7aa5b2bdddd570ece62c812c0cb588ccdc099e2e"
+                "reference": "0d8909b00aa8418802a5abf2afa82356b129a7ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/7aa5b2bdddd570ece62c812c0cb588ccdc099e2e",
-                "reference": "7aa5b2bdddd570ece62c812c0cb588ccdc099e2e",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/0d8909b00aa8418802a5abf2afa82356b129a7ef",
+                "reference": "0d8909b00aa8418802a5abf2afa82356b129a7ef",
                 "shasum": ""
             },
             "type": "library",
@@ -1658,9 +1658,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v7.5.0"
+                "source": "https://github.com/lipis/flag-icons/tree/v7.6.0"
             },
-            "time": "2025-05-29T17:52:20+00:00"
+            "time": "2026-10-15T22:34:55+00:00"
         },
         {
             "name": "markrogoyski/math-php",
