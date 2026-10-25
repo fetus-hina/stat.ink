@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca5af857020bd715916be97cd600785f",
+    "content-hash": "9a9abae1e7f05210590bc835a2e01de2",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1924,16 +1924,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "13.0.0",
+            "version": "13.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "3bbd46d35739833f3fa792ab5048f7bd9325a229"
+                "reference": "b92dab46aa56e25e377db48d9c7cca1fcbc34d10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/3bbd46d35739833f3fa792ab5048f7bd9325a229",
-                "reference": "3bbd46d35739833f3fa792ab5048f7bd9325a229",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/b92dab46aa56e25e377db48d9c7cca1fcbc34d10",
+                "reference": "b92dab46aa56e25e377db48d9c7cca1fcbc34d10",
                 "shasum": ""
             },
             "require": {
@@ -1998,9 +1998,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/13.0.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/13.0.1"
             },
-            "time": "2026-04-20T18:20:16+00:00"
+            "time": "2026-10-21T01:41:03+00:00"
         },
         {
             "name": "psr/container",
@@ -5342,38 +5342,38 @@
         },
         {
             "name": "ergebnis/json-printer",
-            "version": "3.9.0",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/json-printer.git",
-                "reference": "7c8f49d86229947b4034e4637da95cb4390073e6"
+                "reference": "a9bbf3816ca39382d6fb4b4ad58018e5ea4f3cb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-printer/zipball/7c8f49d86229947b4034e4637da95cb4390073e6",
-                "reference": "7c8f49d86229947b4034e4637da95cb4390073e6",
+                "url": "https://api.github.com/repos/ergebnis/json-printer/zipball/a9bbf3816ca39382d6fb4b4ad58018e5ea4f3cb4",
+                "reference": "a9bbf3816ca39382d6fb4b4ad58018e5ea4f3cb4",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "ext-mbstring": "*",
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "require-dev": {
-                "ergebnis/data-provider": "^3.6.0",
-                "ergebnis/license": "^2.7.0",
-                "ergebnis/php-cs-fixer-config": "^6.63.3",
-                "ergebnis/phpunit-slow-test-detector": "^2.25.0",
-                "ergebnis/rector-rules": "^1.18.4",
+                "ergebnis/data-provider": "^3.7.0",
+                "ergebnis/license": "^2.8.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.1",
+                "ergebnis/phpunit-slow-test-detector": "^2.26.0",
+                "ergebnis/rector-rules": "^1.18.5",
                 "fakerphp/faker": "^1.24.0",
                 "infection/infection": "~0.26.6",
+                "phpbench/phpbench": "^1.2.14",
                 "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.2.15",
+                "phpstan/phpstan": "^2.2.16",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
-                "phpstan/phpstan-phpunit": "^2.0.18",
-                "phpstan/phpstan-strict-rules": "^2.0.12",
+                "phpstan/phpstan-phpunit": "^2.1.1",
+                "phpstan/phpstan-strict-rules": "^2.1.0",
                 "phpunit/phpunit": "^9.6.21",
-                "rector/rector": "^2.6.7"
+                "rector/rector": "^2.7.0"
             },
             "type": "library",
             "extra": {
@@ -5413,7 +5413,7 @@
                 "security": "https://github.com/ergebnis/json-printer/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/json-printer"
             },
-            "time": "2026-09-24T19:42:43+00:00"
+            "time": "2026-10-21T19:02:11+00:00"
         },
         {
             "name": "ergebnis/json-schema-validator",
