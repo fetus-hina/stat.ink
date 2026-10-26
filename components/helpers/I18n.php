@@ -61,9 +61,12 @@ class I18n
         return implode("\n", $ret) . "\n";
     }
 
+    /**
+     * @param array<string, string> $data
+     */
     public static function createTranslateTableCode(string $filePath, array $data): string
     {
-        $localeHandler = static::switchSystemLocale(LC_COLLATE, 'C');
+        $localeHandler = self::switchSystemLocale(LC_COLLATE, 'C');
         uksort($data, strnatcasecmp(...));
         unset($localeHandler);
 
@@ -87,8 +90,8 @@ class I18n
         foreach ($data as $englishName => $localName) {
             $php[] = sprintf(
                 "    '%s' => '%s',",
-                static::addslashes($englishName),
-                static::addslashes($localName),
+                self::addslashes($englishName),
+                self::addslashes($localName),
             );
         }
         $php[] = '];';

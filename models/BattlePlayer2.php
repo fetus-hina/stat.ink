@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -31,38 +32,40 @@ use const SORT_DESC;
  * @property integer $battle_id
  * @property boolean $is_my_team
  * @property boolean $is_me
- * @property integer $weapon_id
- * @property integer $level
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
- * @property integer $point
- * @property integer $my_kill
- * @property integer $kill_or_assist
- * @property integer $special
- * @property integer $rank_id
- * @property string $name
- * @property integer $gender_id
- * @property integer $fest_title_id
- * @property string $splatnet_id
- * @property integer $star_rank
- * @property boolean $top_500
- * @property integer $species_id
+ * @property integer|null $weapon_id
+ * @property integer|null $level
+ * @property integer|null $rank_in_team
+ * @property integer|null $kill
+ * @property integer|null $death
+ * @property integer|null $point
+ * @property integer|null $my_kill
+ * @property integer|null $kill_or_assist
+ * @property integer|null $special
+ * @property integer|null $rank_id
+ * @property string|null $name
+ * @property integer|null $gender_id
+ * @property integer|null $fest_title_id
+ * @property string|null $splatnet_id
+ * @property integer|null $star_rank
+ * @property boolean|null $top_500
+ * @property integer|null $species_id
  *
  * @property Battle2 $battle
- * @property FestTitle $festTitle
- * @property Gender $gender
- * @property Rank2 $rank
- * @property Species2 $species
- * @property Weapon2 $weapon
+ * @property FestTitle|null $festTitle
+ * @property Gender|null $gender
+ * @property Rank2|null $rank
+ * @property Species2|null $species
+ * @property Weapon2|null $weapon
  *
- * @property-read ForceBlackout2 $forceBlackout
+ * @property-read ForceBlackout2|null $forceBlackout
  * @property-read bool $isForceBlackouted
  * @property-read string $iconUrl
+ * @property-read string $anonymizeSeed
+ * @property-read bool $isDisconnected
  */
 class BattlePlayer2 extends ActiveRecord
 {
-    private $user = false;
+    private User|false|null $user = false;
 
     public function behaviors()
     {
@@ -180,22 +183,22 @@ class BattlePlayer2 extends ActiveRecord
         return $this->hasOne(Rank2::class, ['id' => 'rank_id']);
     }
 
-    public function getGender()
+    public function getGender(): ActiveQuery
     {
         return $this->hasOne(Gender::class, ['id' => 'gender_id']);
     }
 
-    public function getSpecies()
+    public function getSpecies(): ActiveQuery
     {
         return $this->hasOne(Species2::class, ['id' => 'species_id']);
     }
 
-    public function getFestTitle()
+    public function getFestTitle(): ActiveQuery
     {
         return $this->hasOne(FestTitle::class, ['id' => 'fest_title_id']);
     }
 
-    public function getForceBlackout()
+    public function getForceBlackout(): ActiveQuery
     {
         return $this->hasOne(ForceBlackout2::class, ['splatnet_id' => 'splatnet_id']);
     }
@@ -282,7 +285,7 @@ class BattlePlayer2 extends ActiveRecord
     {
         $id = $this->getAnonymizeSeed();
         if (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $id, $match)) {
-            $id = hex2bin($match[1]);
+            $id = TypeHelper::string(hex2bin($match[1]));
         }
         return substr(
             hash('sha256', $id, false),
@@ -310,13 +313,16 @@ class BattlePlayer2 extends ActiveRecord
 
     public function getAnonymizeSeed(): string
     {
-        $value = trim($this->splatnet_id);
+        $value = trim($this->splatnet_id ?? '');
         return $value !== ''
             ? $value
-            : hash_hmac('sha256', $this->id, $this->battle_id);
+            : hash_hmac('sha256', (string)$this->id, (string)$this->battle_id);
     }
 
-    public function toJsonArray(?Battle2 $battle = null)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(?Battle2 $battle = null): array
     {
         if (!$battle && $this->fest_title_id) {
             $battle = $this->battle;
@@ -324,9 +330,9 @@ class BattlePlayer2 extends ActiveRecord
         return [
             'team' => $this->is_my_team ? 'my' : 'his',
             'is_me' => !!$this->is_me,
-            'weapon' => $this->weapon_id ? $this->weapon->toJsonArray() : null,
+            'weapon' => $this->weapon_id ? $this->weapon?->toJsonArray() : null,
             'level' => (string)$this->level === '' ? null : (int)$this->level,
-            'rank' => $this->rank_id ? $this->rank->toJsonArray() : null,
+            'rank' => $this->rank_id ? $this->rank?->toJsonArray() : null,
             'star_rank' => (string)$this->star_rank === '' ? null : (int)$this->star_rank,
             'rank_in_team' => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
             'kill' => (string)$this->kill === '' ? null : (int)$this->kill,
@@ -336,13 +342,13 @@ class BattlePlayer2 extends ActiveRecord
             'my_kill' => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
             'point' => (string)$this->point === '' ? null : (int)$this->point,
             'name' => (string)$this->name === '' ? null : $this->name,
-            'species' => $this->species_id ? $this->species->toJsonArray() : null,
-            'gender' => $this->gender_id ? $this->gender->toJsonArray() : null,
+            'species' => $this->species_id ? $this->species?->toJsonArray() : null,
+            'gender' => $this->gender_id ? $this->gender?->toJsonArray() : null,
             'fest_title' => $this->fest_title_id
-                ? $this->festTitle->toJsonArray(
+                ? $this->festTitle?->toJsonArray(
                     $this->gender,
-                    $battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
-                        ? ($this->is_my_team ? $battle->myTeamFestTheme->name : $battle->hisTeamFestTheme->name)
+                    $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
+                        ? ($this->is_my_team ? $battle->myTeamFestTheme?->name : $battle->hisTeamFestTheme?->name)
                         : null,
                 )
                 : null,

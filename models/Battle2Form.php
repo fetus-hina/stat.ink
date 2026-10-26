@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use RuntimeException;
 use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\validators\IdnToPunycodeFilterValidator;
@@ -15,6 +16,7 @@ use yii\base\Model;
 use function array_keys;
 use function array_merge;
 use function is_bool;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function sprintf;
@@ -22,21 +24,69 @@ use function trim;
 
 class Battle2Form extends Model
 {
+    /**
+     * @var int|string|null
+     */
     public $lobby_id;
+    /**
+     * @var int|string|null
+     */
     public $mode_id;
+    /**
+     * @var int|string|null
+     */
     public $rule_id;
+    /**
+     * @var int|string|null
+     */
     public $map_id;
+    /**
+     * @var int|string|null
+     */
     public $weapon_id;
+    /**
+     * @var string|null
+     */
     public $result;
+    /**
+     * @var int|string|null
+     */
     public $kill;
+    /**
+     * @var int|string|null
+     */
     public $death;
+    /**
+     * @var int|string|null
+     */
     public $kill_or_assist;
+    /**
+     * @var int|string|null
+     */
     public $special;
+    /**
+     * @var int|string|null
+     */
     public $rank_id;
+    /**
+     * @var int|string|null
+     */
     public $rank_after_id;
+    /**
+     * @var int|string|null
+     */
     public $my_point;
+    /**
+     * @var string|null
+     */
     public $link_url;
+    /**
+     * @var string|null
+     */
     public $note;
+    /**
+     * @var string|null
+     */
     public $private_note;
 
     public function behaviors()
@@ -83,8 +133,10 @@ class Battle2Form extends Model
             ],
             [['link_url', 'note', 'private_note'], 'filter', 'filter' => function ($value) {
                 $value = (string)$value;
-                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
-                $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
+                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value)
+                    ?? throw new RuntimeException(preg_last_error_msg());
+                $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value)
+                    ?? throw new RuntimeException(preg_last_error_msg());
                 $value = trim($value);
                 return $value === '' ? null : $value;
             },
@@ -118,6 +170,9 @@ class Battle2Form extends Model
         ];
     }
 
+    /**
+     * @return array<string, string|array<string, string>>
+     */
     public function createModeList(): array
     {
         $solo = Yii::t('app-rule2', '(Solo)');

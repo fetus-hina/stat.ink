@@ -15,7 +15,7 @@ return [
   'label' => Yii::t('app-salmon3', 'Job Scenario'),
   'value' => function (Salmon3 $model): ?string {
     $code = $model->scenario_code;
-    if (!$code || !is_string($code)) {
+    if (!$code) {
       return null;
     }
 

@@ -22,6 +22,7 @@ final class DateTimeApiFormatter
 {
     /**
      * @param DateTimeInterface|int|string|null $value
+     * @return array<string, mixed>|null
      */
     public static function toJson($value): ?array
     {

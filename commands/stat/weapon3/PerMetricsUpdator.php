@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands\stat\weapon3;
 
 use Exception;
+use LogicException;
 use Yii;
 use app\models\Lobby3;
 use app\models\Rule3;
@@ -46,9 +47,6 @@ final class PerMetricsUpdator
     public static function update(): void
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return;
-        }
 
         $db->transaction(
             fn (Connection $db) => self::doUpdate($db),
@@ -91,7 +89,7 @@ final class PerMetricsUpdator
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -113,7 +111,7 @@ final class PerMetricsUpdator
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,

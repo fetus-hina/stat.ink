@@ -58,7 +58,7 @@ final class Rank extends Widget
 
     private function renderRank(): string
     {
-        return Html::encode(Yii::t('app-rank3', $this->model->name));
+        return Html::encode(Yii::t('app-rank3', $this->model->name ?? ''));
     }
 
     private function renderSPlusNumber(): string

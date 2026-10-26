@@ -11,9 +11,15 @@ use app\models\Map;
 use app\models\Rule;
 use yii\base\Model;
 
+/**
+ * @property-read int|null $mapId
+ * @property-read int|null $ruleId
+ */
 class WeaponTrendsGetForm extends Model
 {
+    /** @var mixed */
     public $rule;
+    /** @var mixed */
     public $map;
 
     public function rules()

@@ -40,7 +40,7 @@ return [
     'q3' => $model->p75_special,
     'stddev' => $model->sd_special,
     'summary' => vsprintf('%s - %s', [
-        Yii::t('app-weapon3', $model->weapon?->name ?? ''),
+        Yii::t('app-weapon3', $model->weapon->name ?? ''),
         Yii::t('app-results', 'Avg Specials'),
     ]),
     'tooltipText' => '',

@@ -17,7 +17,6 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @phpstan-import-type OverfishingStats from OverfishingTrait
  *
  * @var OverfishingStats $stats
  * @var View $this

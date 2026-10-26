@@ -12,12 +12,10 @@ use app\components\Version;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
-use function date;
 use function in_array;
 use function preg_match;
 use function rawurlencode;
 use function sprintf;
-use function strtotime;
 use function trim;
 
 /**
@@ -27,10 +25,13 @@ use function trim;
  * @property string $name
  * @property string $version
  *
- * @property AgentAttribute $agentAttribute
+ * @property AgentAttribute|null $agentAttribute
  * @property Battle2[] $battle2s
  * @property Battle[] $battles
  * @property Salmon2[] $salmon2s
+ * @property-read string|null $productUrl
+ * @property-read bool $isIkaLog
+ * @property-read string|null $versionUrl
  */
 class Agent extends ActiveRecord
 {
@@ -78,7 +79,7 @@ class Agent extends ActiveRecord
         return $this->hasMany(Battle::class, ['agent_id' => 'id']);
     }
 
-    public function getAgentAttribute()
+    public function getAgentAttribute(): ActiveQuery
     {
         return $this->hasOne(AgentAttribute::class, ['name' => 'name']);
     }
@@ -97,10 +98,10 @@ class Agent extends ActiveRecord
         if (trim((string)$attr->link_url) === '') {
             return null;
         }
-        return Yii::t('app-link', $attr->link_url);
+        return Yii::t('app-link', $attr->link_url ?? '');
     }
 
-    public function getVersionUrl()
+    public function getVersionUrl(): ?string
     {
         if ($this->getIsIkalog() && preg_match('/^[0-9a-f]{7,}/', $this->version, $match)) {
             $ikalog = IkalogVersion::findOneByRevision($match[0]);
@@ -125,7 +126,7 @@ class Agent extends ActiveRecord
         return null;
     }
 
-    public function getIsIkaRec()
+    public function getIsIkaRec(): bool
     {
         return in_array($this->name, [
             'IkaRec',
@@ -134,92 +135,18 @@ class Agent extends ActiveRecord
         ]);
     }
 
-    public function getIsIkalog()
+    public function getIsIkalog(): bool
     {
         return $this->name === 'IkaLog' || $this->name === 'TakoLog';
     }
 
-    public function getIsStatinkWeb()
+    public function getIsStatinkWeb(): bool
     {
         return $this->name === 'stat.ink web client';
     }
 
-    public function getIsOldIkalogAsAtTheTime($t = null)
+    public function getIsOldIkalogAsAtTheTime(mixed $t = null): bool
     {
         return false;
-    }
-
-    private static $latestWinIkaLog;
-
-    private function getIsOldWinIkalogAsAtTheTime($t)
-    {
-        if (!preg_match('/^([0-9a-f]{7,})_/', $this->version, $match)) {
-            // なんかおかしい
-            return false;
-        }
-
-        $ikalog = IkalogVersion::findOneByRevision($match[1]);
-        if (!$ikalog) {
-            // 知らない WinIkaLog だった
-            return false;
-        }
-
-        if (!$ikalog->winikalogVersions) {
-            // なぜか WinIkaLog のリリースされてないリビジョンっぽい（たぶん新しすぎて認識できてない）
-            return $this->getIsOldCliIkalogAsAtTheTimeImpl($ikalog, $t);
-        }
-        $thisWinIkaLog = $ikalog->winikalogVersions[0];
-
-        if (static::$latestWinIkaLog === null) {
-            static::$latestWinIkaLog = WinikalogVersion::find()
-                ->andWhere(['<=', '{{winikalog_version}}.[[build_at]]', date('Y-m-d H:i:sP', $t)])
-                ->orderBy('{{winikalog_version}}.[[build_at]] DESC')
-                ->limit(1)
-                ->one();
-        }
-
-        if (static::$latestWinIkaLog->id === $thisWinIkaLog->id) {
-            // これより新しいバージョンは存在しない
-            return false;
-        }
-
-        $diff = $t - strtotime($thisWinIkaLog->build_at);
-        return $diff >= 21 * 86400;
-    }
-
-    private function getIsOldCliIkalogAsAtTheTime($t)
-    {
-        if (!preg_match('/^[0-9a-f]{7,}/', $this->version, $match)) {
-            // なんかおかしい
-            return false;
-        }
-
-        $ikalog = IkalogVersion::findOneByRevision($match[0]);
-        if (!$ikalog) {
-            // 知らない IkaLog だった
-            return false;
-        }
-
-        return $this->getIsOldCliIkalogAsAtTheTimeImpl($ikalog, $t);
-    }
-
-    private static $latestIkaLog;
-
-    private function getIsOldCliIkalogAsAtTheTimeImpl(IkalogVersion $ikalog, $t)
-    {
-        if (static::$latestIkaLog === null) {
-            static::$latestIkaLog = IkalogVersion::find()
-                ->andWhere(['<=', '{{ikalog_version}}.[[at]]', date('Y-m-d H:i:sP', $t)])
-                ->orderBy('{{ikalog_version}}.[[at]] DESC')
-                ->limit(1)
-                ->one();
-        }
-        if (static::$latestIkaLog->id === $ikalog->id) {
-            // これより新しいバージョンは存在しない
-            return false;
-        }
-
-        $diff = $t - strtotime($ikalog->at);
-        return $diff >= 21 * 86400;
     }
 }

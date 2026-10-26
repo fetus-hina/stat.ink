@@ -7,9 +7,12 @@
 
 namespace app\models\query;
 
+use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\BattleSummarizer;
 use app\components\helpers\Resource;
+use app\components\helpers\TypeHelper;
+use app\models\Battle;
 use app\models\BattleFilterForm;
 use app\models\BattleImageType;
 use app\models\SplatoonVersion;
@@ -30,6 +33,11 @@ use function substr;
 use function time;
 use function trim;
 
+/**
+ * @extends ActiveQuery<Battle>
+ *
+ * @property-read stdClass $summary
+ */
 class BattleQuery extends ActiveQuery
 {
     public function hasResultImage(): self
@@ -148,7 +156,7 @@ class BattleQuery extends ActiveQuery
 
     public function filterByRank(?string $rank): self
     {
-        if (substr($rank, 0, 1) === '~') {
+        if (substr($rank ?? '', 0, 1) === '~') {
             $this->innerJoinWith(['rank', 'rank.group']);
             $this->andWhere(['{{rank_group}}.[[key]]' => substr($rank, 1)]);
         } elseif ($rank != '') {
@@ -171,6 +179,9 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function filterByTerm(?string $value, array $options = []): self
     {
         $raii = null;
@@ -206,15 +217,15 @@ class BattleQuery extends ActiveQuery
                     break;
 
                 case 'today':
-                    $t = mktime(0, 0, 0, date('n', $now), date('j', $now), date('Y', $now));
+                    $t = TypeHelper::int(mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now), (int)date('Y', $now)));
                     $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
                     break;
 
                 case 'yesterday':
                     // 昨日の 00:00:00
-                    $t1 = mktime(0, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
+                    $t1 = TypeHelper::int(mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now)));
                     // 今日の 00:00:00
-                    $t2 = mktime(0, 0, 0, date('n', $now), date('j', $now), date('Y', $now));
+                    $t2 = TypeHelper::int(mktime(0, 0, 0, (int)date('n', $now), (int)date('j', $now), (int)date('Y', $now)));
                     $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t1)]);
                     $this->andWhere(['<', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t2)]);
                     break;
@@ -233,14 +244,14 @@ class BattleQuery extends ActiveQuery
                     break;
 
                 default:
-                    if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $value, $match)) {
+                    if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $value ?? '', $match)) {
                         $range = BattleHelper::getNBattlesRange($options['filter'], (int)$match[1]);
                         if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
                             $this->andWhere('1 <> 1'); // Always false
                         } else {
                             $this->andWhere(['between', '{{battle}}.[[id]]', $range['min_id'], $range['max_id']]);
                         }
-                    } elseif (preg_match('/^v\d+/', $value)) {
+                    } elseif (preg_match('/^v\d+/', $value ?? '')) {
                         $version = SplatoonVersion::findOne(['tag' => substr($value, 1)]);
                         if (!$version) {
                             $this->andWhere('1 <> 1'); // Always false
@@ -257,7 +268,7 @@ class BattleQuery extends ActiveQuery
         }
     }
 
-    public function filterByIdRange(?int $idFrom, ?int $idTo): self
+    public function filterByIdRange(int|string|null $idFrom, int|string|null $idTo): self
     {
         if ($idFrom != '' && $idFrom > 0) {
             $this->andWhere(['>=', '{{battle}}.[[id]]', (int)$idFrom]);

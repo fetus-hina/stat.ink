@@ -23,7 +23,6 @@ use yii\helpers\ArrayHelper;
 
 use function array_last;
 use function array_map;
-use function assert;
 use function sprintf;
 use function time;
 use function usort;
@@ -33,6 +32,9 @@ use const SORT_ASC;
 
 trait Splatoon3
 {
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     protected function getPostStats3(): array
     {
         return Yii::$app->db->transaction(
@@ -92,6 +94,9 @@ trait Splatoon3
             ->all($db);
     }
 
+    /**
+     * @return array{term: array<string, mixed>, agents: list<array<string, mixed>>}
+     */
     protected function getAgentStats3(): array
     {
         $tz = $this->utc3();
@@ -151,6 +156,9 @@ trait Splatoon3
         }
     }
 
+    /**
+     * @return list<array{version: string, battles: int, users: int}>
+     */
     private function getAgentVersion3(
         string $name,
         DateTimeImmutable $startAt,
@@ -196,7 +204,6 @@ trait Splatoon3
     private function utc3(): Resource
     {
         $conn = Yii::$app->db;
-        assert($conn instanceof Connection);
 
         $oldTZ = $conn->createCommand("SELECT CURRENT_SETTING('TIMEZONE')")->queryScalar();
         $conn->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();

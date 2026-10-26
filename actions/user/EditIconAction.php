@@ -8,10 +8,13 @@
 namespace app\actions\user;
 
 use Exception;
+use Override;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
+use app\models\EditIconForm;
 use app\models\UserIcon;
-use yii\base\DynamicModel;
+use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
@@ -20,7 +23,8 @@ use function file_get_contents;
 
 class EditIconAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->getRequest();
         if (!$user = Yii::$app->user->identity) {
@@ -45,20 +49,9 @@ class EditIconAction extends BaseAction
                         return $this->controller->redirect(['user/profile'], 303);
 
                     case 'update':
-                        $model = DynamicModel::validateData(
-                            [
-                                'image' => UploadedFile::getInstanceByName('image'),
-                            ],
-                            [
-                                [['image'], 'required', 'message' => 'Please upload a file.'],
-                                [['image'], 'image',
-                                    'extensions' => ['png', 'jpg'],
-                                    'maxSize' => 2 * 1024 * 1024,
-                                    'maxWidth' => 2000,
-                                    'maxHeight' => 2000,
-                                ],
-                            ],
-                        );
+                        $model = EditIconForm::validateData([
+                            'image' => UploadedFile::getInstanceByName('image'),
+                        ]);
                         if ($model->hasErrors()) {
                             $message = $model->getFirstError('image');
                             break;
@@ -70,7 +63,8 @@ class EditIconAction extends BaseAction
                                     throw new Exception();
                                 }
                             }
-                            if (!$binary = @file_get_contents($model->image->tempName)) {
+                            $image = TypeHelper::instanceOf($model->image, UploadedFile::class);
+                            if (!$binary = @file_get_contents($image->tempName)) {
                                 throw new Exception();
                             }
                             $icon = UserIcon::createNew($user->id, $binary);
@@ -87,7 +81,6 @@ class EditIconAction extends BaseAction
                             $transaction->rollback();
                             throw $e;
                         }
-                        break;
                 }
             } catch (Throwable $e) {
             }

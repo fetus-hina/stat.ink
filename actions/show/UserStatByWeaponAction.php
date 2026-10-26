@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\User;
@@ -24,7 +25,8 @@ class UserStatByWeaponAction extends BaseAction
 {
     use UserStatFilterTrait;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -44,6 +46,9 @@ class UserStatByWeaponAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public function getList(User $user, BattleFilterForm $filter): array
     {
         $query = new Query()
@@ -84,7 +89,7 @@ class UserStatByWeaponAction extends BaseAction
                 '{{battle}}.[[is_win]]' => [ true, false ],
             ])
             ->groupBy('{{battle}}.[[weapon_id]]');
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
         $list = $query->all();

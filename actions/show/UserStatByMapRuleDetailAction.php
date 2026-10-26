@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\BattleFilterForm;
 use app\models\Map;
 use app\models\Rule;
@@ -27,7 +29,8 @@ class UserStatByMapRuleDetailAction extends BaseAction
 {
     use UserStatFilterTrait;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -49,9 +52,16 @@ class UserStatByMapRuleDetailAction extends BaseAction
         ));
     }
 
-    private function getData(User $user, BattleFilterForm $filter)
+    /**
+     * @return array{
+     *   data: array<string, array<string, object>>,
+     *   mapNames: array<string, object>,
+     *   ruleNames: array<string, string>
+     * }
+     */
+    private function getData(User $user, BattleFilterForm $filter): array
     {
-        $nawabari = Rule::findOne(['key' => 'nawabari'])->id;
+        $nawabari = TypeHelper::instanceOf(Rule::findOne(['key' => 'nawabari']), Rule::class)->id;
         $query = new Query()
             ->select([
                 'map_key' => 'MAX({{map}}.[[key]])',
@@ -165,7 +175,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
             ])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[rule_id]]']);
 
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
 

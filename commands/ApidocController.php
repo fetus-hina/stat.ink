@@ -12,7 +12,9 @@ namespace app\commands;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use RuntimeException;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\components\openapi\doc\V1 as V1Generator;
 use app\components\openapi\doc\V2 as V2Generator;
 use app\models\Country;
@@ -37,6 +39,7 @@ use function file_put_contents;
 use function getcwd;
 use function implode;
 use function is_array;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace_callback;
 use function random_int;
@@ -56,7 +59,10 @@ final class ApidocController extends Controller
     public $defaultAction = 'create';
     public $layout = false;
 
-    public $languages = [
+    /**
+     * @var array<string, string>
+     */
+    public array $languages = [
         'en' => 'en-US',
         'ja' => 'ja-JP',
         'zh-hans' => 'zh-CN',
@@ -78,8 +84,7 @@ final class ApidocController extends Controller
     {
         Yii::$app->language = $langCodeLong;
 
-        $successful = true;
-        $successful = $this->createV2($langCodeShort) && $successful;
+        $successful = $this->createV2($langCodeShort);
         $successful = $this->createV1($langCodeShort) && $successful;
         return $successful;
     }
@@ -277,7 +282,7 @@ final class ApidocController extends Controller
                                     round(16 * 4 / 3),
                                     implode('', array_map(
                                         fn (int $codepoint): string => sprintf('&#x%x;', $codepoint),
-                                        $country->regionalIndicatorSymbols,
+                                        $country->regionalIndicatorSymbols ?? [],
                                     )),
                                 ]),
                                 $tz->countries,
@@ -336,12 +341,12 @@ final class ApidocController extends Controller
                 }
             },
             static::FLAGICON_URL,
-        );
+        ) ?? throw new RuntimeException(preg_last_error_msg());
     }
 
-    private function getFlagIconCssVersion(): ?string
+    private function getFlagIconCssVersion(): string
     {
-        $cwd = getcwd();
+        $cwd = TypeHelper::string(getcwd());
         try {
             chdir(dirname(__DIR__));
             $cmdline = implode(' ', [

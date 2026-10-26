@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 
 use const SORT_ASC;
 
@@ -23,9 +24,10 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property string $splatnet_hint
+ * @property string|null $splatnet_hint
  *
  * @property SalmonSchedule2[] $schedules
+ * @property string $short_name
  */
 class SalmonMap2 extends ActiveRecord
 {
@@ -74,6 +76,9 @@ class SalmonMap2 extends ActiveRecord
         return $this->hasMany(SalmonSchedule2::class, ['map_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -83,6 +88,9 @@ class SalmonMap2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -108,6 +116,9 @@ class SalmonMap2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -116,13 +127,16 @@ class SalmonMap2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['key' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

@@ -19,10 +19,10 @@ class Nicovideo extends Widget
 {
     public static $autoIdPrefix = 'w-nico-';
 
-    public $videoId;
+    public ?string $videoId = null;
 
-    public $width = 847;
-    public $height = null;
+    public int|float $width = 847;
+    public int|float|null $height = null;
 
     public function run()
     {
@@ -35,7 +35,7 @@ class Nicovideo extends Widget
             Html::jsFile(
                 sprintf(
                     'https://embed.nicovideo.jp/watch/%s/script?%s',
-                    rawurlencode($this->videoId),
+                    rawurlencode($this->videoId ?? ''),
                     http_build_query(
                         [
                             'w' => (string)(int)$this->width,

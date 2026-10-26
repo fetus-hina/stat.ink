@@ -8,6 +8,7 @@
 namespace app\models;
 
 use app\components\helpers\Battle;
+use stdClass;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -26,7 +27,7 @@ use function time;
  */
 class PeriodMap extends ActiveRecord
 {
-    public static function findCurrentRegular()
+    public static function findCurrentRegular(): ActiveQuery
     {
         return static::findByModeAndPeriod(
             'regular',
@@ -36,7 +37,7 @@ class PeriodMap extends ActiveRecord
         );
     }
 
-    public static function findCurrentGachi()
+    public static function findCurrentGachi(): ActiveQuery
     {
         return static::findByModeAndPeriod(
             'gachi',
@@ -46,7 +47,7 @@ class PeriodMap extends ActiveRecord
         );
     }
 
-    public static function findNextRegular()
+    public static function findNextRegular(): ActiveQuery
     {
         return static::findByModeAndPeriod(
             'regular',
@@ -56,7 +57,7 @@ class PeriodMap extends ActiveRecord
         );
     }
 
-    public static function findNextGachi()
+    public static function findNextGachi(): ActiveQuery
     {
         return static::findByModeAndPeriod(
             'gachi',
@@ -66,7 +67,12 @@ class PeriodMap extends ActiveRecord
         );
     }
 
-    public static function findByModeAndPeriod($mode, $period)
+    /**
+     * @param string|string[] $mode
+     * @param int|int[] $period
+     * @return ActiveQuery<static>
+     */
+    public static function findByModeAndPeriod(string|array $mode, int|array $period): ActiveQuery
     {
         return static::find()
             ->innerJoinWith(['rule', 'rule.mode'])
@@ -76,7 +82,7 @@ class PeriodMap extends ActiveRecord
             ->orderBy('{{period_map}}.[[id]]');
     }
 
-    public static function getSchedule()
+    public static function getSchedule(): stdClass
     {
         $currentPeriod = Battle::calcPeriod(
             @$_SERVER['REQUEST_TIME'] ?: time(),
@@ -152,7 +158,7 @@ class PeriodMap extends ActiveRecord
         return $this->hasOne(Rule::class, ['id' => 'rule_id']);
     }
 
-    public function getWeaponTrends()
+    public function getWeaponTrends(): ActiveQuery
     {
         $query = StatWeaponMapTrend::find()
             ->andWhere([

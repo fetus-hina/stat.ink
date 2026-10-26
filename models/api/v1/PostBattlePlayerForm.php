@@ -13,15 +13,25 @@ use yii\base\Model;
 
 class PostBattlePlayerForm extends Model
 {
+    /** @var mixed */
     public $team;
+    /** @var mixed */
     public $is_me;
+    /** @var mixed */
     public $weapon;
+    /** @var mixed */
     public $rank;
+    /** @var mixed */
     public $level;
+    /** @var mixed */
     public $rank_in_team;
+    /** @var mixed */
     public $kill;
+    /** @var mixed */
     public $death;
+    /** @var mixed */
     public $point;
+    /** @var mixed */
     public $my_kill;
 
     public function rules()

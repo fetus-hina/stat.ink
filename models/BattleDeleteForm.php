@@ -12,6 +12,9 @@ use yii\base\Model;
 
 class BattleDeleteForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $agree;
 
     public function rules()

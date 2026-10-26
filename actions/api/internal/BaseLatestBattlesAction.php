@@ -9,8 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\internal;
 
-use DateTimeImmutable;
-use DateTimeZone;
+use Override;
 use Yii;
 use app\actions\api\internal\latestBattles\Battle1Formatter;
 use app\actions\api\internal\latestBattles\Battle2Formatter;
@@ -31,7 +30,6 @@ use function array_filter;
 use function array_merge;
 use function array_values;
 use function preg_replace;
-use function time;
 
 abstract class BaseLatestBattlesAction extends ViewAction
 {
@@ -41,8 +39,9 @@ abstract class BaseLatestBattlesAction extends ViewAction
     use Salmon2Formatter;
     use Salmon3Formatter;
 
-    private DateTimeImmutable $now;
-
+    /**
+     * @return array<Battle|Battle2|Battle3|Salmon2|Salmon3>
+     */
     abstract protected function fetchBattles(): array;
 
     abstract protected function getHeading(): string;
@@ -52,17 +51,11 @@ abstract class BaseLatestBattlesAction extends ViewAction
         return true;
     }
 
-    public function init()
-    {
-        parent::init();
-
-        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
-        $this->now = new DateTimeImmutable()
-            ->setTimestamp($t)
-            ->setTimezone(new DateTimeZone('Etc/UTC'));
-    }
-
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'compact-json';
@@ -84,6 +77,9 @@ abstract class BaseLatestBattlesAction extends ViewAction
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getTranslations(): array
     {
         $reltimes = [
@@ -118,6 +114,9 @@ abstract class BaseLatestBattlesAction extends ViewAction
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     private function getBattles(): array
     {
         return ArrayHelper::getColumn(
@@ -148,6 +147,9 @@ abstract class BaseLatestBattlesAction extends ViewAction
             |> array_values(...);
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getImages(): array
     {
         $am = Yii::$app->assetManager;

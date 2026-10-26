@@ -32,6 +32,9 @@ use const SORT_ASC;
 
 trait Splatoon2
 {
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     protected function getSplatoon2(): array
     {
         return array_merge(
@@ -42,6 +45,9 @@ trait Splatoon2
         );
     }
 
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     private function getSplatoon2Battles(): array
     {
         $am = Yii::$app->assetManager;
@@ -109,6 +115,9 @@ trait Splatoon2
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getSalmon2(): array
     {
         $am = Yii::$app->assetManager;
@@ -163,12 +172,12 @@ trait Splatoon2
                             function (SalmonWeapon2 $info) use ($am): array {
                                 $w = $info->weapon;
                                 return [
-                                    'key' => $w->key,
-                                    'name' => Yii::t('app-weapon2', $w->name),
+                                    'key' => $w?->key,
+                                    'name' => Yii::t('app-weapon2', $w->name ?? ''),
                                     'icon' => Url::to(
                                         $am->getAssetUrl(
                                             $am->getBundle(Spl2WeaponAsset::class, true),
-                                            $w->key . '.png',
+                                            $w?->key . '.png',
                                         ),
                                         true,
                                     ),
@@ -181,6 +190,10 @@ trait Splatoon2
         ];
     }
 
+    /**
+     * @param array<int, array<string, mixed>> $list
+     * @return array<int, array<string, mixed>>
+     */
     private function fillSalmon2Weapon(array $list): array
     {
         while (count($list) < 4) {

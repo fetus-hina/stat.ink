@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\CauseOfDeathGroupForm;
@@ -29,7 +30,8 @@ class UserStatCauseOfDeathAction extends BaseAction
 {
     use UserStatFilterTrait;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -54,6 +56,9 @@ class UserStatCauseOfDeathAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return list<object{name: string, count: int}>
+     */
     public function getList(
         User $user,
         BattleFilterForm $filter,
@@ -80,7 +85,7 @@ class UserStatCauseOfDeathAction extends BaseAction
             ->leftJoin('rank', '{{battle}}.[[rank_id]] = {{rank}}.[[id]]')
             ->leftJoin('rank_group', '{{rank}}.[[group_id]] = {{rank_group}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $user->id]);
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
 
@@ -99,6 +104,9 @@ class UserStatCauseOfDeathAction extends BaseAction
         }
     }
 
+    /**
+     * @return list<object{name: string, count: int}>
+     */
     protected function getListAsIs(Query $query): array
     {
         $query
@@ -130,17 +138,26 @@ class UserStatCauseOfDeathAction extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return list<object{name: string, count: int}>
+     */
     protected function getListCanonical(Query $query): array
     {
         return $this->getListMainWeaponImpl($query, 'canonical_id');
     }
 
+    /**
+     * @return list<object{name: string, count: int}>
+     */
     protected function getListMainWeapon(Query $query): array
     {
         return $this->getListMainWeaponImpl($query, 'main_group_id');
     }
 
-    private function getListMainWeaponImpl(Query $query, $column): array
+    /**
+     * @return list<object{name: string, count: int}>
+     */
+    private function getListMainWeaponImpl(Query $query, string $column): array
     {
         $query
             ->select([
@@ -171,7 +188,7 @@ class UserStatCauseOfDeathAction extends BaseAction
             if ($column === 'canonical_id') {
                 $weapons[$o->id] = Yii::t('app-weapon', $o->name);
             } else {
-                $weapons[$o->id] = Yii::t('app', '{0} etc.', Yii::t('app-weapon', $o->name));
+                $weapons[$o->id] = Yii::t('app', '{0} etc.', [Yii::t('app-weapon', $o->name)]);
             }
         }
 
@@ -196,12 +213,15 @@ class UserStatCauseOfDeathAction extends BaseAction
         }
         $ret = array_merge(
             array_values($retWeapons),
-            array_values($retOthers),
+            $retOthers,
         );
         usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 
+    /**
+     * @return list<object{name: string, count: int}>
+     */
     protected function getListType(Query $query): array
     {
         $query

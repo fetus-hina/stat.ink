@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\BattleApiFormatter;
@@ -27,10 +28,8 @@ final class GetSingleBattleAction extends Action
 {
     use ApiInitializerTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();
@@ -81,9 +80,6 @@ final class GetSingleBattleAction extends Action
         }
 
         $user = $model->user;
-        if (!$user) {
-            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-        }
 
         $isAuthenticated = Yii::$app->user->isGuest
             ? false

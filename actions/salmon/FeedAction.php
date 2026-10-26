@@ -13,18 +13,19 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version as FeedVersion;
+use Override;
 use Yii;
 use app\components\i18n\Formatter;
-use app\models\Language;
 use app\models\Salmon2;
+use app\models\Salmon2FeedForm;
 use app\models\User;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\components\helpers\TypeHelper;
 
 use function array_map;
 use function implode;
@@ -37,7 +38,8 @@ use const SORT_DESC;
 
 class FeedAction extends Action
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -45,27 +47,18 @@ class FeedAction extends Action
         Yii::$app->language = 'en-US';
     }
 
-    public function run()
+    /**
+     * @return array{error: mixed}|string
+     */
+    public function run(): array|string
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();
-        $input = DynamicModel::validateData(
+        $input = Salmon2FeedForm::validateData(
             [
                 'lang' => $request->get('lang'),
                 'screen_name' => $request->get('screen_name'),
                 'type' => $request->get('type'),
-            ],
-            [
-                [['lang', 'screen_name', 'type'], 'required'],
-                [['lang'], 'exist',
-                    'targetClass' => Language::class,
-                    'targetAttribute' => 'lang',
-                ],
-                [['screen_name'], 'exist',
-                    'targetClass' => User::class,
-                    'targetAttribute' => 'screen_name',
-                ],
-                [['type'], 'in', 'range' => ['atom', 'rss']],
             ],
         );
         if ($input->hasErrors()) {
@@ -74,6 +67,9 @@ class FeedAction extends Action
             $resp->statusText = 'Not Found';
             return ['error' => $input->getErrors()];
         }
+
+        $lang = TypeHelper::string($input->lang);
+        $feedType = TypeHelper::string($input->type);
 
         $resp->format = 'raw';
         if (!$user = User::findOne(['screen_name' => $input->screen_name])) {
@@ -100,10 +96,10 @@ class FeedAction extends Action
             Url::home(true),
         );
         $feed->setTitle(
-            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
+            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $lang),
         );
         $feed->setDescription(
-            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
+            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $lang),
         );
         $feed->setId(
             Uuid::v5(
@@ -117,7 +113,7 @@ class FeedAction extends Action
             $feed->setFeedLink(
                 Url::to(
                     ['salmon/feed',
-                        'lang' => $input->lang,
+                        'lang' => $lang,
                         'screen_name' => $user->screen_name,
                         'type' => $type,
                     ],
@@ -139,7 +135,7 @@ class FeedAction extends Action
         $feed->setCopyright(
             sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y')),
         );
-        $feed->setLanguage($input->lang);
+        $feed->setLanguage($lang);
         $feed->setEncoding('UTF-8');
         $feed->setDateModified((int)$now->getTimestamp());
         $feed->setLastBuildDate((int)$now->getTimestamp());
@@ -147,7 +143,7 @@ class FeedAction extends Action
 
         //FIXME
         $feed->addCategories(
-            $input->lang === 'ja-JP'
+            $lang === 'ja-JP'
                 ? [
                     ['term' => 'ゲーム'],
                     ['term' => 'スプラトゥーン'],
@@ -180,8 +176,8 @@ class FeedAction extends Action
                 'name' => $user->name,
                 'uri' => Url::to(['salmon/index', 'screen_name' => $user->screen_name], true),
             ]);
-            $entry->setDateCreated(strtotime($model->created_at));
-            $entry->setDateModified(strtotime($model->updated_at));
+            $entry->setDateCreated(TypeHelper::int(strtotime($model->created_at)));
+            $entry->setDateModified(TypeHelper::int(strtotime($model->updated_at)));
             $entry->setId(
                 Uuid::v5(
                     UuidNS::url(),
@@ -204,8 +200,8 @@ class FeedAction extends Action
                     true,
                 ),
             );
-            $entry->setTitle($this->makeEntryTitle($model, $input->lang));
-            $entry->setContent($this->makeEntryContent($model, $input->lang));
+            $entry->setTitle($this->makeEntryTitle($model, $lang));
+            $entry->setContent($this->makeEntryContent($model, $lang));
             $feed->addEntry($entry);
         }
 
@@ -216,9 +212,9 @@ class FeedAction extends Action
         $resp->format = 'raw';
         $resp->headers->set(
             'Content-Type',
-            $contentType[$input->type] ?? 'text/xml; charset=UTF-8',
+            $contentType[$feedType] ?? 'text/xml; charset=UTF-8',
         );
-        return $feed->export($input->type);
+        return $feed->export($feedType);
     }
 
     protected function makeEntryTitle(Salmon2 $model, string $lang): string
@@ -274,7 +270,7 @@ class FeedAction extends Action
             ],
             [
                 Yii::t('app', 'Special', [], $lang),
-                Yii::t('app-special2', $model->myData->special->name ?? null, [], $lang),
+                Yii::t('app-special2', $model->myData->special->name ?? '', [], $lang),
             ],
             [
                 Yii::t('app-salmon2', 'Deaths', [], $lang),

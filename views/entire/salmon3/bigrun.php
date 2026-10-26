@@ -33,6 +33,7 @@ use yii\web\View;
  * @var View $this
  * @var array<int, SalmonSchedule3> $schedules
  * @var array<int, int> $histogram
+ * @var array<int, int> $jobHistogram
  * @var int|null $chartMax
  */
 

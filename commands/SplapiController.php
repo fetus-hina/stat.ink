@@ -9,8 +9,10 @@ namespace app\commands;
 
 use Curl\Curl;
 use Exception;
+use Override;
 use Yii;
 use app\components\helpers\Battle;
+use app\components\helpers\TypeHelper;
 use app\models\GameMode;
 use app\models\PeriodMap;
 use app\models\Rule;
@@ -33,12 +35,13 @@ use function usort;
 
 class SplapiController extends Controller
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         Yii::$app->timeZone = 'Asia/Tokyo';
     }
 
-    public function actionMapUpdateAll()
+    public function actionMapUpdateAll(): void
     {
         $transaction = Yii::$app->db->beginTransaction();
         PeriodMap::deleteAll();
@@ -57,7 +60,7 @@ class SplapiController extends Controller
         $transaction->commit();
     }
 
-    public function actionMapUpdate()
+    public function actionMapUpdate(): void
     {
         $transaction = Yii::$app->db->beginTransaction();
         $this->mapUpdateRegular();
@@ -66,17 +69,19 @@ class SplapiController extends Controller
         $transaction->commit();
     }
 
-    public function actionMapUpdateSplatfest()
+    public function actionMapUpdateSplatfest(): void
     {
         $transaction = Yii::$app->db->beginTransaction();
         $this->mapUpdateSplatfest();
         $transaction->commit();
     }
 
-    private function mapUpdateRegular()
+    private function mapUpdateRegular(): void
     {
         echo "regular...\n";
-        $latestPeriod = $this->getLatestPeriod(GameMode::findOne(['key' => 'regular']));
+        $latestPeriod = $this->getLatestPeriod(
+            TypeHelper::instanceOf(GameMode::findOne(['key' => 'regular']), GameMode::class),
+        );
         $currntPeriod = Battle::calcPeriod(time());
         $futureOnly = ($latestPeriod >= $currntPeriod);
         $json = array_filter(
@@ -106,7 +111,7 @@ class SplapiController extends Controller
 
         echo "Converting to insert data...\n";
         $map = $this->getMapTable();
-        $rule_id = Rule::findOne(['key' => 'nawabari'])->id;
+        $rule_id = TypeHelper::instanceOf(Rule::findOne(['key' => 'nawabari']), Rule::class)->id;
         $insert = [];
         foreach ($json as $item) {
             foreach ($item->maps as $mapName) {
@@ -131,10 +136,10 @@ class SplapiController extends Controller
         echo "done.\n";
     }
 
-    private function mapUpdateGachi()
+    private function mapUpdateGachi(): void
     {
         echo "gachi...\n";
-        $gameMode = GameMode::findOne(['key' => 'gachi']);
+        $gameMode = TypeHelper::instanceOf(GameMode::findOne(['key' => 'gachi']), GameMode::class);
         $latestPeriod = $this->getLatestPeriod($gameMode);
         $currntPeriod = Battle::calcPeriod(time());
         $futureOnly = ($latestPeriod >= $currntPeriod);
@@ -194,7 +199,7 @@ class SplapiController extends Controller
         echo "done.\n";
     }
 
-    private function getLatestPeriod(GameMode $gameMode)
+    private function getLatestPeriod(GameMode $gameMode): int
     {
         $o = PeriodMap::find()
             ->andWhere([
@@ -211,7 +216,7 @@ class SplapiController extends Controller
         return $o ? $o->period : 0;
     }
 
-    private function mapUpdateSplatfest()
+    private function mapUpdateSplatfest(): void
     {
         if (!$this->needUpdateSplatfest()) {
             return;
@@ -256,7 +261,7 @@ class SplapiController extends Controller
         }
     }
 
-    private function needUpdateSplatfest()
+    private function needUpdateSplatfest(): bool
     {
         // データが何もなければ取得が必要
         $count = SplatfestMap::find()
@@ -291,7 +296,10 @@ class SplapiController extends Controller
         return $count < 1;
     }
 
-    private function queryJson($url, $data = [])
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function queryJson(string $url, array $data = []): mixed
     {
         echo "Querying {$url} ...\n";
         $curl = new Curl();
@@ -308,7 +316,10 @@ class SplapiController extends Controller
         return Json::decode($curl->rawResponse, false);
     }
 
-    private function getMapTable()
+    /**
+     * @return array<string, int>
+     */
+    private function getMapTable(): array
     {
         $ret = [];
         foreach (SplapiMap::find()->all() as $a) {
@@ -317,7 +328,10 @@ class SplapiController extends Controller
         return $ret;
     }
 
-    private function getRuleTable(GameMode $gameMode)
+    /**
+     * @return array<string, int>
+     */
+    private function getRuleTable(GameMode $gameMode): array
     {
         $ret = [];
         foreach (SplapiRule::find()->all() as $a) {

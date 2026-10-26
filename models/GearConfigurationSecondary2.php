@@ -17,10 +17,10 @@ use const SORT_ASC;
  *
  * @property integer $id
  * @property integer $config_id
- * @property integer $ability_id
+ * @property integer|null $ability_id
  *
  * @property GearConfiguration2 $config
- * @property GearConfiguration2 $ability
+ * @property Ability2|null $ability
  */
 class GearConfigurationSecondary2 extends ActiveRecord
 {
@@ -85,7 +85,10 @@ class GearConfigurationSecondary2 extends ActiveRecord
         return $this->hasOne(Ability2::class, ['id' => 'ability_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function toJsonArray(): ?array
     {
         return $this->ability ? $this->ability->toJsonArray() : null;
     }

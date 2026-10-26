@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+use Override;
 use Yii;
 use app\actions\api\v2\salmon\IndexAction;
 use app\actions\api\v2\salmon\PostAction;
@@ -27,7 +28,8 @@ class ApiV2SalmonController extends Controller
 {
     public $enableCsrfValidation = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->language = 'en-US';
@@ -55,7 +57,11 @@ class ApiV2SalmonController extends Controller
         ]);
     }
 
-    protected function verbs()
+    /**
+     * @return array<string, string[]>
+     */
+    #[Override]
+    protected function verbs(): array
     {
         return [
             'create' => ['POST'],
@@ -94,7 +100,7 @@ class ApiV2SalmonController extends Controller
         ];
     }
 
-    public function actionOptions($id = null)
+    public function actionOptions(?string $id = null): Response
     {
         $res = Yii::$app->response;
         if (Yii::$app->request->method !== 'OPTIONS') {

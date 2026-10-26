@@ -22,11 +22,6 @@ use function vsprintf;
 
 use const SORT_ASC;
 
-/**
- * @phpstan-type TotalEggs array{total_3_night: int, total_2_night: int, total_1_night: int, total_0_night: int}
- * @phpstan-type WaveStats array{event_id: int, tide_id: int, golden_eggs: int}
- * @phpstan-type OverfishingStats array{total: TotalEggs, waves: WaveStats[]}
- */
 trait OverfishingTrait
 {
     /**
@@ -148,7 +143,13 @@ trait OverfishingTrait
                 '{{%salmon3}}.[[schedule_id]]' => (int)$schedule->id,
                 '{{%salmon3}}.[[user_id]]' => (int)$user->id,
             ]);
-        return TypeHelper::array($select->createCommand($db)->queryOne());
+        $row = TypeHelper::array($select->createCommand($db)->queryOne());
+        return [
+            'total_3_night' => TypeHelper::intOrNull($row['total_3_night']),
+            'total_2_night' => TypeHelper::intOrNull($row['total_2_night']),
+            'total_1_night' => TypeHelper::intOrNull($row['total_1_night']),
+            'total_0_night' => TypeHelper::intOrNull($row['total_0_night']),
+        ];
     }
 
     /**

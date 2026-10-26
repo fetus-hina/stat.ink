@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace app\commands;
 
 use DirectoryIterator;
+use Override;
+use RuntimeException;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use Yii;
@@ -26,6 +28,7 @@ use function file_put_contents;
 use function implode;
 use function in_array;
 use function ltrim;
+use function preg_last_error_msg;
 use function preg_quote;
 use function preg_replace_callback;
 use function rtrim;
@@ -37,7 +40,8 @@ final class DocCommentController extends Controller
 {
     public $defaultAction = 'rewrite-php';
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -128,7 +132,7 @@ final class DocCommentController extends Controller
             fn (array $match): string => rtrim($match[1]) . "\n\n{$docComment}\n\n",
             $file,
             1,
-        );
+        ) ?? throw new RuntimeException(preg_last_error_msg());
         if ($file === $newFile) {
             echo Console::ansiFormat($relPath, [Console::FG_GREY]) . "\n";
             return;
@@ -141,7 +145,7 @@ final class DocCommentController extends Controller
         file_put_contents($path, rtrim($newFile) . "\n");
     }
 
-    private function makeDocComment(string $path): ?string
+    private function makeDocComment(string $path): string
     {
         $lines = [
             vsprintf('@copyright Copyright (C) %s AIZAWA Hina', [

@@ -13,7 +13,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var StatWeapon3XUsageRange $xRange
+ * @var StatWeapon3XUsageRange|null $xRange
  * @var StatWeapon3XUsageRange[] $xRanges
  * @var View $this
  * @var bool|null $disableAll

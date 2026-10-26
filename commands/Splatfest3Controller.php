@@ -201,7 +201,7 @@ final class Splatfest3Controller extends Controller
                         ', ',
                         array_map(
                             fn (string $name): string => $db->quoteColumnName($name),
-                            array_keys($query->select),
+                            array_keys($query->select ?? throw new LogicException('No columns selected')),
                         ),
                     ),
                     $query->createCommand($db)->rawSql,
@@ -305,7 +305,7 @@ final class Splatfest3Controller extends Controller
                         ', ',
                         array_map(
                             fn (string $name): string => $db->quoteColumnName($name),
-                            array_keys($query->select),
+                            array_keys($query->select ?? throw new LogicException('No columns selected')),
                         ),
                     ),
                     $query->createCommand($db)->rawSql,
@@ -440,7 +440,7 @@ final class Splatfest3Controller extends Controller
                         ', ',
                         array_map(
                             $db->quoteColumnName(...),
-                            array_keys($query->select),
+                            array_keys($query->select ?? throw new LogicException('No columns selected')),
                         ),
                     ),
                     $query->createCommand($db)->rawSql,

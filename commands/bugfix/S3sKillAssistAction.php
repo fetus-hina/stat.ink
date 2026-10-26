@@ -11,6 +11,7 @@ namespace app\commands\bugfix;
 
 use Exception;
 use Generator;
+use LogicException;
 use Yii;
 use app\models\Agent;
 use app\models\AgentVariable3;
@@ -25,7 +26,6 @@ use yii\db\Transaction;
 use function array_filter;
 use function array_map;
 use function array_values;
-use function assert;
 use function fprintf;
 use function fwrite;
 use function ltrim;
@@ -60,7 +60,6 @@ final class S3sKillAssistAction extends Action
         }
 
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
 
         $failed = false;
         foreach ($this->enumTargetBattles($agentIds) as $battle) {
@@ -71,7 +70,7 @@ final class S3sKillAssistAction extends Action
                 $db->transaction(
                     fn (Connection $db): bool => $this->updateBattleRelation(
                         $battle,
-                        $db->transaction,
+                        $db->transaction ?? throw new LogicException('No active transaction'),
                     ),
                 )
             ) {
@@ -123,6 +122,7 @@ final class S3sKillAssistAction extends Action
     }
 
     /**
+     * @param int[] $agentIds
      * @return Generator<Battle3>
      */
     private function enumTargetBattles(array $agentIds): Generator
@@ -191,6 +191,9 @@ final class S3sKillAssistAction extends Action
         return $battle->save();
     }
 
+    /**
+     * @param BattlePlayer3[] $players
+     */
     private function updatePlayers(array $players): bool
     {
         foreach ($players as $player) {

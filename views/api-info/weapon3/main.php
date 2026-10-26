@@ -137,18 +137,17 @@ $this->registerJs('$(".mr-value").matchingRange();');
     </thead>
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
+<?php $numericAliases = array_filter(
+  ArrayHelper::getColumn($weapon->weapon3Aliases, 'key'),
+  fn (string $key): bool => (bool)preg_match('/^\d+$/', $key),
+) ?>
       <tr>
         <?= Html::tag(
           'td',
-          Icon::s3Weapon($weapon),
+          Icon::s3Weapon($weapon) ?? '',
           [
             'data' => [
-              'sort-value' => (string)min(
-                array_filter(
-                  ArrayHelper::getColumn($weapon->weapon3Aliases, 'key'),
-                  fn (string $key): bool => (bool)preg_match('/^\d+$/', $key),
-                ),
-              ),
+              'sort-value' => $numericAliases ? (string)min($numericAliases) : '',
             ],
           ],
         ) . "\n" ?>
@@ -162,13 +161,13 @@ $this->registerJs('$(".mr-value").matchingRange();');
         ]) . "\n" ?>
         <?= Html::tag(
           'td',
-          $weapon->mainweapon?->matching_range === null
+          $weapon->mainweapon->matching_range === null
             ? ''
-            : Yii::$app->formatter->asDecimal($weapon->mainweapon?->matching_range, 1),
+            : Yii::$app->formatter->asDecimal($weapon->mainweapon->matching_range, 1),
           [
             'class' => 'text-center mr-value',
             'data' => [
-              'sort-value' => (int)(($weapon->mainweapon?->matching_range ?? 0.0) * 10.0),
+              'sort-value' => (int)(($weapon->mainweapon->matching_range ?? 0.0) * 10.0),
             ],
           ],
         ) . "\n" ?>
@@ -245,19 +244,19 @@ $this->registerJs('$(".mr-value").matchingRange();');
         ) . "\n" ?>
         <?= Html::tag(
           'td',
-          Icon::s3Subweapon($weapon->subweapon),
+          Icon::s3Subweapon($weapon->subweapon) ?? '',
           [
             'data' => [
-              'sort-value' => $weapon?->subweapon?->rank ?? -1,
+              'sort-value' => $weapon?->subweapon->rank ?? -1,
             ],
           ],
         ) . "\n" ?>
         <?= Html::tag(
           'td',
-          Icon::s3Special($weapon->special),
+          Icon::s3Special($weapon->special) ?? '',
           [
             'data' => [
-              'sort-value' => $weapon?->special?->rank ?? -1,
+              'sort-value' => $weapon?->special->rank ?? -1,
             ],
           ],
         ) . "\n" ?>

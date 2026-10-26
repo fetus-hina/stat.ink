@@ -22,14 +22,14 @@ TwitterWebIntentsAsset::register($this);
 
 echo implode(' ', [
   Html::a(
-    '@' . Html::encode($user->loginWithTwitter->screen_name),
+    '@' . Html::encode($user->loginWithTwitter->screen_name ?? ''),
     vsprintf('https://twitter.com/intent/user?%s', [
       http_build_query(
-        ['user_id' => $user->loginWithTwitter->twitter_id],
+        ['user_id' => $user->loginWithTwitter?->twitter_id],
       ),
     ]),
   ),
-  sprintf('(%s)', Html::encode($user->loginWithTwitter->name)),
+  sprintf('(%s)', Html::encode($user->loginWithTwitter->name ?? '')),
   Html::a(
     implode(' ', [
       Icon::appLink(),

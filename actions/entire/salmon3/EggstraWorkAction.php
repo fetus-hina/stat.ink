@@ -58,6 +58,9 @@ final class EggstraWorkAction extends Action
             ->render('salmon3/eggstra-work', $thing);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(Connection $db): Response|array
     {
         $scheduleId = filter_var(Yii::$app->request->get('shift'), FILTER_VALIDATE_INT);
@@ -177,15 +180,17 @@ final class EggstraWorkAction extends Action
         $version = 1; // cache version
         $stats = Yii::$app->cache->getOrSet(
             [__METHOD__, $abstract->attributes, [$lower, $upper], $version],
-            fn (): array => new Query()
-                ->select([
-                    'average' => 'AVG([[golden_eggs]])',
-                    'stddev' => 'STDDEV_SAMP([[golden_eggs]])',
-                ])
-                ->from('{{%user_stat_eggstra_work3}}')
-                ->andWhere(['schedule_id' => $schedule->id])
-                ->andWhere(['BETWEEN', 'golden_eggs', $lower, $upper])
-                ->one(),
+            fn (): array => TypeHelper::array(
+                new Query()
+                    ->select([
+                        'average' => 'AVG([[golden_eggs]])',
+                        'stddev' => 'STDDEV_SAMP([[golden_eggs]])',
+                    ])
+                    ->from('{{%user_stat_eggstra_work3}}')
+                    ->andWhere(['schedule_id' => $schedule->id])
+                    ->andWhere(['BETWEEN', 'golden_eggs', $lower, $upper])
+                    ->one(),
+            ),
             3600,
         );
 

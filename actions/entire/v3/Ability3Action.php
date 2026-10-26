@@ -28,6 +28,7 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function array_pop;
 use function vsprintf;
@@ -59,6 +60,9 @@ final class Ability3Action extends Action
             : $controller->render('v3/ability3', $params);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(
         Controller $controller,
         Connection $db,
@@ -73,18 +77,19 @@ final class Ability3Action extends Action
                 ?? throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
 
             return $controller->redirect(['entire/ability3',
-                'rule' => $rule?->key ?? 'area',
+                'rule' => $rule->key ?? 'area',
                 'xp' => $xpFilter,
-                self::PARAM_SEASON_ID => $season?->id,
+                self::PARAM_SEASON_ID => $season->id,
             ]);
         }
 
         if (!$xRange = $this->getXPowerRange($db, $season, $xpFilter)) {
             $ranges = $this->getXPowerRanges($db, $season);
+            $range = array_pop($ranges) ?? throw new ServerErrorHttpException('No X Power range found');
             return $controller->redirect(['entire/ability3',
                 'rule' => $rule->key,
-                'xp' => array_pop($ranges)->id,
-                self::PARAM_SEASON_ID => $season?->id,
+                'xp' => $range->id,
+                self::PARAM_SEASON_ID => $season->id,
             ]);
         }
 
@@ -111,7 +116,7 @@ final class Ability3Action extends Action
                 ['entire/ability3',
                     'rule' => $rule->key,
                     'xp' => $xRange->id,
-                    self::PARAM_SEASON_ID => $season?->id,
+                    self::PARAM_SEASON_ID => $season->id,
                 ],
             ),
 
@@ -119,7 +124,7 @@ final class Ability3Action extends Action
                 ['entire/ability3',
                     'rule' => $rule->key,
                     'xp' => $range->id,
-                    self::PARAM_SEASON_ID => $season?->id,
+                    self::PARAM_SEASON_ID => $season->id,
                 ],
             ),
         ];

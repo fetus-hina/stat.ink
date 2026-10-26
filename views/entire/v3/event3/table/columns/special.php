@@ -36,9 +36,9 @@ return [
     'q3' => $model->p75_special,
     'stddev' => $model->sd_special,
     'summary' => vsprintf('%s - %s', [
-      match ($model::class) {
-        Event3StatsSpecial::class => Yii::t('app-special3', $model->special->name),
-        Event3StatsWeapon::class => Yii::t('app-weapon3', $model->weapon->name),
+      match (true) {
+        $model instanceof Event3StatsSpecial => Yii::t('app-special3', $model->special->name),
+        $model instanceof Event3StatsWeapon => Yii::t('app-weapon3', $model->weapon->name),
       },
       Yii::t('app-results', 'Avg Specials'),
     ]),

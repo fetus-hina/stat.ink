@@ -29,21 +29,40 @@ use yii\web\View;
  * @var string $title
  */
 
-$dataClass = null;
+$params = null;
 if ($abstract->shifts >= 10 && count($data) >= 5) {
   ChartJsAsset::register($this);
   ColorSchemeAsset::register($this);
   JqueryEasyChartjsAsset::register($this);
   RatioAsset::register($this);
 
-  $dataClass = get_class($data[0] ?? throw new TypeError());
+  [$average, $stddev, $width] = match (get_class($data[0] ?? throw new TypeError())) {
+    Salmon3UserStatsGoldenEggTeamHistogram::class => [
+      $abstract->average_team,
+      $abstract->stddev_team,
+      $abstract->histogram_width_team,
+    ],
+    Salmon3UserStatsGoldenEggIndividualHistogram::class => [
+      $abstract->average_individual,
+      $abstract->stddev_individual,
+      $abstract->histogram_width_individual,
+    ],
+    default => throw new LogicException(),
+  };
+  if ($average !== null && $stddev !== null && $width !== null) {
+    $params = [
+      'average' => $average,
+      'stddev' => $stddev,
+      'width' => $width,
+    ];
+  }
   $this->registerJs('$(".histogram").easyChartJs();');
 }
 
 ?>
 <div class="col-12 col-xs-12 col-md-6 mb-3">
   <?= Html::tag('h4', $title, ['class' => 'mt-0 mb-3 text-center']) . "\n" ?>
-<?php if ($abstract->shifts < 10 || count($data) < 5 || $dataClass === null) { ?>
+<?php if ($abstract->shifts < 10 || count($data) < 5 || $params === null) { ?>
   <?= Html::tag(
     'p',
     Html::encode(Yii::t('app', 'Not enough data is available.')),
@@ -86,20 +105,11 @@ if ($abstract->shifts >= 10 && count($data) >= 5) {
                 return $results;
               })(
                 new NormalDistribution(
-                  match ($dataClass) {
-                    Salmon3UserStatsGoldenEggTeamHistogram::class => $abstract->average_team,
-                    Salmon3UserStatsGoldenEggIndividualHistogram::class => $abstract->average_individual,
-                  },
-                  match ($dataClass) {
-                    Salmon3UserStatsGoldenEggTeamHistogram::class => $abstract->stddev_team,
-                    Salmon3UserStatsGoldenEggIndividualHistogram::class => $abstract->stddev_individual,
-                  },
+                  $params['average'],
+                  $params['stddev'],
                 ),
                 $abstract->shifts,
-                match ($dataClass) {
-                  Salmon3UserStatsGoldenEggTeamHistogram::class => $abstract->histogram_width_team,
-                  Salmon3UserStatsGoldenEggIndividualHistogram::class => $abstract->histogram_width_individual,
-                },
+                $params['width'],
               ),
               'label' => Yii::t('app-statistics', 'Normal Distribution'),
               'pointRadius' => 0,
@@ -150,10 +160,7 @@ if ($abstract->shifts >= 10 && count($data) >= 5) {
               'offset' => true,
               'ticks' => [
                 'precision' => 0,
-                'stepSize' => match ($dataClass) {
-                  Salmon3UserStatsGoldenEggTeamHistogram::class => $abstract->histogram_width_team,
-                  Salmon3UserStatsGoldenEggIndividualHistogram::class => $abstract->histogram_width_individual,
-                },
+                'stepSize' => $params['width'],
               ],
               'title' => ['display' => false],
               'type' => 'linear',

@@ -47,7 +47,7 @@ final class BadgeAction extends Action
             ->render(
                 'stats/badge',
                 array_merge($this->createData($user), [
-                    'isEditable' => Yii::$app->user->identity?->id === $user->id,
+                    'isEditable' => Yii::$app->user->getIdentity()?->id === $user->id,
                     'isEditing' => false,
                     'order' => match ($order) {
                         self::ORDER_NUMBER => self::ORDER_NUMBER,

@@ -24,11 +24,11 @@ use yii\web\View;
 
 $fmt = Yii::$app->formatter;
 
-if ($totalSamples < 1) {
+if ($totalSamples < 1 || !$data) {
   return;
 }
 
-$maxSamples = (int)max(ArrayHelper::getColumn($data, 'jobs'));
+$maxSamples = max(array_map(fn (StatSalmon3Salmometer $model): int => $model->jobs, $data));
 
 ?>
 <table class="table table-bordered table-striped m-0">
@@ -73,11 +73,11 @@ $maxSamples = (int)max(ArrayHelper::getColumn($data, 'jobs'));
       '',
       array_map(
         function (int $level) use ($data, $fmt, $maxSamples): string {
-          $row = ArrayHelper::getValue($data, $level);
+          $row = $data[$level] ?? null;
           return Html::tag(
             'tr',
             implode('', [
-              Html::tag('td', Icon::s3Salmometer($level), ['class' => 'text-center']),
+              Html::tag('td', Icon::s3Salmometer($level) ?? '', ['class' => 'text-center']),
               Html::tag('td', Html::encode($fmt->asInteger($level)), ['class' => 'text-center']),
               Html::tag(
                 'td',
@@ -109,7 +109,7 @@ $maxSamples = (int)max(ArrayHelper::getColumn($data, 'jobs'));
               ),
               Html::tag(
                 'td',
-                Html::encode($fmt->asInteger($row?->jobs ?? 0)),
+                Html::encode($fmt->asInteger($row->jobs ?? 0)),
                 ['class' => 'text-center'],
               ),
               Html::tag(

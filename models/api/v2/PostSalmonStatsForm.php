@@ -31,13 +31,34 @@ class PostSalmonStatsForm extends Model
 
     public const SPLATOON2_4_1_RELEASED_AT = 1538528400;
 
+    /**
+     * @var mixed
+     */
     public $work_count;
+    /**
+     * @var mixed
+     */
     public $total_golden_eggs;
+    /**
+     * @var mixed
+     */
     public $total_eggs;
+    /**
+     * @var mixed
+     */
     public $total_rescued;
+    /**
+     * @var mixed
+     */
     public $total_point;
+    /**
+     * @var mixed
+     */
     public $as_of;
 
+    /**
+     * @var int|null
+     */
     public $created_id;
 
     public function behaviors()
@@ -66,8 +87,12 @@ class PostSalmonStatsForm extends Model
             return null;
         }
 
+        if (!$user = Yii::$app->user->identity) {
+            return null;
+        }
+
         $model = SalmonStats2::find()
-            ->andWhere(['user_id' => Yii::$app->user->identity->id])
+            ->andWhere(['user_id' => $user->id])
             ->orderBy(['id' => SORT_DESC])
             ->limit(1)
             ->one();
@@ -100,9 +125,13 @@ class PostSalmonStatsForm extends Model
                 return false;
             }
 
+            if (!$user = Yii::$app->user->identity) {
+                return false;
+            }
+
             $model = Yii::createObject(SalmonStats2::class);
             $model->attributes = $this->attributes;
-            $model->user_id = Yii::$app->user->identity->id;
+            $model->user_id = $user->id;
             if ($model->save()) {
                 $this->created_id = $model->id;
                 return true;
@@ -113,6 +142,9 @@ class PostSalmonStatsForm extends Model
         });
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -168,12 +200,18 @@ class PostSalmonStatsForm extends Model
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiExample(): array
     {
         return [

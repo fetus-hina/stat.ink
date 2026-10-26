@@ -44,10 +44,9 @@ return [
     $parts[] = Html::a(
       Icon::search(),
       ['salmon-v3/index',
-        'screen_name' => $model->user?->screen_name,
+        'screen_name' => $model->user->screen_name,
         'f' => [
           'lobby' => match (true) {
-            $model->is_private => 'private',
             $model->is_eggstra_work => 'eggstra',
             $model->is_big_run => 'bigrun',
             default => 'normal',
@@ -113,7 +112,7 @@ return [
         Html::encode(Yii::t('app-salmon3', 'Per-Rotation Stats')),
       ]),
       ['salmon-v3/stats-schedule',
-        'screen_name' => $model->user?->screen_name,
+        'screen_name' => $model->user->screen_name,
         'schedule' => $schedule->id,
       ],
       ['class' => 'btn btn-default btn-xs p-1'],

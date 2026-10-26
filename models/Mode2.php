@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 
 use const SORT_ASC;
 
@@ -82,7 +83,10 @@ class Mode2 extends ActiveRecord
             ->viaTable('mode_rule2', ['mode_id' => 'id']);
     }
 
-    public function toJsonArray($withRules = true): array
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(bool $withRules = true): array
     {
         $ret = [
             'key' => $this->key,
@@ -97,6 +101,9 @@ class Mode2 extends ActiveRecord
         return $ret;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -124,6 +131,9 @@ class Mode2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -132,14 +142,17 @@ class Mode2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->with(['rules'])
                 ->orderBy(['key' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

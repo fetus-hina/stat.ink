@@ -12,6 +12,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use app\components\helpers\TypeHelper;
 
 /**
  * This is the model class for table "salmon_boss_appearance2".
@@ -84,6 +85,9 @@ class SalmonBossAppearance2 extends ActiveRecord
         return $this->hasOne(SalmonBoss2::class, ['id' => 'boss_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -92,6 +96,9 @@ class SalmonBossAppearance2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -110,6 +117,9 @@ class SalmonBossAppearance2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -117,9 +127,12 @@ class SalmonBossAppearance2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
-        $boss = SalmonBoss2::findOne(['key' => 'steelhead']);
+        $boss = TypeHelper::instanceOf(SalmonBoss2::findOne(['key' => 'steelhead']), SalmonBoss2::class);
         return [
             'boss' => $boss->toJsonArray(),
             'count' => 42,

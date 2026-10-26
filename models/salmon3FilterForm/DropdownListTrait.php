@@ -24,6 +24,9 @@ trait DropdownListTrait
 {
     use TermDropdownListTrait;
 
+    /**
+     * @return array{array<string, string>, array<string, string>}
+     */
     public function getLobbyDropdown(): array
     {
         return [
@@ -40,6 +43,9 @@ trait DropdownListTrait
         ];
     }
 
+    /**
+     * @return array{array<string, array<string, string>>, array<string, string>}
+     */
     public function getMapDropdown(): array
     {
         return [
@@ -67,6 +73,9 @@ trait DropdownListTrait
         ];
     }
 
+    /**
+     * @return array{array<string, string>, array<string, string>}
+     */
     public function getResultDropdown(): array
     {
         return [

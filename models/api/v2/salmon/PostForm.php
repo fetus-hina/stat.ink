@@ -60,32 +60,104 @@ class PostForm extends Model
     // If non-UUID
     public const UUID_NAMESPACE_BY_FREETEXT = 'b007a6f6-cbae-11e8-aa3e-d050998473ba';
 
+    /**
+     * @var mixed
+     */
     public $uuid;
+    /**
+     * @var mixed
+     */
     public $splatnet_number;
+    /**
+     * @var mixed
+     */
     public $stage;
+    /**
+     * @var mixed
+     */
     public $clear_waves;
+    /**
+     * @var mixed
+     */
     public $fail_reason;
+    /**
+     * @var mixed
+     */
     public $title;
+    /**
+     * @var mixed
+     */
     public $title_exp;
+    /**
+     * @var mixed
+     */
     public $title_after;
+    /**
+     * @var mixed
+     */
     public $title_exp_after;
+    /**
+     * @var mixed
+     */
     public $danger_rate;
+    /**
+     * @var mixed
+     */
     public $boss_appearances;
+    /**
+     * @var mixed
+     */
     public $waves;
+    /**
+     * @var mixed
+     */
     public $my_data;
+    /**
+     * @var mixed
+     */
     public $teammates;
+    /**
+     * @var mixed
+     */
     public $shift_start_at;
+    /**
+     * @var mixed
+     */
     public $start_at;
+    /**
+     * @var mixed
+     */
     public $end_at;
+    /**
+     * @var mixed
+     */
     public $note;
+    /**
+     * @var mixed
+     */
     public $private_note;
+    /**
+     * @var mixed
+     */
     public $link_url;
+    /**
+     * @var mixed
+     */
     public $automated;
+    /**
+     * @var mixed
+     */
     public $agent;
+    /**
+     * @var mixed
+     */
     public $agent_version;
 
+    /**
+     * @var bool
+     */
     public $is_found = false;
-    private $uuid_formatted;
+    private ?string $uuid_formatted = null;
 
     public function behaviors()
     {
@@ -131,7 +203,7 @@ class PostForm extends Model
         ];
     }
 
-    public function validateBossAppearances()
+    public function validateBossAppearances(): void
     {
         if ($this->hasErrors('boss_appearances')) {
             return;
@@ -172,7 +244,7 @@ class PostForm extends Model
         }
     }
 
-    public function validateWaves()
+    public function validateWaves(): void
     {
         if ($this->hasErrors('waves')) {
             return;
@@ -221,7 +293,7 @@ class PostForm extends Model
         }
     }
 
-    public function validateMyData(string $attribute, $params): void
+    public function validateMyData(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -235,7 +307,7 @@ class PostForm extends Model
         $this->validatePlayer($this->$attribute, $attribute, $attribute, true);
     }
 
-    public function validateTeammates(string $attribute, $params): void
+    public function validateTeammates(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -271,7 +343,7 @@ class PostForm extends Model
     }
 
     protected function validatePlayer(
-        $data, // array | stdclass
+        mixed $data, // array | stdclass
         string $attribute, // "players"
         string $attributeLabel, // "players[0]"
         bool $isMe,
@@ -296,14 +368,14 @@ class PostForm extends Model
         }
     }
 
-    protected function playerFormInstantiation($data, bool $isMe): ?Player
+    protected function playerFormInstantiation(mixed $data, bool $isMe): ?Player
     {
         if (!is_array($data) && !is_object($data)) {
             return null;
         }
 
         $model = Yii::createObject(['class' => Player::class]);
-        $model->attributes = $data;
+        $model->attributes = is_array($data) ? $data : [];
         $model->is_me = $isMe ? 'yes' : 'no';
         return $model;
     }
@@ -367,15 +439,15 @@ class PostForm extends Model
                 'user_id' => Yii::$app->user->id,
                 'uuid' => $this->getUuidFormatted(),
                 'splatnet_number' => $this->splatnet_number,
-                'stage_id' => static::findRelatedId(SalmonMap2::class, $this->stage),
+                'stage_id' => self::findRelatedId(SalmonMap2::class, $this->stage),
                 'clear_waves' => $this->clear_waves,
-                'fail_reason_id' => static::findRelatedId(
+                'fail_reason_id' => self::findRelatedId(
                     SalmonFailReason2::class,
                     $this->fail_reason,
                 ),
-                'title_before_id' => static::findRelatedId(SalmonTitle2::class, $this->title),
+                'title_before_id' => self::findRelatedId(SalmonTitle2::class, $this->title),
                 'title_before_exp' => $this->title_exp,
-                'title_after_id' => static::findRelatedId(SalmonTitle2::class, $this->title_after),
+                'title_after_id' => self::findRelatedId(SalmonTitle2::class, $this->title_after),
                 'title_after_exp' => $this->title_exp_after,
                 'danger_rate' => $this->danger_rate == ''
                     ? null
@@ -416,7 +488,7 @@ class PostForm extends Model
 
             foreach ($this->boss_appearances as $key => $value) {
                 if ($value > 0) {
-                    $bossId = static::findRelatedId(SalmonBoss2::class, $key);
+                    $bossId = self::findRelatedId(SalmonBoss2::class, $key);
                     if ($bossId === null) {
                         return false;
                     }
@@ -591,6 +663,9 @@ class PostForm extends Model
         return (int)$model->id;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -1020,6 +1095,9 @@ class PostForm extends Model
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -1028,6 +1106,9 @@ class PostForm extends Model
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiExample(): array
     {
         return [

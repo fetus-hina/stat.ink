@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\ThemeAsset;
 use yii\helpers\Html;
@@ -32,7 +33,8 @@ final class ColorSchemeDialog extends Dialog
         'bootswatch-slate' => 'Slate',
     ];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->title = implode(' ', [
@@ -106,7 +108,7 @@ final class ColorSchemeDialog extends Dialog
 
     private function renderScheme(string $key, string $name): string
     {
-        if ($key === Yii::$app->theme->theme) {
+        if ($key === Yii::$app->theme->getTheme()) {
             return Html::tag(
                 'div',
                 Html::encode($name),

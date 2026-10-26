@@ -21,15 +21,15 @@ use yii\db\ActiveRecord;
  * @property integer $battles
  * @property integer $agg_battles
  * @property double $average
- * @property double $stddev
- * @property double $minimum
- * @property double $p05
- * @property double $p25
- * @property double $p50
- * @property double $p75
- * @property double $p80
- * @property double $p95
- * @property double $maximum
+ * @property double|null $stddev
+ * @property double|null $minimum
+ * @property double|null $p05
+ * @property double|null $p25
+ * @property double|null $p50
+ * @property double|null $p75
+ * @property double|null $p80
+ * @property double|null $p95
+ * @property double|null $maximum
  *
  * @property EventPeriod3 $period
  */

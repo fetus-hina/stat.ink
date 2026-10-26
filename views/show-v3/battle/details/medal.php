@@ -10,7 +10,6 @@ declare(strict_types=1);
 use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\BattleMedal3;
-use app\models\MedalCanoical3;
 use yii\helpers\Html;
 use yii\web\AssetManager;
 
@@ -30,13 +29,8 @@ return [
 
     $items = [];
     foreach ($intermediates as $i => $intermediate) {
-      /**
-       * @var MedalCanoical3|null $canonical
-       */
-      $canonical = null;
-      if ($model = $intermediate->medal) {
-        $canonical = $model->canonical;
-      }
+      $medal = $intermediate->medal;
+      $canonical = $medal->canonical;
 
       $items[] = Html::tag(
         'div',
@@ -47,7 +41,7 @@ return [
           Html::encode(
             $canonical
               ? Yii::t('app-medal3', $canonical->name)
-              : $model->name,
+              : $medal->name,
           ),
         ]),
         [

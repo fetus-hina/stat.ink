@@ -23,6 +23,9 @@ trait Battle1Formatter
 {
     use UserFormatter;
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function formatBattle1(Battle $battle): array
     {
         $am = Yii::$app->assetManager;
@@ -122,7 +125,7 @@ trait Battle1Formatter
                 }
                 return null;
             })(),
-            'time' => strtotime($battle->end_at ?: $battle->created_at),
+            'time' => strtotime($battle->end_at ?: $battle->at),
             'rule' => $battle->rule
                 ? [
                     'icon' => null,

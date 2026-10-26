@@ -12,7 +12,9 @@ namespace app\actions\entire;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\GameMode;
 use app\models\Rule;
 use app\models\Special;
@@ -36,9 +38,15 @@ use function usort;
 
 use const SORT_ASC;
 
+/**
+ * @property-read stdClass[] $entireWeapons
+ * @property-read stdClass[] $userWeapons
+ * @property-read array<int, array<string, mixed>> $weaponUses
+ */
 class WeaponsAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return $this->controller->render('weapons', [
             'uses' => $this->weaponUses,
@@ -47,6 +55,9 @@ class WeaponsAction extends ViewAction
         ]);
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function getWeaponUses(): array
     {
         $threshold = (function (): array {
@@ -137,7 +148,7 @@ class WeaponsAction extends ViewAction
             return [
                 'date' => date(
                     'Y-m-d',
-                    strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek'])),
+                    TypeHelper::int(strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek']))),
                 ),
                 'battles' => (int)$_['battles'],
                 'weapons' => $w,
@@ -149,6 +160,9 @@ class WeaponsAction extends ViewAction
         }, $baselist);
     }
 
+    /**
+     * @return stdClass[]
+     */
     public function getEntireWeapons(): array
     {
         $rules = [];
@@ -247,6 +261,9 @@ class WeaponsAction extends ViewAction
         ];
     }
 
+    /**
+     * @return stdClass[]
+     */
     public function getUserWeapons(): array
     {
         $favWeaponQuery = new Query()
@@ -288,6 +305,10 @@ class WeaponsAction extends ViewAction
         );
     }
 
+    /**
+     * @param int[] $weaponIdList
+     * @return array<int, Weapon>
+     */
     public function getWeapons(array $weaponIdList): array
     {
         $list = Weapon::find()
@@ -300,8 +321,12 @@ class WeaponsAction extends ViewAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function convertWeapons2Sub(stdClass $in): array
     {
+        /** @var array<string, stdClass> $ret */
         $ret = [];
         foreach (Subweapon::find()->all() as $sub) {
             $ret[$sub->key] = (object)[
@@ -357,8 +382,12 @@ class WeaponsAction extends ViewAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function convertWeapons2Special(stdClass $in): array
     {
+        /** @var array<string, stdClass> $ret */
         $ret = [];
         foreach (Special::find()->all() as $spe) {
             $ret[$spe->key] = (object)[

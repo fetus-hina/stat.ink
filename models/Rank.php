@@ -22,6 +22,7 @@ use const SORT_DESC;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property integer $group_id
  * @property integer $int_base
  *
  * @property Battle[] $battles
@@ -81,7 +82,10 @@ final class Rank extends ActiveRecord
         return $this->hasOne(RankGroup::class, ['id' => 'group_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,

@@ -12,6 +12,7 @@ namespace app\actions\api\internal;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\models\BlogEntry;
 use yii\helpers\ArrayHelper;
@@ -21,7 +22,11 @@ use function time;
 
 class BlogEntryAction extends ViewAction
 {
-    public function run()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'compact-json';

@@ -12,7 +12,6 @@ use app\models\Battle3;
 use app\models\Medal3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\web\AssetManager;
 
 return [
   'contentOptions' => ['class' => 'cell-medal'],
@@ -45,7 +44,6 @@ return [
     }
 
     $am = Yii::$app->assetManager;
-    assert($am instanceof AssetManager);
 
     $items = [];
     foreach ($medals as $medal) {

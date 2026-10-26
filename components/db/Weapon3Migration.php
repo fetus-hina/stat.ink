@@ -23,7 +23,7 @@ use function preg_match;
  * @phpstan-type sub3_string1 'curlingbomb'|'jumpbeacon'|'kyubanbomb'|'linemarker'|'pointsensor'
  * @phpstan-type sub3_string2 'poisonmist'|'quickbomb'|'robotbomb'|'splashbomb'|'splashshield'
  * @phpstan-type sub3_string3 'sprinkler'|'tansanbomb'|'torpedo'|'trap'
- * @phsptan-type sp3_string1 'amefurashi'|'energystand'|'greatbarrier'|'hopsonar'|'jetpack'
+ * @phpstan-type sp3_string1 'amefurashi'|'energystand'|'greatbarrier'|'hopsonar'|'jetpack'
  * @phpstan-type sp3_string2 'kanitank'|'kyuinki'|'megaphone'|'missile'|'nicedama'|'sameride'
  * @phpstan-type sp3_string3 'shokuwander'|'tripletornado'|'ultrahanko'|'ultrashot'|'teioika'|'decoy'
  *

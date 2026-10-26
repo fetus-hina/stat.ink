@@ -25,6 +25,9 @@ use const FILTER_VALIDATE_FLOAT;
 
 final class BattleApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(
         ?Battle3 $model,
         bool $isAuthenticated = false,
@@ -169,7 +172,7 @@ final class BattleApiFormatter
         );
     }
 
-    private static function formatPower($value): ?JsExpression
+    private static function formatPower(mixed $value): ?JsExpression
     {
         $value = filter_var($value, FILTER_VALIDATE_FLOAT);
         if (!is_float($value)) {

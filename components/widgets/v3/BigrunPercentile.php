@@ -40,9 +40,9 @@ final class BigrunPercentile extends Widget
 
     public function run(): string
     {
-        $this->isEggstraWork = $this->schedule?->is_eggstra_work ?? false;
+        $this->isEggstraWork = $this->schedule->is_eggstra_work ?? false;
         $stats = $this->getStats();
-        $users = ArrayHelper::getValue($stats, 'users');
+        $users = ArrayHelper::getValue($stats ?? [], 'users');
         if (!is_int($users) || $users < 10) {
             return '';
         }
@@ -235,12 +235,12 @@ final class BigrunPercentile extends Widget
     ): string {
         $official = $this->isEggstraWork
             ? EggstraWorkOfficialResult3::find()
-                ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
+                ->andWhere(['schedule_id' => $this->schedule->id ?? -1])
                 ->limit(1)
                 ->cache(120)
                 ->one()
             : BigrunOfficialResult3::find()
-                ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
+                ->andWhere(['schedule_id' => $this->schedule->id ?? -1])
                 ->limit(1)
                 ->cache(120)
                 ->one();
@@ -264,8 +264,8 @@ final class BigrunPercentile extends Widget
         return $this->renderTableRowEggs(
             $this->isEggstraWork ? 'eggstra-1.png' : 'top-1.png',
             5,
-            self::intVal(ArrayHelper::getValue($stats, 'p95')),
-            self::intVal(ArrayHelper::getValue($official, 'gold')),
+            self::intVal(ArrayHelper::getValue($stats ?? [], 'p95')),
+            self::intVal(ArrayHelper::getValue($official ?? [], 'gold')),
         );
     }
 
@@ -276,8 +276,8 @@ final class BigrunPercentile extends Widget
         return $this->renderTableRowEggs(
             $this->isEggstraWork ? 'eggstra-2.png' : 'top-2.png',
             20,
-            self::intVal(ArrayHelper::getValue($stats, 'p80')),
-            self::intVal(ArrayHelper::getValue($official, 'silver')),
+            self::intVal(ArrayHelper::getValue($stats ?? [], 'p80')),
+            self::intVal(ArrayHelper::getValue($official ?? [], 'silver')),
         );
     }
 
@@ -288,8 +288,8 @@ final class BigrunPercentile extends Widget
         return $this->renderTableRowEggs(
             $this->isEggstraWork ? 'eggstra-3.png' : 'top-3.png',
             50,
-            self::intVal(ArrayHelper::getValue($stats, 'p50')),
-            self::intVal(ArrayHelper::getValue($official, 'bronze')),
+            self::intVal(ArrayHelper::getValue($stats ?? [], 'p50')),
+            self::intVal(ArrayHelper::getValue($official ?? [], 'bronze')),
         );
     }
 
@@ -356,13 +356,13 @@ final class BigrunPercentile extends Widget
                         Icon::goldenEgg(),
                         Html::encode(
                             Yii::$app->formatter->asDecimal(
-                                ArrayHelper::getValue($stats, 'average'),
+                                ArrayHelper::getValue($stats ?? [], 'average'),
                                 2,
                             ),
                         ),
                         Html::encode(
                             Yii::$app->formatter->asDecimal(
-                                ArrayHelper::getValue($stats, 'stddev'),
+                                ArrayHelper::getValue($stats ?? [], 'stddev'),
                                 2,
                             ),
                         ),
@@ -392,7 +392,7 @@ final class BigrunPercentile extends Widget
                         Icon::octoling(),
                         Html::encode(
                             Yii::$app->formatter->asInteger(
-                                ArrayHelper::getValue($stats, 'users'),
+                                ArrayHelper::getValue($stats ?? [], 'users'),
                             ),
                         ),
                     ]),
@@ -421,11 +421,11 @@ final class BigrunPercentile extends Widget
         $db = TypeHelper::instanceOf(Yii::$app->db, Connection::class);
         return $this->isEggstraWork
             ? StatEggstraWorkDistribUserAbstract3::find()
-                ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
+                ->andWhere(['schedule_id' => $this->schedule->id ?? -1])
                 ->limit(1)
                 ->one($db)
             : StatBigrunDistribUserAbstract3::find()
-                ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
+                ->andWhere(['schedule_id' => $this->schedule->id ?? -1])
                 ->limit(1)
                 ->one($db);
     }

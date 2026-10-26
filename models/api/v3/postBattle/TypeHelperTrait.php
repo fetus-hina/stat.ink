@@ -29,7 +29,7 @@ use const FILTER_VALIDATE_INT;
 
 trait TypeHelperTrait
 {
-    protected static function boolVal($value): ?bool
+    protected static function boolVal(mixed $value): ?bool
     {
         if (is_bool($value)) {
             return $value;
@@ -44,7 +44,7 @@ trait TypeHelperTrait
         }
     }
 
-    protected static function colorVal($value): ?string
+    protected static function colorVal(mixed $value): ?string
     {
         $value = self::strVal($value);
         if ($value === null) {
@@ -58,7 +58,7 @@ trait TypeHelperTrait
         return strtolower(strlen($value) === 8 ? $value : "{$value}ff");
     }
 
-    protected static function intVal($value): ?int
+    protected static function intVal(mixed $value): ?int
     {
         $value = self::strVal($value);
         if ($value === null) {
@@ -69,7 +69,7 @@ trait TypeHelperTrait
         return is_int($value) ? $value : null;
     }
 
-    protected static function floatVal($value): ?float
+    protected static function floatVal(mixed $value): ?float
     {
         $value = self::strVal($value);
         if ($value === null) {
@@ -80,7 +80,7 @@ trait TypeHelperTrait
         return is_float($value) ? $value : null;
     }
 
-    protected static function powerVal($value): ?float
+    protected static function powerVal(mixed $value): ?float
     {
         $value = self::floatVal($value);
         if ($value === null) {
@@ -92,7 +92,7 @@ trait TypeHelperTrait
         return floor($value * 10.0) / 10.0;
     }
 
-    protected static function strVal($value): ?string
+    protected static function strVal(mixed $value): ?string
     {
         if ($value === null || !is_scalar($value)) {
             return null;
@@ -102,7 +102,7 @@ trait TypeHelperTrait
         return $value !== '' ? $value : null;
     }
 
-    protected static function tsVal($value): ?string
+    protected static function tsVal(mixed $value): ?string
     {
         $value = self::intVal($value);
         if (!is_int($value)) {
@@ -130,7 +130,7 @@ trait TypeHelperTrait
 
         $model = $modelClass::find()->andWhere(['key' => $value])->limit(1)->one();
         if ($model) {
-            return (int)$model->id;
+            return (int)$model->getAttribute('id');
         }
 
         if ($aliasClass && $aliasAttr) {

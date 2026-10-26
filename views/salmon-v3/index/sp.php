@@ -11,11 +11,13 @@ use app\assets\SimpleBattleListAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\Icon;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ListView;
 
 /**
+ * @var ActiveDataProvider $dataProvider
  * @var User $user
  * @var View $this
  */

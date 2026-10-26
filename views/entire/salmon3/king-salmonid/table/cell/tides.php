@@ -28,15 +28,15 @@ use yii\web\View;
       fn (SalmonWaterLevel2 $model): string => Html::tag(
         'div',
         implode('', [
-          Html::tag('div', Icon::s3SalmonTide($model)),
+          Html::tag('div', Icon::s3SalmonTide($model) ?? ''),
           $this->render('./pie', [
-            'cleared' => $tideModels[$model->id]?->cleared ?? 0,
-            'jobs' => $tideModels[$model->id]?->jobs ?? 0,
+            'cleared' => $tideModels[$model->id]->cleared ?? 0,
+            'jobs' => $tideModels[$model->id]->jobs ?? 0,
             'labelText' => false,
           ]),
           Html::tag(
             'div',
-            $this->render('./n', ['n' => $tideModels[$model->id]?->jobs ?? 0]),
+            $this->render('./n', ['n' => $tideModels[$model->id]->jobs ?? 0]),
             ['class' => 'small'],
           ),
         ]),

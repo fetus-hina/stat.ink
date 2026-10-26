@@ -15,18 +15,40 @@ use app\models\User;
 use yii\base\Model;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQuery;
+use yii\helpers\Json;
 
 use const SORT_ASC;
 use const SORT_DESC;
 
 class IndexFilterForm extends Model
 {
+    /**
+     * @var string|array<mixed>|null
+     */
     public $screen_name;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $only;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $stage;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $newer_than;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $older_than;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $order;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $count;
 
     public function rules()
@@ -141,7 +163,7 @@ class IndexFilterForm extends Model
                 break;
 
             default:
-                throw new NotSupportedException("BUG: unknown \"only\" value: {$this->only}");
+                throw new NotSupportedException('BUG: unknown "only" value: ' . Json::encode($this->only));
         }
     }
 

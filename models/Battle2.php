@@ -10,18 +10,18 @@ namespace app\models;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
-use DateTimeZone;
-use Exception;
+use Override;
 use Throwable;
 use Yii;
 use app\components\behaviors\RemoteAddrBehavior;
 use app\components\behaviors\RemotePortBehavior;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
-use app\components\helpers\BattleSummarizer;
 use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\components\jobs\UserStatsJob;
+use app\models\query\Battle2Query;
 use jp3cki\uuid\Uuid;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
@@ -38,7 +38,6 @@ use function array_map;
 use function array_unique;
 use function count;
 use function date;
-use function explode;
 use function filter_var;
 use function floatval;
 use function gmdate;
@@ -47,7 +46,6 @@ use function implode;
 use function in_array;
 use function intval;
 use function is_array;
-use function is_bool;
 use function is_int;
 use function is_object;
 use function is_scalar;
@@ -78,140 +76,168 @@ use const SORT_STRING;
  *
  * @property integer $id
  * @property integer $user_id
- * @property integer $lobby_id
- * @property integer $mode_id
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $weapon_id
- * @property boolean $is_win
- * @property boolean $is_knockout
- * @property integer $level
- * @property integer $level_after
- * @property integer $rank_id
- * @property integer $rank_exp
- * @property integer $rank_after_id
- * @property integer $rank_after_exp
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
- * @property string $kill_ratio
- * @property string $kill_rate
- * @property integer $max_kill_combo
- * @property integer $max_kill_streak
- * @property integer $my_point
- * @property integer $my_team_point
- * @property integer $his_team_point
- * @property string $my_team_percent
- * @property string $his_team_percent
- * @property integer $my_team_count
- * @property integer $his_team_count
- * @property integer $my_team_color_hue
- * @property integer $his_team_color_hue
- * @property string $my_team_color_rgb
- * @property string $his_team_color_rgb
- * @property integer $cash
- * @property integer $cash_after
- * @property string $note
- * @property string $private_note
- * @property string $link_url
- * @property integer $period
- * @property integer $version_id
- * @property integer $bonus_id
- * @property integer $env_id
+ * @property integer|null $lobby_id
+ * @property integer|null $mode_id
+ * @property integer|null $rule_id
+ * @property integer|null $map_id
+ * @property integer|null $weapon_id
+ * @property boolean|null $is_win
+ * @property boolean|null $is_knockout
+ * @property integer|null $level
+ * @property integer|null $level_after
+ * @property integer|null $rank_id
+ * @property integer|null $rank_exp
+ * @property integer|null $rank_after_id
+ * @property integer|null $rank_after_exp
+ * @property integer|null $rank_in_team
+ * @property integer|null $kill
+ * @property integer|null $death
+ * @property numeric-string|null $kill_ratio
+ * @property numeric-string|null $kill_rate
+ * @property integer|null $max_kill_combo
+ * @property integer|null $max_kill_streak
+ * @property integer|null $my_point
+ * @property integer|null $my_team_point
+ * @property integer|null $his_team_point
+ * @property-read numeric-string|null $my_team_percent
+ * @property-write float|string|null $my_team_percent
+ * @property-read numeric-string|null $his_team_percent
+ * @property-write float|string|null $his_team_percent
+ * @property integer|null $my_team_count
+ * @property integer|null $his_team_count
+ * @property integer|null $my_team_color_hue
+ * @property integer|null $his_team_color_hue
+ * @property string|null $my_team_color_rgb
+ * @property string|null $his_team_color_rgb
+ * @property integer|null $cash
+ * @property integer|null $cash_after
+ * @property string|null $note
+ * @property string|null $private_note
+ * @property string|null $link_url
+ * @property integer|null $period
+ * @property integer|null $version_id
+ * @property integer|null $bonus_id
+ * @property integer|null $env_id
  * @property string $client_uuid
- * @property array $ua_variables
- * @property string $ua_custom
- * @property integer $agent_game_version_id
- * @property string $agent_game_version_date
- * @property integer $agent_id
+ * @property-read array<string, mixed>|string|null $ua_variables
+ * @property-write array<string, mixed>|string|null $ua_variables
+ * @property string|null $ua_custom
+ * @property integer|null $agent_game_version_id
+ * @property string|null $agent_game_version_date
+ * @property integer|null $agent_id
  * @property boolean $is_automated
  * @property boolean $use_for_entire
- * @property string $remote_addr
- * @property integer $remote_port
- * @property string $start_at
- * @property string $end_at
+ * @property string|null $remote_addr
+ * @property integer|null $remote_port
+ * @property string|null $start_at
+ * @property string|null $end_at
  * @property string $created_at
  * @property string $updated_at
- * @property integer $kill_or_assist
- * @property integer $special
- * @property integer $gender_id
- * @property integer $fest_title_id
- * @property integer $fest_exp
- * @property integer $fest_title_after_id
- * @property integer $fest_exp_after
- * @property integer $splatnet_number
- * @property string $my_team_id
- * @property string $his_team_id
- * @property integer $estimate_gachi_power
- * @property string $league_point
- * @property integer $my_team_estimate_league_point
- * @property integer $his_team_estimate_league_point
- * @property string $fest_power
- * @property integer $my_team_estimate_fest_power
- * @property integer $his_team_estimate_fest_power
- * @property integer $headgear_id
- * @property integer $clothing_id
- * @property integer $shoes_id
- * @property integer $star_rank
- * @property integer $my_team_fest_theme_id
- * @property integer $his_team_fest_theme_id
- * @property string $x_power
- * @property string $x_power_after
- * @property integer $estimate_x_power
- * @property integer $species_id
- * @property integer $special_battle_id
- * @property integer $my_team_nickname_id
- * @property integer $his_team_nickname_id
- * @property integer $clout
- * @property integer $total_clout
- * @property integer $total_clout_after
- * @property string $synergy_bonus
- * @property integer $my_team_win_streak
- * @property integer $his_team_win_streak
- * @property string $freshness
+ * @property integer|null $kill_or_assist
+ * @property integer|null $special
+ * @property integer|null $gender_id
+ * @property integer|null $fest_title_id
+ * @property integer|null $fest_exp
+ * @property integer|null $fest_title_after_id
+ * @property integer|null $fest_exp_after
+ * @property integer|null $splatnet_number
+ * @property string|null $my_team_id
+ * @property string|null $his_team_id
+ * @property integer|null $estimate_gachi_power
+ * @property-read numeric-string|null $league_point
+ * @property-write float|string|null $league_point
+ * @property integer|null $my_team_estimate_league_point
+ * @property integer|null $his_team_estimate_league_point
+ * @property-read numeric-string|null $fest_power
+ * @property-write float|string|null $fest_power
+ * @property integer|null $my_team_estimate_fest_power
+ * @property integer|null $his_team_estimate_fest_power
+ * @property integer|null $headgear_id
+ * @property integer|null $clothing_id
+ * @property integer|null $shoes_id
+ * @property integer|null $star_rank
+ * @property integer|null $my_team_fest_theme_id
+ * @property integer|null $his_team_fest_theme_id
+ * @property-read numeric-string|null $x_power
+ * @property-write float|string|null $x_power
+ * @property-read numeric-string|null $x_power_after
+ * @property-write float|string|null $x_power_after
+ * @property integer|null $estimate_x_power
+ * @property integer|null $species_id
+ * @property integer|null $special_battle_id
+ * @property integer|null $my_team_nickname_id
+ * @property integer|null $his_team_nickname_id
+ * @property integer|null $clout
+ * @property integer|null $total_clout
+ * @property integer|null $total_clout_after
+ * @property-read numeric-string|null $synergy_bonus
+ * @property-write float|string|null $synergy_bonus
+ * @property integer|null $my_team_win_streak
+ * @property integer|null $his_team_win_streak
+ * @property-read numeric-string|null $freshness
+ * @property-write float|string|null $freshness
  * @property boolean $has_disconnect
  *
- * @property Agent $agent
- * @property SplatoonVersion2 $agentGameVersion
+ * @property Agent|null $agent
+ * @property SplatoonVersion2|null $agentGameVersion
  * @property Battle2Splatnet $battle2Splatnet
  * @property BattleDeathReason2[] $battleDeathReason2s
  * @property BattleEvents2 $battleEvents2
  * @property BattleImage2[] $battleImage2s
  * @property BattlePlayer2[] $battlePlayer2s
- * @property TurfwarWinBonus2 $bonus
- * @property GearConfiguration2 $clothing
- * @property Environment $env
- * @property FestTitle $festTitle
- * @property FestTitle $festTitleAfter
- * @property Gender $gender
- * @property GearConfiguration2 $headgear
- * @property Splatfest2Theme $hisTeamFestTheme
- * @property TeamNickname2 $hisTeamNickname
- * @property Lobby2 $lobby
- * @property Map2 $map
- * @property Mode2 $mode
- * @property Splatfest2Theme $myTeamFestTheme
- * @property TeamNickname2 $myTeamNickname
- * @property Rank2 $rank
- * @property Rank2 $rankAfter
+ * @property TurfwarWinBonus2|null $bonus
+ * @property GearConfiguration2|null $clothing
+ * @property Environment|null $env
+ * @property FestTitle|null $festTitle
+ * @property FestTitle|null $festTitleAfter
+ * @property Gender|null $gender
+ * @property GearConfiguration2|null $headgear
+ * @property Splatfest2Theme|null $hisTeamFestTheme
+ * @property TeamNickname2|null $hisTeamNickname
+ * @property Lobby2|null $lobby
+ * @property Map2|null $map
+ * @property Mode2|null $mode
+ * @property Splatfest2Theme|null $myTeamFestTheme
+ * @property TeamNickname2|null $myTeamNickname
+ * @property Rank2|null $rank
+ * @property Rank2|null $rankAfter
  * @property DeathReason2[] $reasons
- * @property Rule2 $rule
- * @property GearConfiguration2 $shoes
- * @property SpecialBattle2 $specialBattle
- * @property Species2 $species
+ * @property Rule2|null $rule
+ * @property GearConfiguration2|null $shoes
+ * @property SpecialBattle2|null $specialBattle
+ * @property Species2|null $species
  * @property BattleImageType[] $types
  * @property User $user
- * @property SplatoonVersion2 $version
- * @property Weapon2 $weapon
+ * @property SplatoonVersion2|null $version
+ * @property Weapon2|null $weapon
  *
  * @property-read BattleImage2|null $battleImageGear
  * @property-read BattleImage2|null $battleImageJudge
  * @property-read BattleImage2|null $battleImageResult
+ * @property-read BattleDeathReason2[] $battleDeathReasons
+ * @property-read BattlePlayer2[] $battlePlayers
+ * @property-read BattlePlayer2[] $battlePlayersPure
+ * @property-read BattleEvents2|null $events
+ * @property-read Freshness2|null $freshnessModel
+ * @property-read int|null $inked
+ * @property-read Battle2Splatnet|null $splatnetJson
+ * @property-read int|null $elapsedTime
+ * @property-read bool $isGachi
+ * @property-read bool $isMeaningful
+ * @property-read static|null $nextBattle
+ * @property-read static|null $previousBattle
+ * @property-read string|null $hisTeamIcon
+ * @property-read BattlePlayer2[] $hisTeamPlayers
+ * @property-read string|null $myTeamIcon
+ * @property-read BattlePlayer2[] $myTeamPlayers
  */
 class Battle2 extends ActiveRecord
 {
     protected const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
 
+    /**
+     * @var int|string|null
+     */
     public $freshness_id;
 
     public static function getRoughCount(): ?int
@@ -233,380 +259,13 @@ class Battle2 extends ActiveRecord
         return null;
     }
 
-    public static function find()
+    public static function find(): Battle2Query
     {
-        return new class (static::class) extends ActiveQuery {
-            public function withFreshness(): self
-            {
-                if (!$this->select) {
-                    [, $alias] = $this->getTableNameAndAlias();
-                    $this->select = ["{$alias}.*"];
-                }
-                $this->select['freshness_id'] = 'freshness2.id';
-                $this->join[] = [
-                    'LEFT JOIN',
-                    'freshness2',
-                    "{$alias}.freshness <@ freshness2.range",
-                ];
-                return $this;
-            }
-
-            public function applyFilter(Battle2FilterForm $form): self
-            {
-                $and = ['and'];
-                if ($form->screen_name != '') {
-                    $this->innerJoinWith('user');
-                    $and[] = ['{{user}}.[[screen_name]]' => $form->screen_name];
-                }
-                if ($form->rule != '') {
-                    // {{{
-                    $parts = explode('-', $form->rule);
-                    if (count($parts) === 3) {
-                        $this->innerJoinWith(['lobby', 'mode', 'rule']);
-                        switch ($parts[0]) {
-                            case 'any':
-                                break;
-
-                            case 'any_squad':
-                                $and[] = ['lobby2.key' => ['squad_2', 'squad_4']];
-                                break;
-
-                            default:
-                                $and[] = ['lobby2.key' => $parts[0]];
-                                break;
-                        }
-                        $and[] = ['mode2.key' => $parts[1]];
-                        switch ($parts[2]) {
-                            case 'any':
-                                break;
-
-                            case 'gachi':
-                                $and[] = ['rule2.key' => ['area', 'yagura', 'hoko', 'asari']];
-                                break;
-
-                            default:
-                                $and[] = ['rule2.key' => $parts[2]];
-                                break;
-                        }
-                    }
-                    // }}}
-                }
-                if ($form->map != '') {
-                    if ($form->map !== 'mystery') {
-                        $this->innerJoinWith(['map']);
-                        $and[] = ['{{map2}}.[[key]]' => (string)$form->map];
-                    } else {
-                        $and[] = [
-                            '{{battle2}}.[[map_id]]' => ArrayHelper::getColumn(
-                                Map2::find()
-                                    ->andWhere(['like', 'key', 'mystery%', false])
-                                    ->asArray()
-                                    ->all(),
-                                'id',
-                            ),
-                        ];
-                    }
-                }
-                if ($form->weapon != '') {
-                    // {{{
-                    switch (substr($form->weapon, 0, 1)) {
-                        default:
-                            $weapon = Weapon2::findOne(['key' => $form->weapon]);
-                            $and[] = ['battle2.weapon_id' => $weapon->id];
-                            break;
-
-                        case '@': // type
-                            $this->innerJoinWith('weapon');
-                            $type = WeaponType2::findOne(['key' => substr($form->weapon, 1)]);
-                            $and[] = ['weapon2.type_id' => $type->id];
-                            break;
-
-                        case '~': // main weapon
-                            $this->innerJoinWith('weapon');
-                            $main = Weapon2::findOne(['key' => substr($form->weapon, 1)]);
-                            $and[] = ['weapon2.main_group_id' => $main->id];
-                            break;
-
-                        case '+': // sub weapon
-                            $this->innerJoinWith('weapon');
-                            $sub = SubWeapon2::findOne(['key' => substr($form->weapon, 1)]);
-                            $and[] = ['weapon2.subweapon_id' => $sub->id];
-                            break;
-
-                        case '*': // special
-                            $this->innerJoinWith('weapon');
-                            $sp = Special2::findOne(['key' => substr($form->weapon, 1)]);
-                            $and[] = ['weapon2.special_id' => $sp->id];
-                            break;
-                    }
-                    // }}}
-                }
-                if ($form->rank != '') {
-                    $this->innerJoinWith(['rank', 'rank.group']);
-                    if (substr($form->rank, 0, 1) === '~') { // group
-                        $and[] = ['rank_group2.key' => substr($form->rank, 1)];
-                    } else {
-                        $and[] = ['rank2.key' => $form->rank];
-                    }
-                }
-                if ($form->result != '' || is_bool($form->result)) {
-                    $and[] = [
-                        'battle2.is_win' => ($form->result === 'win' || $form->result === true),
-                    ];
-                }
-                if ($form->has_disconnect != '' || is_bool($form->has_disconnect)) {
-                    $value = $form->has_disconnect === 'yes' || $form->has_disconnect === true;
-                    $and[] = ['battle2.has_disconnect' => $value];
-                }
-                if ($form->id_from != '' && $form->id_from > 0) {
-                    $and[] = ['>=', 'battle2.id', (int)$form->id_from];
-                }
-                if ($form->id_to != '' && $form->id_to > 0) {
-                    $and[] = ['<=', 'battle2.id', (int)$form->id_to];
-                }
-                if ($form->filterTeam) {
-                    $and[] = ['battle2.my_team_id' => $form->filterTeam];
-                }
-                if ($form->filterIdRange) {
-                    $and[] = ['between',
-                        'battle2.id',
-                        (int)$form->filterIdRange[0],
-                        (int)$form->filterIdRange[1],
-                    ];
-                }
-                if ($form->filterPeriod) {
-                    $and[] = ['between',
-                        'battle2.period',
-                        (int)$form->filterPeriod[0],
-                        (int)$form->filterPeriod[1],
-                    ];
-                }
-                if ($form->filterWithPrincipalId) {
-                    $this->innerJoinWith('battlePlayersPure');
-                    $and[] = ['{{battle_player2}}.[[splatnet_id]]' => $form->filterWithPrincipalId];
-
-                    if (in_array((string)$form->with_team, ['good', 'bad'], true)) {
-                        $and[] = [
-                            '{{battle_player2}}.[[is_my_team]]' => $form->with_team === 'good',
-                        ];
-                    }
-                }
-                if (count($and) > 1) {
-                    $this->andWhere($and);
-                }
-                if ($form->term != '') {
-                    $this->filterTerm($form->term, [
-                        'from' => $form->term_from,
-                        'to' => $form->term_to,
-                        'filter' => $form,
-                        'timeZone' => $form->timezone,
-                    ]);
-                }
-
-                return $this;
-            }
-
-            public function filterTerm(string $term, array $options): self
-            {
-                // DateTimeZone
-                $tz = (function (?string $tzIdent) {
-                    if ($tzIdent && ($model = Timezone::findOne(['identifier' => (string)$tzIdent]))) {
-                        return new DateTimeZone($model->identifier);
-                    }
-                    return new DateTimeZone(Yii::$app->timeZone);
-                })($options['timeZone'] ?? null);
-
-                // DateTimeImmutable
-                $now = new DateTimeImmutable()
-                    ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
-                    ->setTimezone($tz);
-                $currentPeriod = BattleHelper::calcPeriod2($now->getTimestamp());
-                $date = sprintf('(CASE %s END)::timestamp with time zone', implode(' ', [
-                    'WHEN {{battle2}}.[[start_at]] IS NOT NULL THEN {{battle2}}.[[start_at]]',
-                    "WHEN {{battle2}}.[[end_at]] IS NOT NULL THEN {{battle2}}.[[end_at]] - '3 minutes'::interval",
-                    'WHEN {{battle2}}.[[period]] IS NOT NULL THEN PERIOD2_TO_TIMESTAMP({{battle2}}.[[period]])',
-                    "ELSE {{battle2}}.[[created_at]] - '4 minutes'::interval",
-                ]));
-
-                switch ($term) {
-                    case 'this-period':
-                        $this->andWhere(['battle2.period' => $currentPeriod]);
-                        break;
-
-                    case 'last-period':
-                        $this->andWhere(['battle2.period' => $currentPeriod - 1]);
-                        break;
-
-                    case '24h':
-                        $t = $now->sub(new DateInterval('PT24H'));
-                        $this->andWhere(
-                            ['>', $date, $t->format(DateTime::ATOM)],
-                        );
-                        break;
-
-                    case 'today':
-                        $today = $now->setTime(0, 0, 0);
-                        $tomorrow = $today->add(new DateInterval('P1D'));
-                        $this->andWhere(['and',
-                            ['>=', $date, $today->format(DateTime::ATOM)],
-                            ['<', $date, $tomorrow->format(DateTime::ATOM)],
-                        ]);
-                        break;
-
-                    case 'yesterday':
-                        $today = $now->setTime(0, 0, 0);
-                        $yesterday = $today->sub(new DateInterval('P1D'));
-                        $this->andWhere(['and',
-                            ['>=', $date, $yesterday->format(DateTime::ATOM)],
-                            ['<', $date, $today->format(DateTime::ATOM)],
-                        ]);
-                        break;
-
-                    case 'this-month-utc':
-                        $utcNow = new DateTimeImmutable()
-                            ->setTimezone(new DateTimeZone('Etc/UTC'))
-                            ->setTimestamp($now->getTimestamp());
-                        $thisMonth = new DateTimeImmutable()
-                            ->setTimezone(new DateTimeZone('Etc/UTC'))
-                            ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
-                            ->setTime(0, 0, 0);
-                        $this->andWhere([
-                            'between',
-                            'battle2.period',
-                            BattleHelper::calcPeriod2($thisMonth->getTimestamp()),
-                            BattleHelper::calcPeriod2($now->getTimestamp()),
-                        ]);
-                        break;
-
-                    case 'last-month-utc':
-                        $utcNow = new DateTimeImmutable()
-                            ->setTimezone(new DateTimeZone('Etc/UTC'))
-                            ->setTimestamp($now->getTimestamp());
-
-                        $lastMonthPeriod = BattleHelper::calcPeriod2(
-                            new DateTimeImmutable()
-                                ->setTimezone(new DateTimeZone('Etc/UTC'))
-                                ->setDate($utcNow->format('Y'), $utcNow->format('n') - 1, 1)
-                                ->setTime(0, 0, 0)
-                                ->getTimestamp(),
-                        );
-
-                        $thisMonthPeriod = BattleHelper::calcPeriod2(
-                            new DateTimeImmutable()
-                                ->setTimezone(new DateTimeZone('Etc/UTC'))
-                                ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
-                                ->setTime(0, 0, 0)
-                                ->getTimestamp(),
-                        );
-
-                        $this->andWhere(['and',
-                            ['>=', 'battle2.period', $lastMonthPeriod],
-                            ['<', 'battle2.period', $thisMonthPeriod],
-                        ]);
-                        break;
-
-                    case 'this-fest':
-                        try {
-                            if (!$form = $options['filter']) {
-                                throw new Exception();
-                            }
-
-                            if (!$user = User::findOne(['screen_name' => $form->screen_name])) {
-                                throw new Exception();
-                            }
-
-                            if (!$range = BattleHelper::getLastPlayedSplatfestPeriodRange2($user)) {
-                                throw new Exception();
-                            }
-
-                            $this->andWhere(['between', 'battle2.period', $range[0], $range[1]]);
-                        } catch (Throwable $e) {
-                            $this->andWhere('0 = 1');
-                        }
-                        break;
-
-                    case 'term':
-                        try {
-                            $from = ($options['from'] ?? '') != ''
-                                ? new DateTimeImmutable($options['from'])->setTimezone($tz)
-                                : null;
-                            $to = ($options['to'] ?? '') != ''
-                                ? new DateTimeImmutable($options['to'])->setTimezone($tz)
-                                : null;
-                            if ($from) {
-                                $this->andWhere(
-                                    ['>=', $date, $from->format(DateTime::ATOM)],
-                                );
-                            }
-                            if ($to) {
-                                $this->andWhere(
-                                    ['<', $date, $to->format(DateTime::ATOM)],
-                                );
-                            }
-                        } catch (Throwable $e) {
-                        }
-                        break;
-
-                    default:
-                        if (
-                            isset($options['filter']) &&
-                            preg_match('/^last-(\d+)-battles$/', $term, $match)
-                        ) {
-                            $range = BattleHelper::getNBattlesRange2(
-                                $options['filter'],
-                                (int)$match[1],
-                            );
-                            if ($range && $range['min_id'] && $range['max_id']) {
-                                $this->andWhere([
-                                    'between',
-                                    'battle2.id',
-                                    (int)$range['min_id'],
-                                    (int)$range['max_id'],
-                                ]);
-                            }
-                        } elseif (preg_match('/^last-(\d+)-periods$/', $term, $match)) {
-                            $currentPeriod = BattleHelper::calcPeriod2($now->getTimestamp());
-                            $this->andWhere([
-                                'between',
-                                'battle2.period',
-                                $currentPeriod - $match[1] + 1,
-                                $currentPeriod,
-                            ]);
-                        } elseif (preg_match('/^~?v\d+/', $term)) {
-                            $versions = (function () use ($term) {
-                                $query = SplatoonVersion2::find()->asArray();
-                                if (substr($term, 0, 1) === '~') {
-                                    $query->innerJoinWith('group', false)
-                                        ->andWhere([
-                                            'splatoon_version_group2.tag' => substr($term, 2),
-                                        ]);
-                                } else {
-                                    $query->andWhere(['tag' => substr($term, 1)]);
-                                }
-                                return array_map(
-                                    fn (array $version): int => $version['id'],
-                                    $query->all(),
-                                );
-                            })();
-                            if (!$versions) {
-                                $this->andWhere('1 <> 1'); // Always false
-                            } else {
-                                $this->andWhere(['battle2.version_id' => $versions]);
-                            }
-                        }
-                        break;
-                }
-                return $this;
-            }
-
-            public function getSummary()
-            {
-                return BattleSummarizer::getSummary2($this);
-            }
-        };
+        return new Battle2Query(static::class);
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         foreach ($this->events() as $event => $handler) {
@@ -693,10 +352,10 @@ class Battle2 extends ActiveRecord
                     }
                     $time = (function () use ($battle): ?int {
                         if (is_string($battle->end_at) && trim($battle->end_at) !== '') {
-                            return strtotime($battle->end_at);
+                            return $battle->end_at |> strtotime(...) |> TypeHelper::int(...);
                         }
                         if (is_string($battle->created_at) && trim($battle->created_at) !== '') {
-                            return strtotime($battle->created_at);
+                            return $battle->created_at |> strtotime(...) |> TypeHelper::int(...);
                         }
                         return null;
                     })();
@@ -729,7 +388,10 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public function events()
+    /**
+     * @return array<string, callable>
+     */
+    public function events(): array
     {
         return [
             static::EVENT_AFTER_INSERT => function ($event) {
@@ -753,7 +415,7 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public static function createClientUuid($value): string
+    public static function createClientUuid(mixed $value): string
     {
         if (!is_scalar($value)) {
             return Uuid::v4()->formatAsString();
@@ -1006,6 +668,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
+    /**
+     * @return ActiveQuery<BattleDeathReason2>
+     */
     public function getBattleDeathReasons(): ActiveQuery
     {
         return $this->hasMany(BattleDeathReason2::class, ['battle_id' => 'id'])
@@ -1015,19 +680,19 @@ class Battle2 extends ActiveRecord
             ]);
     }
 
-    public function getBattleImageJudge()
+    public function getBattleImageJudge(): ActiveQuery
     {
         return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_JUDGE]);
     }
 
-    public function getBattleImageResult()
+    public function getBattleImageResult(): ActiveQuery
     {
         return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
     }
 
-    public function getBattleImageGear()
+    public function getBattleImageGear(): ActiveQuery
     {
         return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_GEAR]);
@@ -1066,6 +731,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Environment::class, ['id' => 'env_id']);
     }
 
+    /**
+     * @return ActiveQuery<BattleEvents2>
+     */
     public function getEvents(): ActiveQuery
     {
         return $this->hasOne(BattleEvents2::class, ['id' => 'id']);
@@ -1116,6 +784,9 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(TurfwarWinBonus2::class, ['id' => 'bonus_id']);
     }
 
+    /**
+     * @return ActiveQuery<Battle2Splatnet>
+     */
     public function getSplatnetJson(): ActiveQuery
     {
         return $this->hasOne(Battle2Splatnet::class, ['id' => 'id']);
@@ -1224,6 +895,9 @@ class Battle2 extends ActiveRecord
             ->limit(1);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getExtraData(): array
     {
         $json = $this->ua_variables;
@@ -1232,7 +906,7 @@ class Battle2 extends ActiveRecord
         }
         try {
             return (function () use ($json): array {
-                $decoded = Json::decode($json);
+                $decoded = is_array($json) ? $json : Json::decode($json);
                 if (!$decoded) {
                     return [];
                 }
@@ -1282,7 +956,7 @@ class Battle2 extends ActiveRecord
 
     public function getCreatedAt(): int
     {
-        return strtotime($this->created_at);
+        return $this->created_at |> strtotime(...) |> TypeHelper::int(...);
     }
 
     public function getIsNawabari(): bool
@@ -1338,16 +1012,16 @@ class Battle2 extends ActiveRecord
         return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
     }
 
+    /**
+     * @param string[] $skips
+     * @return array<string, mixed>
+     */
     public function toJsonArray(array $skips = []): array
     {
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
             if ($tmp = $this->events->events ?? null) {
-                if (is_array($tmp)) {
-                    $events = $tmp;
-                } elseif (is_string($tmp)) {
-                    $events = Json::decode($tmp);
-                }
+                $events = Json::decode($tmp);
             }
 
             if (is_array($events)) {
@@ -1362,10 +1036,8 @@ class Battle2 extends ActiveRecord
             if ($tmp = $this->splatnetJson->json ?? null) {
                 if (is_object($tmp)) {
                     $splatnetJson = $tmp;
-                } elseif (is_array($tmp) && ArrayHelper::isAssociative($tmp)) {
+                } elseif (ArrayHelper::isAssociative($tmp)) {
                     $splatnetJson = (object)$tmp;
-                } elseif (is_string($tmp)) {
-                    $splatnetJson = Json::decode($tmp, false);
                 }
                 unset($tmp);
             }
@@ -1380,7 +1052,7 @@ class Battle2 extends ActiveRecord
                 'screen_name' => $this->user->screen_name,
                 'battle' => $this->id,
             ], true),
-            'user' => !in_array('user', $skips, true) && $this->user
+            'user' => !in_array('user', $skips, true)
                 ? $this->user->toJsonArray()
                 : null,
             'lobby' => $this->lobby ? $this->lobby->toJsonArray() : null,
@@ -1451,14 +1123,14 @@ class Battle2 extends ActiveRecord
             'fest_title' => $this->festTitle
                 ? $this->festTitle->toJsonArray(
                     $this->gender,
-                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null,
+                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme?->name : null,
                 )
                 : null,
             'fest_exp' => $this->fest_exp,
             'fest_title_after' => $this->festTitleAfter
                 ? $this->festTitleAfter->toJsonArray(
                     $this->gender,
-                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null,
+                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme?->name : null,
                 )
                 : null,
             'fest_exp_after' => $this->fest_exp_after,
@@ -1466,16 +1138,16 @@ class Battle2 extends ActiveRecord
             'my_team_estimate_fest_power' => $this->my_team_estimate_fest_power,
             'his_team_my_team_estimate_fest_power' => $this->his_team_estimate_fest_power,
             'my_team_fest_theme' => $this->my_team_fest_theme_id
-                ? $this->myTeamFestTheme->name
+                ? $this->myTeamFestTheme?->name
                 : null,
             'his_team_fest_theme' => $this->his_team_fest_theme_id
-                ? $this->hisTeamFestTheme->name
+                ? $this->hisTeamFestTheme?->name
                 : null,
             'my_team_nickname' => $this->my_team_nickname_id
-                ? $this->myTeamNickname->name
+                ? $this->myTeamNickname?->name
                 : null,
             'his_team_nickname' => $this->his_team_nickname_id
-                ? $this->hisTeamNickname->name
+                ? $this->hisTeamNickname?->name
                 : null,
             'clout' => $this->clout,
             'total_clout' => $this->total_clout,
@@ -1486,7 +1158,7 @@ class Battle2 extends ActiveRecord
                 ? null
                 : new JsExpression(sprintf('%.1f', $this->synergy_bonus)),
             'special_battle' => $this->special_battle_id
-                ? $this->specialBattle->toJsonArray()
+                ? $this->specialBattle?->toJsonArray()
                 : null,
             'image_judge' => $this->battleImageJudge
                 ? Url::to(
@@ -1509,9 +1181,9 @@ class Battle2 extends ActiveRecord
             'gears' => in_array('gears', $skips, true)
                 ? null
                 : [
-                    'headgear' => $this->headgear_id ? $this->headgear->toJsonArray() : null,
-                    'clothing' => $this->clothing_id ? $this->clothing->toJsonArray() : null,
-                    'shoes' => $this->shoes_id ? $this->shoes->toJsonArray() : null,
+                    'headgear' => $this->headgear_id ? $this->headgear?->toJsonArray() : null,
+                    'clothing' => $this->clothing_id ? $this->clothing?->toJsonArray() : null,
+                    'shoes' => $this->shoes_id ? $this->shoes?->toJsonArray() : null,
                 ],
             'period' => $this->period,
             'period_range' => (function () {
@@ -1564,6 +1236,9 @@ class Battle2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function toIkaLogCsv(): array
     {
         // https://github.com/hasegaw/IkaLog/blob/b2e3f3f1315719ad42837ffdb2362680ae09a5dc/ikalog/outputs/csv.py#L130
@@ -1571,7 +1246,7 @@ class Battle2 extends ActiveRecord
 
         // t_str = t.strftime("%Y,%m,%d,%H,%M")
         // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
-        $t = strtotime($this->end_at ?: $this->at);
+        $t = ($this->end_at ?: $this->created_at) |> strtotime(...) |> TypeHelper::int(...);
         return [
             (string)$t,
             date('Y', $t),
@@ -1590,9 +1265,12 @@ class Battle2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<mixed>
+     */
     public function toCsvArray(): array
     {
-        $t = strtotime($this->end_at ?: $this->at);
+        $t = ($this->end_at ?: $this->created_at) |> strtotime(...) |> TypeHelper::int(...);
         $mode = (function (): string {
             if ($this->lobby && $this->lobby->key === 'private') {
                 return 'Private Battle';
@@ -1618,7 +1296,7 @@ class Battle2 extends ActiveRecord
                     return 'Ranked Battle';
 
                 case 'fest':
-                    if ($this->lobby && $this->lobby === 'squad_4') {
+                    if ($this->lobby && $this->lobby->key === 'squad_4') {
                         return 'Splatfest (Team)';
                     }
                     return 'Splatfest';
@@ -1626,7 +1304,6 @@ class Battle2 extends ActiveRecord
                 default:
                     return $this->mode->name;
             }
-            return '';
         })();
 
         return [
@@ -1668,7 +1345,7 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public function getPrettyMode()
+    public function getPrettyMode(): ?string
     {
         $key = implode('-', [
             $this->lobby->key ?? '?',
@@ -1756,6 +1433,9 @@ class Battle2 extends ActiveRecord
         ));
     }
 
+    /**
+     * @param BattlePlayer2[] $players
+     */
     private function getPrivateTeamId(array $players): ?string
     {
         if (!$this->lobby || $this->lobby->key !== 'private') {
@@ -1764,7 +1444,7 @@ class Battle2 extends ActiveRecord
 
         $playerIds = array_map(
             function ($player): ?string {
-                $id = trim($player->splatnet_id);
+                $id = trim($player->splatnet_id ?? '');
                 return preg_match('/^[0-9a-f]{16}$/u', $id)
                     ? $id
                     : null;
@@ -1793,6 +1473,9 @@ class Battle2 extends ActiveRecord
         return $this->kill_or_assist - $this->kill;
     }
 
+    /**
+     * @return array<string, Ability2Info>|null
+     */
     public function getGearAbilitySummary(): ?array
     {
         static $cache = false;
@@ -1802,6 +1485,9 @@ class Battle2 extends ActiveRecord
         return $cache;
     }
 
+    /**
+     * @return array<string, Ability2Info>|null
+     */
     private function getGearAbilitySummaryImpl(): ?array
     {
         $results = [];
@@ -1861,12 +1547,15 @@ class Battle2 extends ActiveRecord
             return $b->get57Format() <=> $a->get57Format()
                 ?: $b->primary <=> $a->primary
                 ?: $b->secondary <=> $b->secondary
-                ?: strcmp($a->ability->name, $b->ability->name);
+                ?: strcmp($a->ability->name ?? '', $b->ability->name ?? '');
         });
 
         return $results;
     }
 
+    /**
+     * @param int|string|array<int|string|null>|null $weaponIds
+     */
     public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null): void
     {
         $weaponIds = array_unique(array_filter((array)$weaponIds, fn ($value) => $value > 0));

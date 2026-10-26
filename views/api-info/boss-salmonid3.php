@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\CcBy;
 use app\components\widgets\SnsWidget;
@@ -14,6 +15,7 @@ use app\models\Language;
 use app\models\SalmonBoss3;
 use app\models\SalmonKing3;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -23,7 +25,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = Yii::t('app-api-info', 'API Info: Boss Salmonids (Splatoon 3)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

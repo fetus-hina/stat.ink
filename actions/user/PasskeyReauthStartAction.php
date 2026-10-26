@@ -9,12 +9,14 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\components\helpers\PasskeyChallengeStore;
 use app\components\helpers\PasskeyResponse;
 use app\components\helpers\WebAuthnHelper;
 use app\models\PasskeyChallenge;
 use app\models\UserPasskey;
+use stdClass;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
@@ -23,7 +25,11 @@ use function array_map;
 
 final class PasskeyReauthStartAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>|stdClass
+     */
+    #[Override]
+    public function run(): array|stdClass
     {
         $ident = Yii::$app->user->getIdentity();
         if (!$ident) {

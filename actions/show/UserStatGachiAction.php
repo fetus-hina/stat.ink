@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\Map;
@@ -25,26 +26,34 @@ use function array_shift;
 use function array_slice;
 use function array_sum;
 use function count;
-use function floor;
+use function intdiv;
 use function round;
 use function strnatcasecmp;
 use function uasort;
 
 use const SORT_DESC;
 
+/**
+ * @property-read array<string, string> $maps
+ * @property-read list<stdClass> $recentRankData
+ * @property-read list<stdClass> $recentWPData
+ * @property-read object|null $userRankStat
+ */
 class UserStatGachiAction extends BaseAction
 {
-    private $user;
+    private User $user;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
-        $this->user = User::findOne([
+        $user = User::findOne([
             'screen_name' => $request->get('screen_name'),
         ]);
-        if (!$this->user) {
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
+        $this->user = $user;
 
         return $this->controller->render('user-stat-gachi', [
             'user' => $this->user,
@@ -55,7 +64,10 @@ class UserStatGachiAction extends BaseAction
         ]);
     }
 
-    public function getRecentRankData()
+    /**
+     * @return list<stdClass>
+     */
+    public function getRecentRankData(): array
     {
         $query = Battle::find()
             ->with(['rankAfter', 'rule', 'lobby']) // eager loading
@@ -130,6 +142,9 @@ class UserStatGachiAction extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return list<stdClass>
+     */
     public function getRecentWPData(): array
     {
         $query = Battle::find()
@@ -188,7 +203,7 @@ class UserStatGachiAction extends BaseAction
         return $battles;
     }
 
-    public function getUserRankStat()
+    public function getUserRankStat(): ?stdClass
     {
         $subQuery = new Query()
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
@@ -209,12 +224,12 @@ class UserStatGachiAction extends BaseAction
         if ($entire = $this->getEntireRankStat()) {
             $ranks = ['C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'];
             $avgExp = (int)round($entire->average);
-            $avgRank = Yii::t('app-rank', $ranks[floor($avgExp / 100)]);
+            $avgRank = Yii::t('app-rank', $ranks[intdiv($avgExp, 100)]);
             $avgRankExp = $avgExp % 100;
         }
 
         return (object)[
-            'rank' => Yii::t('app-rank', $battle->rankAfter->name),
+            'rank' => Yii::t('app-rank', $battle->rankAfter->name ?? ''),
             'rankExp' => (int)$battle->rank_exp_after,
             'deviation' => $deviation,
             'avgRank' => $avgRank,
@@ -222,7 +237,7 @@ class UserStatGachiAction extends BaseAction
         ];
     }
 
-    private function calcGraphExp($key, $exp)
+    private function calcGraphExp(?string $key, mixed $exp): int
     {
         $exp = (int)$exp;
         switch ($key) {
@@ -263,7 +278,7 @@ class UserStatGachiAction extends BaseAction
         return $exp;
     }
 
-    private function getEntireRankStat(): stdClass
+    private function getEntireRankStat(): ?stdClass
     {
         $subQuery = new Query()
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
@@ -288,7 +303,7 @@ class UserStatGachiAction extends BaseAction
             $exps[] = $this->calcGraphExp($row['rank_key'], $row['rank_exp']);
         }
         if (count($exps) < 1) {
-            return false;
+            return null;
         }
 
         $avgExp = array_sum($exps) / count($exps);
@@ -298,6 +313,9 @@ class UserStatGachiAction extends BaseAction
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getMaps(): array
     {
         $list = ArrayHelper::map(

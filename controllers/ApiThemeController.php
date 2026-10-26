@@ -27,7 +27,7 @@ class ApiThemeController extends Controller
         ];
     }
 
-    public function actionSet()
+    public function actionSet(): bool
     {
         $resp = Yii::$app->response;
         $resp->format = 'json';

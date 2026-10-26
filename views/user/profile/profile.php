@@ -249,7 +249,7 @@ $f = Yii::$app->formatter;
         return Html::a(
           implode(' ', [
             Icon::twitter(),
-            '@' . Html::encode($user->twitter),
+            '@' . Html::encode($user->twitter ?? ''),
           ]),
           'https://twitter.com/intent/user?' . http_build_query([
             'screen_name' => $user->twitter,
@@ -263,7 +263,7 @@ $f = Yii::$app->formatter;
       'format' => 'raw',
       'value' => function () use ($user): string {
         return Html::a(
-          '#' . Html::encode($user->ikanakama2),
+          '#' . Html::encode((string)$user->ikanakama2),
           sprintf('https://ikanakama.ink/users/%s', rawurlencode((string)$user->ikanakama2))
         );
       },

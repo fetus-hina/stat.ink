@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $name
  * @property boolean $is_automated
- * @property string $link_url
+ * @property string|null $link_url
  */
 class AgentAttribute extends ActiveRecord
 {

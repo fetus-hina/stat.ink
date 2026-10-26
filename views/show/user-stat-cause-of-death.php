@@ -7,19 +7,26 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
+use app\models\BattleFilterForm;
+use app\models\CauseOfDeathGroupForm;
 use app\models\User;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
+ * @var BattleFilterForm $filter
+ * @var CauseOfDeathGroupForm $group
  * @var User $user
  * @var View $this
+ * @var array<stdClass> $list
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $title = Yii::t('app-show', '{name}\'s Battle Stats (Cause of Death)', ['name' => $user->name]);
 $this->title = implode(' | ', [

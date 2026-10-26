@@ -15,6 +15,7 @@ use yii\helpers\ArrayHelper;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 
 use const SORT_ASC;
 
@@ -24,11 +25,11 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $strength_id
- * @property integer $weakness_id
+ * @property integer|null $strength_id
+ * @property integer|null $weakness_id
  *
- * @property Ability2 $strength
- * @property Ability2 $weakness
+ * @property Ability2|null $strength
+ * @property Ability2|null $weakness
  */
 class Brand2 extends ActiveRecord
 {
@@ -94,7 +95,10 @@ class Brand2 extends ActiveRecord
         return $this->hasOne(Ability2::class, ['id' => 'weakness_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -104,6 +108,9 @@ class Brand2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -135,6 +142,9 @@ class Brand2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -142,6 +152,9 @@ class Brand2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $models = static::find()
@@ -151,9 +164,9 @@ class Brand2 extends ActiveRecord
             ])
             ->orderBy(['key' => SORT_ASC])
             ->all();
-        return array_map(
+        return array_values(array_map(
             fn ($model) => $model->toJsonArray(),
             $models,
-        );
+        ));
     }
 }

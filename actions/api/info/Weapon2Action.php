@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\info;
 
+use Override;
 use Yii;
 use app\components\helpers\Translator;
 use app\models\Language;
@@ -26,7 +27,8 @@ use const SORT_ASC;
 
 class Weapon2Action extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $categories = array_map(
             fn (WeaponCategory2 $category): array => [

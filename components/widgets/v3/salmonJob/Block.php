@@ -21,14 +21,14 @@ use function trim;
 final class Block extends Widget
 {
     /**
-     * @var int|float
+     * @var int|float|string
      */
     public $value;
 
     public ?string $label = null;
 
     /**
-     * @var string|array
+     * @var string|array<mixed>
      */
     public $format = 'text';
 

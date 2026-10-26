@@ -62,7 +62,7 @@ final class SalmonPlayedWith3Job extends BaseObject implements JobInterface
             ->priority(self::getJobPriority())
             ->push(new self([
                 'user' => $user->id,
-                'id' => $job?->id ?? null,
+                'id' => $job->id ?? null,
             ]));
     }
 }

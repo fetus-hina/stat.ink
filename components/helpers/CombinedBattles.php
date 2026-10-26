@@ -18,15 +18,14 @@ use app\models\Salmon2;
 use app\models\Salmon3;
 use app\models\User;
 use yii\base\Model;
+use yii\db\ActiveQuery;
 
 use function array_merge;
 use function array_slice;
-use function array_values;
 use function call_user_func;
 use function ceil;
 use function count;
 use function filter_var;
-use function is_callable;
 use function is_int;
 use function is_string;
 use function method_exists;
@@ -37,6 +36,9 @@ use const FILTER_VALIDATE_INT;
 
 final class CombinedBattles
 {
+    /**
+     * @return array<Battle|Battle2|Battle3|Salmon2|Salmon3>
+     */
     public static function getRecentBattles(int $num = 100): array
     {
         try {
@@ -53,6 +55,9 @@ final class CombinedBattles
         }
     }
 
+    /**
+     * @return array<Battle|Battle2|Battle3|Salmon2|Salmon3>
+     */
     public static function getUserRecentBattles(User $user, int $num = 100): array
     {
         try {
@@ -69,6 +74,10 @@ final class CombinedBattles
         }
     }
 
+    /**
+     * @param array{query: ActiveQuery<Battle|Battle2|Battle3|Salmon2|Salmon3>, callback?: callable(ActiveQuery, ?DateTimeImmutable): void}[] $queries
+     * @return array<Battle|Battle2|Battle3|Salmon2|Salmon3>
+     */
     public static function getRecentBattlesByQueries(array $queries, int $num = 100): array
     {
         try {
@@ -78,7 +87,7 @@ final class CombinedBattles
             foreach ($queries as $_) {
                 Yii::beginProfile($_['query']->modelClass, __METHOD__);
                 $query = clone $_['query'];
-                if (isset($_['callback']) && is_callable($_['callback'])) {
+                if (isset($_['callback'])) {
                     call_user_func($_['callback'], $query, $threshold);
                 }
                 if ($list = $query->all()) {
@@ -86,7 +95,7 @@ final class CombinedBattles
                     usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a));
                     if (count($merged) >= $num) {
                         $threshold = new DateTimeImmutable()
-                            ->setTimestamp(self::getCreatedAt($merged[$num - 1]));
+                            ->setTimestamp(TypeHelper::int(self::getCreatedAt($merged[$num - 1])));
                     }
                     if (count($merged) > ceil($num * 1.2)) {
                         $merged = array_slice($merged, 0, (int)ceil($num * 1.2));
@@ -104,7 +113,7 @@ final class CombinedBattles
             usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a)
                     ?: $orderByClass[$b::class] <=> $orderByClass[$a::class]
                     ?: $b->id <=> $a->id);
-            return array_slice(array_values($merged), 0, $num);
+            return array_slice($merged, 0, $num);
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
@@ -115,10 +124,11 @@ final class CombinedBattles
      */
     private static function getCreatedAt(?Model $model): ?int
     {
-        if (
-            method_exists($model, 'getCreatedAt') &&
-            is_callable([$model, 'getCreatedAt'])
-        ) {
+        if ($model === null) {
+            return null;
+        }
+
+        if (method_exists($model, 'getCreatedAt')) {
             return self::prepareTimestamp($model->getCreatedAt());
         }
 

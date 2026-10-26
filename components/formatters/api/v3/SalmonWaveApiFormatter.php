@@ -21,6 +21,7 @@ final class SalmonWaveApiFormatter
 
     /**
      * @param SalmonWave3[] $models
+     * @return list<array<string, mixed>|null>|null
      */
     public static function allToJson(array $models, bool $fullTranslate = false): ?array
     {
@@ -30,6 +31,9 @@ final class SalmonWaveApiFormatter
         );
     }
 
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?SalmonWave3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

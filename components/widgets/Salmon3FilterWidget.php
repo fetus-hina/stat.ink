@@ -18,6 +18,7 @@ use yii\bootstrap\ActiveField;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
+use app\components\helpers\TypeHelper;
 
 use function implode;
 use function ob_end_clean;
@@ -32,7 +33,7 @@ final class Salmon3FilterWidget extends Widget
     public const ACTION_SEARCH = 'search';
     public const ACTION_SUMMARIZE = 'summarize';
 
-    public $id = 'filter-form';
+    public string $id = 'filter-form';
     public string|null $route = null;
     public User|null $user = null;
     public Salmon3FilterForm|null $filter = null;
@@ -78,7 +79,7 @@ final class Salmon3FilterWidget extends Widget
             echo $this->drawFields($form);
             ActiveForm::end();
             echo Html::endTag('div');
-            return ob_get_contents();
+            return TypeHelper::string(ob_get_contents());
         } finally {
             ob_end_clean();
         }

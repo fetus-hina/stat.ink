@@ -7,7 +7,9 @@
 
 namespace app\actions\show\v2;
 
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2;
 use app\models\Battle2DeleteForm;
 use app\models\Battle2Form;
@@ -17,6 +19,9 @@ use app\models\Weapon2;
 use app\models\WeaponType2;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
+use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function array_merge;
 use function vsprintf;
@@ -30,9 +35,10 @@ use const SORT_NATURAL;
  */
 final class EditBattleAction extends Action
 {
-    private $battle;
+    private ?Battle2 $battle = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->battle = null;
@@ -44,51 +50,55 @@ final class EditBattleAction extends Action
         }
     }
 
-    public function getIsEditable()
+    public function getIsEditable(): bool
     {
         return !!$this->battle;
     }
 
-    public function run()
+    public function run(): string|Response|null
     {
+        if (!$battle = $this->battle) {
+            throw new ServerErrorHttpException();
+        }
+
         $del = Yii::createObject(Battle2DeleteForm::class);
         if (Yii::$app->request->isPost) {
             $form = Yii::createObject(['class' => Battle2Form::class]);
             $form->load($_POST);
             $del->load($_POST);
-            $del->battle = $this->battle->id;
+            $del->battle = $battle->id;
             if (Yii::$app->request->post('_action') === 'delete') {
                 if ($del->validate()) {
                     $transaction = Yii::$app->db->beginTransaction();
                     if ($del->delete()) {
                         $transaction->commit();
-                        return $this->controller->redirect([
+                        return TypeHelper::instanceOf($this->controller, Controller::class)->redirect([
                             'show-v2/user',
-                            'screen_name' => $this->battle->user->screen_name,
+                            'screen_name' => $battle->user->screen_name,
                         ]);
                     }
                     $transaction->rollback();
                 }
             } else {
                 if ($form->validate()) {
-                    $this->battle->attributes = $form->attributes;
-                    $this->battle->is_win = $form->getIsWin();
-                    if ($this->battle->save()) {
-                        $this->controller->redirect([
+                    $battle->attributes = $form->attributes;
+                    $battle->is_win = $form->getIsWin();
+                    if ($battle->save()) {
+                        TypeHelper::instanceOf($this->controller, Controller::class)->redirect([
                             'show-v2/battle',
-                            'screen_name' => $this->battle->user->screen_name,
-                            'battle' => $this->battle->id,
+                            'screen_name' => $battle->user->screen_name,
+                            'battle' => $battle->id,
                         ]);
-                        return;
+                        return null;
                     }
                 }
             }
         } else {
-            $form = Battle2Form::fromBattle($this->battle);
+            $form = Battle2Form::fromBattle($battle);
         }
         return $this->controller->render('edit-battle', [
-            'user' => $this->battle->user,
-            'battle' => $this->battle,
+            'user' => $battle->user,
+            'battle' => $battle,
             'form' => $form,
             'delete' => $del,
             'maps' => $this->makeMaps(),
@@ -164,6 +174,10 @@ final class EditBattleAction extends Action
         );
     }
 
+    /**
+     * @param array<array-key, mixed> ...$arrays
+     * @return array<array-key, mixed>
+     */
     private static function arrayMerge(array ...$arrays): array
     {
         $ret = [];

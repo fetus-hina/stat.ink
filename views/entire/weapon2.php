@@ -17,6 +17,7 @@ use app\models\Rule2;
 use app\models\SplatoonVersion2;
 use app\models\StatWeapon2UseCountPerWeek;
 use app\models\Weapon2;
+use app\models\Weapon2StageFilterForm;
 use app\models\WeaponCategory2;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\bootstrap\ActiveForm;
@@ -27,12 +28,6 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\View;
-
-/**
- * @var Rule2 $rule
- * @var View $this
- * @var Weapon2 $weapon
- */
 
 function calcError(int $battles, int $wins): ?float
 {
@@ -45,6 +40,19 @@ function calcError(int $battles, int $wins): ?float
   $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
   return $s / sqrt($battles) * 100.0;
 }
+
+/**
+ * @var Rule2 $rule
+ * @var View $this
+ * @var Weapon2 $weapon
+ * @var Weapon2StageFilterForm $stageFilter
+ * @var array<string, array<int, array{times: int, battles: int}>> $assists
+ * @var array<string, array<int, array{times: int, battles: int}>> $deaths
+ * @var array<string, array<int, array{times: int, battles: int}>> $kills
+ * @var array<string, array<int, array{times: int, battles: int}>> $specials
+ * @var array<string, array{win: int, lose: int}> $winRate
+ * @var array<string, string> $maps
+ */
 
 EntireWeapon2Asset::register($this);
 
@@ -404,23 +412,19 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         );
 
         $additional[Yii::t('app-statistics', 'Average')] = $average;
-        $additional[Yii::t('app-statistics', 'Minimum')] = min(array_map(
+        $times = array_map(
           function (array $row): int {
             return (int)$row['times'];
           },
           $list
-        ));
+        );
+        $additional[Yii::t('app-statistics', 'Minimum')] = $times ? min($times) : null;
         if ($battles > 4) {
           $additional['Q 1/4'] = $_getQ($list, (int)round($battles / 4));
           $additional[Yii::t('app-statistics', 'Median')] = $_getQ($list, (int)round($battles / 2));
           $additional['Q 3/4'] = $_getQ($list, (int)round(3 * $battles / 4));
         }
-        $additional[Yii::t('app-statistics', 'Maximum')] = max(array_map(
-          function (array $row): int {
-            return (int)$row['times'];
-          },
-          $list
-        ));
+        $additional[Yii::t('app-statistics', 'Maximum')] = $times ? max($times) : null;
         $additional['σ'] = $stddev;
       }
 
@@ -434,7 +438,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         ]),
         Html::tag('div', implode('<br>', array_filter(array_map(
           function (string $key, $value): ?string {
-            if ($value === null || $value === false || is_nan($value)) {
+            if ($value === null || is_nan($value)) {
               return null;
             }
             if (is_int($value)) {
@@ -490,7 +494,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
       'tableOptions' => [
         'class' => 'table table-striped table-condensed table-sortable graph-container',
       ],
-      'summary' => false,
+      'summary' => '',
       'columns' => [
         [
           'label' => Html::encode(Yii::t('app', 'Stage')), // {{{

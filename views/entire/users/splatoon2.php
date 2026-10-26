@@ -7,6 +7,12 @@
 
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array{term: array{s: array<string, mixed>, e: array<string, mixed>}, agents: list<array<string, mixed>>} $agents
+ */
 
 $fmt = Yii::$app->formatter;
 ?>

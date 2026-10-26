@@ -9,12 +9,15 @@ namespace app\models;
 
 use DateTime;
 use DateTimeZone;
+use Override;
+use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
 use app\components\helpers\TypeHelper;
 use app\components\helpers\UserNotifier;
+use app\models\query\Battle2Query;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -30,6 +33,7 @@ use function filter_var;
 use function hash_hmac;
 use function implode;
 use function is_int;
+use function preg_last_error_msg;
 use function preg_replace;
 use function random_bytes;
 use function rawurlencode;
@@ -53,41 +57,52 @@ use const SORT_DESC;
  * @property string|null $password
  * @property string $api_key
  * @property string $join_at
- * @property string $nnid
- * @property string $sw_friend_code
- * @property string $twitter
- * @property integer $ikanakama
- * @property integer $ikanakama2
- * @property integer $env_id
+ * @property string|null $nnid
+ * @property string|null $sw_friend_code
+ * @property string|null $twitter
+ * @property integer|null $ikanakama
+ * @property integer|null $ikanakama2
+ * @property integer|null $env_id
  * @property string $blackout
- * @property string $blackout_list
+ * @property string|null $blackout_list
  * @property integer $default_language_id
  * @property integer $region_id
  * @property integer $link_mode_id
- * @property string $email
+ * @property string|null $email
+ * @property integer|null $email_lang_id
  * @property boolean $apikey_password_reset
  * @property boolean $hide_data_on_toppage
  *
  * @property Battle[] $battles
  * @property Battle2[] $battle2s
  * @property Language $defaultLanguage
- * @property Environment $env
+ * @property Environment|null $env
  * @property LoginWithDiscord|null $loginWithDiscord
  * @property LoginWithGoogle|null $loginWithGoogle
- * @property LoginWithTwitter $loginWithTwitter
- * @property OstatusRsa $ostatusRsa
+ * @property LoginWithTwitter|null $loginWithTwitter
+ * @property OstatusRsa|null $ostatusRsa
  * @property Region $region
  * @property LinkMode $linkMode
  * @property Slack[] $slacks
- * @property UserIcon $userIcon
+ * @property UserIcon|null $userIcon
  * @property UserPasskey[] $userPasskeys
  * @property UserPasskeyUser|null $userPasskeyUser
  * @property UserPasswordRecoveryKey[] $userPasswordRecoveryKeys
- * @property UserStat $userStat
- * @property UserStat2 $userStat2
+ * @property UserStat|null $userStat
+ * @property UserStat2|null $userStat2
  * @property UserWeapon[] $userWeapons
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
+ * @property-read string $identiconHash
+ * @property-read Language|null $emailLang
+ * @property-read Region2 $guessedSplatfest2Region
+ * @property-read bool $isSlackIntegrated
+ * @property-read string $jdenticonPngUrl
+ * @property-read Battle|null $latestBattle
+ * @property-read string $iconUrl
+ * @property-read bool $isUserJsonReady
+ * @property-read string $jdenticonUrl
+ * @property-read Weapon|null $mainWeapon
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -125,7 +140,8 @@ class User extends ActiveRecord implements IdentityInterface
         return null;
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, function ($event) {
@@ -154,7 +170,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{6,16}$/'],
             [['sw_friend_code'], 'filter',
                 'filter' => function ($v) {
-                    $v = trim(preg_replace('/[^\d]+/', '', (string)$v));
+                    $v = trim(preg_replace('/[^\d]+/', '', (string)$v)
+                        ?? throw new RuntimeException(preg_last_error_msg()));
                     return $v != '' ? $v : null;
                 },
             ],
@@ -231,19 +248,19 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return ActiveQuery
+     * @return ActiveQuery<Battle>
      */
     public function getBattles()
     {
         return $this->hasMany(Battle::class, ['user_id' => 'id']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getBattle2s()
+    public function getBattle2s(): Battle2Query
     {
-        return $this->hasMany(Battle2::class, ['user_id' => 'id']);
+        return TypeHelper::instanceOf(
+            $this->hasMany(Battle2::class, ['user_id' => 'id']),
+            Battle2Query::class,
+        );
     }
 
     /**
@@ -368,7 +385,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Weapon::class, ['id' => 'weapon_id'])->viaTable('user_weapon', ['user_id' => 'id']);
     }
 
-    public function getMainWeapon()
+    public function getMainWeapon(): ActiveQuery
     {
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id'])
             ->viaTable('user_weapon', ['user_id' => 'id'], function ($query) {
@@ -376,20 +393,23 @@ class User extends ActiveRecord implements IdentityInterface
             });
     }
 
+    /**
+     * @return ActiveQuery<Salmon2>
+     */
     public function getSalmonResults(): ActiveQuery
     {
         return $this->hasMany(Salmon2::class, ['user_id' => 'id'])
             ->orderBy(['id' => SORT_DESC]);
     }
 
-    public function getLatestBattle()
+    public function getLatestBattle(): ActiveQuery
     {
         return $this->hasOne(Battle::class, ['user_id' => 'id'])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit(1);
     }
 
-    public function getLatestBattleResultImage()
+    public function getLatestBattleResultImage(): ActiveQuery
     {
         return $this
             ->hasOne(BattleImage::class, ['battle_id' => 'id'])
@@ -405,7 +425,7 @@ class User extends ActiveRecord implements IdentityInterface
             ->andWhere(['battle_image.type_id' => BattleImageType::ID_RESULT]);
     }
 
-    public function getOstatusRsa()
+    public function getOstatusRsa(): ActiveQuery
     {
         return $this->hasOne(OstatusRsa::class, ['user_id' => 'id']);
     }
@@ -437,7 +457,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Language::class, ['id' => 'email_lang_id']);
     }
 
-    public static function generateNewApiKey()
+    public static function generateNewApiKey(): string
     {
         while (true) {
             $key = random_bytes(256 / 8);
@@ -452,7 +472,7 @@ class User extends ActiveRecord implements IdentityInterface
     // IdentityInterface
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => (string)$id]);
+        return static::findOne(['id' => (int)$id]);
     }
 
     // IdentityInterface
@@ -529,7 +549,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasPassword() || (int)$this->getUserPasskeys()->count() > 1;
     }
 
-    public function validatePassword($password)
+    public function validatePassword(mixed $password): bool
     {
         if ($this->password === null) {
             // Spend the same time as a real verification, so as not to reveal
@@ -541,7 +561,7 @@ class User extends ActiveRecord implements IdentityInterface
         return Password::verify((string)$password, $this->password);
     }
 
-    public function rehashPasswordIfNeeded($password)
+    public function rehashPasswordIfNeeded(string $password): bool
     {
         if ($this->password === null || !Password::needsRehash($this->password)) {
             return false;
@@ -592,7 +612,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->save(false, ['password']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'id' => $this->id,
@@ -628,6 +651,9 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toSalmonJsonArray(): array
     {
         static $statsCache = [];
@@ -680,22 +706,22 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public function getUserJsonPath()
+    public function getUserJsonPath(): string
     {
         return Yii::getAlias('@app/runtime/user-json') . '/' . $this->id . '.json.gz';
     }
 
-    public function getIsUserJsonReady()
+    public function getIsUserJsonReady(): bool
     {
         return file_exists($this->getUserJsonPath()) && filesize($this->getUserJsonPath()) > 0;
     }
 
-    public function getUserJsonLastUpdatedAt()
+    public function getUserJsonLastUpdatedAt(): int|false
     {
         return filemtime($this->getUserJsonPath());
     }
 
-    public function getIdenticonHash()
+    public function getIdenticonHash(): string
     {
         return substr(
             hash_hmac(
@@ -756,8 +782,11 @@ class User extends ActiveRecord implements IdentityInterface
             ])
             ->limit(1)
             ->scalar();
-        return ($regionID ? Region2::findOne(['id' => (int)$regionID]) : null)
-            ?: Region2::findOne(['key' => 'jp']); // default
+        return TypeHelper::instanceOf(
+            ($regionID ? Region2::findOne(['id' => (int)$regionID]) : null)
+                ?: Region2::findOne(['key' => 'jp']), // default
+            Region2::class,
+        );
     }
 
     public static function onLogin(self $user, int $loginMethod): void
@@ -765,16 +794,25 @@ class User extends ActiveRecord implements IdentityInterface
         UserNotifier::loggedIn($user, $loginMethod);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [];
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function openapiExample(): array
     {
         return [];

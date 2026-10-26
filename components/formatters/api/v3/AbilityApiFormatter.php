@@ -13,6 +13,9 @@ use app\models\Ability3;
 
 final class AbilityApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?Ability3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

@@ -8,6 +8,7 @@
 namespace app\components\helpers;
 
 use Exception;
+use RuntimeException;
 use Throwable;
 use Yii;
 
@@ -32,6 +33,7 @@ use function is_executable;
 use function max;
 use function min;
 use function mkdir;
+use function preg_last_error_msg;
 use function preg_replace;
 use function round;
 use function sprintf;
@@ -48,8 +50,20 @@ class ImageConverter
     public const OUT_HEIGHT = 720;
     public const JPEG_QUALITY = 85;
 
-    public static function convert($binary, $outPathJpeg, $blackoutPosList = false, $outPathArchivePng = null)
-    {
+    /**
+     * @param string|false $binary
+     * @param array<int>|false $blackoutPosList
+     */
+    public static function convert(
+        $binary,
+        string $outPathJpeg,
+        array|false $blackoutPosList = false,
+        ?string $outPathArchivePng = null,
+    ): bool {
+        if ($binary === false) {
+            return false;
+        }
+
         if (!is_array($blackoutPosList)) {
             $blackoutPosList = [];
         }
@@ -78,7 +92,10 @@ class ImageConverter
         return true;
     }
 
-    protected static function convertImpl($binary, array $blackoutPosList)
+    /**
+     * @param array<int> $blackoutPosList
+     */
+    protected static function convertImpl(string $binary, array $blackoutPosList): Resource|false
     {
         try {
             $in = @imagecreatefromstring($binary);
@@ -150,7 +167,7 @@ class ImageConverter
         return false;
     }
 
-    protected static function copyJpeg($inPath, $outPath)
+    protected static function copyJpeg(string $inPath, string $outPath): bool
     {
         self::mkdir(dirname($outPath));
         $cmdlines = [
@@ -179,14 +196,14 @@ class ImageConverter
         return true;
     }
 
-    protected static function copyLepton($jpegPath)
+    protected static function copyLepton(string $jpegPath): bool
     {
         $binPath = Yii::$app->params['lepton']['bin'] ?? false;
         if (!$binPath || !@file_exists($binPath) || !is_executable($binPath)) {
             return false;
         }
 
-        $leptonPath = preg_replace('/\.jpg$/', '.lep', $jpegPath);
+        $leptonPath = preg_replace('/\.jpg$/', '.lep', $jpegPath) ?? throw new RuntimeException(preg_last_error_msg());
         self::mkdir(dirname($leptonPath));
         $cmdline = sprintf(
             '/usr/bin/env %s %s %s',
@@ -205,7 +222,7 @@ class ImageConverter
         return true;
     }
 
-    private static function mkdir($dir)
+    private static function mkdir(string $dir): void
     {
         if (!file_exists($dir)) {
             mkdir($dir, 0755, true);

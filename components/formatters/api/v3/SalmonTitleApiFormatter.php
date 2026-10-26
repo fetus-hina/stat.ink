@@ -13,6 +13,9 @@ use app\models\SalmonTitle3;
 
 final class SalmonTitleApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?SalmonTitle3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

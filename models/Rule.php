@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 
 use const SORT_ASC;
 
@@ -24,13 +25,14 @@ use const SORT_ASC;
  * @property integer $mode_id
  * @property string $key
  * @property string $name
+ * @property string $short_name
  *
  * @property Battle[] $battles
  * @property GameMode $mode
  * @property SplapiRule[] $splapiRules
  * @property StatWeapon[] $statWeapons
  * @property Weapon[] $weapons
- * @property StatWeaponBattleCount $statWeaponBattleCount
+ * @property StatWeaponBattleCount|null $statWeaponBattleCount
  */
 final class Rule extends ActiveRecord
 {
@@ -121,6 +123,9 @@ final class Rule extends ActiveRecord
         return $this->hasOne(StatWeaponBattleCount::class, ['rule_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -130,6 +135,9 @@ final class Rule extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -155,6 +163,9 @@ final class Rule extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -163,15 +174,18 @@ final class Rule extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $values = static::find()
             ->with('mode')
             ->orderBy(['id' => SORT_ASC])
             ->all();
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             $values,
-        );
+        ));
     }
 }

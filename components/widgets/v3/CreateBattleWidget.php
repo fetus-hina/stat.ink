@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3;
 
+use Override;
 use Yii;
 use app\assets\CreateBattle3Asset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\Dialog;
 use app\components\widgets\Icon;
 use app\models\Lobby3;
@@ -36,7 +38,8 @@ use const SORT_NATURAL;
 
 final class CreateBattleWidget extends Dialog
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -54,7 +57,7 @@ final class CreateBattleWidget extends Dialog
             sprintf(
                 'window.__createBattle3Config = %s;',
                 Json::encode([
-                    'apiKey' => (string)Yii::$app->user->identity?->api_key,
+                    'apiKey' => (string)Yii::$app->user->getIdentity()?->api_key,
                     'apiUrl' => Url::to('@web/api/v3/battle', true),
                     'scheduleUrl' => Url::to('@web/api/internal/current-schedule3', true),
                     'agent' => sprintf('%s web client', (string)Yii::$app->name),
@@ -297,7 +300,7 @@ final class CreateBattleWidget extends Dialog
 
         foreach (WeaponType3::find()->orderBy(['rank' => SORT_ASC])->all() as $type) {
             $typeWeapons = ArrayHelper::asort(
-                ArrayHelper::getValue($weapons, $type->id, []),
+                TypeHelper::array($weapons[$type->id] ?? []),
                 SORT_LOCALE_STRING,
             );
             if ($typeWeapons !== []) {

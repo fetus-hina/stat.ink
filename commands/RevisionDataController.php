@@ -38,7 +38,7 @@ class RevisionDataController extends Controller
                 Version::getShortRevision() ?: 'UNKNOWN',
                 Version::getRevision() ?: 'UNKNOWN',
             ]),
-            'Last Committed' => Version::getLastCommited()->format(DateTime::ATOM) ?? 'UNKNOWN',
+            'Last Committed' => Version::getLastCommited()?->format(DateTime::ATOM) ?? 'UNKNOWN',
             'Version Tags' => Json::encode(Version::getVersionTags()),
         ];
 
@@ -99,7 +99,7 @@ class RevisionDataController extends Controller
             '',
             'declare(strict_types=1);',
             '',
-            'return ' . static::format($data) . ';',
+            'return ' . self::format($data) . ';',
             '',
         ]);
 
@@ -111,7 +111,7 @@ class RevisionDataController extends Controller
         return true;
     }
 
-    private static function format($data, int $indentLevel = 0): string
+    private static function format(mixed $data, int $indentLevel = 0): string
     {
         $indent = str_repeat(' ', $indentLevel * 4);
         $indent1 = $indent . '    ';
@@ -121,10 +121,10 @@ class RevisionDataController extends Controller
             $result[] = '[';
             foreach ($data as $key => $value) {
                 if (is_int($key)) {
-                    $result[] = $indent1 . static::format($value, $indentLevel + 1) . ',';
+                    $result[] = $indent1 . self::format($value, $indentLevel + 1) . ',';
                 } else {
-                    $result[] = $indent1 . static::format($key) . ' => ' .
-                        static::format($value, $indentLevel + 1) . ',';
+                    $result[] = $indent1 . self::format($key) . ' => ' .
+                        self::format($value, $indentLevel + 1) . ',';
                 }
             }
             $result[] = $indent . ']';

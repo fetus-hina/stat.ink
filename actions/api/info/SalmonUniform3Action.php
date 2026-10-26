@@ -21,7 +21,7 @@ use const SORT_ASC;
 
 final class SalmonUniform3Action extends Action
 {
-    public function run()
+    public function run(): string
     {
         return $this->controller->render('salmon-uniform3', [
             'uniforms' => SalmonUniform3::find()

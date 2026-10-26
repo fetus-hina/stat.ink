@@ -11,7 +11,6 @@ namespace app\components\helpers;
 
 use DateInterval;
 use DateTimeImmutable;
-use DateTimeInterface;
 use DateTimeZone;
 use Yii;
 use app\models\Battle as BattleModel;
@@ -63,17 +62,20 @@ class Battle
     }
 
     /**
-     * @return array{DateTimeInterface, DateTimeInterface}
+     * @return array{DateTimeImmutable, DateTimeImmutable}
      */
     public static function periodToRange2DT(int $period, int $offset = 0): array
     {
         [$from, $to] = static::periodToRange2($period, $offset);
         return [
-            static::timestamp2datetime($from),
-            static::timestamp2datetime($to),
+            self::timestamp2datetime($from),
+            self::timestamp2datetime($to),
         ];
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function getNBattlesRange(BattleFilterForm $filter, int $num): ?array
     {
         $filter = clone $filter;
@@ -98,9 +100,12 @@ class Battle
                 '(%s) {{t}}',
                 $subQuery->createCommand()->rawSql,
             ));
-        return $query->createCommand()->queryOne();
+        return $query->createCommand()->queryOne() ?: null;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function getNBattlesRange2(Battle2FilterForm $filter, int $num): ?array
     {
         $filter = clone $filter;
@@ -129,9 +134,12 @@ class Battle
                 $subQuery->createCommand()->rawSql,
             ));
 
-        return $query->createCommand()->queryOne();
+        return $query->createCommand()->queryOne() ?: null;
     }
 
+    /**
+     * @return array{DateTimeImmutable, DateTimeImmutable}
+     */
     public static function getActivityDisplayRange(): array
     {
         $today = new DateTimeImmutable()
@@ -160,6 +168,9 @@ class Battle
         ];
     }
 
+    /**
+     * @return array{int, int}|null
+     */
     public static function getLastPlayedSplatfestPeriodRange2(User $user): ?array
     {
         // 一番最後に登録されたフェスバトルを取得

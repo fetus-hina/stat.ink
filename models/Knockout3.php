@@ -19,16 +19,16 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $season_id
  * @property integer $rule_id
- * @property integer $map_id
+ * @property integer|null $map_id
  * @property integer $battles
  * @property integer $knockout
- * @property double $avg_battle_time
- * @property double $stddev_battle_time
- * @property double $avg_knockout_time
- * @property double $stddev_knockout_time
- * @property integer $histogram_width
+ * @property double|null $avg_battle_time
+ * @property double|null $stddev_battle_time
+ * @property double|null $avg_knockout_time
+ * @property double|null $stddev_knockout_time
+ * @property integer|null $histogram_width
  *
- * @property Map3 $map
+ * @property Map3|null $map
  * @property Rule3 $rule
  * @property Season3 $season
  */

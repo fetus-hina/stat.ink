@@ -12,6 +12,7 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "bigrun_map3".
@@ -20,8 +21,9 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $name
  * @property string $short_name
- * @property integer $area
- * @property string $release_at
+ * @property integer|null $area
+ * @property-read string|null $release_at
+ * @property-write string|ExpressionInterface|null $release_at
  * @property boolean $bigrun
  *
  * @property BigrunMap3Alias[] $bigrunMap3Aliases

@@ -34,7 +34,7 @@ class Password
 {
     public static function hash(string $password): string
     {
-        $algo = static::currentAlgo();
+        $algo = self::currentAlgo();
         return password_hash(
             self::preprocess($password, $algo),
             $algo,
@@ -71,10 +71,10 @@ class Password
 
     public static function needsRehash(string $hash): bool
     {
-        return password_needs_rehash($hash, static::currentAlgo());
+        return password_needs_rehash($hash, self::currentAlgo());
     }
 
-    private static function preprocess(string $password, $algo): string
+    private static function preprocess(string $password, string $algo): string
     {
         if ($algo !== PASSWORD_BCRYPT) {
             return $password;
@@ -84,9 +84,9 @@ class Password
         return substr("{$hash}:{$password}", 0, 72);
     }
 
-    private static function detectAlgorithm(string $hash)
+    private static function detectAlgorithm(string $hash): string
     {
-        foreach (static::algoList() as $algoInfo) {
+        foreach (self::algoList() as $algoInfo) {
             foreach ($algoInfo['prefixes'] as $prefix) {
                 if (str_starts_with($hash, $prefix)) {
                     return $algoInfo['algo'];
@@ -97,7 +97,7 @@ class Password
         return PASSWORD_DEFAULT;
     }
 
-    private static function currentAlgo()
+    private static function currentAlgo(): string
     {
         // minimumPHP （最小バージョン実行環境）として定義された
         // バージョンで利用可能な最高のアルゴリズムを選択する
@@ -106,7 +106,7 @@ class Password
         // 7.3.x : PASSWORD_ARGON2ID
         // が選択されるはず
         $phpVersion = ArrayHelper::getValue(Yii::$app->params, 'minimumPHP', '7.1.0');
-        foreach (static::algoList() as $algoInfo) {
+        foreach (self::algoList() as $algoInfo) {
             if (version_compare($phpVersion, $algoInfo['php'], '>=')) {
                 return $algoInfo['algo'];
             }
@@ -114,6 +114,9 @@ class Password
         return PASSWORD_DEFAULT;
     }
 
+    /**
+     * @return list<array{php: string, algo: string, prefixes: list<string>}>
+     */
     private static function algoList(): array
     {
         // order: stronger to weaker

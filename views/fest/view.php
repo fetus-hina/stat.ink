@@ -8,13 +8,17 @@
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Splatfest;
+use app\models\SplatfestTeam;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\View;
 
 /**
  * @var Splatfest $fest
+ * @var SplatfestTeam $alpha
+ * @var SplatfestTeam $bravo
  * @var View $this
+ * @var array<array{at: int|false, alpha: int, bravo: int}> $results
  */
 
 $title = "フェス「{$fest->name}」の各チーム勝率";
@@ -40,7 +44,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
 <?php if ($fest->region->key === 'jp'): ?>
     <p>
-      <a href="https://fest.ink/<?= Html::encode($fest->order) ?>">
+      <a href="https://fest.ink/<?= Html::encode((string)$fest->order) ?>">
         公式サイトから取得したデータを基に推測した勝率はイカフェスレートで確認できます。
       </a>
     </p>

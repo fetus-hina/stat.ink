@@ -7,32 +7,40 @@
 
 namespace app\actions\user;
 
+use Override;
 use Throwable;
 use Yii;
 use app\models\Language;
 use app\models\SlackAddForm;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function is_array;
 use function sprintf;
 use function strnatcasecmp;
 use function uasort;
 
 class SlackAddAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $request = Yii::$app->request;
         $form = new SlackAddForm();
         if ($request->isPost) {
-            $form->load($request->bodyParams);
+            $params = $request->bodyParams;
+            $form->load(is_array($params) ? $params : []);
             if ($form->validate()) {
+                if (!$ident = Yii::$app->user->getIdentity()) {
+                    throw new ServerErrorHttpException();
+                }
+
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
-                    $ident = Yii::$app->user->getIdentity();
                     if ($form->save($ident)) {
                         $transaction->commit();
                         $this->controller->redirect(['user/profile']);
-                        return;
+                        return null;
                     }
                 } catch (Throwable $e) {
                 }

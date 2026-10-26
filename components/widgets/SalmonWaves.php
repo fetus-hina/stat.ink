@@ -9,9 +9,11 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\SalmonWavesAsset;
 use app\components\i18n\Formatter;
+use app\models\Salmon2;
 use app\models\SalmonWave2;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
@@ -27,19 +29,20 @@ use function is_callable;
 
 final class SalmonWaves extends Widget
 {
-    public $work;
+    public Salmon2 $work;
 
-    public $wave1;
-    public $wave2;
-    public $wave3;
+    public ?SalmonWave2 $wave1 = null;
+    public ?SalmonWave2 $wave2 = null;
+    public ?SalmonWave2 $wave3 = null;
 
-    public $formatter;
+    public \yii\i18n\Formatter $formatter;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::createObject([
                 'class' => Formatter::class,
                 'nullDisplay' => '-',
@@ -98,7 +101,7 @@ final class SalmonWaves extends Widget
     protected function renderBody(): string
     {
         $data = array_filter([
-            $this->work && $this->work->clear_waves !== null
+            $this->work->clear_waves !== null
                 ? [
                     'label' => '',
                     'format' => 'raw',
@@ -127,7 +130,10 @@ final class SalmonWaves extends Widget
                 'label' => Yii::t('app-salmon-event2', 'Event'),
                 'format' => 'text',
                 'total' => null,
-                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t('app-salmon-event2', $wave->event->name ?? null),
+                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t(
+                    'app-salmon-event2',
+                    $wave->event->name ?? '',
+                ),
             ],
             [
                 'label' => Yii::t('app-salmon-tide2', 'Water Level'),
@@ -149,18 +155,19 @@ final class SalmonWaves extends Widget
                         ],
                     ];
 
-                    if (!isset($options[$wave->water->key])) {
+                    $waterKey = $wave->water?->key;
+                    if ($waterKey === null || !isset($options[$waterKey])) {
                         return Html::encode(
-                            Yii::t('app-salmon-tide2', $wave->water->name ?? null),
+                            Yii::t('app-salmon-tide2', $wave->water->name ?? ''),
                         );
                     }
 
-                    $opt = $options[$wave->water->key];
+                    $opt = $options[$waterKey];
                     return Html::tag(
                         'div',
                         Html::tag(
                             'div',
-                            Html::encode(Yii::t('app-salmon-tide2', $wave->water->name ?? null)),
+                            Html::encode(Yii::t('app-salmon-tide2', $wave->water->name ?? '')),
                             [
                                 'class' => [
                                     'progress-bar',
@@ -212,6 +219,9 @@ final class SalmonWaves extends Widget
         )));
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderRow(array $rowInfo): string
     {
         return Html::tag('tr', implode('', [
@@ -223,6 +233,9 @@ final class SalmonWaves extends Widget
         ]));
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderRowHeader(array $rowInfo): string
     {
         return Html::tag(
@@ -232,6 +245,9 @@ final class SalmonWaves extends Widget
         );
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderCellData(array $rowInfo, ?SalmonWave2 $wave, int $waveNumber): string
     {
         return Html::tag(
@@ -243,7 +259,10 @@ final class SalmonWaves extends Widget
         );
     }
 
-    protected function renderCellValue(array $rowInfo, ?SalmonWave2 $wave, int $waveNumber)
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
+    protected function renderCellValue(array $rowInfo, ?SalmonWave2 $wave, int $waveNumber): mixed
     {
         if (!$wave) {
             return null;
@@ -261,12 +280,18 @@ final class SalmonWaves extends Widget
         return $value;
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderTotalData(array $rowInfo): string
     {
         return Html::tag('td', $this->renderTotalDataValue($rowInfo));
     }
 
-    protected function renderTotalDataValue(array $rowInfo)
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
+    protected function renderTotalDataValue(array $rowInfo): string
     {
         $waves = [
             $this->wave1,

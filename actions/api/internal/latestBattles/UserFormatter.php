@@ -17,6 +17,9 @@ use function array_values;
 
 trait UserFormatter
 {
+    /**
+     * @return array<string, mixed>
+     */
     protected function formatUser(User $model): array
     {
         return [

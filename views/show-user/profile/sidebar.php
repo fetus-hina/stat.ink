@@ -112,7 +112,7 @@ $this->registerCss(implode('', array_map(
           $latestPlayer3->number,
         ]),
       ],
-      fn (?string $text): ?bool => $text !== null,
+      fn (?string $text): bool => $text !== null,
     )),
     ['class' => 'splashtag'],
   ) . "\n" ?>
@@ -120,7 +120,7 @@ $this->registerCss(implode('', array_map(
   <h2 itemprop="alternateName">
     <?= Html::encode('@' . $user->screen_name) . "\n" ?>
   </h2>
-<?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $user->id) { ?>
+<?php if (Yii::$app->user->getIdentity()?->id === $user->id) { ?>
   <div class="text-right">
     <?= Html::a(
       Yii::t('app', 'Edit'),

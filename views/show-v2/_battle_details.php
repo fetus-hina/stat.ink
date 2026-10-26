@@ -100,7 +100,7 @@ use yii\widgets\DetailView;
     [
       'attribute' => 'weapon_id', // {{{
       'format' => 'raw',
-      'value' => function ($model): ?string {
+      'value' => function ($model): string {
         return $this->render('_battle_details_weapon_name', [
           'battle' => $model,
         ]);
@@ -156,7 +156,7 @@ use yii\widgets\DetailView;
                 case 's+':
                     if ($rankExp !== null) {
                         return implode(' ', [
-                            Yii::t('app-rank2', $rank->name),
+                            Yii::t('app-rank2', $rank->name ?? ''),
                             (string)(int)$rankExp,
                         ]);
                     }
@@ -165,14 +165,14 @@ use yii\widgets\DetailView;
                 case 'x':
                     if ($xPower !== null) {
                         return vsprintf('%s (%s)', [
-                            Yii::t('app-rank2', $rank->name),
+                            Yii::t('app-rank2', $rank->name ?? ''),
                             Yii::$app->formatter->asDecimal($xPower, 1),
                         ]);
                     }
                     break;
             }
 
-            return Yii::t('app-rank2', $rank->name);
+            return Yii::t('app-rank2', $rank->name ?? '');
             // }}}
         };
 
@@ -495,7 +495,7 @@ use yii\widgets\DetailView;
     [
       'label' => Yii::t('app-results', 'Result'), // {{{
       'format' => 'raw',
-      'value' => function ($model) : ?string {
+      'value' => function ($model): string {
         $parts = [];
         if ($model->isGachi && $model->is_knockout !== null) {
           if ($model->is_knockout) {
@@ -720,7 +720,7 @@ use yii\widgets\DetailView;
           [
             Html::encode(Yii::t('app-battle', 'Gear')),
             $battle->battleImageGear
-              ? (function () use ($battle): ?string {
+              ? (function () use ($battle): string {
                 PhotoSwipeAsset::register($this);
                 FontAwesomeAsset::register($this);
                 $id = 'img-gear-' . hash('crc32b', __FILE__ . ':' . __LINE__);
@@ -952,7 +952,7 @@ use yii\widgets\DetailView;
         if ($model->private_note == '') {
           return null;
         }
-        if (Yii::$app->user->isGuest || Yii::$app->user->identity->id != $model->user_id) {
+        if (Yii::$app->user->getIdentity()?->id !== $model->user_id) {
           return null;
         }
         $this->registerCss('#private-note{display:none}');

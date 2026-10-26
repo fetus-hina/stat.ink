@@ -12,7 +12,6 @@ namespace app\assets\s3PixelIcons;
 use Throwable;
 use Yii;
 use app\components\helpers\TypeHelper;
-use yii\base\InvalidConfigException;
 use yii\web\AssetBundle as BaseAssetBundle;
 use yii\web\ServerErrorHttpException;
 
@@ -21,9 +20,7 @@ use function chdir;
 use function dirname;
 use function file_exists;
 use function getcwd;
-use function is_array;
 use function is_link;
-use function is_string;
 use function symlink;
 
 abstract class AssetBundle extends BaseAssetBundle
@@ -82,26 +79,12 @@ abstract class AssetBundle extends BaseAssetBundle
                 return;
             }
 
-            if (!is_string($linkNames) && !is_array($linkNames)) {
-                throw new InvalidConfigException(
-                    'fileNameMap must be array<string, string|string[]>',
-                );
-            }
-
             foreach ((array)$linkNames as $linkName) {
-                if (!is_string($linkName)) {
-                    throw new InvalidConfigException(
-                        'fileNameMap must be array<string, string|string[]>',
-                    );
-                }
-
-                if (is_string($linkName)) {
-                    $this->makeSymlink(
-                        dirname($to),
-                        $name,
-                        $linkName,
-                    );
-                }
+                $this->makeSymlink(
+                    dirname($to),
+                    $name,
+                    $linkName,
+                );
             }
         } finally {
             Yii::endProfile("makeSymlinks({$from}, {$to})", __METHOD__);
@@ -133,7 +116,7 @@ abstract class AssetBundle extends BaseAssetBundle
     {
         Yii::beginProfile("symlink({$from}, {$to})", __METHOD__);
         try {
-            $cwd = getcwd();
+            $cwd = TypeHelper::string(getcwd());
             if (!@chdir($directory)) {
                 throw new ServerErrorHttpException(
                     "Could not chdir to {$directory}",

@@ -7,11 +7,13 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\BattleFilterForm;
 use app\models\User;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
@@ -23,7 +25,8 @@ use function time;
 
 class UserAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -48,7 +51,7 @@ class UserAction extends BaseAction
             unset($next['v']);
             $next[0] = 'show/user';
             $this->controller->redirect(Url::to($next));
-            return;
+            return null;
         }
 
         $battle = Battle::find()
@@ -86,9 +89,10 @@ class UserAction extends BaseAction
             'user' => $user,
             'battleDataProvider' => new ActiveDataProvider([
                 'query' => $battle,
-                'pagination' => [
+                'pagination' => Yii::createObject([
+                    'class' => Pagination::class,
                     'pageSize' => 100,
-                ],
+                ]),
             ]),
             'summary' => $summary,
             'filter' => $filter,
@@ -108,7 +112,7 @@ class UserAction extends BaseAction
             return $mode;
         }
 
-        $ua = $request->userAgent;
+        $ua = $request->userAgent ?? '';
         if (
             str_contains($ua, 'iPhone') ||
             str_contains($ua, 'Android') ||

@@ -12,6 +12,7 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "weapon3".
@@ -19,11 +20,12 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property integer $mainweapon_id
- * @property integer $subweapon_id
- * @property integer $special_id
+ * @property integer|null $subweapon_id
+ * @property integer|null $special_id
  * @property integer $canonical_id
  * @property string $name
- * @property string $release_at
+ * @property-read string $release_at
+ * @property-write string|ExpressionInterface $release_at
  *
  * @property Battle3[] $battle3s
  * @property BattlePlayer3[] $battlePlayer3s
@@ -31,9 +33,9 @@ use yii\db\ActiveRecord;
  * @property Weapon3 $canonical
  * @property Event3StatsWeapon[] $event3StatsWeapons
  * @property Mainweapon3 $mainweapon
- * @property SalmonWeapon3 $salmonWeapon3
+ * @property SalmonWeapon3|null $salmonWeapon3
  * @property EventSchedule3[] $schedules
- * @property Special3 $special
+ * @property Special3|null $special
  * @property Splatfest3StatsWeapon[] $splatfest3StatsWeapons
  * @property StatWeapon3AssistPerVersion[] $statWeapon3AssistPerVersions
  * @property StatWeapon3Assist[] $statWeapon3Assists
@@ -51,7 +53,7 @@ use yii\db\ActiveRecord;
  * @property StatWeapon3Usage[] $statWeapon3Usages
  * @property StatWeapon3XUsagePerVersion[] $statWeapon3XUsagePerVersions
  * @property StatWeapon3XUsage[] $statWeapon3XUsages
- * @property Subweapon3 $subweapon
+ * @property Subweapon3|null $subweapon
  * @property UserWeapon3[] $userWeapon3s
  * @property User[] $users
  * @property XMatchingGroupVersion3[] $versions

@@ -8,8 +8,18 @@
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\GearType;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var GearType $type
+ * @var View $this
+ * @var array<string, mixed>[] $gears
+ * @var array<string, mixed>[] $langs
+ * @var array<string, mixed>[] $types
+ */
 
 TableResponsiveForceAsset::register($this);
 

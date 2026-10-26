@@ -21,10 +21,14 @@ use yii\web\View;
 
 /**
  * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[] $data
- * @var string|string[]|callable(StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion): int|float|null $getX
+ * @var string|string[]|Closure(StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion): (int|float|null) $getX
  * @var string $xLabel
  * @var View $this
  */
+
+// Empty statement on purpose: without it, PHPStan attaches the @var block above
+// to the assignment to $data and the right-hand side cannot see $data and the others.
+;
 
 $data = array_values(
   array_filter(
@@ -76,7 +80,7 @@ $datasetPoints = [
   'label' => Yii::t('app-results', 'Win %'),
   'labels' => array_map(
     function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string {
-      $weaponName = Yii::t('app-weapon3', $model->weapon?->name ?? '?');
+      $weaponName = Yii::t('app-weapon3', $model->weapon->name ?? '?');
       $err = StandardError::winpct($model->wins, $model->battles);
       $f = Yii::$app->formatter;
       return $err
@@ -101,7 +105,7 @@ $datasetPoints = [
 
 $datasetLinerRegression = null;
 if ($regression) {
-  $tmpXList = ArrayHelper::getColumn($xyPoints, 'x');
+  $tmpXList = array_map(fn (array $v): mixed => $v['x'], $xyPoints);
   $tmpMinX = min($tmpXList);
   $tmpMaxX = max($tmpXList);
 
@@ -167,10 +171,6 @@ $chart = [
     ],
   ],
 ];
-
-if (!$data) {
-  return;
-}
 
 echo Html::tag(
   'div',

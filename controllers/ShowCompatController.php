@@ -7,7 +7,9 @@
 
 namespace app\controllers;
 
+use Override;
 use app\components\web\Controller;
+use yii\web\Response;
 
 use function array_merge;
 
@@ -15,32 +17,36 @@ class ShowCompatController extends Controller
 {
     public $layout = 'main';
 
-    public function redirect($url, $unused = 302)
+    /**
+     * @param string|array<int|string, mixed> $url
+     */
+    #[Override]
+    public function redirect($url, $unused = 302): Response
     {
         return parent::redirect($url, 308);
     }
 
-    public function actionBattle($screen_name, $battle)
+    public function actionBattle(string $screen_name, string $battle): Response
     {
         return $this->redirect(['/show/battle', 'screen_name' => $screen_name, 'battle' => $battle]);
     }
 
-    public function actionEditBattle($screen_name, $battle)
+    public function actionEditBattle(string $screen_name, string $battle): Response
     {
         return $this->redirect(['/show/edit-battle', 'screen_name' => $screen_name, 'battle' => $battle]);
     }
 
-    public function actionUserFromto($screen_name, $id_from, $id_to)
+    public function actionUserFromto(string $screen_name, string $id_from, string $id_to): Response
     {
         return $this->redirect(array_merge($_GET, ['/show/user']));
     }
 
-    public function actionUser($screen_name)
+    public function actionUser(string $screen_name): Response
     {
         return $this->redirect(array_merge($_GET, ['/show/user']));
     }
 
-    public function actionUserStatReportY(string $screen_name, int $year)
+    public function actionUserStatReportY(string $screen_name, int $year): Response
     {
         return $this->redirect([
             '/show/user-stat-report',
@@ -49,7 +55,7 @@ class ShowCompatController extends Controller
         ]);
     }
 
-    public function actionUserStatReportYM(string $screen_name, int $year, int $month)
+    public function actionUserStatReportYM(string $screen_name, int $year, int $month): Response
     {
         return $this->redirect([
             '/show/user-stat-report',
@@ -59,7 +65,7 @@ class ShowCompatController extends Controller
         ]);
     }
 
-    public function actionUserStatBy(string $screen_name, string $by)
+    public function actionUserStatBy(string $screen_name, string $by): Response
     {
         $params = array_merge($_GET, ["/show/user-stat-${by}"]);
         unset($params['by']);

@@ -7,51 +7,76 @@
 
 namespace app\components\ability\effect;
 
+use app\models\Battle;
 use yii\base\Component;
 
 use function ceil;
 use function pow;
 
+/**
+ * @property-read float|null $attackPct
+ * @property-read float|null $bombThrowPct
+ * @property-read string $calculatorVersion
+ * @property-read float|null $defensePct
+ * @property-read float|null $inkRecoverySec
+ * @property-read float|null $inkUsePctMain
+ * @property-read float|null $inkUsePctSub
+ * @property-read float|null $markingPct
+ * @property-read float|null $respawnSec
+ * @property-read float|null $runSpeedPct
+ * @property-read int|null $specialChargePoint
+ * @property-read int|null $specialDurationCount
+ * @property-read float|null $specialDurationSec
+ * @property-read int|float|null $specialLossPct
+ * @property-read array<string, float>|null $superJumpSecs
+ * @property-read float|null $swimSpeedPct
+ */
 abstract class Base extends Component
 {
     public const SPECIAL_DURATION_40PCT = 75;
     public const SPECIAL_DURATION_60PCT = 50;
 
-    public $battle;
-    public $version;
-    private $countCache = [];
+    public Battle $battle;
+    public ?string $version = null;
+    /**
+     * @var array<string, int|null>
+     */
+    private array $countCache = [];
 
-    abstract public function getCalculatorVersion();
+    abstract public function getCalculatorVersion(): string;
 
-    abstract public function getAttackPct();
+    abstract public function getAttackPct(): ?float;
 
-    abstract public function getDefensePct();
+    abstract public function getDefensePct(): ?float;
 
-    abstract public function getInkUsePctMain();
+    abstract public function getInkUsePctMain(): ?float;
 
-    abstract public function getInkUsePctSub();
+    abstract public function getInkUsePctSub(): ?float;
 
-    abstract public function getInkRecoverySec();
+    abstract public function getInkRecoverySec(): ?float;
 
-    abstract public function getRunSpeedPct();
+    abstract public function getRunSpeedPct(): ?float;
 
-    abstract public function getSwimSpeedPct();
+    abstract public function getSwimSpeedPct(): ?float;
 
-    abstract public function getSpecialChargePoint();
+    abstract public function getSpecialChargePoint(): ?int;
 
-    abstract public function getSpecialDurationSec();
+    abstract public function getSpecialDurationSec(): ?float;
 
-    abstract public function getSpecialLossPct();
+    abstract public function getSpecialLossPct(): int|float|null;
 
-    abstract public function getRespawnSec();
+    abstract public function getRespawnSec(): ?float;
 
-    abstract public function getSuperJumpSecs();
+    /**
+     * @return array<string, float>|null
+     */
+    abstract public function getSuperJumpSecs(): ?array;
 
-    abstract public function getBombThrowPct();
+    abstract public function getBombThrowPct(): ?float;
 
-    abstract public function getMarkingPct();
+    abstract public function getMarkingPct(): ?float;
 
-    public function getSpecialDurationCount()
+    public function getSpecialDurationCount(): ?int
     {
         $interval = $this->getSpecialFrameInterval();
         if ($interval === null || $interval < 1) {
@@ -60,7 +85,7 @@ abstract class Base extends Component
         return (int)ceil($this->getSpecialDurationSec() * 60 / $interval);
     }
 
-    protected function getSpecialFrameInterval()
+    protected function getSpecialFrameInterval(): ?int
     {
         switch ($this->battle->weapon->special->key ?? null) {
             case 'quickbomb':
@@ -78,7 +103,10 @@ abstract class Base extends Component
         }
     }
 
-    public function calcDamage($baseDamage, $defMain, $defSub)
+    /**
+     * @param int|float|numeric-string $baseDamage
+     */
+    public function calcDamage(int|float|string $baseDamage, int $defMain, int $defSub): float
     {
         $def = $defMain * 10 + $defSub * 3;
         return $this->calcDamageImpl(
@@ -88,13 +116,16 @@ abstract class Base extends Component
         );
     }
 
-    protected function calcDamageImpl($baseDamage, $a, $d)
+    /**
+     * @param int|float|numeric-string $baseDamage
+     */
+    protected function calcDamageImpl(int|float|string $baseDamage, ?float $a, float $d): float
     {
         $x = $a >= $d ? 1 + $a - $d : (1 + ($a - $d) / 1.8);
         return $baseDamage * $x;
     }
 
-    protected function getEffectiveCount($key)
+    protected function getEffectiveCount(string $key): ?int
     {
         if (!isset($this->countCache[$key])) {
             $this->countCache[$key] = $this->getEffectiveCountImpl($key);
@@ -102,7 +133,7 @@ abstract class Base extends Component
         return $this->countCache[$key];
     }
 
-    protected function getEffectiveCountImpl($key)
+    protected function getEffectiveCountImpl(string $key): ?int
     {
         $gears = [
             $this->battle->headgear,
@@ -133,7 +164,7 @@ abstract class Base extends Component
         return $main * 10 + $sub * 3;
     }
 
-    protected function calcX($key, $divBy)
+    protected function calcX(string $key, int|float $divBy): ?float
     {
         $a = $this->getEffectiveCount($key);
         if ($a === null) {

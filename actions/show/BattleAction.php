@@ -7,21 +7,24 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class BattleAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->getRequest();
 
         $battle = Battle::findOne([
             'id' => $request->get('battle'),
         ]);
-        if (!$battle || !$battle->user) {
+        if (!$battle) {
             throw new NotFoundHttpException(
                 Yii::t('app-show', 'Could not find specified battle.'),
             );

@@ -7,9 +7,12 @@
 
 namespace app\models\api\v1;
 
+use Override;
+
 class PostClothingForm extends BaseGearForm
 {
-    public function getType()
+    #[Override]
+    public function getType(): string
     {
         return 'clothing';
     }

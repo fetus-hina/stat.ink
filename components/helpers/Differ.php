@@ -25,10 +25,14 @@ use function unlink;
 
 class Differ
 {
-    public static function diff($before, $after, $nameBefore = 'old', $nameAfter = 'new')
-    {
-        $fBefore = static::createTmpFile($before);
-        $fAfter = static::createTmpFile($after);
+    public static function diff(
+        string $before,
+        string $after,
+        string $nameBefore = 'old',
+        string $nameAfter = 'new',
+    ): ?string {
+        $fBefore = self::createTmpFile($before);
+        $fAfter = self::createTmpFile($after);
         $cmdline = sprintf(
             '/usr/bin/env %s -u -d -- %s %s',
             escapeshellarg('diff'),
@@ -57,7 +61,7 @@ class Differ
         return implode("\n", $lines);
     }
 
-    private static function createTmpFile($data)
+    private static function createTmpFile(string $data): Resource
     {
         $directory = Yii::getAlias('@app/runtime/diff');
         if (!file_exists($directory)) {

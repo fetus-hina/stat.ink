@@ -22,7 +22,7 @@ use function range;
 
 class LegendPopulationWidget extends Widget
 {
-    public $numCells = 7;
+    public int $numCells = 7;
 
     public function run()
     {

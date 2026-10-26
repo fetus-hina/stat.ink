@@ -52,7 +52,7 @@ SortableTableAsset::register($this);
       <tr>
         <?= Html::tag(
           'td',
-          Icon::s3Subweapon($sub),
+          Icon::s3Subweapon($sub) ?? '',
         ) . "\n" ?>
         <?= Html::tag(
           'td',

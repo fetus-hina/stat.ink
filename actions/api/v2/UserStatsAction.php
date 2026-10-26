@@ -9,23 +9,28 @@ declare(strict_types=1);
 
 namespace app\actions\api\v2;
 
+use Override;
 use Yii;
+use app\models\ApiV2UserStatsForm;
 use app\models\User;
 use app\models\UserStat2;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
 use yii\web\ServerErrorHttpException;
 
 class UserStatsAction extends Action
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->response->format = 'json';
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    public function run(): array
     {
         $form = $this->processInput();
         if ($form->hasErrors()) {
@@ -46,21 +51,13 @@ class UserStatsAction extends Action
         return $stats->toJsonArray();
     }
 
-    protected function processInput(): DynamicModel
+    protected function processInput(): ApiV2UserStatsForm
     {
         $get = Yii::$app->request->get();
         $input = [
             'screen_name' => ArrayHelper::getValue($get, 'screen_name'),
         ];
 
-        return DynamicModel::validateData($input, [
-            [['screen_name'], 'required'],
-            [['screen_name'], 'string'],
-            [['screen_name'], 'exist',
-                'skipOnError' => true,
-                'targetClass' => User::class,
-                'targetAttribute' => 'screen_name',
-            ],
-        ]);
+        return ApiV2UserStatsForm::validateData($input);
     }
 }

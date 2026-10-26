@@ -84,8 +84,8 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
         ]);
     }
     $v = $draw(
-        $model->my_team_percent,
-        $model->his_team_percent,
+        (float)$model->my_team_percent,
+        (float)$model->his_team_percent,
         $fmt->asPercent($model->my_team_percent / 100, 1),
         $fmt->asPercent($model->his_team_percent / 100, 1),
         $myTitle,
@@ -110,10 +110,10 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
         $model->his_team_count,
         $model->my_team_count == 100
           ? Yii::t('app-results', 'KNOCKOUT!')
-          : $model->my_team_count,
+          : (string)$model->my_team_count,
         $model->his_team_count == 100
           ? Yii::t('app-results', 'KNOCKOUT!')
-          : $model->his_team_count
+          : (string)$model->his_team_count
     );
     echo "$v\n";
 }

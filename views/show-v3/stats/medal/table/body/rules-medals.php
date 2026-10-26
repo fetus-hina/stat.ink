@@ -22,6 +22,10 @@ use yii\web\View;
  * @var array<string, array<string, int>> $stats
  */
 
+// Empty statement on purpose: without it, PHPStan attaches the @var block above
+// to the foreach and the closures in the loop cannot see $this and the others.
+;
+
 foreach ($medals as $medalKey => $medal) {
   $medalStats = ArrayHelper::getValue($stats, $medalKey);
   if (!$medalStats) {
@@ -43,11 +47,9 @@ foreach ($medals as $medalKey => $medal) {
         implode(
           '',
           array_map(
-            function (string $ruleKey) use ($medalStats): string {
-              return $this->render('cell-data', [
-                'count' => (int)ArrayHelper::getValue($medalStats, $ruleKey, 0),
-              ]);
-            },
+            fn (string $ruleKey): string => $this->render('cell-data', [
+              'count' => (int)ArrayHelper::getValue($medalStats, $ruleKey, 0),
+            ]),
             array_keys($rules),
           ),
         ),

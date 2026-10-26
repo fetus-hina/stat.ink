@@ -15,6 +15,9 @@ use yii\db\ActiveRecord;
 
 class UserAgentBehavior extends AttributeBehavior
 {
+    /**
+     * @var array<string, string[]>
+     */
     public $attributes = [
         ActiveRecord::EVENT_BEFORE_INSERT => [ 'user_agent_id' ],
     ];

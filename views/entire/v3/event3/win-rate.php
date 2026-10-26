@@ -35,7 +35,7 @@ if (!$models) {
 
 $models = ArrayHelper::sort(
   $models,
-  fn (Event3StatsWeapon|Event3StatsSpecial $a, Event3StatsWeapon|Event3StatsSpecial $b): float =>
+  fn (Event3StatsWeapon|Event3StatsSpecial $a, Event3StatsWeapon|Event3StatsSpecial $b): int =>
     ($b->wins / $b->battles) <=> ($a->wins / $a->battles)
     ?: $a->battles <=> $b->battles,
 );
@@ -50,25 +50,23 @@ $this->registerJs('$(".splatfest3-chart-win-rate").easyChartJs();');
 $valueData = [
   'backgroundColor' => new JsExpression('window.colorScheme.graph1'),
   'borderColor' => new JsExpression('window.colorScheme.graph1'),
-  'data' => array_values(
-    array_map(
-      function (Event3StatsWeapon|Event3StatsSpecial $model, int $i): array {
-        $data = StandardError::winpct($model->wins, $model->battles);
-        return $data
-          ? [
-            'x' => $data['rate'] * 100,
-            'xMax' => [$data['max95ci'] * 100, $data['max99ci'] * 100],
-            'xMin' => [$data['min95ci'] * 100, $data['min99ci'] * 100],
-            'y' => $i,
-          ]
-          : [
-            'x' => $model->wins / $model->battles * 100,
-            'y' => $i,
-          ];
-      },
-      $models,
-      range(0, count($models) - 1),
-    ),
+  'data' => array_map(
+    function (Event3StatsWeapon|Event3StatsSpecial $model, int $i): array {
+      $data = StandardError::winpct($model->wins, $model->battles);
+      return $data
+        ? [
+          'x' => $data['rate'] * 100,
+          'xMax' => [$data['max95ci'] * 100, $data['max99ci'] * 100],
+          'xMin' => [$data['min95ci'] * 100, $data['min99ci'] * 100],
+          'y' => $i,
+        ]
+        : [
+          'x' => $model->wins / $model->battles * 100,
+          'y' => $i,
+        ];
+    },
+    $models,
+    range(0, count($models) - 1),
   ),
   'fill' => true,
   'label' => Yii::t('app-results', 'Win %'),
@@ -91,9 +89,9 @@ $valueData = [
         ],
         'labels' => array_map(
           fn (Event3StatsWeapon|Event3StatsSpecial $model): string => vsprintf('%s (%s)', [
-            match ($model::class) {
-              Event3StatsWeapon::class => Yii::t('app-weapon3', $model->weapon->name),
-              Event3StatsSpecial::class => Yii::t('app-special3', $model->special->name),
+            match (true) {
+              $model instanceof Event3StatsWeapon => Yii::t('app-weapon3', $model->weapon->name),
+              $model instanceof Event3StatsSpecial => Yii::t('app-special3', $model->special->name),
             },
             Yii::$app->formatter->asInteger($model->battles),
           ]),

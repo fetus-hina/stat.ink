@@ -7,6 +7,7 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\User;
@@ -18,7 +19,8 @@ class UserStatByMapAction extends BaseAction
 {
     use UserStatFilterTrait;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -41,7 +43,10 @@ class UserStatByMapAction extends BaseAction
         ]);
     }
 
-    private function getData(User $user, BattleFilterForm $filter)
+    /**
+     * @return array<string, array{name: string, win: int, lose: int}>
+     */
+    private function getData(User $user, BattleFilterForm $filter): array
     {
         $query = new Query()
             ->select([
@@ -65,21 +70,22 @@ class UserStatByMapAction extends BaseAction
             ->andWhere(['in', '{{battle}}.[[is_win]]', [true, false]])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[is_win]]']);
 
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
 
         $maps = [];
         foreach ($query->createCommand()->queryAll() as $row) {
             $row = (object)$row;
-            if (!isset($maps[$row->map_key])) {
-                $maps[$row->map_key] = [
+            $mapKey = (string)$row->map_key;
+            if (!isset($maps[$mapKey])) {
+                $maps[$mapKey] = [
                     'name' => Yii::t('app-map', $row->map_name),
                     'win' => 0,
                     'lose' => 0,
                 ];
             }
-            $maps[$row->map_key][$row->result] = (int)$row->count;
+            $maps[$mapKey][$row->result === 'win' ? 'win' : 'lose'] = (int)$row->count;
         }
         return $maps;
     }

@@ -31,20 +31,20 @@ use function sprintf;
  * @property integer $method_id
  * @property string $remote_addr
  * @property integer $remote_port
- * @property string $remote_host
- * @property integer $user_agent_id
+ * @property string|null $remote_host
+ * @property integer|null $user_agent_id
  * @property string $created_at
  * @property string $updated_at
- * @property integer $client_hint_id
+ * @property integer|null $client_hint_id
  *
- * @property HttpClientHint $clientHint
+ * @property HttpClientHint|null $clientHint
  * @property LoginMethod $method
  * @property User $user
- * @property HttpUserAgent $userAgent
+ * @property HttpUserAgent|null $userAgent
  */
 class UserLoginHistory extends ActiveRecord
 {
-    public $remote_addr_masked;
+    public ?string $remote_addr_masked = null;
 
     public static function login(User $user, int $methodId): ?self
     {
@@ -175,7 +175,7 @@ class UserLoginHistory extends ActiveRecord
     {
         static $counter = 0;
 
-        if ($this->id === null) {
+        if ($this->isNewRecord) {
             return null;
         }
 

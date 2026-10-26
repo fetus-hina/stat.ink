@@ -8,6 +8,14 @@
 use app\assets\AppAsset;
 use app\components\widgets\BattleSummaryItemWidget;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array<int|string, mixed>|string|null $link
+ * @var stdClass $summary
+ * @var string|null $headingText
+ */
 
 AppAsset::register($this);
 

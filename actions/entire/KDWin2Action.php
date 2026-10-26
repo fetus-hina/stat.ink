@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use app\models\KDWin2FilterForm;
 use app\models\SplatoonVersion2;
@@ -25,7 +26,8 @@ class KDWin2Action extends ViewAction
 {
     public const KD_LIMIT = 16;
 
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $filter = Yii::createObject(KDWin2FilterForm::class);
         $filter->load($_GET);
@@ -41,7 +43,7 @@ class KDWin2Action extends ViewAction
                         ),
                     ],
                 );
-                return;
+                return null;
             }
         }
 
@@ -51,6 +53,9 @@ class KDWin2Action extends ViewAction
         ]);
     }
 
+    /**
+     * @return array<string, array<int, array<int, array{battle: int, win: int}>>>
+     */
     private function makeData(KDWin2FilterForm $filter): array
     {
         $table = StatWeapon2KdWinRate::tableName();

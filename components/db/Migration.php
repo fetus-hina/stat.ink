@@ -12,7 +12,6 @@ namespace app\components\db;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\db\ColumnSchemaBuilder;
-use yii\db\Connection;
 use yii\db\Migration as BaseMigration;
 use yii\db\Query;
 use yii\db\Schema;
@@ -20,7 +19,6 @@ use yii\db\Schema;
 use function array_keys;
 use function array_map;
 use function array_values;
-use function assert;
 use function filter_var;
 use function implode;
 use function is_int;
@@ -61,19 +59,19 @@ class Migration extends BaseMigration
         return $result;
     }
 
-    protected function beforeUp()
+    protected function beforeUp(): void
     {
     }
 
-    protected function afterUp()
+    protected function afterUp(): void
     {
     }
 
-    protected function beforeDown()
+    protected function beforeDown(): void
     {
     }
 
-    protected function afterDown()
+    protected function afterDown(): void
     {
     }
 
@@ -90,9 +88,6 @@ class Migration extends BaseMigration
         if (!$tables = $this->vacuumTables()) {
             return;
         }
-
-        $db = $this->db;
-        assert($db instanceof Connection);
 
         $time = $this->beginCommand(sprintf('vacuum table %s', implode(', ', $tables)));
         $this->analyze($tables);
@@ -141,7 +136,7 @@ class Migration extends BaseMigration
             ]));
     }
 
-    public function timestampTZ(int $precision = 0, bool $withTZ = true)
+    public function timestampTZ(int $precision = 0, bool $withTZ = true): ColumnSchemaBuilder
     {
         $type = sprintf('TIMESTAMP(%d) %s TIME ZONE', $precision, $withTZ ? 'WITH' : 'WITHOUT');
         $builder = $this->getDb()->getSchema()->createColumnSchemaBuilder($type);
@@ -153,7 +148,7 @@ class Migration extends BaseMigration
         return $builder;
     }
 
-    public function pkRef(string $table, string $column = 'id')
+    public function pkRef(string $table, string $column = 'id'): ColumnSchemaBuilder
     {
         return $this->integer()->notNull()->append(sprintf(
             'REFERENCES %s(%s)',
@@ -162,7 +157,7 @@ class Migration extends BaseMigration
         ));
     }
 
-    public function bigPkRef(string $table, string $column = 'id')
+    public function bigPkRef(string $table, string $column = 'id'): ColumnSchemaBuilder
     {
         return $this->bigInteger()->notNull()->append(sprintf(
             'REFERENCES %s(%s)',
@@ -171,21 +166,30 @@ class Migration extends BaseMigration
         ));
     }
 
-    public function tablePrimaryKey($columns): string
+    /**
+     * @param string|string[] $columns
+     */
+    public function tablePrimaryKey(string|array $columns): string
     {
         if (is_string($columns)) {
             $columns = preg_split('/\s*,\s*/', $columns, -1, PREG_SPLIT_NO_EMPTY);
+            if ($columns === false) {
+                throw new InvalidArgumentException('Failed to split the column list');
+            }
         }
 
         return sprintf(
             'PRIMARY KEY ( %s )',
             implode(', ', array_map(
-                fn (string $column): string => $this->db->quoteColumnName($column),
-                (array)$columns,
+                fn (string $column): string => $this->getDb()->quoteColumnName($column),
+                $columns,
             )),
         );
     }
 
+    /**
+     * @param array<string, string|ColumnSchemaBuilder> $columns
+     */
     public function addColumns(string $table, array $columns): void
     {
         $time = $this->beginCommand(sprintf(
@@ -194,7 +198,7 @@ class Migration extends BaseMigration
             $table,
         ));
 
-        $db = $this->db;
+        $db = $this->getDb();
         $alter = [];
         $comments = [];
         foreach ($columns as $column => $type) {
@@ -225,6 +229,9 @@ class Migration extends BaseMigration
         $this->endCommand($time);
     }
 
+    /**
+     * @param string[] $tables
+     */
     public function dropTables(array $tables, bool $ifExists = true): void
     {
         foreach ($tables as $table) {
@@ -246,7 +253,7 @@ class Migration extends BaseMigration
             $table,
         ));
 
-        $db = $this->db;
+        $db = $this->getDb();
         $sql = vsprintf('ALTER TABLE %s %s', [
             $db->quoteTableName($table),
             implode(
@@ -268,7 +275,7 @@ class Migration extends BaseMigration
      */
     public function analyze(string|array $table): void
     {
-        $db = $this->db;
+        $db = $this->getDb();
         $this->execute(
             vsprintf('VACUUM ( ANALYZE ) %s', [
                 implode(

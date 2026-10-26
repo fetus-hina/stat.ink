@@ -7,6 +7,7 @@
 
 namespace yii\helpers;
 
+use Override;
 use Yii;
 use app\models\Rank2;
 
@@ -25,9 +26,15 @@ use function trim;
 
 class Html extends BaseHtml
 {
-    public static $enableServerPush = true;
-    private static $pushed = [];
+    public static bool $enableServerPush = true;
+    /**
+     * @var string[]
+     */
+    private static array $pushed = [];
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public static function linkInkipedia(
         string $text,
         string $page,
@@ -47,15 +54,21 @@ class Html extends BaseHtml
         );
     }
 
+    /**
+     * @param array<mixed>|string $url
+     * @param array<string, mixed> $options
+     * @return string
+     */
+    #[Override]
     public static function cssFile($url, $options = [])
     {
         if (static::$enableServerPush && !isset($options['condition'])) {
             $resp = Yii::$app->response;
-            if ($resp && !$resp->isSent) {
+            if (!$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
-                if (!str_contains($href, '//') && !in_array($href, static::$pushed, true)) {
-                    static::$pushed[] = $href;
+                if (!str_contains($href, '//') && !in_array($href, self::$pushed, true)) {
+                    self::$pushed[] = $href;
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
                             '<%s>; rel=preload; as=style',
@@ -73,15 +86,21 @@ class Html extends BaseHtml
         return BaseHtml::cssFile($url, $options);
     }
 
+    /**
+     * @param string $url
+     * @param array<string, mixed> $options
+     * @return string
+     */
+    #[Override]
     public static function jsFile($url, $options = [])
     {
         if (static::$enableServerPush && !isset($options['condition'])) {
             $resp = Yii::$app->response;
-            if ($resp && !$resp->isSent) {
+            if (!$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
-                if (!str_contains($href, '//') && !in_array($href, static::$pushed, true)) {
-                    static::$pushed[] = $href;
+                if (!str_contains($href, '//') && !in_array($href, self::$pushed, true)) {
+                    self::$pushed[] = $href;
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
                             '<%s>; rel=preload; as=script',
@@ -99,6 +118,11 @@ class Html extends BaseHtml
         return BaseHtml::jsFile($url, $options);
     }
 
+    /**
+     * @param array<string, string> $style
+     * @return string|null
+     */
+    #[Override]
     public static function cssStyleFromArray(array $style)
     {
         $result = implode(';', array_filter(array_map(
@@ -116,6 +140,9 @@ class Html extends BaseHtml
         return $result === '' ? null : rtrim($result);
     }
 
+    /**
+     * @param array<string, array<string, string>> $styles
+     */
     public static function renderCss(array $styles): string
     {
         return implode('', array_map(

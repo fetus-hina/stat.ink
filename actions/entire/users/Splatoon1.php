@@ -7,6 +7,7 @@
 
 namespace app\actions\entire\users;
 
+use app\components\helpers\TypeHelper;
 use app\models\StatEntireUser;
 use yii\db\Query;
 
@@ -19,7 +20,10 @@ use function time;
 
 trait Splatoon1
 {
-    protected function getPostStats()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    protected function getPostStats(): array
     {
         $lastSummariedDate = null;
         if ($stats = $this->getPostStatsSummarized()) {
@@ -55,14 +59,20 @@ trait Splatoon1
         );
     }
 
-    private function getPostStatsSummarized()
+    /**
+     * @return StatEntireUser[]
+     */
+    private function getPostStatsSummarized(): array
     {
         return StatEntireUser::find()
             ->orderBy('{{stat_entire_user}}.[[date]] ASC')
             ->all();
     }
 
-    protected function getAgentStats()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    protected function getAgentStats(): array
     {
         $list = $this->queryAgentStats();
         $agents = $this->queryAgentDetails(array_map(
@@ -82,17 +92,20 @@ trait Splatoon1
         return $list;
     }
 
-    private function queryAgentStats()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    private function queryAgentStats(): array
     {
         $t2 = $_SERVER['REQUEST_TIME'] ?? time();
-        $t1 = gmmktime(
-            gmdate('H', $t2),
-            gmdate('i', $t2),
-            gmdate('s', $t2) + 1,
-            gmdate('n', $t2),
-            gmdate('j', $t2) - 1,
-            gmdate('Y', $t2),
-        );
+        $t1 = TypeHelper::int(gmmktime(
+            (int)gmdate('H', $t2),
+            (int)gmdate('i', $t2),
+            (int)gmdate('s', $t2) + 1,
+            (int)gmdate('n', $t2),
+            (int)gmdate('j', $t2) - 1,
+            (int)gmdate('Y', $t2),
+        ));
         $query = new Query()
             ->select([
                 'agent_id',

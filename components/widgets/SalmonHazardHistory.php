@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\models\Salmon2;
+use app\models\User;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotResizeAsset;
 use yii\base\Widget;
@@ -32,14 +34,15 @@ use const SORT_DESC;
 
 class SalmonHazardHistory extends Widget
 {
-    public $user;
-    public $current;
+    public User $user;
+    public Salmon2 $current;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->current->user;
         }
     }

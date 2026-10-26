@@ -39,6 +39,9 @@ trait LicenseCheckTrait
 {
     use Helper;
 
+    /**
+     * @var string[]
+     */
     private array $safeLicenses = [
         '0BSD',
         'AFLv2.1',
@@ -54,18 +57,25 @@ trait LicenseCheckTrait
         'MIT*',
         'MIT-0',
         'OFL-1.1',
+        'PSF-2.0',
         'Public Domain',
         'Python-2.0',
         'Unlicense',
         'WTFPL',
     ];
 
+    /**
+     * @var string[]
+     */
     private array $safeLicenseRegexes = [
         '/^CC-BY-(?:NC-)?[0-9.]+$/',
         '/^CC0-[0-9.]+$/',
         '/^LGPL/',
     ];
 
+    /**
+     * @var string[]
+     */
     private array $skipPackages = [
         'composer::cotonet/soak-time',
     ];
@@ -155,6 +165,9 @@ trait LicenseCheckTrait
         }
     }
 
+    /**
+     * @param array<string, string> $json
+     */
     private function doCheck(string $manager, array $json): int
     {
         $list = [];
@@ -195,7 +208,7 @@ trait LicenseCheckTrait
         }
 
         // AND and OR, check recursive
-        $list = preg_split('/\s+(?:OR|AND)\s+/i', trim($license, '()'));
+        $list = preg_split('/\s+(?:OR|AND)\s+/i', trim($license, '()')) ?: [];
         if (count($list) > 1) {
             foreach ($list as $tmp) {
                 if ($this->isSafeLicense($tmp)) {

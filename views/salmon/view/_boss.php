@@ -82,10 +82,8 @@ $widget = Yii::createObject([
         'data-sort' => 'string',
       ],
       'format' => 'raw',
-      'value' => function (SalmonBossAppearance2 $model): ?string {
-        return $model->boss
-          ? Html::tag('b', Html::encode(Yii::t('app-salmon-boss2', $model->boss->name)))
-          : null;
+      'value' => function (SalmonBossAppearance2 $model): string {
+        return Html::tag('b', Html::encode(Yii::t('app-salmon-boss2', $model->boss->name)));
       },
       'contentOptions' => function (SalmonBossAppearance2 $model): array {
         return [
@@ -120,7 +118,7 @@ $widget = Yii::createObject([
         'headerOptions' => [
           'data-sort' => 'int',
         ],
-        'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
+        'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): string {
           return $playerKillCount($players[0], $model);
         },
         'contentOptions' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): array {
@@ -140,7 +138,7 @@ $widget = Yii::createObject([
         'headerOptions' => [
           'data-sort' => 'int',
         ],
-        'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
+        'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): string {
           return $playerKillCount($players[1], $model);
         },
         'contentOptions' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): array {
@@ -160,7 +158,7 @@ $widget = Yii::createObject([
           'player' => $players[2],
           'user' => $model->user,
         ]),
-        'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
+        'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): string {
           return $playerKillCount($players[2], $model);
         },
         'contentOptions' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): array {
@@ -180,7 +178,7 @@ $widget = Yii::createObject([
           'player' => $players[3],
           'user' => $model->user,
         ]),
-        'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
+        'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): string {
           return $playerKillCount($players[3], $model);
         },
         'contentOptions' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): array {

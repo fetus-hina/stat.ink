@@ -17,22 +17,58 @@ use yii\helpers\Json;
 
 class BattleSummaryItemWidget extends Widget
 {
+    /**
+     * @var int|float|string|null
+     */
     public $battles;
+    /**
+     * @var int|float|string|null
+     */
     public $total;
+    /**
+     * @var int|float|string|null
+     */
     public $min;
+    /**
+     * @var int|float|string|null
+     */
     public $max;
+    /**
+     * @var int|float|string|null
+     */
     public $q1;
+    /**
+     * @var int|float|string|null
+     */
     public $q3;
+    /**
+     * @var int|float|string|null
+     */
     public $median;
+    /**
+     * @var int|float|string|null
+     */
     public $pct5;
+    /**
+     * @var int|float|string|null
+     */
     public $pct95;
+    /**
+     * @var int|float|string|null
+     */
     public $stddev;
+    /**
+     * @var string|null
+     */
     public $tooltipText;
 
     /**
      * Translation category of $tooltipText
      */
     public string $tooltipCategory = 'app';
+    /**
+     * @var string|null
+     */
     public $summary;
 
     public int $decimalLabel = 2;
@@ -68,7 +104,7 @@ class BattleSummaryItemWidget extends Widget
                     'max' => (int)$this->max,
                     'pct5' => (float)$this->pct5,
                     'pct95' => (float)$this->pct95,
-                    'avg' => $this->total / $this->battles,
+                    'avg' => $this->getAverage(),
                     'stddev' => isset($this->stddev) ? (float)$this->stddev : null,
                 ]),
                 'disp' => Json::encode([
@@ -80,17 +116,22 @@ class BattleSummaryItemWidget extends Widget
                     'pct5' => Yii::$app->formatter->asDecimal((float)$this->pct5, $this->decimalValue),
                     'pct95' => Yii::$app->formatter->asDecimal((float)$this->pct95, $this->decimalValue),
                     'avg' => Yii::$app->formatter->asDecimal(
-                        $this->total / $this->battles,
+                        $this->getAverage(),
                         $this->decimalValue + 1,
                     ),
                     'stddev' => $this->stddev
                         ? Yii::$app->formatter->asDecimal($this->stddev, $this->decimalValue + 1)
                         : null,
-                    'iqr' => Yii::$app->formatter->asDecimal($this->q3 - $this->q1, $this->decimalValue),
+                    'iqr' => Yii::$app->formatter->asDecimal((float)$this->q3 - (float)$this->q1, $this->decimalValue),
                     'title' => $this->summary ?? null,
                 ]),
             ],
         ]);
+    }
+
+    private function getAverage(): float
+    {
+        return (float)$this->total / (float)$this->battles;
     }
 
     private function renderContent(): string
@@ -115,7 +156,7 @@ class BattleSummaryItemWidget extends Widget
             'span',
             Html::encode(
                 Yii::$app->formatter->asDecimal(
-                    $this->total / $this->battles,
+                    $this->getAverage(),
                     $this->decimalLabel,
                 ),
             ),

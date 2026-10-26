@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\PermalinkDialogAsset;
 use jp3cki\yii2\twitter\widget\TweetButton;
@@ -18,7 +19,6 @@ use yii\helpers\Url;
 
 use function implode;
 use function is_callable;
-use function is_string;
 use function lcfirst;
 use function pathinfo;
 use function preg_match;
@@ -28,19 +28,32 @@ use function vsprintf;
 
 use const PATHINFO_EXTENSION;
 
+/**
+ * @property-write string $tweetText Forwarded to TweetButton::$text
+ */
 final class SnsWidget extends Widget
 {
     public static $autoIdPrefix = 'sns-';
-    public $template;
+    public string $template;
 
-    public $tweetButton;
-    public $imageUrl;
-    public $feedUrl;
-    public $jsonUrl;
+    public TweetButton $tweetButton;
+    /**
+     * @var string|array<mixed>|null
+     */
+    public string|array|null $imageUrl = null;
+    /**
+     * @var string|array<mixed>|null
+     */
+    public string|array|null $feedUrl = null;
+    /**
+     * @var string|array<mixed>|null
+     */
+    public string|array|null $jsonUrl = null;
 
-    private $initialized = false;
+    private bool $initialized = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         if ($this->initialized) {
             return;
@@ -214,7 +227,7 @@ final class SnsWidget extends Widget
 
         $imageUrl = Url::to($this->imageUrl);
 
-        $contentType = match (is_string($imageUrl) ? strtolower(pathinfo($imageUrl, PATHINFO_EXTENSION)) : '') {
+        $contentType = match (strtolower(pathinfo($imageUrl, PATHINFO_EXTENSION))) {
             'avif' => 'image/avif',
             'gif' => 'image/gif',
             'jpg', 'jpeg' => 'image/jpeg',

@@ -10,10 +10,12 @@ declare(strict_types=1);
 namespace app\components\web;
 
 use IntlDateFormatter;
+use Override;
 use Yii;
 use app\components\helpers\UserLanguage;
 use app\components\helpers\UserTimeZone;
 use app\components\i18n\MachineTranslateHelper;
+use app\models\User;
 use yii\helpers\IpHelper;
 use yii\i18n\MessageSource;
 use yii\i18n\MissingTranslationEvent;
@@ -36,13 +38,18 @@ use function vsprintf;
 
 use const PHP_INT_MAX;
 
+/**
+ * @extends Base<User>
+ * @property-read string|null $localeCalendar
+ */
 class Application extends Base
 {
     public const COOKIE_MACHINE_TRANSLATION = 'language-machine-translation';
 
     private ?string $locale = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -129,8 +136,8 @@ class Application extends Base
 
     public function getLocaleCalendar(): ?string
     {
-        if (strpos($this->locale, 'calendar=') !== false) {
-            if (preg_match('/^.*?calendar=(\w+).*$/', $this->locale, $match)) {
+        if (strpos($this->locale ?? '', 'calendar=') !== false) {
+            if (preg_match('/^.*?calendar=(\w+).*$/', $this->locale ?? '', $match)) {
                 return $match[1];
             }
         }

@@ -15,6 +15,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
+use app\models\EntireWeapon2Form;
 use app\models\Map2;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
@@ -31,7 +32,10 @@ use yii\helpers\Json;
 use yii\web\View;
 
 /**
+ * @var EntireWeapon2Form $form
  * @var View $this
+ * @var array<int, array<string, mixed>> $uses
+ * @var stdClass[] $entire
  */
 
 TableResponsiveForceAsset::register($this);
@@ -222,7 +226,7 @@ EntireWeaponsAsset::register($this);
     ]) ?>
   </p>
 <?php
-$maxWP = max(array_map(
+$maxWP = max(0.0, ...array_map(
   function ($model) : float {
     return (float)$model->wp;
   },

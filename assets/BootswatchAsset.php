@@ -7,6 +7,7 @@
 
 namespace app\assets;
 
+use Override;
 use yii\base\InvalidConfigException;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
@@ -20,13 +21,14 @@ class BootswatchAsset extends AssetBundle
     public $depends = [
         BootstrapPluginAsset::class,
     ];
-    private $theme;
+    private string $theme;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
-        if (!$this->theme) {
+        if (!isset($this->theme)) {
             $this->setTheme('cerulean');
         }
     }

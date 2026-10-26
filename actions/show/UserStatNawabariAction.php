@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\Map;
@@ -29,19 +30,25 @@ use function sprintf;
 use function strnatcasecmp;
 use function uasort;
 
+/**
+ * @property-read array<string, stdClass> $inkedData
+ * @property-read list<stdClass> $wpData
+ */
 class UserStatNawabariAction extends BaseAction
 {
-    private $user;
+    private User $user;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
-        $this->user = User::findOne([
+        $user = User::findOne([
             'screen_name' => $request->get('screen_name'),
         ]);
-        if (!$this->user) {
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
+        $this->user = $user;
 
         return $this->controller->render('user-stat-nawabari', [
             'user' => $this->user,
@@ -50,6 +57,9 @@ class UserStatNawabariAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return array<string, stdClass>
+     */
     public function getInkedData(): array
     {
         $inked = sprintf('(CASE %s END)', implode(' ', [
@@ -70,7 +80,7 @@ class UserStatNawabariAction extends BaseAction
                 ['<>', '{{lobby}}.[[key]]', 'private'],
             ])
             ->groupBy(['{{battle}}.[[map_id]]'])
-            ->orderBy(false)
+            ->orderBy(null)
             ->select([
                 'map' => 'MAX({{map}}.[[key]])',
                 'pct5' => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$inked})",
@@ -107,6 +117,7 @@ class UserStatNawabariAction extends BaseAction
             ])
             ->orderBy('{{battle}}.[[id]] DESC');
 
+        /** @var array<string, stdClass> $maps */
         $maps = [];
         foreach (Map::find()->asArray()->all() as $map) {
             $maps[$map['key']] = (object)[
@@ -142,7 +153,10 @@ class UserStatNawabariAction extends BaseAction
         return $maps;
     }
 
-    public function getWPData()
+    /**
+     * @return list<stdClass>
+     */
+    public function getWPData(): array
     {
         $query = Battle::find()
             ->with(['rule'])

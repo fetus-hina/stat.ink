@@ -29,7 +29,6 @@ use yii\helpers\Json;
 use yii\web\View;
 
 /**
- * @phpstan-import-type DataType from Weapon3Action
  * @var DataType $data
  * @var Lobby3 $lobby
  * @var Rule3 $rule

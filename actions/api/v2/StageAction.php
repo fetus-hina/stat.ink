@@ -7,6 +7,7 @@
 
 namespace app\actions\api\v2;
 
+use Override;
 use Yii;
 use app\models\Map2;
 use yii\web\ViewAction as BaseAction;
@@ -17,7 +18,11 @@ use const SORT_ASC;
 
 class StageAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';

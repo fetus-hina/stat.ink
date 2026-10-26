@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v2\salmon;
 
+use Override;
 use Yii;
 use app\models\api\v2\salmon\PostForm;
 use yii\helpers\Json;
@@ -16,13 +17,15 @@ use yii\helpers\Url;
 use yii\web\ViewAction;
 
 use function sprintf;
+use function is_array;
 
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
 class PostAction extends ViewAction
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -30,10 +33,15 @@ class PostAction extends ViewAction
         Yii::$app->timeZone = 'Etc/UTC';
     }
 
-    public function run()
+    /**
+     * @return array{error: array<string, string[]>}|string
+     */
+    #[Override]
+    public function run(): array|string
     {
         $form = Yii::createObject(PostForm::class);
-        $form->attributes = Yii::$app->request->post();
+        $params = Yii::$app->request->post();
+        $form->attributes = is_array($params) ? $params : [];
         if (!$model = $form->save()) {
             return $this->error($form->getErrors(), 400);
         }
@@ -66,12 +74,20 @@ class PostAction extends ViewAction
         return '';
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     * @return array{error: array<string, string[]>}
+     */
     private function error(array $errors, int $code): array
     {
         $this->logError($errors);
         return $this->formatError($errors, $code);
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     * @return array{error: array<string, string[]>}
+     */
     private function formatError(array $errors, int $code): array
     {
         $resp = Yii::$app->getResponse();
@@ -82,6 +98,9 @@ class PostAction extends ViewAction
         ];
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     */
     private function logError(array $errors): void
     {
         Yii::warning(sprintf(

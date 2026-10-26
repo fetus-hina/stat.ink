@@ -15,6 +15,7 @@ use DateTimeInterface;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
 use yii\console\ExitCode;
@@ -222,13 +223,16 @@ trait BattleTrait
 
                     $csvColumns = [
                         self::season($battle),
-                        gmdate(DateTimeInterface::ATOM, BattleHelper::periodToRange2($battle->period)[0]),
-                        $battle->version->tag,
-                        $battle->lobby->key,
-                        $battle->rule->key,
-                        $battle->map->key,
-                        (string)(strtotime($battle->end_at) - strtotime($battle->start_at)),
-                        $battle->result->is_win ? 'alpha' : 'bravo',
+                        gmdate(
+                            DateTimeInterface::ATOM,
+                            BattleHelper::periodToRange2(TypeHelper::int($battle->period))[0],
+                        ),
+                        $battle->version?->tag,
+                        $battle->lobby?->key,
+                        $battle->rule?->key,
+                        $battle->map?->key,
+                        (string)(strtotime($battle->end_at ?? '') - strtotime($battle->start_at ?? '')),
+                        $battle->result?->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                         self::rank($battle->rankBefore, $battle->rank_before_s_plus),
                         match ($battle->lobby?->key) {
@@ -287,12 +291,12 @@ trait BattleTrait
                     $medals = [];
                     foreach ($battle->medals as $medal) {
                         $medals = array_merge($medals, [
-                            match ($medal?->canonical?->gold) {
+                            match ($medal->canonical?->gold) {
                                 true => 'gold',
                                 false => 'silver',
                                 default => '',
                             },
-                            $medal?->canonical?->name ?? $medal?->name ?? '',
+                            $medal?->canonical->name ?? $medal->name ?? '',
                         ]);
                     }
                     $csvColumns = array_merge(

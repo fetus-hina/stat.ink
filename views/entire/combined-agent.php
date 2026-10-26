@@ -12,8 +12,17 @@ use app\assets\EntireAgentAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
+use app\models\AgentGroup;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var AgentGroup $group
+ * @var View $this
+ * @var list<array{date: string, battle: int, user: int}> $posts
+ * @var string $name
+ */
 
 $title = sprintf(
   '%s - %s %s',

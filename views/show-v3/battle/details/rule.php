@@ -11,20 +11,18 @@ use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\Lobby3;
 use app\models\Rule3;
-use yii\base\Model;
 use yii\helpers\Html;
 
-$render = function (?Model $model, string $catalog): string {
+$render = function (Lobby3|Rule3|null $model, string $catalog): string {
   if (!$model) {
     return Html::encode('?');
   }
 
   return trim(
     implode(' ', [
-      match ($model::class) {
-        Lobby3::class => Icon::s3Lobby($model),
-        Rule3::class => Icon::s3Rule($model),
-        default => '',
+      match (true) {
+        $model instanceof Lobby3 => Icon::s3Lobby($model),
+        $model instanceof Rule3 => Icon::s3Rule($model),
       },
       Html::encode(Yii::t($catalog, $model->name)),
     ]),

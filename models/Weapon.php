@@ -9,11 +9,11 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use app\components\helpers\TypeHelper;
+use app\models\query\WeaponQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-
-use const SORT_ASC;
 
 /**
  * This is the model class for table "weapon".
@@ -36,22 +36,14 @@ use const SORT_ASC;
  * @property Weapon $canonical
  * @property Weapon $mainReference
  */
-class Weapon extends ActiveRecord
+final class Weapon extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
 
-    public static function find()
+    public static function find(): WeaponQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function naturalOrder(): ActiveQuery
-            {
-                return $this->orderBy([
-                    'type_id' => SORT_ASC,
-                    'key' => SORT_ASC,
-                ]);
-            }
-        };
+        return new WeaponQuery(static::class);
     }
 
     /**
@@ -142,17 +134,20 @@ class Weapon extends ActiveRecord
             ->viaTable('user_weapon', ['weapon_id' => 'id']);
     }
 
-    public function getCanonical()
+    public function getCanonical(): ActiveQuery
     {
         return $this->hasOne(static::class, ['id' => 'canonical_id']);
     }
 
-    public function getMainReference()
+    public function getMainReference(): ActiveQuery
     {
         return $this->hasOne(static::class, ['id' => 'main_group_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -163,6 +158,9 @@ class Weapon extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -189,6 +187,9 @@ class Weapon extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -199,6 +200,9 @@ class Weapon extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $model = static::find()
@@ -206,7 +210,7 @@ class Weapon extends ActiveRecord
             ->limit(1)
             ->one();
         return [
-            $model->toJsonArray(),
+            TypeHelper::instanceOf($model, static::class)->toJsonArray(),
         ];
     }
 }

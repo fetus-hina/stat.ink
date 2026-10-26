@@ -120,7 +120,7 @@ trait Updater
             ->andWhere(['user_id' => $user->id])
             ->limit(1)
             ->one();
-        return $model?->last_battle_id ?? -1;
+        return $model->last_battle_id ?? -1;
     }
 
     private static function setLastSavedBattleId(User $user, int $id): void

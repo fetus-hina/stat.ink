@@ -8,6 +8,7 @@
 namespace app\commands;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Agent;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
@@ -31,7 +32,7 @@ use const SORT_ASC;
 
 class Battle2Controller extends Controller
 {
-    public function actionUserStat($id)
+    public function actionUserStat(string $id): int
     {
         if (substr($id, 0, 1) === '@') {
             $user = User::findOne(['screen_name' => substr($id, 1)]);
@@ -57,7 +58,7 @@ class Battle2Controller extends Controller
         return 0;
     }
 
-    public function actionDelete($id)
+    public function actionDelete(string $id): int
     {
         $transaction = Yii::$app->db->beginTransaction();
         $battle = Battle2::findOne(['id' => (int)(string)$id]);
@@ -71,7 +72,7 @@ class Battle2Controller extends Controller
         return 0;
     }
 
-    public function actionFixSquidtracks()
+    public function actionFixSquidtracks(): void
     {
         $transaction = Yii::$app->db->beginTransaction();
         $this->stderr("Getting target agents...\n");
@@ -152,7 +153,7 @@ class Battle2Controller extends Controller
         $transaction->commit();
     }
 
-    public function actionTestSlack($id)
+    public function actionTestSlack(string $id): ?int
     {
         $battle = Battle2::findOne(['id' => (int)(string)$id]);
         if (!$battle) {
@@ -171,9 +172,11 @@ class Battle2Controller extends Controller
             printf(
                 "curl -v -H %s -X POST -d %s %s\n\n",
                 escapeshellarg('Content-Type: application/json'),
-                escapeshellarg($slack->send($battle, false)),
+                escapeshellarg(TypeHelper::string($slack->send($battle, false))),
                 escapeshellarg($slack->webhook_url),
             );
         }
+
+        return null;
     }
 }

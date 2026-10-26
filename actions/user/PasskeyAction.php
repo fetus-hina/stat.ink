@@ -9,19 +9,24 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\models\UserPasskey;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
 final class PasskeyAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
-        $ident = Yii::$app->user->getIdentity();
+        if (!$ident = Yii::$app->user->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
 
         $passkeys = UserPasskey::find()
             ->andWhere(['user_id' => $ident->id])

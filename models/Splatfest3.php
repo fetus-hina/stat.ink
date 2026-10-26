@@ -12,6 +12,7 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "splatfest3".
@@ -19,11 +20,13 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property string $start_at
- * @property string $end_at
+ * @property-read string $start_at
+ * @property-write string|ExpressionInterface $start_at
+ * @property-read string $end_at
+ * @property-write string|ExpressionInterface $end_at
  *
  * @property SplatfestCamp3[] $camps
- * @property Splatfest3StatsPower $splatfest3StatsPower
+ * @property Splatfest3StatsPower|null $splatfest3StatsPower
  * @property Splatfest3StatsPowerHistogram[] $splatfest3StatsPowerHistograms
  * @property Splatfest3StatsWeapon[] $splatfest3StatsWeapons
  * @property SplatfestTeam3[] $splatfestTeam3s

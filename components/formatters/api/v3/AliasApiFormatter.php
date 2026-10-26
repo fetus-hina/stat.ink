@@ -23,6 +23,7 @@ final class AliasApiFormatter
 
     /**
      * @param Model[] $models
+     * @return string[]
      */
     public static function allToJson(array $models, bool $fullTranslate = false): array
     {

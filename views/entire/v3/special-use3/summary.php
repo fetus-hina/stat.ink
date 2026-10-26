@@ -21,6 +21,7 @@ use yii\web\View;
 /**
  * @var Season3 $season
  * @var StatSpecialUse3[] $total
+ * @var View $this
  * @var array<int, Rule3> $rules
  * @var array<int, Special3> $specials
  * @var array<int, StatSpecialUse3[]> $data

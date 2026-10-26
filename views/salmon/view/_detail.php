@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Label;
@@ -47,7 +48,7 @@ $widget = Yii::createObject([
     ],
     [
       'attribute' => 'stage_id',
-      'value' => Yii::t('app-salmon-map2', $model->stage->name ?? null),
+      'value' => Yii::t('app-salmon-map2', $model->stage->name ?? ''),
     ],
     [
       'label' => Yii::t('app-results', 'Result'),
@@ -64,13 +65,13 @@ $widget = Yii::createObject([
           $labels[] = Label::widget([
             'color' => 'danger',
             'content' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
-              'waveNumber' => $widget->formatter->asInteger($model->clear_waves + 1),
+              'waveNumber' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($model->clear_waves + 1),
             ]),
           ]);
           if ($model->fail_reason_id) {
             $labels[] = Label::widget([
               'color' => 'warning',
-              'content' => Yii::t('app-salmon2', $model->failReason->name),
+              'content' => Yii::t('app-salmon2', $model->failReason->name ?? ''),
             ]);
           }
         }
@@ -92,7 +93,7 @@ $widget = Yii::createObject([
 
           return trim(implode(' ', [
             Yii::t('app-salmon-title2', $title->name),
-            $exp === null ? '' : $widget->formatter->asInteger($exp),
+            $exp === null ? '' : TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($exp),
           ]));
         };
 
@@ -123,9 +124,9 @@ $widget = Yii::createObject([
           $parts[] = Html::encode(sprintf(
             '(%s)',
             Yii::t('app-salmon2', 'Quota: {wave1} - {wave2} - {wave3}', [
-              'wave1' => $widget->formatter->asInteger($quota[0]),
-              'wave2' => $widget->formatter->asInteger($quota[1]),
-              'wave3' => $widget->formatter->asInteger($quota[2]),
+              'wave1' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($quota[0]),
+              'wave2' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($quota[1]),
+              'wave3' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($quota[2]),
             ])
           ));
         }
@@ -167,15 +168,15 @@ $widget = Yii::createObject([
 
           list ($periodStart, ) = BattleHelper::periodToRange2($period);
           return Yii::t('app-salmon2', 'From {shiftStart}', [
-            'shiftStart' => $widget->formatter->asTimestampColumn($periodStart, false),
+            'shiftStart' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asTimestampColumn($periodStart, false),
           ]);
         }
 
         // 正規のスケジュールデータから表示する
         return implode(' ', [
           Yii::t('app-salmon2', 'From {shiftStart} to {shiftEnd}', [
-            'shiftStart' => $widget->formatter->asTimestampColumn($schedule->start_at, false),
-            'shiftEnd' => $widget->formatter->asTimestampColumn($schedule->end_at, false),
+            'shiftStart' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asTimestampColumn($schedule->start_at, false),
+            'shiftEnd' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asTimestampColumn($schedule->end_at, false),
           ]),
           Html::a(
             (string)FA::fas('calendar-day')->fw(),
@@ -188,8 +189,8 @@ $widget = Yii::createObject([
             [
               'class' => 'auto-tooltip',
               'title' => Yii::t('app', 'Search {from} - {to}', [
-                'from' => $widget->formatter->asDateTime($schedule->start_at, 'short'),
-                'to' => $widget->formatter->asDateTime($schedule->end_at, 'short'),
+                'from' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asDateTime($schedule->start_at, 'short'),
+                'to' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asDateTime($schedule->end_at, 'short'),
               ])
             ]
           ),
@@ -245,7 +246,7 @@ $widget = Yii::createObject([
           return null;
         }
 
-        if (Yii::$app->user->isGuest || Yii::$app->user->identity->id != $model->user_id) {
+        if (Yii::$app->user->getIdentity()?->id !== $model->user_id) {
           return null;
         }
 
@@ -260,7 +261,7 @@ $widget = Yii::createObject([
   // Override \yii\widgets\DetailView::renderAttribute() to skip empty cell
   // https://github.com/yiisoft/yii2/blob/558cd482d8a0525fceec8646ea20ccc9b7c3fdf4/framework/widgets/DetailView.php#L167-L187
   'template' => function (array $attribute, int $index, DetailView $widget): string {
-    $value = $widget->formatter->format($attribute['value'], $attribute['format']);
+    $value = TypeHelper::instanceOf($widget->formatter, Formatter::class)->format($attribute['value'], $attribute['format']);
     if ($value == '') {
       return '';
     }

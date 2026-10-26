@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\salmon;
 
+use Override;
 use Throwable;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
@@ -32,7 +33,8 @@ final class DeleteSalmonAction extends Action
     /**
      * @inheritdoc
      */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();

@@ -12,7 +12,9 @@ use yii\base\Model;
 
 class Knockout2FilterForm extends Model
 {
+    /** @var string|array<mixed>|null */
     public $lobby;
+    /** @var string|array<mixed>|null */
     public $rank;
 
     public function rules()

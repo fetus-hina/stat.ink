@@ -7,6 +7,7 @@
 
 namespace app\components\behaviors;
 
+use Override;
 use Yii;
 use yii\base\Behavior;
 use yii\base\Model;
@@ -22,10 +23,17 @@ class FixAttributesBehavior extends Behavior
     //     'wrong2' => 'fixed2',
     //   ],
     // ]
-    public $attributes;
-    public $trigger = Model::EVENT_BEFORE_VALIDATE;
+    /**
+     * @var array<string, array<string, string>>
+     */
+    public array $attributes;
+    public string $trigger = Model::EVENT_BEFORE_VALIDATE;
 
-    public function events()
+    /**
+     * @return array<string, callable|string>
+     */
+    #[Override]
+    public function events(): array
     {
         return [
             $this->trigger => $this->doFix(...),

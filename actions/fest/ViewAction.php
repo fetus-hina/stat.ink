@@ -7,11 +7,12 @@
 
 namespace app\actions\fest;
 
+use Override;
 use Yii;
+use app\models\FestViewForm;
 use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -20,20 +21,23 @@ use function strtotime;
 
 use const SORT_ASC;
 
+/**
+ * @property-read array<int, array{at: int|false, alpha: int, bravo: int}> $results
+ */
 class ViewAction extends BaseAction
 {
-    public $fest;
-    public $alpha;
-    public $bravo;
+    public ?Splatfest $fest = null;
+    public ?SplatfestTeam $alpha = null;
+    public ?SplatfestTeam $bravo = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
-        $r = parent::init();
+        parent::init();
         $this->doInit();
-        return $r;
     }
 
-    private function doInit()
+    private function doInit(): void
     {
         if (!$form = $this->createAndValidateRequestForm()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
@@ -56,18 +60,13 @@ class ViewAction extends BaseAction
         }
     }
 
-    private function createAndValidateRequestForm()
+    private function createAndValidateRequestForm(): FestViewForm|false
     {
         $req = Yii::$app->request;
-        $model = DynamicModel::validateData(
+        $model = FestViewForm::validateData(
             [
                 'region' => $req->get('region'),
                 'order' => $req->get('order'),
-            ],
-            [
-                [['region', 'order'], 'required'],
-                [['region'], 'string', 'min' => 2, 'max' => 2],
-                [['order'], 'integer', 'min' => 1],
             ],
         );
         if ($model->validate()) {
@@ -76,7 +75,8 @@ class ViewAction extends BaseAction
         return false;
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return $this->controller->render('view', [
             'fest' => $this->fest,
@@ -86,10 +86,13 @@ class ViewAction extends BaseAction
         ]);
     }
 
-    public function getResults()
+    /**
+     * @return array<int, array{at: int|false, alpha: int, bravo: int}>
+     */
+    public function getResults(): array
     {
         $query = SplatfestBattleSummary::find()
-            ->andWhere(['{{splatfest_battle_summary}}.[[fest_id]]' => $this->fest->id])
+            ->andWhere(['{{splatfest_battle_summary}}.[[fest_id]]' => $this->fest?->id])
             ->orderBy(['{{splatfest_battle_summary}}.[[timestamp]]' => SORT_ASC]);
 
         return array_map(

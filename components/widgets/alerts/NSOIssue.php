@@ -16,14 +16,13 @@ use yii\helpers\Html;
 
 use function array_keys;
 use function array_map;
-use function array_values;
 use function count;
 use function implode;
 
 final class NSOIssue extends Alert
 {
     #[Override]
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -31,7 +30,7 @@ final class NSOIssue extends Alert
     }
 
     #[Override]
-    protected function initOptions()
+    protected function initOptions(): void
     {
         parent::initOptions();
 
@@ -58,7 +57,7 @@ final class NSOIssue extends Alert
                         'class' => $index === count($messages) - 1 ? 'mb-0' : null,
                     ],
                 ),
-                array_values($messages),
+                $messages,
                 array_keys($messages),
             ),
         );

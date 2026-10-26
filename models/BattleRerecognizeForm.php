@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
 
 use function array_find;
@@ -15,20 +16,38 @@ use function array_merge;
 use function count;
 use function gmdate;
 use function is_array;
+use function is_string;
 use function json_decode;
 use function json_encode;
 use function printf;
 use function sprintf;
 
+use const JSON_THROW_ON_ERROR;
+
 class BattleRerecognizeForm extends Model
 {
+    /**
+     * @var int|string|null
+     */
     public $id;
+    /**
+     * @var array<int|string, array<string, mixed>>|null
+     */
     public $players;
+    /**
+     * @var string|null
+     */
     public $agent;
+    /**
+     * @var string|null
+     */
     public $agent_version;
+    /**
+     * @var int|string|null
+     */
     public $recognition_at;
 
-    private $playersChanged = false;
+    private bool $playersChanged = false;
 
     public function rules()
     {
@@ -51,7 +70,7 @@ class BattleRerecognizeForm extends Model
         ];
     }
 
-    public function validateArrayOfPlayers($attr, $params)
+    public function validateArrayOfPlayers(string $attr, mixed $params): void
     {
         if (!is_array($this->$attr)) {
             $this->addError($attr, "{$attr} should be array");
@@ -75,32 +94,38 @@ class BattleRerecognizeForm extends Model
         }
     }
 
-    public function getMyData()
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function getMyData(): ?array
     {
         return array_find(
-            $this->players,
+            $this->players ?? [],
             fn (array $p): bool => $p['is_me'] === 'yes' && $p['team'] === 'my',
         );
     }
 
-    public function getBattle()
+    public function getBattle(): ?Battle
     {
         return Battle::findOne(['id' => $this->id]);
     }
 
-    public function save()
+    public function save(): bool
     {
         return $this->savePlayers() && $this->saveBattle();
     }
 
-    protected function saveBattle()
+    protected function saveBattle(): bool
     {
         $my = new BattleRerecognizePlayerForm();
-        $my->attributes = $this->getMyData();
+        $my->attributes = $this->getMyData() ?? [];
         $weapon = $my->weaponModel;
         $rank = $my->rank ? Rank::findOne(['key' => $my->rank]) : null;
 
-        $battle = $this->getBattle();
+        if (!$battle = $this->getBattle()) {
+            return false;
+        }
+
         $battle->skipSaveHistory = true;
         $battle->attributes = [
             'weapon_id' => $weapon->id ?? null,
@@ -116,13 +141,17 @@ class BattleRerecognizeForm extends Model
             return true;
         }
 
-        $battle->ua_variables = json_encode(array_merge(
-            @json_decode($battle->ua_variables, true) ?: [],
-            [
-                'rerecognized_agent' => sprintf('%s/%s', $this->agent ?: 'unknown', $this->agent_version ?: 'unknown'),
-                'rerecognized_at' => gmdate('Y-m-d\TH:i:sP', $this->recognition_at),
-            ],
-        ));
+        $uaVariables = $battle->ua_variables;
+        $battle->ua_variables = json_encode(
+            array_merge(
+                (is_string($uaVariables) ? @json_decode($uaVariables, true) : $uaVariables) ?: [],
+                [
+                    'rerecognized_agent' => sprintf('%s/%s', $this->agent ?: 'unknown', $this->agent_version ?: 'unknown'),
+                    'rerecognized_at' => gmdate('Y-m-d\TH:i:sP', TypeHelper::int($this->recognition_at)),
+                ],
+            ),
+            JSON_THROW_ON_ERROR,
+        );
 
         foreach (array_keys($battle->dirtyAttributes) as $k) {
             if ($k === 'weapon_id') {
@@ -149,18 +178,19 @@ class BattleRerecognizeForm extends Model
         return $battle->save();
     }
 
-    protected function savePlayers()
+    protected function savePlayers(): bool
     {
-        if (count($this->players) !== 8) {
+        $players = $this->players ?? [];
+        if (count($players) !== 8) {
             $count = BattlePlayer::find()->where(['battle_id' => $this->id])->count();
-            if (count($this->players) != $count) {
+            if (count($players) != $count) {
                 BattlePlayer::deleteAll([
                     'battle_id' => $this->id,
                 ]);
             }
         }
 
-        foreach ($this->players as $i => $player) {
+        foreach ($players as $i => $player) {
             $form = new BattleRerecognizePlayerForm();
             $form->attributes = $player;
 

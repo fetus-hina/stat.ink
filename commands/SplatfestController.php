@@ -29,7 +29,7 @@ use function time;
 
 class SplatfestController extends Controller
 {
-    public function actionUpdateAuto()
+    public function actionUpdateAuto(): void
     {
         $now = (int)(@$_SERVER['REQUEST_TIME'] ?: time());
 
@@ -47,7 +47,7 @@ class SplatfestController extends Controller
         }
     }
 
-    public function actionUpdate($region, $number)
+    public function actionUpdate(string $region, int|string $number): int
     {
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -82,7 +82,7 @@ class SplatfestController extends Controller
         return 0;
     }
 
-    private function createBattleSummaryTmpTimestamp(Splatfest $fest)
+    private function createBattleSummaryTmpTimestamp(Splatfest $fest): void
     {
         $now = (int)(@$_SERVER['REQUEST_TIME'] ?: time());
         $start_at = strtotime($fest->start_at);
@@ -111,7 +111,7 @@ class SplatfestController extends Controller
         }
     }
 
-    private function createBattleSummaryTmpTable($tableName, Splatfest $fest, $hueMy, $hueHis)
+    private function createBattleSummaryTmpTable(string $tableName, Splatfest $fest, int $hueMy, int $hueHis): void
     {
         $t1 = microtime(true);
         printf('    > create temporary table %s ... ', $tableName);
@@ -157,7 +157,7 @@ class SplatfestController extends Controller
         printf(" done (%.3fs)\n", $t2 - $t1);
     }
 
-    private function createBattleSummary(Splatfest $fest)
+    private function createBattleSummary(Splatfest $fest): void
     {
         echo "    > insert to splatfest_battle_summary ...\n";
         $select =
@@ -182,7 +182,7 @@ class SplatfestController extends Controller
             ->execute();
     }
 
-    private function createHueRange($column, $hue, $permitError = 6)
+    private function createHueRange(string $column, int $hue, int $permitError = 6): string
     {
         $hue = (int)$hue;
         $low = $hue - $permitError;
@@ -198,7 +198,7 @@ class SplatfestController extends Controller
         }
     }
 
-    private function dropTmpTable()
+    private function dropTmpTable(): void
     {
         foreach (['tmp_summary_ts', 'tmp_summary_a', 'tmp_summary_b'] as $tableName) {
             $t1 = microtime(true);

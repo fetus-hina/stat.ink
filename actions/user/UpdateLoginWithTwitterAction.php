@@ -10,6 +10,7 @@ namespace app\actions\user;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use League\OAuth1\Client\Credentials\TemporaryCredentials;
+use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\Twitter as TwitterServer;
 use Override;
 use RuntimeException;
@@ -20,6 +21,8 @@ use yii\base\Action;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function is_array;
 
@@ -29,14 +32,14 @@ final class UpdateLoginWithTwitterAction extends Action
     private const TWITTER_V2_USERS_ME = 'https://api.twitter.com/2/users/me';
 
     #[Override]
-    public function init()
+    public function init(): void
     {
         if (!Yii::$app->params['twitter']['read_enabled']) {
             throw new BadRequestHttpException();
         }
     }
 
-    public function run()
+    public function run(): Response
     {
         $request = Yii::$app->request;
         $response = Yii::$app->response;
@@ -61,10 +64,12 @@ final class UpdateLoginWithTwitterAction extends Action
                 );
 
                 $twUser = $this->fetchTwitterV2User($twitter, $tokenCredentials);
-                if (!is_array($twUser) || !isset($twUser['data']['id'])) {
+                if (!isset($twUser['data']['id'])) {
                     throw new RuntimeException('Failed to fetch your information from Twitter');
                 }
-                $user = Yii::$app->user->identity;
+                if (!$user = Yii::$app->user->identity) {
+                    throw new ServerErrorHttpException();
+                }
 
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
@@ -139,7 +144,10 @@ final class UpdateLoginWithTwitterAction extends Action
         return $tempCreds;
     }
 
-    private function fetchTwitterV2User(TwitterServer $twitter, $tokenCredentials): array
+    /**
+     * @return array<string, mixed>
+     */
+    private function fetchTwitterV2User(TwitterServer $twitter, TokenCredentials $tokenCredentials): array
     {
         $url = self::TWITTER_V2_USERS_ME;
         $headers = $twitter->getHeaders($tokenCredentials, 'GET', $url);

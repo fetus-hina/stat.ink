@@ -7,15 +7,16 @@
 
 namespace app\actions\stage;
 
+use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
 use app\models\Rule;
+use app\models\StageMapForm;
 use app\models\StatWeaponMapTrend;
 use stdClass;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -29,36 +30,36 @@ use function usort;
 
 class MapAction extends BaseAction
 {
-    public $map;
+    public Map $map;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->prepare();
     }
 
-    private function prepare()
+    private function prepare(): void
     {
         // {{{
         $req = Yii::$app->request;
 
-        $model = DynamicModel::validateData(['map' => $req->get('map')], [
-            [['map'], 'required'],
-            [['map'], 'exist',
-                'targetClass' => Map::class,
-                'targetAttribute' => 'key',
-            ],
-        ]);
+        $model = StageMapForm::validateData(['map' => $req->get('map')]);
 
         if ($model->hasErrors()) {
-            static::http404();
+            self::http404();
         }
 
-        $this->map = Map::findOne(['key' => $model->map]);
+        $map = Map::findOne(['key' => $model->map]);
+        if (!$map) {
+            self::http404();
+        }
+        $this->map = $map;
         // }}}
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $maps = [];
         foreach (Map::find()->asArray()->all() as $_) {
@@ -73,6 +74,9 @@ class MapAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function buildData(): array
     {
         // {{{
@@ -133,7 +137,7 @@ class MapAction extends BaseAction
         // }}}
     }
 
-    private static function http404()
+    private static function http404(): never
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }

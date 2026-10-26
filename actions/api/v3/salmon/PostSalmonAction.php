@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\salmon;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
@@ -20,9 +21,11 @@ use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function rawurlencode;
 use function vsprintf;
+use function is_array;
 
 final class PostSalmonAction extends Action
 {
@@ -31,7 +34,8 @@ final class PostSalmonAction extends Action
     /**
      * @inheritdoc
      */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();
@@ -40,7 +44,8 @@ final class PostSalmonAction extends Action
     public function run(): Response
     {
         $form = Yii::createObject(PostSalmonForm::class);
-        $form->attributes = Yii::$app->request->getBodyParams();
+        $params = Yii::$app->request->getBodyParams();
+        $form->attributes = is_array($params) ? $params : [];
 
         $battle = $form->save();
         if (!$battle) {
@@ -69,6 +74,9 @@ final class PostSalmonAction extends Action
             ->andWhere(['uuid' => $uuid])
             ->limit(1)
             ->one();
+        if (!$battle) {
+            throw new ServerErrorHttpException('Could not load the saved job');
+        }
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
@@ -102,6 +110,9 @@ final class PostSalmonAction extends Action
         return $resp;
     }
 
+    /**
+     * @param array<string, string>|null $errors
+     */
     private function formatError(?array $errors, int $code): Response
     {
         $resp = Yii::$app->response;
@@ -113,9 +124,6 @@ final class PostSalmonAction extends Action
     private function registerBackgroundJob(Salmon3 $battle): void
     {
         $user = $battle->user;
-        if (!$user) {
-            return;
-        }
 
         // 一緒に遊んだプレイヤー
         SalmonPlayedWith3Job::pushQueue($user, $battle);

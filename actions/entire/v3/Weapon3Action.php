@@ -48,15 +48,6 @@ use function version_compare;
 use const SORT_ASC;
 use const SORT_DESC;
 
-/**
- * @phpstan-type SAssists StatWeapon3Assist[]|StatWeapon3AssistPerVersion[]
- * @phpstan-type SDeaths StatWeapon3Death[]|StatWeapon3DeathPerVersion[]
- * @phpstan-type SInkeds StatWeapon3Inked[]|StatWeapon3InkedPerVersion[]
- * @phpstan-type SKillOrAssists StatWeapon3KillOrAssist[]|StatWeapon3KillOrAssistPerVersion[]
- * @phpstan-type SKills StatWeapon3Kill[]|StatWeapon3KillPerVersion[]
- * @phpstan-type SSpecials StatWeapon3Special[]|StatWeapon3SpecialPerVersion[]
- * @phsptan-type DataType array{assist: SAssists, death: SDeaths, inked: SInkeds, ka: SKillOrAssists, kill: SKills, special: SSpecials}
- */
 final class Weapon3Action extends Action
 {
     public function run(
@@ -83,6 +74,9 @@ final class Weapon3Action extends Action
             : $controller->render('v3/weapon3', $params);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(
         Controller $controller,
         Connection $db,
@@ -108,7 +102,7 @@ final class Weapon3Action extends Action
 
             return $controller->redirect(['entire/weapon3',
                 'lobby' => $this->getDefaultLobbyKey($season, $version),
-                'rule' => $rule?->key ?? 'area',
+                'rule' => $rule->key ?? 'area',
                 'season' => $season?->id,
                 'version' => $version?->tag,
                 'weapon' => $weapon?->key,
@@ -121,7 +115,7 @@ final class Weapon3Action extends Action
                 'rule' => 'nawabari',
                 'season' => $season?->id,
                 'version' => $version?->tag,
-                'weapon' => $weapon?->key,
+                'weapon' => $weapon->key,
             ]);
         }
 
@@ -131,7 +125,7 @@ final class Weapon3Action extends Action
                 'rule' => $rule->key,
                 'season' => $season?->id,
                 'version' => $version?->tag,
-                'weapon' => $weapon?->key,
+                'weapon' => $weapon->key,
             ]);
         }
 
@@ -568,6 +562,9 @@ final class Weapon3Action extends Action
         );
     }
 
+    /**
+     * @return SplatoonVersion3[]
+     */
     private function getVersions(Connection $db): array
     {
         $ts = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))

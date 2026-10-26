@@ -17,6 +17,9 @@ use function array_map;
 
 final class GearConfigurationApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?GearConfiguration3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

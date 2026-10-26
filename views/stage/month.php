@@ -16,9 +16,9 @@ use yii\web\View;
 /**
  * @var DateTimeInterface $month
  * @var View $this
- * @var object[] $rules
- * @var string|array $nextUrl
- * @var string|array $prevUrl
+ * @var stdClass[] $rules
+ * @var string|null $nextUrl
+ * @var string|null $prevUrl
  */
 
 $formatter = Yii::$app->formatter;

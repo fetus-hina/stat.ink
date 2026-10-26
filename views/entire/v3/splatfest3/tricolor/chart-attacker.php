@@ -12,6 +12,7 @@ use app\assets\ChartJsErrorBarsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\JqueryEasyChartjsAsset;
 use app\components\helpers\StandardError;
+use app\models\Map3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\JsExpression;
@@ -53,7 +54,7 @@ foreach ($tricolorStats as $row) {
   }
 
   $labels[] = vsprintf('%s (%s)', [
-    Yii::t('app-map3', $stages[$row['map_id']]?->short_name ?? '') ?: sprintf('#%d', $row['map_id']),
+    Yii::t('app-map3', $stages[$row['map_id']]->short_name ?? '') ?: sprintf('#%d', $row['map_id']),
     $fmt->asInteger($row['battles']),
   ]);
   $dataSets[] = $make($rowId++, $errInfo);
@@ -70,8 +71,8 @@ JqueryEasyChartjsAsset::register($this);
 
 $this->registerJs('$(".splatfest3-chart-attacker").easyChartJs();');
 
-$min99ci = min(ArrayHelper::getColumn($dataSets, 'xMin.1'));
-$max99ci = max(ArrayHelper::getColumn($dataSets, 'xMax.1'));
+$min99ci = min(array_map(fn (array $v): mixed => $v['xMin'][1], $dataSets));
+$max99ci = max(array_map(fn (array $v): mixed => $v['xMax'][1], $dataSets));
 
 $chartRangeOneSide = max(
     20,

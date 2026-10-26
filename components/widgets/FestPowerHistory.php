@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\FestPowerHistoryAsset;
 use app\models\Battle2;
 use app\models\Mode2;
 use app\models\Rule2;
+use app\models\User;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -30,14 +32,15 @@ use const SORT_DESC;
 
 class FestPowerHistory extends Widget
 {
-    public $user;
-    public $current;
+    public User $user;
+    public Battle2 $current;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->current->user;
         }
     }
@@ -109,6 +112,9 @@ class FestPowerHistory extends Widget
         );
     }
 
+    /**
+     * @return Battle2[]|null
+     */
     public function getHistory(): ?array
     {
         // {{{
@@ -120,7 +126,6 @@ class FestPowerHistory extends Widget
             return null;
         }
         if (
-            !$this->current ||
             $this->current->rule_id !== $ruleTW->id ||
             $this->current->mode_id !== $modeFest->id ||
             $this->current->lobby_id === null

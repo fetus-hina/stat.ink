@@ -74,14 +74,17 @@ final class SendouInk
         return $ids ? max($ids) : null;
     }
 
+    /**
+     * @return string[]
+     */
     private static function getAbilities(GearConfiguration3 ...$gears): array
     {
         $results = [];
         foreach ($gears as $gear) {
             $tmp = [];
-            $tmp[] = $gear->ability?->sendouink ?? self::UNKNOWN_KEY;
+            $tmp[] = $gear->ability->sendouink ?? self::UNKNOWN_KEY;
             foreach ($gear->gearConfigurationSecondary3s as $secondary) {
-                $tmp[] = $secondary->ability?->sendouink ?? self::UNKNOWN_KEY;
+                $tmp[] = $secondary->ability->sendouink ?? self::UNKNOWN_KEY;
             }
             $results = array_merge(
                 $results,

@@ -28,7 +28,8 @@ use function is_string;
  * This is the model class for table "battle2_splatnet".
  *
  * @property integer $id
- * @property string $json
+ * @property-read array<string, mixed>|object $json
+ * @property-write array<string, mixed>|object|string $json
  *
  * @property Battle2 $battle
  */
@@ -93,7 +94,7 @@ class Battle2Splatnet extends ActiveRecord
         return $this->hasOne(Battle2::class, ['id' => 'id']);
     }
 
-    public function validateJson(string $attr, $params): void
+    public function validateJson(string $attr, mixed $params): void
     {
         if ($this->hasErrors($attr)) {
             return;
@@ -110,7 +111,7 @@ class Battle2Splatnet extends ActiveRecord
         }
     }
 
-    protected static function convertToObject($value): ?object
+    protected static function convertToObject(mixed $value): ?object
     {
         $profileId = VarDumper::export($value);
         Yii::beginProfile($profileId, __METHOD__);

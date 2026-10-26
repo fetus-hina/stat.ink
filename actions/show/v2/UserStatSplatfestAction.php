@@ -14,8 +14,8 @@ use Yii;
 use app\models\Region2;
 use app\models\Splatfest2;
 use app\models\User;
+use app\models\UserStatSplatfest2Form;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 
 use const SORT_ASC;
@@ -23,10 +23,10 @@ use const SORT_DESC;
 
 final class UserStatSplatfestAction extends Action
 {
-    private ?User $user = null;
+    private User $user;
     private ?Region2 $region = null;
 
-    public function run()
+    public function run(): string
     {
         $this->initUser();
 
@@ -55,29 +55,22 @@ final class UserStatSplatfestAction extends Action
     private function initUser(): void
     {
         $request = Yii::$app->request;
-        $this->user = User::findOne(['screen_name' => (string)$request->get('screen_name')]);
-        if (!$this->user) {
+        $user = User::findOne(['screen_name' => (string)$request->get('screen_name')]);
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
+        $this->user = $user;
     }
 
-    private function processInput(): DynamicModel
+    private function processInput(): UserStatSplatfest2Form
     {
         $request = Yii::$app->request;
-        return DynamicModel::validateData(
+        return UserStatSplatfest2Form::validateData(
             ['region' => $request->get('region')],
-            [
-                [['region'], 'default', 'value' => null],
-                [['region'], 'string'],
-                [['region'], 'exist',
-                    'targetClass' => Region2::class,
-                    'targetAttribute' => ['region' => 'key'],
-                ],
-            ],
         );
     }
 
-    private function initRegion(DynamicModel $model): void
+    private function initRegion(UserStatSplatfest2Form $model): void
     {
         if (
             $model->region !== null &&

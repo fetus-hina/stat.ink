@@ -13,6 +13,7 @@ use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use app\components\helpers\TypeHelper;
 
 use const SORT_ASC;
 
@@ -22,7 +23,7 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property string $splatnet
+ * @property string|null $splatnet
  */
 class SalmonEvent2 extends ActiveRecord
 {
@@ -63,6 +64,9 @@ class SalmonEvent2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -72,6 +76,9 @@ class SalmonEvent2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -97,6 +104,9 @@ class SalmonEvent2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -105,8 +115,11 @@ class SalmonEvent2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
-        return static::findOne(['key' => 'cohock_charge'])->toJsonArray();
+        return TypeHelper::instanceOf(static::findOne(['key' => 'cohock_charge']), static::class)->toJsonArray();
     }
 }

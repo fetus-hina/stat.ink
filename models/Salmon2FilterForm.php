@@ -13,6 +13,7 @@ use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
@@ -40,24 +41,52 @@ use const SORT_DESC;
 
 class Salmon2FilterForm extends Model
 {
+    /**
+     * @var mixed
+     */
     public $user;
 
+    /**
+     * @var string|null
+     */
     public $stage;
+    /**
+     * @var string|null
+     */
     public $special;
+    /**
+     * @var string|null
+     */
     public $result;
+    /**
+     * @var string|null
+     */
     public $reason;
+    /**
+     * @var string|null
+     */
     public $term;
+    /**
+     * @var string|null
+     */
     public $filter;
 
-    private $filterRotation;
-    private $versions;
+    /**
+     * @var array{int, int}|null
+     */
+    private ?array $filterRotation = null;
+    /**
+     * @var array<string, SplatoonVersionGroup2>
+     */
+    private array $versions = [];
 
     public function formName()
     {
         return 'filter';
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->versions = $this->initVersions();
@@ -116,7 +145,7 @@ class Salmon2FilterForm extends Model
         ];
     }
 
-    public function validateFilter(string $attr, $params): void
+    public function validateFilter(string $attr, mixed $params): void
     {
         $value = trim((string)($this->$attr));
         if ($value === '' || $this->hasErrors($attr)) {
@@ -170,7 +199,7 @@ class Salmon2FilterForm extends Model
 
         if ($this->stage) {
             $stage = SalmonMap2::findOne(['key' => $this->stage]);
-            $query->andWhere(['{{salmon2}}.[[stage_id]]' => $stage->id]);
+            $query->andWhere(['{{salmon2}}.[[stage_id]]' => $stage?->id]);
         }
 
         if ($this->special) {
@@ -184,7 +213,7 @@ class Salmon2FilterForm extends Model
                     ]),
                 )
                 ->andWhere([
-                    '{{salmon_player2}}.[[special_id]]' => $special->id,
+                    '{{salmon_player2}}.[[special_id]]' => $special?->id,
                 ]);
         }
 
@@ -214,7 +243,7 @@ class Salmon2FilterForm extends Model
 
         if ($this->reason) {
             $reason = SalmonFailReason2::findOne(['key' => $this->reason]);
-            $query->andWhere(['{{salmon2}}.[[fail_reason_id]]' => $reason->id]);
+            $query->andWhere(['{{salmon2}}.[[fail_reason_id]]' => $reason?->id]);
         }
 
         if ($this->term) {
@@ -290,6 +319,9 @@ class Salmon2FilterForm extends Model
         return $query;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toPermalinkParams(): array
     {
         $results = [];
@@ -338,17 +370,23 @@ class Salmon2FilterForm extends Model
             ->one();
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getValidVersions(): array
     {
         return ArrayHelper::map(
             $this->versions,
             fn (SplatoonVersionGroup2 $v): string => 'v' . $v->tag,
             fn (SplatoonVersionGroup2 $v): string => Yii::t('app', 'Version {0}', [
-                Yii::t('app-version2', $v->name),
+                Yii::t('app-version2', $v->name ?? ''),
             ]),
         );
     }
 
+    /**
+     * @return array<string, SplatoonVersionGroup2>
+     */
     private function initVersions(): array
     {
         $versionGroupIds = array_filter(

@@ -8,21 +8,28 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserDetailedStatsCell;
+use app\models\BattleFilterForm;
 use app\models\User;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
+ * @var BattleFilterForm $filter
  * @var User $user
  * @var View $this
+ * @var array<string, array<string, stdClass>> $data
+ * @var array<string, stdClass> $mapNames
+ * @var array<string, string> $ruleNames
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $title = Yii::t('app-battle', '{name}\'s Battle Stats (by Mode and Stage)', [
   'name' => $user->name,
 ]);

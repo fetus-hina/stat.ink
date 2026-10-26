@@ -7,11 +7,13 @@
 
 namespace app\actions\show\v2;
 
+use Override;
 use Yii;
 use app\models\Battle2;
 use app\models\Battle2FilterForm;
 use app\models\User;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
@@ -30,9 +32,13 @@ use function time;
 use const ARRAY_FILTER_USE_KEY;
 use const SORT_DESC;
 
+/**
+ * @property-read string $viewMode
+ */
 class UserAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -57,7 +63,7 @@ class UserAction extends BaseAction
             unset($next['v']);
             $next[0] = 'show-v2/user';
             $this->controller->redirect(Url::to($next));
-            return;
+            return null;
         }
 
         $permLink = Url::to(
@@ -113,7 +119,7 @@ class UserAction extends BaseAction
                     ),
                 ];
                 $this->controller->redirect(Url::to($next, true));
-                return;
+                return null;
             }
 
             $battle->applyFilter($filter);
@@ -135,9 +141,10 @@ class UserAction extends BaseAction
             'battleDataProvider' => Yii::createObject([
                 'class' => ActiveDataProvider::class,
                 'query' => $battle,
-                'pagination' => [
+                'pagination' => Yii::createObject([
+                    'class' => Pagination::class,
                     'pageSize' => 100,
-                ],
+                ]),
                 'sort' => false,
             ]),
             'summary' => $summary,
@@ -145,7 +152,7 @@ class UserAction extends BaseAction
         ]);
     }
 
-    public function getViewMode()
+    public function getViewMode(): string
     {
         $request = Yii::$app->request;
         $mode = null;

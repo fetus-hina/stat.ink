@@ -8,7 +8,10 @@
 namespace app\commands;
 
 use Exception;
+use LogicException;
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle;
 use app\models\User;
 use yii\base\InlineAction;
@@ -32,7 +35,6 @@ use function filesize;
 use function flock;
 use function fopen;
 use function fseek;
-use function ftell;
 use function ftruncate;
 use function fwrite;
 use function gzencode;
@@ -43,6 +45,7 @@ use function printf;
 use function random_int;
 use function rtrim;
 use function sprintf;
+use function strlen;
 use function strtotime;
 use function touch;
 use function unlink;
@@ -55,6 +58,9 @@ use const LOCK_UN;
 use const SEEK_END;
 use const SEEK_SET;
 
+/**
+ * @property-read string $jsonPath
+ */
 class UserJsonController extends Controller
 {
     public $defaultAction = 'auto-update';
@@ -74,7 +80,8 @@ class UserJsonController extends Controller
      */
     public $screenName;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->basePath === null) {
@@ -96,7 +103,11 @@ class UserJsonController extends Controller
         return $ret;
     }
 
-    public function getActionOptionsHelp($action)
+    /**
+     * @return array<string, array<string, mixed>>
+     */
+    #[Override]
+    public function getActionOptionsHelp($action): array
     {
         if ($action instanceof InlineAction) {
             return parent::getActionOptionsHelp($action);
@@ -105,7 +116,7 @@ class UserJsonController extends Controller
         return [];
     }
 
-    public function actionAutoUpdate()
+    public function actionAutoUpdate(): ?int
     {
         $lockPath = $this->basePath . '/.auto-update';
         if (!file_exists(dirname($lockPath))) {
@@ -145,17 +156,20 @@ class UserJsonController extends Controller
             } else {
                 echo "Skip {$row['user_id']}\n";
             }
-            clearstatcache($jsonPath);
+            clearstatcache(true, $jsonPath);
         }
 
         fseek($lock, 0, SEEK_SET);
-        fwrite($lock, $_SERVER['REQUEST_TIME'] . "\n");
-        ftruncate($lock, ftell($lock));
+        $content = $_SERVER['REQUEST_TIME'] . "\n";
+        fwrite($lock, $content);
+        ftruncate($lock, strlen($content));
         flock($lock, LOCK_UN);
         fclose($lock);
+
+        return null;
     }
 
-    public function actionUpdate()
+    public function actionUpdate(): ?int
     {
         if (!$this->findUser()) {
             $this->stdErr("ユーザが見つかりません (userId か screenName のどちらかは必須です)\n");
@@ -173,25 +187,28 @@ class UserJsonController extends Controller
             foreach ($list as $battle) {
                 $this->appendJson(
                     Json::encode($battle->toJsonArray(['user']), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-                    strtotime($battle->at),
+                    TypeHelper::int(strtotime($battle->at)),
                 );
-                $lastId = $battle->id;
+                $lastId = (string)$battle->id;
                 ++$count;
             }
         }
         if ($count && random_int(0, 29) === 0) {
             $this->recompress();
         }
+
+        return null;
     }
 
-    public function getJsonPath()
+    public function getJsonPath(): string
     {
-        return $this->basePath . '/' . $this->findUser()->id . '.json.gz';
+        $user = $this->findUser() ?? throw new LogicException('The user is not found');
+        return $this->basePath . '/' . $user->id . '.json.gz';
     }
 
-    protected $user = false;
+    protected User|false|null $user = false;
 
-    protected function findUser()
+    protected function findUser(): ?User
     {
         if ($this->user === false) {
             $where = ['and'];
@@ -215,10 +232,11 @@ class UserJsonController extends Controller
         if (!file_exists($jsonPath)) {
             return '0';
         }
+        $user = $this->findUser() ?? throw new LogicException('The user is not found');
         $last = Battle::find()
             ->andWhere(['and',
-                ['{{battle}}.[[user_id]]' => $this->findUser()->id],
-                ['<=', '{{battle}}.[[at]]', date('Y-m-d\TH:i:sP', filemtime($jsonPath))],
+                ['{{battle}}.[[user_id]]' => $user->id],
+                ['<=', '{{battle}}.[[at]]', date('Y-m-d\TH:i:sP', TypeHelper::int(filemtime($jsonPath)))],
             ])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit(1)
@@ -226,8 +244,12 @@ class UserJsonController extends Controller
         return (string)($last->id ?? 0);
     }
 
+    /**
+     * @return Battle[]
+     */
     protected function getNextBattles(string $lastBattleId): array
     {
+        $user = $this->findUser() ?? throw new LogicException('The user is not found');
         $query = Battle::find()
             ->innerJoinWith('user')
             ->with([
@@ -263,7 +285,7 @@ class UserJsonController extends Controller
                 'weapon.type',
             ])
             ->andWhere(['and',
-                ['{{battle}}.[[user_id]]' => $this->findUser()->id],
+                ['{{battle}}.[[user_id]]' => $user->id],
                 ['>', '{{battle}}.[[id]]', $lastBattleId],
             ])
             ->orderBy('{{battle}}.[[id]] ASC')
@@ -284,7 +306,7 @@ class UserJsonController extends Controller
         return $query->all();
     }
 
-    protected function appendJson($text, $mtime)
+    protected function appendJson(string $text, int $mtime): void
     {
         $path = $this->jsonPath;
         if (!file_exists($path)) {
@@ -298,13 +320,13 @@ class UserJsonController extends Controller
         }
         flock($fh, LOCK_EX);
         fseek($fh, 0, SEEK_END);
-        fwrite($fh, gzencode($text . "\n", 3));
+        fwrite($fh, TypeHelper::string(gzencode($text . "\n", 3)));
         flock($fh, LOCK_UN);
         fclose($fh);
         touch($path, $mtime);
     }
 
-    protected function recompress()
+    protected function recompress(): void
     {
         $mainPath = $this->jsonPath;
         $tmpPath = $mainPath . '.tmp';
@@ -320,7 +342,7 @@ class UserJsonController extends Controller
             throw new Exception('Could not open file in "r+" mode: ' . $mainPath);
         }
         flock($fh, LOCK_EX);
-        $mtime = filemtime($mainPath);
+        $mtime = TypeHelper::int(filemtime($mainPath));
 
         // 再圧縮処理
         echo "Recompressing...\n";
@@ -337,14 +359,15 @@ class UserJsonController extends Controller
             throw new Exception('Could not recompress file');
         }
         echo "Recomressed.\n";
-        echo '  Before: ' . number_format(filesize($mainPath)) . "\n";
-        echo '  After:  ' . number_format(filesize($tmpPath)) . "\n";
+        echo '  Before: ' . number_format(TypeHelper::int(filesize($mainPath))) . "\n";
+        echo '  After:  ' . number_format(TypeHelper::int(filesize($tmpPath))) . "\n";
 
         if (filesize($mainPath) > filesize($tmpPath)) {
             echo "Writing...\n";
             fseek($fh, 0, SEEK_SET);
-            fwrite($fh, file_get_contents($tmpPath));
-            ftruncate($fh, ftell($fh));
+            $content = TypeHelper::string(file_get_contents($tmpPath));
+            fwrite($fh, $content);
+            ftruncate($fh, strlen($content));
         }
 
         flock($fh, LOCK_UN);

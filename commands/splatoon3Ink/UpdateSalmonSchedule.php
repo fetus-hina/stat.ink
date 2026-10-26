@@ -34,13 +34,11 @@ trait UpdateSalmonSchedule
 {
     private const RANDOM_MAP = 'random';
 
+    /**
+     * @param array<string, mixed> $schedules
+     */
     protected function updateSalmonSchedule(array $schedules): int
     {
-        $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return ExitCode::UNSPECIFIED_ERROR;
-        }
-
         $hasError = false;
         foreach ($schedules['salmon_regular'] as $info) {
             if (
@@ -151,7 +149,9 @@ trait UpdateSalmonSchedule
                     return true;
                 }
 
-                $db->transaction->rollBack();
+                ($db->transaction ?? throw new LogicException('No active transaction'))
+
+                    ->rollBack();
                 return false;
             },
         );
@@ -174,7 +174,7 @@ trait UpdateSalmonSchedule
             ->andWhere([
                 'end_at' => date(DateTime::ATOM, $endAt),
                 'is_eggstra_work' => $isEggstraWork,
-                'king_id' => $king?->id ?? null,
+                'king_id' => $king->id ?? null,
                 'start_at' => date(DateTime::ATOM, $startAt),
             ])
             ->andWhere(
@@ -222,7 +222,7 @@ trait UpdateSalmonSchedule
             return false;
         }
 
-        foreach (array_values($weapons) as $i => $weapon) {
+        foreach ($weapons as $i => $weapon) {
             if ($weapon instanceof SalmonWeapon3) {
                 if ($dbWeapons[$i]->weapon_id !== $weapon->id) {
                     return false;
@@ -259,7 +259,7 @@ trait UpdateSalmonSchedule
     }
 
     /**
-     * @param int|self::RANDOM_KEY|null $mapId
+     * @param int|self::RANDOM_MAP|null $mapId
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
     private function registerSalmonScheduleImpl(
@@ -276,7 +276,7 @@ trait UpdateSalmonSchedule
             'end_at' => date(DateTime::ATOM, $endAt),
             'is_eggstra_work' => $isEggstraWork,
             'is_random_map_big_run' => false,
-            'king_id' => $king?->id ?? null,
+            'king_id' => $king->id ?? null,
             'map_id' => null,
             'start_at' => date(DateTime::ATOM, $startAt),
         ];
@@ -310,8 +310,6 @@ trait UpdateSalmonSchedule
             $model = Yii::createObject([
                 'class' => SalmonScheduleWeapon3::class,
                 'schedule_id' => $schedule->id,
-                'weapon_id' => null,
-                'random_id' => null,
             ]);
             if ($weapon instanceof SalmonWeapon3) {
                 $model->weapon_id = $weapon->id;

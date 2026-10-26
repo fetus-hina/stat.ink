@@ -7,14 +7,17 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 use function headers_sent;
 
 final class LogoutAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): Response
     {
         if (!headers_sent()) {
             Yii::$app->session->regenerateID(true);

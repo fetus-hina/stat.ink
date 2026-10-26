@@ -11,6 +11,7 @@ use Curl\Curl;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -29,12 +30,14 @@ use function vsprintf;
  * @property integer $user_id
  * @property integer $language_id
  * @property string $webhook_url
- * @property string $username
- * @property string $icon
- * @property string $channel
+ * @property string|null $username
+ * @property string|null $icon
+ * @property string|null $channel
  * @property boolean $suspended
- * @property string $created_at
- * @property string $updated_at
+ * @property-read string $created_at
+ * @property-write string|ExpressionInterface $created_at
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  *
  * @property Language $language
  * @property User $user
@@ -110,11 +113,10 @@ class Slack extends ActiveRecord
 
     public function send(Battle|Battle2|Battle3 $battle, bool $realSend = true): ?string
     {
-        return match ($battle::class) {
-            Battle::class => $this->sendSplatoon1($battle, $realSend),
-            Battle2::class => $this->sendSplatoon2($battle, $realSend),
-            Battle3::class => $this->sendSplatoon3($battle, $realSend),
-            default => null,
+        return match (true) {
+            $battle instanceof Battle => $this->sendSplatoon1($battle, $realSend),
+            $battle instanceof Battle2 => $this->sendSplatoon2($battle, $realSend),
+            $battle instanceof Battle3 => $this->sendSplatoon3($battle, $realSend),
         };
     }
 
@@ -314,13 +316,13 @@ class Slack extends ActiveRecord
 
     private function sendSplatoon3(Battle3 $battle, bool $realSend = true): ?string
     {
-        $lang = $this->language?->lang ?? 'en-US';
+        $lang = $this->language->lang ?? 'en-US';
         $i18n = Yii::$app->i18n;
         $formatter = Yii::$app->formatter;
         $formatter->locale = $lang;
         $formatter->timeZone = 'Etc/UTC';
 
-        $winlose = $i18n->translate('app-results', $battle->result?->name ?? '???', [], $lang);
+        $winlose = $i18n->translate('app-results', $battle->result->name ?? '???', [], $lang);
         $rule = $battle->rule
             ? $i18n->translate('app-rule3', $battle->rule->name, [], $lang)
             : $i18n->translate('app-slack', 'unknown mode', [], $lang);
@@ -367,7 +369,7 @@ class Slack extends ActiveRecord
             'fields' => [
                 [
                     'title' => $i18n->translate('app', 'Lobby', [], $lang),
-                    'value' => $i18n->translate('app-lobby3', $battle->lobby?->name ?? '???', [], $lang),
+                    'value' => $i18n->translate('app-lobby3', $battle->lobby->name ?? '???', [], $lang),
                     'short' => true,
                 ],
                 [
@@ -382,7 +384,7 @@ class Slack extends ActiveRecord
                 ],
                 [
                     'title' => $i18n->translate('app', 'Weapon', [], $lang),
-                    'value' => $i18n->translate('app-weapon3', $battle->weapon?->name ?? '???', [], $lang),
+                    'value' => $i18n->translate('app-weapon3', $battle->weapon->name ?? '???', [], $lang),
                     'short' => true,
                 ],
                 [
@@ -412,14 +414,12 @@ class Slack extends ActiveRecord
             ]);
         } elseif (
             ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen') &&
-            $battle->rule?->key !== null &&
-            $battle->rule?->key !== 'tricolor'
+            $battle->rule &&
+            $battle->rule->key !== 'tricolor'
         ) {
             $attachment['image_url'] = vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
                 rawurlencode(
-                    $this->language
-                        ? $this->language->getLanguageId() // get "ja-JP", removed "@calendar=..."
-                        : 'en-US',
+                    $this->language->getLanguageId(), // get "ja-JP", removed "@calendar=..."
                 ),
                 rawurlencode($battle->uuid),
             ]);
@@ -447,7 +447,7 @@ class Slack extends ActiveRecord
                     "%s (%s)\nThis is a Webhook test message by %s with %s",
                     $i18n->translate('app', 'Keep doing it.', [], $lang),
                     $formatter->asDateTime($_SERVER['REQUEST_TIME'], 'long'),
-                    Yii::$app->user->identity?->name ?? '(Guest)',
+                    Yii::$app->user->getIdentity()->name ?? '(Guest)',
                     Yii::$app->name,
                 ),
             ],
@@ -457,6 +457,10 @@ class Slack extends ActiveRecord
         return $result !== null;
     }
 
+    /**
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
     protected function buildRealQuery(array $params): array
     {
         if (!isset($params['username']) && $this->username != '') {
@@ -487,6 +491,9 @@ class Slack extends ActiveRecord
         return $params;
     }
 
+    /**
+     * @param array<string, mixed> $params
+     */
     protected function doSend(array $params, bool $realSend): ?string
     {
         $params = Json::encode($this->buildRealQuery($params));

@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property integer $type_id
  * @property string $name
- * @property string $matching_range
+ * @property numeric-string|null $matching_range
  *
  * @property WeaponType3 $type
  * @property Weapon3[] $weapon3s

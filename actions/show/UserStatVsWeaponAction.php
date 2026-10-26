@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\DeathReason;
@@ -29,18 +30,20 @@ class UserStatVsWeaponAction extends BaseAction
 {
     use UserStatFilterTrait;
 
-    public $user;
-    public $filter;
+    public User $user;
+    public BattleFilterForm $filter;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
         $request = Yii::$app->getRequest();
-        $this->user = User::findOne(['screen_name' => $request->get('screen_name')]);
-        if (!$this->user) {
+        $user = User::findOne(['screen_name' => $request->get('screen_name')]);
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
+        $this->user = $user;
 
         $this->filter = new BattleFilterForm();
         $this->filter->load($_GET);
@@ -48,7 +51,8 @@ class UserStatVsWeaponAction extends BaseAction
         $this->filter->validate();
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return Yii::$app->db->transaction(
             function (): string {
@@ -92,13 +96,13 @@ class UserStatVsWeaponAction extends BaseAction
         );
     }
 
-    protected function createTemporaryTables()
+    protected function createTemporaryTables(): void
     {
         $this->createTemporaryTableDeathData();
         $this->createTemporaryTableBattle();
     }
 
-    protected function createTemporaryTableDeathData()
+    protected function createTemporaryTableDeathData(): void
     {
         $db = Yii::$app->db;
         $db->createCommand(sprintf(
@@ -125,7 +129,7 @@ class UserStatVsWeaponAction extends BaseAction
         ))->execute();
     }
 
-    protected function createTemporaryTableBattle()
+    protected function createTemporaryTableBattle(): void
     {
         $db = Yii::$app->db;
         $db->createCommand(sprintf(
@@ -175,7 +179,10 @@ class UserStatVsWeaponAction extends BaseAction
         ))->execute();
     }
 
-    protected function queryVersus()
+    /**
+     * @return array<string, array<string, mixed>>
+     */
+    protected function queryVersus(): array
     {
         $db = Yii::$app->db;
         $ret = [];
@@ -232,7 +239,10 @@ class UserStatVsWeaponAction extends BaseAction
         return $ret;
     }
 
-    protected function queryDeath()
+    /**
+     * @return array<string, array<string, mixed>>
+     */
+    protected function queryDeath(): array
     {
         $names = [];
         foreach (DeathReason::find()->all() as $obj) {

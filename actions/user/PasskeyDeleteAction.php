@@ -9,17 +9,22 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\UserNotifier;
+use app\models\PasskeyDeleteForm;
 use app\models\UserPasskey;
-use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
 final class PasskeyDeleteAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $ident = Yii::$app->user->getIdentity();
         if (!$ident) {
@@ -27,15 +32,9 @@ final class PasskeyDeleteAction extends BaseAction
         }
 
         $req = Yii::$app->request;
-        $form = DynamicModel::validateData(
-            [
-                'id' => $req->post('id'),
-            ],
-            [
-                [['id'], 'required'],
-                [['id'], 'integer'],
-            ],
-        );
+        $form = PasskeyDeleteForm::validateData([
+            'id' => $req->post('id'),
+        ]);
         if ($form->hasErrors()) {
             throw new BadRequestHttpException('Bad Request');
         }

@@ -17,8 +17,8 @@ return [
     'data-sort-default' => 'asc',
   ],
   'contentOptions' => fn (Event3StatsWeapon $model): array => [
-    'data-sort-value' => Yii::t('app-subweapon3', $model->weapon?->subweapon?->name ?? ''),
+    'data-sort-value' => Yii::t('app-subweapon3', $model->weapon?->subweapon->name ?? ''),
   ],
   'format' => 'raw',
-  'value' => fn (Event3StatsWeapon $model): string => Icon::s3Subweapon($model->weapon?->subweapon),
+  'value' => fn (Event3StatsWeapon $model): string => Icon::s3Subweapon($model->weapon->subweapon) ?? '',
 ];

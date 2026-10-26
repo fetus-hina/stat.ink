@@ -11,15 +11,19 @@ namespace app\actions\user\oauth2;
 
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
+use League\OAuth2\Client\Token\AccessToken;
 use Override;
 use RuntimeException;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\User;
 use yii\base\Action;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 abstract class AbstractOAuth2UpdateLoginAction extends Action
 {
@@ -31,6 +35,8 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
 
     /**
      * Extra options passed to AbstractProvider::getAuthorizationUrl().
+     *
+     * @return array<string, mixed>
      */
     abstract protected function getAuthorizationOptions(): array;
 
@@ -49,6 +55,8 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
     /**
      * Build (but do not save) a new LoginWithXxx for $user using $userData (the raw
      * resource owner response) and the resolved $externalId.
+     *
+     * @param array<string, mixed> $userData
      */
     abstract protected function createNewLink(
         User $user,
@@ -61,14 +69,14 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
     abstract protected function getFailedToFetchMessage(): string;
 
     #[Override]
-    public function init()
+    public function init(): void
     {
         if (!$this->isProviderEnabled()) {
             throw new BadRequestHttpException();
         }
     }
 
-    public function run()
+    public function run(): Response
     {
         $request = Yii::$app->request;
         $response = Yii::$app->response;
@@ -89,16 +97,21 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
                 throw new BadRequestHttpException('Invalid state parameter.');
             }
 
-            $token = $provider->getAccessToken('authorization_code', [
-                'code' => (string)$request->get('code'),
-            ]);
+            $token = TypeHelper::instanceOf(
+                $provider->getAccessToken('authorization_code', [
+                    'code' => (string)$request->get('code'),
+                ]),
+                AccessToken::class,
+            );
             $resourceOwner = $provider->getResourceOwner($token);
             $externalId = $resourceOwner->getId();
             if ($externalId === null || $externalId === '') {
                 throw new RuntimeException($this->getFailedToFetchMessage());
             }
             $userData = $resourceOwner->toArray();
-            $user = Yii::$app->user->identity;
+            if (!$user = Yii::$app->user->identity) {
+                throw new ServerErrorHttpException();
+            }
 
             $transaction = Yii::$app->db->beginTransaction();
             try {

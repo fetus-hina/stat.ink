@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use app\models\Event3StatsPower;
 use app\models\Event3StatsPowerHistogram;
+use app\models\Event3StatsPowerPeriod;
 use app\models\Event3StatsPowerPeriodHistogram;
 use app\models\EventPeriod3;
 use app\models\EventSchedule3;
@@ -17,7 +18,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var Event3StatsPower $abstract
+ * @var Event3StatsPower|null $abstract
  * @var Event3StatsPowerHistogram[] $histogram
  * @var Event3StatsPowerPeriodHistogram[] $periodHistogram
  * @var EventSchedule3 $schedule

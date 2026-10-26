@@ -8,8 +8,10 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\Icon;
+use app\models\Language;
 use app\models\Map3;
 use app\models\Map3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
@@ -20,7 +22,7 @@ use yii\web\View;
 /**
  * @var Map3[] $stages
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TableResponsiveForceAsset::register($this);
@@ -103,7 +105,7 @@ $launch = new DateTimeImmutable('2022-09-09T00:00:00+00:00');
                 ? Html::encode(Yii::t('app-api-info', 'Launch'))
                 : Html::encode($fmt->asDate($stage->release_at, 'medium')),
               [
-                'datetime' => gmdate(DateTime::ATOM, strtotime($stage->release_at)),
+                'datetime' => gmdate(DateTime::ATOM, TypeHelper::int(strtotime($stage->release_at))),
               ],
             ),
           [

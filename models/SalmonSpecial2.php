@@ -19,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
+ * @property integer|null $splatnet
  * @property integer $special_id
  *
  * @property Special2 $special
@@ -75,6 +75,9 @@ class SalmonSpecial2 extends ActiveRecord
         return $this->hasOne(Special2::class, ['id' => 'special_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [

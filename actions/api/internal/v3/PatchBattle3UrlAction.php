@@ -7,6 +7,7 @@
 
 namespace app\actions\api\internal\v3;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\formatters\api\v3\BattleApiFormatter;
@@ -25,9 +26,10 @@ use function is_string;
 
 final class PatchBattle3UrlAction extends Action
 {
-    public Battle3|null $model = null;
+    public Battle3 $model;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -56,7 +58,7 @@ final class PatchBattle3UrlAction extends Action
             throw new BadRequestHttpException();
         }
 
-        $this->model = Battle3::find()
+        $model = Battle3::find()
             ->with(
                 ArrayHelper::toFlatten([
                     [
@@ -88,12 +90,17 @@ final class PatchBattle3UrlAction extends Action
             ])
             ->limit(1)
             ->one();
-        if (!$this->model) {
+        if (!$model) {
             throw new NotFoundHttpException();
         }
+
+        $this->model = $model;
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    public function run(): array
     {
         $form = Yii::createObject(PatchBattle3UrlForm::class);
         $form->attributes = $_POST;
@@ -118,6 +125,10 @@ final class PatchBattle3UrlAction extends Action
         );
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     * @return array{error: array<string, string[]>}
+     */
     public function formatError(array $errors, int $code = 400): array
     {
         $resp = Yii::$app->getResponse();

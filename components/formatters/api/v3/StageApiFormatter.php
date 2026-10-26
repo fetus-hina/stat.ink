@@ -13,6 +13,9 @@ use app\models\Map3;
 
 final class StageApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?Map3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

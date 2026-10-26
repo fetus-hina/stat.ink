@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\grid;
 
+use app\models\Battle3;
 use yii\base\Model;
 
 use function filter_var;
@@ -16,8 +17,14 @@ use function is_int;
 
 use const FILTER_VALIDATE_INT;
 
+/**
+ * @extends KillRatioColumn<Battle3>
+ */
 final class CalcKillRatioColumn extends KillRatioColumn
 {
+    /**
+     * @param Battle3 $model
+     */
     protected function getKillRatio(Model $model): ?float
     {
         [$k, $d] = $this->getKD($model);
@@ -30,6 +37,9 @@ final class CalcKillRatioColumn extends KillRatioColumn
             : (float)($k / $d);
     }
 
+    /**
+     * @param Battle3 $model
+     */
     protected function getKillRate(Model $model): ?float
     {
         [$k, $d] = $this->getKD($model);
@@ -40,6 +50,10 @@ final class CalcKillRatioColumn extends KillRatioColumn
         return $k / ($k + $d);
     }
 
+    /**
+     * @param Battle3 $model
+     * @return array{int|null, int|null}
+     */
     private function getKD(Model $model): array
     {
         $k = filter_var($model->kill, FILTER_VALIDATE_INT);

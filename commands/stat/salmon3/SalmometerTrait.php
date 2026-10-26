@@ -16,6 +16,7 @@ use app\models\StatSalmon3Salmometer;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
+use LogicException;
 
 use function array_keys;
 use function array_map;
@@ -105,7 +106,7 @@ trait SalmometerTrait
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,

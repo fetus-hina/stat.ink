@@ -16,9 +16,7 @@ use app\models\User;
 use app\models\UserBadge3Adjust;
 use yii\base\Action;
 use yii\db\Connection;
-use yii\db\Expression;
 use yii\db\Transaction;
-use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\Request;
@@ -26,10 +24,10 @@ use yii\web\Response;
 
 use function array_merge;
 use function filter_var;
+use function is_array;
 use function is_int;
 use function is_scalar;
 use function preg_match;
-use function vsprintf;
 
 use const FILTER_VALIDATE_INT;
 
@@ -56,7 +54,8 @@ final class CorrectionBadgeAction extends Action
 
         if ($req->isPost) {
             $newData = [];
-            foreach ($req->post() as $k => $v) {
+            $params = $req->post();
+            foreach (is_array($params) ? $params : [] as $k => $v) {
                 $v = is_scalar($v) ? filter_var($v, FILTER_VALIDATE_INT) : false;
                 if (
                     is_int($v) &&
@@ -79,13 +78,7 @@ final class CorrectionBadgeAction extends Action
                             'class' => UserBadge3Adjust::class,
                             'user_id' => $user->id,
                         ]);
-                    $model->data = new Expression(
-                        vsprintf('%s::jsonb', [
-                            $db->quoteValue(
-                                Json::encode($newData),
-                            ),
-                        ]),
-                    );
+                    $model->data = $newData;
                     $model->save();
                 },
                 Transaction::READ_COMMITTED,

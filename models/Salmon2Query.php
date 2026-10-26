@@ -14,10 +14,16 @@ use function array_merge;
 use function implode;
 use function sprintf;
 
+/**
+ * @extends ActiveQuery<Salmon2>
+ */
 class Salmon2Query extends ActiveQuery
 {
-    private $summaryCache = null;
+    private mixed $summaryCache = null;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function summary(): array
     {
         if (!$this->summaryCache) {
@@ -42,7 +48,7 @@ class Salmon2Query extends ActiveQuery
                     'salmon_player2.work_id = salmon2.id',
                     'salmon_player2.is_me = TRUE',
                 ]) . ')')
-                ->where($this->where)
+                ->where($this->where ?? [])
                 ->select(array_merge(
                     [
                         'count' => 'COUNT(*)',

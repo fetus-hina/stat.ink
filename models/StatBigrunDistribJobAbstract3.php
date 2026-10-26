@@ -20,28 +20,28 @@ use yii\db\ActiveRecord;
  * @property integer $users
  * @property integer $jobs
  * @property double $average
- * @property double $stddev
+ * @property double|null $stddev
  * @property integer $clear_jobs
- * @property double $clear_average
- * @property double $clear_stddev
- * @property integer $min
- * @property integer $p05
- * @property integer $p25
- * @property integer $p50
- * @property integer $p75
- * @property integer $p80
- * @property integer $p95
- * @property integer $max
- * @property integer $histogram_width
- * @property integer $w1_failed_jobs
- * @property double $w1_failed_average
- * @property double $w1_failed_stddev
- * @property integer $w2_failed_jobs
- * @property double $w2_failed_average
- * @property double $w2_failed_stddev
- * @property integer $w3_failed_jobs
- * @property double $w3_failed_average
- * @property double $w3_failed_stddev
+ * @property double|null $clear_average
+ * @property double|null $clear_stddev
+ * @property integer|null $min
+ * @property integer|null $p05
+ * @property integer|null $p25
+ * @property integer|null $p50
+ * @property integer|null $p75
+ * @property integer|null $p80
+ * @property integer|null $p95
+ * @property integer|null $max
+ * @property integer|null $histogram_width
+ * @property integer|null $w1_failed_jobs
+ * @property double|null $w1_failed_average
+ * @property double|null $w1_failed_stddev
+ * @property integer|null $w2_failed_jobs
+ * @property double|null $w2_failed_average
+ * @property double|null $w2_failed_stddev
+ * @property integer|null $w3_failed_jobs
+ * @property double|null $w3_failed_average
+ * @property double|null $w3_failed_stddev
  *
  * @property SalmonSchedule3 $schedule
  */

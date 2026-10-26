@@ -11,6 +11,7 @@ namespace app\components\helpers\userStatsV3;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use LogicException;
 use PDO;
 use Yii;
 use app\models\Battle3;
@@ -46,7 +47,8 @@ trait StatsTrait
 
             foreach ($rows as $row) {
                 if (!self::saveAggregatedStats($db, $user, $now, $row)) {
-                    $db->transaction->rollBack();
+                    ($db->transaction ?? throw new LogicException('No active transaction'))
+                        ->rollBack();
                     return false;
                 }
             }
@@ -60,7 +62,8 @@ trait StatsTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }
@@ -130,6 +133,9 @@ trait StatsTrait
             ]);
     }
 
+    /**
+     * @param array<string, mixed> $row
+     */
     private static function saveAggregatedStats(
         Connection $db,
         User $user,
@@ -147,7 +153,7 @@ trait StatsTrait
         $model->attributes = $row;
         $model->id = ((int)$user->id << 32) | (int)$row['lobby_id'];
 
-        if (str_starts_with($lobby->key ?? '', 'bankara_')) {
+        if ($lobby !== null && str_starts_with($lobby->key, 'bankara_')) {
             $rankModel = Rank3::find()
                 ->andWhere(['rank' => (int)$row['_peak_rank_rank']])
                 ->limit(1)
@@ -178,11 +184,13 @@ trait StatsTrait
         }
 
         if (
-            ($lobby->key ?? '') === 'splatfest_challenge' &&
+            $lobby !== null &&
+            $lobby->key === 'splatfest_challenge' &&
             (float)$model->peak_fest_power > 0.0
         ) {
-            $model->peak_fest_power = (float)$model->peak_fest_power;
-            $model->peak_season = self::getPeakSeasonByFestPower($user, $lobby, $model->peak_fest_power);
+            $peakFestPower = (float)$model->peak_fest_power;
+            $model->peak_fest_power = $peakFestPower;
+            $model->peak_season = self::getPeakSeasonByFestPower($user, $lobby, $peakFestPower);
         } else {
             $model->peak_fest_power = null;
         }
@@ -214,7 +222,7 @@ trait StatsTrait
             ->orderBy(['end_at' => SORT_DESC])
             ->limit(1)
             ->one();
-        return $battle
+        return $battle?->period !== null
             ? self::periodToSeason($battle->period)
             : null;
     }
@@ -231,7 +239,7 @@ trait StatsTrait
             ->orderBy(['end_at' => SORT_DESC])
             ->limit(1)
             ->one();
-        return $battle
+        return $battle?->period !== null
             ? self::periodToSeason($battle->period)
             : null;
     }

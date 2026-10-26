@@ -71,6 +71,9 @@ final class GameMode extends ActiveRecord
         return $this->hasMany(Rule::class, ['mode_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -79,6 +82,9 @@ final class GameMode extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -106,6 +112,9 @@ final class GameMode extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [

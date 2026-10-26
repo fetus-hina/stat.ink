@@ -9,20 +9,26 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use Override;
 use yii\base\InvalidConfigException;
 use yii\console\controllers\MigrateController as BaseController;
 
 use function array_keys;
 use function array_merge;
 use function implode;
+use function is_string;
 use function sprintf;
 
 class MigrateController extends BaseController
 {
     public $templateFile = '@app/views/migration/default_migration.php';
+    /**
+     * @var string|bool|null
+     */
     public $template;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->setUpGenerateTemplateFiles();
@@ -57,17 +63,22 @@ class MigrateController extends BaseController
         );
     }
 
+    /**
+     * @param array<string, mixed> $params
+     */
+    #[Override]
     protected function generateMigrationSourceCode($params)
     {
-        if ($this->template !== 'default') {
-            if (!isset($this->generatorTemplateFiles[$this->template])) {
+        $template = $this->template;
+        if ($template !== 'default') {
+            if (!is_string($template) || !isset($this->generatorTemplateFiles[$template])) {
                 throw new InvalidConfigException(sprintf(
                     'You must specify --template={%s,default}',
                     implode(',', array_keys($this->generatorTemplateFiles)),
                 ));
             }
 
-            $this->templateFile = $this->generatorTemplateFiles[$this->template];
+            $this->templateFile = $this->generatorTemplateFiles[$template];
         }
 
         return parent::generateMigrationSourceCode($params);

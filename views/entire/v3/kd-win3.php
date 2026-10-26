@@ -19,7 +19,6 @@ use app\models\Rule3;
 use app\models\Season3;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\View;
@@ -60,7 +59,7 @@ TableResponsiveForceAsset::register($this);
 
 <?php foreach ($rules as $rule) { ?>
   <?= $this->render('kd-win3/rule', [
-    'data' => ArrayHelper::getValue($data, $rule->id) ?: [],
+    'data' => $data[$rule->id] ?? [],
     'lobbyKey' => $filter->lobby,
     'rule' => $rule,
   ]) . "\n" ?>

@@ -9,17 +9,20 @@ declare(strict_types=1);
 
 namespace app\actions\show\v2;
 
+use Override;
 use Yii;
 use app\models\Battle2;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 use function array_map;
 
 class BattleAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->getRequest();
 
@@ -47,7 +50,7 @@ class BattleAction extends BaseAction
             )))
             ->limit(1)
             ->one();
-        if (!$battle || !$battle->user) {
+        if (!$battle) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 

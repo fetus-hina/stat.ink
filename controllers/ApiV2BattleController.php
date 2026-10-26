@@ -7,12 +7,15 @@
 
 namespace app\controllers;
 
+use Override;
 use Yii;
 use app\actions\api\v2\battle\CreateAction;
 use app\components\filters\auth\RequestBodyAuth;
+use app\components\helpers\TypeHelper;
+use app\models\ApiV2BattleListForm;
+use app\models\ApiV2UserBattleListForm;
 use app\models\Battle2;
 use app\models\User;
-use yii\base\DynamicModel;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
@@ -23,6 +26,7 @@ use yii\web\UnauthorizedHttpException;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 use function implode;
 use function is_string;
 use function preg_match;
@@ -34,7 +38,8 @@ class ApiV2BattleController extends Controller
 {
     public $enableCsrfValidation = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         Yii::$app->language = 'en-US';
         Yii::$app->timeZone = 'Etc/UTC';
@@ -69,7 +74,11 @@ class ApiV2BattleController extends Controller
         ]);
     }
 
-    protected function verbs()
+    /**
+     * @return array<string, string[]>
+     */
+    #[Override]
+    protected function verbs(): array
     {
         return [
             'index' => ['GET', 'HEAD'],
@@ -89,7 +98,10 @@ class ApiV2BattleController extends Controller
         ];
     }
 
-    public function actionIndex()
+    /**
+     * @return array<string, string[]>|list<int>|list<array<string, mixed>>
+     */
+    public function actionIndex(): array
     {
         $req = Yii::$app->request;
         $params = [
@@ -100,40 +112,7 @@ class ApiV2BattleController extends Controller
             'order' => $req->get('order'),
             'count' => $req->get('count'),
         ];
-        $model = DynamicModel::validateData($params, [
-            [['screen_name'], 'required',
-                'when' => fn ($model) => ($model->only === 'splatnet_number') ||
-                    ($model->order === 'splatnet_asc') ||
-                    ($model->order === 'splatnet_desc'),
-            ],
-            [['screen_name'], 'string'],
-            [['screen_name'], 'exist', 'skipOnError' => true,
-                'targetClass' => User::class,
-                'targetAttribute' => ['screen_name' => 'screen_name'],
-            ],
-            [['only'], 'string'],
-            [['only'], 'in',
-                'range' => [
-                    'splatnet_number',
-                ],
-            ],
-            [['newer_than', 'older_than'], 'integer', 'min' => 1],
-            [['order'], 'string'],
-            [['order'], 'in',
-                'range' => [
-                    'asc',
-                    'desc',
-                    'splatnet_asc',
-                    'splatnet_desc',
-                ],
-            ],
-            [['count'], 'integer', 'min' => 1, 'max' => 50,
-                'when' => fn ($model): bool => $model->only !== 'splatnet_number',
-            ],
-            [['count'], 'integer', 'min' => 1, 'max' => 1000,
-                'when' => fn ($model): bool => $model->only === 'splatnet_number',
-            ],
-        ]);
+        $model = ApiV2BattleListForm::validateData($params);
         if ($model->hasErrors()) {
             $res = Yii::$app->response;
             $res->format = 'json';
@@ -149,7 +128,10 @@ class ApiV2BattleController extends Controller
         );
     }
 
-    public function actionIndexWithAuth()
+    /**
+     * @return array<string, string[]>|list<int>|list<array<string, mixed>>
+     */
+    public function actionIndexWithAuth(): array
     {
         if (!Yii::$app->user->identity) {
             $res = Yii::$app->response;
@@ -165,30 +147,7 @@ class ApiV2BattleController extends Controller
             'order' => $req->get('order'),
             'count' => $req->get('count'),
         ];
-        $model = DynamicModel::validateData($params, [
-            [['only'], 'string'],
-            [['only'], 'in',
-                'range' => [
-                    'splatnet_number',
-                ],
-            ],
-            [['newer_than', 'older_than'], 'integer', 'min' => 1],
-            [['order'], 'string'],
-            [['order'], 'in',
-                'range' => [
-                    'asc',
-                    'desc',
-                    'splatnet_asc',
-                    'splatnet_desc',
-                ],
-            ],
-            [['count'], 'integer', 'min' => 1, 'max' => 50,
-                'when' => fn ($model): bool => $model->only !== 'splatnet_number',
-            ],
-            [['count'], 'integer', 'min' => 1, 'max' => 1000,
-                'when' => fn ($model): bool => $model->only === 'splatnet_number',
-            ],
-        ]);
+        $model = ApiV2UserBattleListForm::validateData($params);
         if ($model->hasErrors()) {
             $res = Yii::$app->response;
             $res->format = 'json';
@@ -196,13 +155,16 @@ class ApiV2BattleController extends Controller
             return $model->getErrors();
         }
         return $this->createList(
-            Yii::$app->user->identity,
+            TypeHelper::instanceOf(Yii::$app->user->identity, User::class),
             $model,
             $req->get('format') === 'pretty' ? 'pretty' : null,
         );
     }
 
-    private function createList(?User $user, DynamicModel $model, ?string $format = null): array
+    /**
+     * @return list<int>|list<array<string, mixed>>
+     */
+    private function createList(?User $user, ApiV2BattleListForm|ApiV2UserBattleListForm $model, ?string $format = null): array
     {
         $query = Battle2::find()
             ->orderBy(['battle2.id' => SORT_DESC])
@@ -314,14 +276,17 @@ class ApiV2BattleController extends Controller
             }
             return $result;
         } else {
-            return array_map(
+            return array_values(array_map(
                 fn ($model) => $model->toJsonArray(['events', 'splatnet_json']),
                 $query->all(),
-            );
+            ));
         }
     }
 
-    public function actionView($id, ?string $format = null)
+    /**
+     * @return array<string, mixed>
+     */
+    public function actionView(mixed $id, ?string $format = null): array
     {
         if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));

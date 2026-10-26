@@ -10,7 +10,6 @@ declare(strict_types=1);
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Rule3;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -30,7 +29,7 @@ echo Html::tag(
       $this->render('rule', [
         'lobby' => $lobby,
         'lobbyGroup' => $lobbyGroup,
-        'rule' => ArrayHelper::getValue($rules, $statsRow['rule_id'], null),
+        'rule' => $rules[$statsRow['rule_id']] ?? null,
         'stats' => $statsRow,
       ]),
       [

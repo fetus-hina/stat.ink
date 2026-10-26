@@ -65,7 +65,7 @@ if ($links) {
         return sprintf(
         '%s{%s}',
         $key,
-        Html::cssStyleFromArray($value)
+        Html::cssStyleFromArray(array_map(strval(...), $value))
       );
     },
     array_keys($css),

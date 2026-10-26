@@ -13,13 +13,14 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version;
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2;
-use app\models\Language;
 use app\models\User;
+use app\models\User2FeedForm;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
-use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\ViewAction as BaseAction;
@@ -35,34 +36,27 @@ use const SORT_DESC;
 
 class User2Action extends BaseAction
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->timeZone = 'Etc/UTC';
         Yii::$app->language = 'en-US';
     }
 
-    public function run()
+    /**
+     * @return array{error: mixed}|string
+     */
+    #[Override]
+    public function run(): array|string
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();
-        $model = DynamicModel::validateData(
+        $model = User2FeedForm::validateData(
             [
                 'lang' => $request->get('lang'),
                 'screen_name' => $request->get('screen_name'),
                 'type' => $request->get('type'),
-            ],
-            [
-                [['lang', 'screen_name', 'type'], 'required'],
-                [['lang'], 'exist',
-                    'targetClass' => Language::class,
-                    'targetAttribute' => 'lang',
-                ],
-                [['screen_name'], 'exist',
-                    'targetClass' => User::class,
-                    'targetAttribute' => 'screen_name',
-                ],
-                [['type'], 'in', 'range' => ['atom', 'rss']],
             ],
         );
         if ($model->hasErrors()) {
@@ -71,6 +65,9 @@ class User2Action extends BaseAction
             $resp->statusText = 'Not Found';
             return ['error' => $model->getErrors()];
         }
+
+        $lang = TypeHelper::string($model->lang);
+        $feedType = TypeHelper::string($model->type);
 
         $resp->format = 'raw';
 
@@ -102,7 +99,7 @@ class User2Action extends BaseAction
                 'app',
                 '{name}\'s Splat Log',
                 ['name' => $user->name],
-                $model->lang,
+                $lang,
             ),
         );
         $feed->setDescription(
@@ -110,7 +107,7 @@ class User2Action extends BaseAction
                 'app',
                 '{name}\'s Splat Log',
                 ['name' => $user->name],
-                $model->lang,
+                $lang,
             ),
         );
         $feed->setId(
@@ -127,7 +124,7 @@ class User2Action extends BaseAction
             $feed->setFeedLink(
                 Url::to(
                     ['feed/user-v2',
-                        'lang' => $model->lang,
+                        'lang' => $lang,
                         'screen_name' => $user->screen_name,
                         'type' => $type,
                     ],
@@ -149,7 +146,7 @@ class User2Action extends BaseAction
         $feed->setCopyright(
             sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y')),
         );
-        $feed->setLanguage($model->lang);
+        $feed->setLanguage($lang);
         $feed->setEncoding('UTF-8');
         $feed->setDateModified((int)$now->getTimestamp());
         $feed->setLastBuildDate((int)$now->getTimestamp());
@@ -157,7 +154,7 @@ class User2Action extends BaseAction
 
         //FIXME
         $feed->addCategories(
-            $model->lang === 'ja-JP'
+            $lang === 'ja-JP'
                 ? [
                     ['term' => 'ゲーム'],
                     ['term' => 'スプラトゥーン'],
@@ -199,8 +196,8 @@ class User2Action extends BaseAction
                     true,
                 ),
             ]);
-            $entry->setDateCreated(strtotime($battle->created_at));
-            $entry->setDateModified(strtotime($battle->updated_at));
+            $entry->setDateCreated(TypeHelper::int(strtotime($battle->created_at)));
+            $entry->setDateModified(TypeHelper::int(strtotime($battle->updated_at)));
             $entry->setId(
                 Uuid::v5(
                     UuidNS::url(),
@@ -226,19 +223,19 @@ class User2Action extends BaseAction
             $entry->setTitle(
                 vsprintf('%s / %s / %s - %s (#%d)', [
                     $battle->rule
-                        ? Yii::t('app-rule2', $battle->rule->name, [], $model->lang)
+                        ? Yii::t('app-rule2', $battle->rule->name, [], $lang)
                         : '???',
                     $battle->map
-                        ? Yii::t('app-map2', $battle->map->name, [], $model->lang)
+                        ? Yii::t('app-map2', $battle->map->name, [], $lang)
                         : '???',
                     $battle->is_win !== null
-                        ? Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
+                        ? Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost', [], $lang)
                         : '???',
                     $user->name,
                     $battle->id,
                 ]),
             );
-            $entry->setContent($this->makeEntryContent($battle, $model->lang));
+            $entry->setContent($this->makeEntryContent($battle, $lang));
             $feed->addEntry($entry);
         }
 
@@ -249,12 +246,12 @@ class User2Action extends BaseAction
         $resp->format = 'raw';
         $resp->headers->set(
             'Content-Type',
-            $contentType[$model->type] ?? 'text/xml; charset=UTF-8',
+            $contentType[$feedType] ?? 'text/xml; charset=UTF-8',
         );
-        return $feed->export($model->type);
+        return $feed->export($feedType);
     }
 
-    protected function makeEntryContent(Battle2 $battle, $lang)
+    protected function makeEntryContent(Battle2 $battle, string $lang): string
     {
         $html = '';
         if ($battle->battleImageResult || $battle->battleImageJudge) {
@@ -288,7 +285,7 @@ class User2Action extends BaseAction
                             return '?';
 
                         case 'regular':
-                            return Yii::t('app-rule2', $battle->mode->name, [], $lang);
+                            return Yii::t('app-rule2', $battle->mode->name ?? '', [], $lang);
 
                         case 'fest':
                             switch ($battle->lobby->key ?? '') {

@@ -50,7 +50,7 @@ trait ModelUtilTrait
             );
         }
 
-        $t = strtotime($battle->start_at);
+        $t = strtotime($battle->start_at ?? '');
         foreach ($seasons as $season) {
             if ($season['start'] <= $t && $t < $season['end']) {
                 return $season['name'];
@@ -107,7 +107,7 @@ trait ModelUtilTrait
             );
 
             foreach (array_slice($subs, 0, 3) as $sub) {
-                $key = $sub?->ability?->key;
+                $key = $sub->ability?->key;
                 if ($key) {
                     $results[$key] = ($results[$key] ?? 0) + ($double ? 6 : 3);
                 }

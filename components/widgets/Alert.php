@@ -9,21 +9,27 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use yii\bootstrap\BootstrapAsset;
 
 use function array_merge_recursive;
 
 class Alert extends \yii\bootstrap\Alert
 {
+    /**
+     * @var array<string, mixed>|false
+     */
     public $closeButton = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         BootstrapAsset::register($this->view);
         parent::init();
     }
 
-    protected function initOptions()
+    #[Override]
+    protected function initOptions(): void
     {
         parent::initOptions();
         $this->options = array_merge_recursive($this->options, [

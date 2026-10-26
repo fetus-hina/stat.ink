@@ -27,7 +27,7 @@ use function headers_sent;
  *
  * @property User $user
  */
-final class LoginWithDiscord extends ActiveRecord
+final class LoginWithDiscord extends ActiveRecord implements OAuth2LoginLinkInterface
 {
     /**
      * @inheritdoc
@@ -95,9 +95,6 @@ final class LoginWithDiscord extends ActiveRecord
     public function login()
     {
         $user = $this->user;
-        if (!$user) {
-            return false;
-        }
 
         $appUser = Yii::$app->user;
         $appUser->on(\yii\web\User::EVENT_AFTER_LOGIN, function ($event) use ($user): void {

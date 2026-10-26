@@ -14,7 +14,9 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Rule2;
+use stdClass;
 use yii\db\Query;
 
 use function implode;
@@ -23,10 +25,10 @@ use function time;
 
 trait Splatoon2
 {
-    public static function getSummary2(Query $oldQuery)
+    public static function getSummary2(Query $oldQuery): stdClass
     {
         $db = Yii::$app->db;
-        $turfWarId = Rule2::findOne(['key' => 'nawabari'])->id;
+        $turfWarId = TypeHelper::instanceOf(Rule2::findOne(['key' => 'nawabari']), Rule2::class)->id;
         $now = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
@@ -61,17 +63,17 @@ trait Splatoon2
             '{{battle2}}.[[rule_id]] IS NOT NULL',
             sprintf('((%s))', implode(') OR (', [
                 sprintf('(%s)', implode(' AND ', [
-                    '{{battle2}}.[[rule_id]] = ' . $db->quoteValue($turfWarId),
+                    '{{battle2}}.[[rule_id]] = ' . (int)$turfWarId,
                     '{{battle2}}.[[is_win]] = TRUE',
                     '{{battle2}}.[[my_point]] >= 1000',
                 ])),
                 sprintf('(%s)', implode(' AND ', [
-                    '{{battle2}}.[[rule_id]] = ' . $db->quoteValue($turfWarId),
+                    '{{battle2}}.[[rule_id]] = ' . (int)$turfWarId,
                     '{{battle2}}.[[is_win]] = FALSE',
                     '{{battle2}}.[[my_point]] >= 0',
                 ])),
                 sprintf('(%s)', implode(' AND ', [
-                    '{{battle2}}.[[rule_id]] <> ' . $db->quoteValue($turfWarId),
+                    '{{battle2}}.[[rule_id]] <> ' . (int)$turfWarId,
                     '{{battle2}}.[[my_point]] >= 0',
                 ])),
             ])),

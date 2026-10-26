@@ -8,17 +8,20 @@
 declare(strict_types=1);
 
 use app\components\helpers\OgpHelper;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Event3;
 use app\models\Event3StatsPower;
 use app\models\Event3StatsPowerHistogram;
+use app\models\Event3StatsPowerPeriod;
 use app\models\Event3StatsPowerPeriodHistogram;
 use app\models\EventPeriod3;
 use app\models\EventSchedule3;
 use yii\bootstrap\Tabs;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -27,7 +30,7 @@ use yii\web\View;
  * @var ActiveDataProvider $specialProvider
  * @var ActiveDataProvider $weaponsProvider
  * @var Event3 $event
- * @var Event3StatsPower $abstract
+ * @var Event3StatsPower|null $abstract
  * @var Event3StatsPowerHistogram[] $histogram
  * @var Event3StatsPowerPeriodHistogram[] $periodHistogram
  * @var Event3[] $events
@@ -50,7 +53,7 @@ OgpHelper::default($this, title: $title);
 
 $fmt = Yii::$app->formatter;
 
-$samples = (int)$weaponsProvider->query->sum('battles');
+$samples = (int)TypeHelper::instanceOf($weaponsProvider->query, ActiveQuery::class)->sum('battles');
 $periods = ArrayHelper::sort(
   $schedule->eventPeriod3s,
   fn (EventPeriod3 $a, EventPeriod3 $b): int => strcmp($a->start_at, $b->start_at),
@@ -83,7 +86,7 @@ $periods = ArrayHelper::sort(
       ]) . "\n" ?>
     </p>
     <p class="mb-1 text-muted">
-      <?= Html::encode(Yii::t('db/event3/description', $event->desc)) . "\n" ?>
+      <?= Html::encode(Yii::t('db/event3/description', $event->desc ?? '')) . "\n" ?>
     </p>
 <?php if ($periods) { ?>
     <ul class="mb-1">

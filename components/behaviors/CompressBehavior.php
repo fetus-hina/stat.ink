@@ -7,6 +7,7 @@
 
 namespace app\components\behaviors;
 
+use Override;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 
@@ -24,9 +25,13 @@ class CompressBehavior extends Behavior
     public const PREFIX_PLAIN = '[{';
     public const PREFIX_GZIP = 'gz';
 
-    public $attribute;
+    public ?string $attribute = null;
 
-    public function events()
+    /**
+     * @return array<string, callable|string>
+     */
+    #[Override]
+    public function events(): array
     {
         return [
             ActiveRecord::EVENT_AFTER_FIND => 'decompress',
@@ -76,11 +81,7 @@ class CompressBehavior extends Behavior
         if ($compressed === false) {
             return null;
         }
-        $compressed = base64_encode($compressed);
-        if ($compressed === false) {
-            return null;
-        }
-        return static::PREFIX_GZIP . $compressed;
+        return static::PREFIX_GZIP . base64_encode($compressed);
     }
 
     protected function decompressGzip(string $compressed): ?string

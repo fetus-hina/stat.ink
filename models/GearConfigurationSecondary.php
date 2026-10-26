@@ -15,9 +15,9 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property integer $config_id
- * @property integer $ability_id
+ * @property integer|null $ability_id
  *
- * @property Ability $ability
+ * @property Ability|null $ability
  * @property GearConfiguration $config
  */
 class GearConfigurationSecondary extends ActiveRecord
@@ -69,7 +69,10 @@ class GearConfigurationSecondary extends ActiveRecord
         return $this->hasOne(GearConfiguration::class, ['id' => 'config_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function toJsonArray(): ?array
     {
         return $this->ability ? $this->ability->toJsonArray() : null;
     }

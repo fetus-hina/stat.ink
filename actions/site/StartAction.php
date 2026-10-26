@@ -7,6 +7,7 @@
 
 namespace app\actions\site;
 
+use Override;
 use Yii;
 use yii\web\ViewAction as BaseAction;
 
@@ -14,7 +15,8 @@ use function strtolower;
 
 class StartAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         switch (strtolower(Yii::$app->language)) {
             case 'ja-jp':

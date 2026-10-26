@@ -31,7 +31,7 @@ class UsersAction extends Action
     use Splatoon2;
     use Splatoon3;
 
-    public function run()
+    public function run(): string
     {
         Yii::$app->db
             ->createCommand("SET timezone TO 'UTC-6'")
@@ -53,7 +53,11 @@ class UsersAction extends Action
         ]);
     }
 
-    private function queryAgentDetails(array $idList)
+    /**
+     * @param int[] $idList
+     * @return array<int, mixed>
+     */
+    private function queryAgentDetails(array $idList): array
     {
         $ret = [];
         foreach (Agent::findAll(['id' => $idList]) as $agent) {
@@ -62,7 +66,10 @@ class UsersAction extends Action
         return $ret;
     }
 
-    protected function getAgentNames()
+    /**
+     * @return string[]
+     */
+    protected function getAgentNames(): array
     {
         $query = new Query()
             ->select(['agent'])
@@ -76,6 +83,9 @@ class UsersAction extends Action
         return $list;
     }
 
+    /**
+     * @return string[]
+     */
     protected function getCombineds(): array
     {
         $list = array_map(

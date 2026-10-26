@@ -12,6 +12,7 @@ namespace app\components\db;
 use Exception;
 use Throwable;
 use Yii;
+use yii\db\Transaction;
 
 use function call_user_func;
 use function in_array;
@@ -29,11 +30,14 @@ class Connection extends \yii\db\Connection
         )->execute();
     }
 
+    /**
+     * @param array<mixed>|callable|null $rollBack
+     */
     public function transactionEx(
         callable $callback,
-        $rollBack = null,
-        $isolationLevel = null,
-    ) {
+        array|callable|null $rollBack = null,
+        ?string $isolationLevel = null,
+    ): mixed {
         if ($rollBack === null) {
             $rollBack = [false, null];
         }
@@ -72,7 +76,7 @@ class Connection extends \yii\db\Connection
         return $result;
     }
 
-    private function rollbackTransactionOnLevel($transaction, $level)
+    private function rollbackTransactionOnLevel(Transaction $transaction, int $level): void
     {
         if ($transaction->isActive && $transaction->level === $level) {
             try {

@@ -9,16 +9,19 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\components\helpers\PasskeyChallengeStore;
 use app\components\helpers\WebAuthnHelper;
 use app\models\PasskeyChallenge;
+use stdClass;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
 final class PasskeyLoginStartAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): stdClass
     {
         if (!Yii::$app->user->getIsGuest()) {
             throw new BadRequestHttpException('Already logged in');

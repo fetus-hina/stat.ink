@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v2\salmon;
 
+use Override;
 use Yii;
 use app\models\Salmon2;
 use yii\web\NotFoundHttpException;
@@ -19,7 +20,8 @@ use const FILTER_VALIDATE_INT;
 
 class ViewAction extends \yii\web\ViewAction
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -27,7 +29,11 @@ class ViewAction extends \yii\web\ViewAction
         Yii::$app->timeZone = 'Etc/UTC';
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $resp = Yii::$app->getResponse();
         $resp->format = 'compact-json';

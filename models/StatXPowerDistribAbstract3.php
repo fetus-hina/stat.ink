@@ -20,14 +20,20 @@ use yii\db\ActiveRecord;
  * @property integer $rule_id
  * @property integer $users
  * @property double $average
- * @property double $stddev
- * @property string $median
- * @property string $pct5
- * @property string $pct25
- * @property string $pct75
- * @property string $pct80
- * @property string $pct95
- * @property integer $histogram_width
+ * @property double|null $stddev
+ * @property-read numeric-string|null $median
+ * @property-write float|string|null $median
+ * @property-read numeric-string|null $pct5
+ * @property-write float|string|null $pct5
+ * @property-read numeric-string|null $pct25
+ * @property-write float|string|null $pct25
+ * @property-read numeric-string|null $pct75
+ * @property-write float|string|null $pct75
+ * @property-read numeric-string|null $pct80
+ * @property-write float|string|null $pct80
+ * @property-read numeric-string|null $pct95
+ * @property-write float|string|null $pct95
+ * @property integer|null $histogram_width
  *
  * @property Rule3 $rule
  * @property Season3 $season

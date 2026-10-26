@@ -20,6 +20,9 @@ use const SORT_ASC;
 
 final class NameApiFormatter
 {
+    /**
+     * @return array<string, string>|null
+     */
     public static function toJson(?string $usName, string $msgCategory, bool $fullTranslate = false): ?array
     {
         return $usName === null

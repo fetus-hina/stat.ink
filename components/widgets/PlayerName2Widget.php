@@ -11,6 +11,8 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\IrasutoyaAsset;
+use app\components\helpers\TypeHelper;
+use app\models\SalmonPlayer2;
 use app\models\User;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\base\Widget;
@@ -27,11 +29,14 @@ use function vsprintf;
 
 class PlayerName2Widget extends Widget
 {
-    public $player;
-    public $user;
-    public $nameOnly = false;
-    public $isMyTeam = false; // 自チームかつ4人チームマッチ
-    public $isPrivate = false;
+    /**
+     * @var SalmonPlayer2|null
+     */
+    public ?object $player = null;
+    public ?User $user = null;
+    public bool $nameOnly = false;
+    public bool $isMyTeam = false; // 自チームかつ4人チームマッチ
+    public bool $isPrivate = false;
 
     public function run()
     {
@@ -57,12 +62,12 @@ class PlayerName2Widget extends Widget
     private function renderNamePart(): string
     {
         $playerUser = $this->player->user ?? null;
-        return $playerUser
+        return $playerUser instanceof User
             ? Html::a(
                 $this->renderInnerNamePart($playerUser),
                 ['show-user/profile', 'screen_name' => $playerUser->screen_name],
             )
-            : Html::tag('span', $this->renderInnerNamePart($playerUser));
+            : Html::tag('span', $this->renderInnerNamePart(null));
     }
 
     private function renderInnerNamePart(?User $user): string
@@ -76,11 +81,11 @@ class PlayerName2Widget extends Widget
 
     private function renderIdenticon(?User $user): string
     {
-        if (!$url = $this->player->iconUrl) {
+        if (!$url = $this->player?->iconUrl) {
             return '';
         }
 
-        $splatnetId = trim($this->player->splatnet_id);
+        $splatnetId = trim($this->player->splatnet_id ?? '');
         return Html::img(
             $url,
             [
@@ -96,7 +101,7 @@ class PlayerName2Widget extends Widget
 
     private function renderTopPlayer(?User $user): string
     {
-        if (!$this->player->top_500 ?? null) {
+        if (!($this->player->top_500 ?? null)) {
             return '';
         }
 
@@ -114,9 +119,9 @@ class PlayerName2Widget extends Widget
             $anonId = substr(
                 hash(
                     'sha256',
-                    preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed, $match)
-                        ? hex2bin($match[1])
-                        : $this->player->anonymizeSeed,
+                    preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed ?? '', $match)
+                        ? TypeHelper::string(hex2bin($match[1]))
+                        : $this->player->anonymizeSeed ?? '',
                 ),
                 0,
                 40,
@@ -141,7 +146,7 @@ class PlayerName2Widget extends Widget
                 ],
             );
         } else {
-            return $this->player->name |> trim(...) |> Html::encode(...);
+            return ($this->player->name ?? '') |> trim(...) |> Html::encode(...);
         }
         // }}}
     }
@@ -150,19 +155,18 @@ class PlayerName2Widget extends Widget
     {
         //TODO: $playerUser->link_mode_id を見て匿名化するか決める
         // {{{
-        if ($this->player->is_me) {
+        if ($this->player?->is_me) {
             // プレーヤーのデータは常時表示
             return false;
-        } elseif ($this->player->isForceBlackouted) {
+        } elseif ($this->player?->isForceBlackouted) {
             // 要求によるブラックリスト
             return true;
-        } elseif (trim($this->player->name) === '') {
+        } elseif (trim($this->player->name ?? '') === '') {
             // 名前が空だと匿名化名しか表示できない
             return true;
         }
 
-        $loggedInUser = Yii::$app->user;
-        if (!$loggedInUser->isGuest && $loggedInUser->identity->id == $this->user->id) {
+        if ($this->user && Yii::$app->user->getIdentity()?->id === $this->user->id) {
             // このデータのオーナーがログインしているので全員表示
             return false;
         }
@@ -200,7 +204,7 @@ class PlayerName2Widget extends Widget
 
     private function renderSpeciesIcon(): string
     {
-        if (!isset($this->player->species) || !$this->player->species) {
+        if (!isset($this->player->species)) {
             return '';
         }
 

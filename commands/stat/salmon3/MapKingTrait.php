@@ -15,6 +15,7 @@ use app\models\StatSalmon3MapKingTide;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
+use LogicException;
 
 use function array_map;
 use function assert;
@@ -26,7 +27,6 @@ trait MapKingTrait
     protected function makeStatSalmon3MapKing(): void
     {
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
 
         $db->transaction(
             function (Connection $db): void {
@@ -96,7 +96,7 @@ trait MapKingTrait
             '{{%stat_salmon3_map_king}}',
             implode(', ', array_map(
                 $db->quoteColumnName(...),
-                array_keys($select->select),
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
             )),
             $select->createCommand($db)->rawSql,
         ]);
@@ -163,7 +163,7 @@ trait MapKingTrait
             '{{%stat_salmon3_map_king_tide}}',
             implode(', ', array_map(
                 $db->quoteColumnName(...),
-                array_keys($select->select),
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
             )),
             $select->createCommand($db)->rawSql,
         ]);

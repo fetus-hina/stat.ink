@@ -17,7 +17,7 @@ use function implode;
 
 class LegendWidget extends Widget
 {
-    public $id = 'kdwin-legend';
+    public string $id = 'kdwin-legend';
 
     public function run()
     {

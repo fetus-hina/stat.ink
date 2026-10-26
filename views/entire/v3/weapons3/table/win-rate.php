@@ -36,32 +36,30 @@ $data = ArrayHelper::sort(
   fn (
     StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $a,
     StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $b,
-  ): float => ($b->wins / $b->battles) <=> ($a->wins / $a->battles)
+  ): int => ($b->wins / $b->battles) <=> ($a->wins / $a->battles)
     ?: $a->battles <=> $b->battles,
 );
 
 $valueData = [
   'backgroundColor' => new JsExpression('window.colorScheme.graph1'),
   'borderColor' => new JsExpression('window.colorScheme.graph1'),
-  'data' => array_values(
-    array_map(
-      function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model, int $i): array {
-        $data = StandardError::winpct($model->wins, $model->battles);
-        return $data
-          ? [
-            'x' => $data['rate'] * 100,
-            'xMax' => [$data['max95ci'] * 100, $data['max99ci'] * 100],
-            'xMin' => [$data['min95ci'] * 100, $data['min99ci'] * 100],
-            'y' => $i,
-          ]
-          : [
-            'x' => $model->wins / $model->battles * 100,
-            'y' => $i,
-          ];
-      },
-      $data,
-      range(0, count($data) - 1),
-    ),
+  'data' => array_map(
+    function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model, int $i): array {
+      $data = StandardError::winpct($model->wins, $model->battles);
+      return $data
+        ? [
+          'x' => $data['rate'] * 100,
+          'xMax' => [$data['max95ci'] * 100, $data['max99ci'] * 100],
+          'xMin' => [$data['min95ci'] * 100, $data['min99ci'] * 100],
+          'y' => $i,
+        ]
+        : [
+          'x' => $model->wins / $model->battles * 100,
+          'y' => $i,
+        ];
+    },
+    $data,
+    range(0, count($data) - 1),
   ),
   'fill' => true,
   'label' => Yii::t('app-results', 'Win %'),

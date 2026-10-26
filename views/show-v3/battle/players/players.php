@@ -10,6 +10,7 @@ declare(strict_types=1);
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\Icon;
 use app\models\Abilities3;
+use app\models\Ability3;
 use app\models\Battle3;
 use app\models\Battle3PlayedWith;
 use app\models\BattlePlayer3;
@@ -40,7 +41,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
 
 if (
   $isXmatch &&
-  version_compare($battle->version?->tag ?? '0.0.0', '11.1.0', '>=')
+  version_compare($battle->version->tag ?? '0.0.0', '11.1.0', '>=')
 ) {
   $isXMR = true;
 }

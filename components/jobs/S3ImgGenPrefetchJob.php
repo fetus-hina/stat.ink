@@ -31,7 +31,7 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
     public string $uuid = '00000000-0000-0000-0000-000000000000';
 
     /**
-     * @var TYPE_* $type
+     * @var self::TYPE_* $type
      */
     public string $type = self::TYPE_BATTLE;
 
@@ -91,8 +91,6 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
                 ])
                 ->limit(1)
                 ->one(),
-
-            default => null,
         };
     }
 
@@ -114,7 +112,7 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
     {
         $client = Yii::createObject([
             'class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
         $request = $client->createRequest()
             ->setMethod('get')

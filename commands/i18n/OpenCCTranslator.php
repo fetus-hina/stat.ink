@@ -11,8 +11,11 @@ namespace app\commands\i18n;
 
 use DirectoryIterator;
 use Exception;
+use Generator;
 use Normalizer;
+use RuntimeException;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\base\Component;
 use yii\helpers\FileHelper;
 
@@ -24,6 +27,7 @@ use function fopen;
 use function fwrite;
 use function gmdate;
 use function is_resource;
+use function preg_last_error_msg;
 use function preg_replace;
 use function proc_close;
 use function proc_open;
@@ -54,7 +58,7 @@ class OpenCCTranslator extends Component
             if (
                 !$this->translateFile(
                     $inputPath,
-                    Yii::getAlias(static::OUTPUT_DIR) . '/' . basename($inputPath),
+                    Yii::getAlias(self::OUTPUT_DIR) . '/' . basename($inputPath),
                 )
             ) {
                 $status = false;
@@ -63,9 +67,12 @@ class OpenCCTranslator extends Component
         return $status;
     }
 
-    private function getTargetFiles()
+    /**
+     * @return Generator<int, string>
+     */
+    private function getTargetFiles(): Generator
     {
-        $it = new DirectoryIterator(Yii::getAlias(static::INPUT_DIR));
+        $it = new DirectoryIterator(Yii::getAlias(self::INPUT_DIR));
         foreach ($it as $entry) {
             if (
                 $entry->isDot() ||
@@ -100,6 +107,10 @@ class OpenCCTranslator extends Component
 
         fwrite(STDERR, "Writing...\n");
         $fh = fopen($outputPath, 'wt');
+        if (!$fh) {
+            throw new Exception('Could not open file: ' . $outputPath);
+        }
+
         fwrite($fh, "<?php\n\n");
         fwrite($fh, "/**\n");
         vfprintf($fh, " * @copyright Copyright (C) 2015-%d AIZAWA Hina\n", [
@@ -128,7 +139,7 @@ class OpenCCTranslator extends Component
     {
         $cmdline = vsprintf('/usr/bin/env %s -c %s', [
             escapeshellarg('opencc'),
-            escapeshellarg(static::OPENCC_CONFIG),
+            escapeshellarg(self::OPENCC_CONFIG),
         ]);
 
         $descSpec = [
@@ -155,8 +166,8 @@ class OpenCCTranslator extends Component
             preg_replace(
                 '/\s+/',
                 ' ',
-                Normalizer::normalize($hantText, Normalizer::FORM_C),
-            ),
+                TypeHelper::string(Normalizer::normalize($hantText, Normalizer::FORM_C)),
+            ) ?? throw new RuntimeException(preg_last_error_msg()),
         );
     }
 }

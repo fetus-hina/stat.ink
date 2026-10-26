@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\helpers;
 
 use Yii;
+use yii\web\Request as WebRequest;
 
 use function array_column;
 use function array_filter;
@@ -29,6 +30,10 @@ class IPHelper
         ?string $language = null,
     ): ?string {
         $ipAddr = $ipAddr ?: static::getCurrentIP();
+        if ($ipAddr === null) {
+            return null;
+        }
+
         $geoIP = Yii::$app->geoip;
         $geoLang = $geoIP->getLang($language);
         $get = function ($obj) use ($geoLang): ?string {
@@ -58,6 +63,9 @@ class IPHelper
     public static function reverseLookup(?string $ipAddr): ?string
     {
         $ipAddr = $ipAddr ?: static::getCurrentIP();
+        if ($ipAddr === null) {
+            return null;
+        }
 
         $hostName = @gethostbyaddr($ipAddr);
         if (!$hostName) {
@@ -73,6 +81,10 @@ class IPHelper
     }
 
     // gethostbynamel for both ipv4 and ipv6
+
+    /**
+     * @return string[]
+     */
     protected static function queryIpAddressListByName(string $hostName): array
     {
         $tasks = [
@@ -94,7 +106,12 @@ class IPHelper
 
     protected static function getCurrentIP(): ?string
     {
-        $ipAddr = Yii::$app->getRequest()->getUserIP();
+        $request = Yii::$app->getRequest();
+        if (!$request instanceof WebRequest) {
+            return null;
+        }
+
+        $ipAddr = $request->getUserIP();
         return $ipAddr ?: null;
     }
 }

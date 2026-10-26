@@ -10,6 +10,7 @@ declare(strict_types=1);
 use app\assets\EntireKnockoutAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\Knockout2FilterForm;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
@@ -17,7 +18,14 @@ use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
 use yii\widgets\ActiveForm;
+
+/**
+ * @var Knockout2FilterForm $form
+ * @var View $this
+ * @var array<string, array<string, array<string, mixed>>> $data
+ */
 
 $title = Yii::t('app-entire', 'Knockout Rate');
 $this->title = Yii::$app->name . ' | ' . $title;
@@ -66,8 +74,11 @@ foreach ($rules as $_key => $_name) {
 }
 foreach ($data as $_map) {
   foreach ($_map as $_key => $_value) {
-    $_total[$_key]['battle'] += (int)$_value['battles'];
-    $_total[$_key]['ko'] += (int)$_value['knockouts'];
+    $_cell = $_total[$_key] ?? ['battle' => 0, 'ko' => 0];
+    $_total[$_key] = [
+      'battle' => $_cell['battle'] + (int)$_value['battles'],
+      'ko' => $_cell['ko'] + (int)$_value['knockouts'],
+    ];
   }
 }
 // }}}
@@ -215,7 +226,7 @@ $this->registerCss(Html::renderCss([
               ]
             ) . "\n" ?>
 <?php } ?>
-<?php $_t = (int)round((float)$_data['avg_knockout_time'] ?? 300); ?>
+<?php $_t = (int)round((float)($_data['avg_knockout_time'] ?? 300)); ?>
 <?php if ($_t > 0 && $_t < 300) { ?>
             <?= Html::tag(
               'p',

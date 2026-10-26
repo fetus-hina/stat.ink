@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -19,6 +20,9 @@ use function array_map;
 use function implode;
 use function vsprintf;
 
+/**
+ * @property-read float|null $killRatio
+ */
 final class BattleKillDeathColumn extends Widget
 {
     public ?int $kill = null;
@@ -26,13 +30,14 @@ final class BattleKillDeathColumn extends Widget
     public ?int $assist = null;
     public ?int $kill_or_assist = null;
 
-    public ?Formatter $formatter = null;
+    public Formatter $formatter;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
-        if ($this->formatter === null) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::$app->formatter;
         }
     }

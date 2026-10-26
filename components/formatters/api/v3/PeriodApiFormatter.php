@@ -18,6 +18,7 @@ final class PeriodApiFormatter
 {
     /**
      * @param int|null $value
+     * @return array<string, mixed>|null
      */
     public static function toJson($value): ?array
     {

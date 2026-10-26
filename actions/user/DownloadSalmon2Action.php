@@ -9,9 +9,11 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\models\Salmon2;
 use yii\web\BadRequestHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
 use function is_scalar;
@@ -20,15 +22,11 @@ use const SORT_ASC;
 
 class DownloadSalmon2Action extends ViewAction
 {
-    private $user;
-
-    public function init()
-    {
-        parent::init();
-        $this->user = Yii::$app->user->identity;
-    }
-
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $type = Yii::$app->request->get('type');
         if (is_scalar($type)) {
@@ -46,12 +44,19 @@ class DownloadSalmon2Action extends ViewAction
         );
     }
 
-    private function runCsv()
+    /**
+     * @return array<string, mixed>
+     */
+    private function runCsv(): array
     {
+        if (!$user = Yii::$app->user->identity) {
+            throw new ServerErrorHttpException();
+        }
+
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('salmon.csv', 'text/cvs; charset=UTF-8', false, null);
         $resp->format = 'csv';
-        $query = $this->user->getSalmonResults()
+        $query = $user->getSalmonResults()
             ->with([
                 'bossAppearances',
                 'failReason',

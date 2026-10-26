@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -92,17 +93,23 @@ class Gear extends ActiveRecord
         return $this->hasOne(GearType::class, ['id' => 'type_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
             'type' => $this->type->toJsonArray(),
-            'brand' => $this->brand ? $this->brand->toJsonArray() : null,
+            'brand' => $this->brand->toJsonArray(),
             'name' => Translator::translateToAll('app-gear', $this->name),
-            'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,
+            'primary_ability' => $this->ability->toJsonArray(),
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -125,6 +132,9 @@ class Gear extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -133,6 +143,9 @@ class Gear extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $model = static::find()
@@ -140,7 +153,7 @@ class Gear extends ActiveRecord
             ->limit(1)
             ->one();
         return [
-            $model->toJsonArray(),
+            TypeHelper::instanceOf($model, static::class)->toJsonArray(),
         ];
     }
 }

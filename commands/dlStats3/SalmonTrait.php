@@ -22,6 +22,7 @@ use yii\console\ExitCode;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
+use app\components\helpers\TypeHelper;
 
 use function array_fill;
 use function array_map;
@@ -238,9 +239,9 @@ trait SalmonTrait
                 $csvColumns = [
                     self::season($battle),
                     $battle->schedule
-                        ? gmdate(DateTimeInterface::ATOM, strtotime($battle->schedule->start_at))
+                        ? gmdate(DateTimeInterface::ATOM, TypeHelper::int(strtotime($battle->schedule->start_at)))
                         : '',
-                    $battle->version->tag,
+                    $battle->version?->tag,
                     match (true) {
                         $battle->is_big_run => 'big_run',
                         $battle->is_eggstra_work => 'eggstra_work',
@@ -323,7 +324,7 @@ trait SalmonTrait
                 // bosses
                 $bosses = [];
                 foreach ($battle->salmonBossAppearance3s as $tmp) {
-                    $k = $tmp->boss?->key;
+                    $k = $tmp->boss->key;
                     if ($k) {
                         $bosses[$k] = [
                             'appearances' => $tmp->appearances,
@@ -389,6 +390,9 @@ trait SalmonTrait
         return self::createCsvZipArchive(self::BASE_SALMON_RESULTS_CSV);
     }
 
+    /**
+     * @param SalmonWave3[] $waves
+     */
     private static function findSalmonWave(array $waves, int $waveNumber): ?SalmonWave3
     {
         foreach ($waves as $wave) {
@@ -400,6 +404,9 @@ trait SalmonTrait
         return null;
     }
 
+    /**
+     * @return list<int|string|null>
+     */
     private static function salmonWaveCsvColumns(?SalmonWave3 $wave): array
     {
         if (!$wave) {
@@ -410,7 +417,7 @@ trait SalmonTrait
         if ($wave->salmonSpecialUse3s) {
             $data = [];
             foreach ($wave->salmonSpecialUse3s as $tmp) {
-                $k = $tmp->special?->key;
+                $k = $tmp->special->key;
                 if ($k) {
                     $data[$k] = (int)$tmp->count;
                 }
@@ -430,6 +437,9 @@ trait SalmonTrait
         ];
     }
 
+    /**
+     * @return list<int|string|null>
+     */
     private static function salmonPlayerCsvColumns(Salmon3 $battle, ?SalmonPlayer3 $player): array
     {
         if (!$player) {

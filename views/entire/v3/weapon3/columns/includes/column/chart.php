@@ -8,17 +8,28 @@
 declare(strict_types=1);
 
 use app\components\helpers\StandardError;
-use yii\base\Model;
+use app\models\StatWeapon3Assist;
+use app\models\StatWeapon3AssistPerVersion;
+use app\models\StatWeapon3Death;
+use app\models\StatWeapon3DeathPerVersion;
+use app\models\StatWeapon3Inked;
+use app\models\StatWeapon3InkedPerVersion;
+use app\models\StatWeapon3Kill;
+use app\models\StatWeapon3KillOrAssist;
+use app\models\StatWeapon3KillOrAssistPerVersion;
+use app\models\StatWeapon3KillPerVersion;
+use app\models\StatWeapon3Special;
+use app\models\StatWeapon3SpecialPerVersion;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\web\View;
 
 /**
- * @var Model[] $data
+ * @var Weapon3Stat[] $data
  * @var View $this
  * @var string $xLabel
- * @var string|string[]|callable $xGet
+ * @var string|string[]|Closure $xGet
  */
 
 $datasetBattles = [
@@ -27,7 +38,20 @@ $datasetBattles = [
   'data' => array_values(
     ArrayHelper::getColumn(
       $data,
-      fn (Model $model): array => [
+      fn (
+        StatWeapon3Assist |
+        StatWeapon3AssistPerVersion |
+        StatWeapon3Death |
+        StatWeapon3DeathPerVersion |
+        StatWeapon3Inked |
+        StatWeapon3InkedPerVersion |
+        StatWeapon3Kill |
+        StatWeapon3KillOrAssist |
+        StatWeapon3KillOrAssistPerVersion |
+        StatWeapon3KillPerVersion |
+        StatWeapon3Special |
+        StatWeapon3SpecialPerVersion $model,
+      ): array => [
         'x' => (int)ArrayHelper::getValue($model, $xGet),
         'y' => $model->battles,
       ],
@@ -40,7 +64,20 @@ $datasetBattles = [
 $winPctPoints = array_values(
   ArrayHelper::getColumn(
     $data,
-    fn (Model $model): array => [
+    fn (
+      StatWeapon3Assist |
+      StatWeapon3AssistPerVersion |
+      StatWeapon3Death |
+      StatWeapon3DeathPerVersion |
+      StatWeapon3Inked |
+      StatWeapon3InkedPerVersion |
+      StatWeapon3Kill |
+      StatWeapon3KillOrAssist |
+      StatWeapon3KillOrAssistPerVersion |
+      StatWeapon3KillPerVersion |
+      StatWeapon3Special |
+      StatWeapon3SpecialPerVersion $model,
+    ): array => [
       'x' => (int)ArrayHelper::getValue($model, $xGet),
       'y' => 100.0 * $model->wins / $model->battles,
       'n' => $model->battles,
@@ -59,7 +96,20 @@ $datasetWinPct = [
 $datasetWinPctErrors = [
   'data' => ArrayHelper::getColumn(
     $data,
-    function (Model $model) use ($xGet): ?array {
+    function (
+      StatWeapon3Assist |
+      StatWeapon3AssistPerVersion |
+      StatWeapon3Death |
+      StatWeapon3DeathPerVersion |
+      StatWeapon3Inked |
+      StatWeapon3InkedPerVersion |
+      StatWeapon3Kill |
+      StatWeapon3KillOrAssist |
+      StatWeapon3KillOrAssistPerVersion |
+      StatWeapon3KillPerVersion |
+      StatWeapon3Special |
+      StatWeapon3SpecialPerVersion $model,
+    ) use ($xGet): ?array {
       if (!$err = StandardError::winpct($model->wins, $model->battles)) {
         return null;
       }
@@ -83,13 +133,11 @@ $datasetWinPctErrors = [
 
 $chart = [
   'data' => [
-    'datasets' => array_filter(
-      [
-        $datasetWinPct,
-        $datasetWinPctErrors,
-        $datasetBattles,
-      ],
-    ),
+    'datasets' => [
+      $datasetWinPct,
+      $datasetWinPctErrors,
+      $datasetBattles,
+    ],
   ],
   'options' => [
     'aspectRatio' => new JsExpression('16/9'),

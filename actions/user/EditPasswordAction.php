@@ -9,21 +9,30 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\PasskeyReauth;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\UserNotifier;
 use app\models\PasswordForm;
 use app\models\User;
+use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use function is_array;
 
 class EditPasswordAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->request;
-        $ident = Yii::$app->user->getIdentity();
+        if (!$ident = Yii::$app->user->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
         $hasPassword = $ident->hasPassword();
         $form = new PasswordForm();
         if (!$hasPassword) {
@@ -31,7 +40,8 @@ class EditPasswordAction extends BaseAction
         }
         $form->screen_name = $ident->screen_name;
         if ($request->isPost) {
-            $form->load($request->bodyParams);
+            $params = $request->bodyParams;
+            $form->load(is_array($params) ? $params : []);
             $form->screen_name = $ident->screen_name;
             if ($form->validate() && !$hasPassword && !PasskeyReauth::consume((int)$ident->id)) {
                 $form->addError(
@@ -40,7 +50,7 @@ class EditPasswordAction extends BaseAction
                 );
             }
             if (!$form->hasErrors()) {
-                if ($this->changePassword($ident, $form->new_password)) {
+                if ($this->changePassword($ident, TypeHelper::string($form->new_password))) {
                     // Sent after the commit; a mail failure must not look like a failed change
                     UserNotifier::passwordChanged($ident);
                     return $this->controller->redirect([

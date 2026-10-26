@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
@@ -28,7 +29,8 @@ use function vsprintf;
 
 final class LanguageDialog extends Dialog
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -62,6 +64,9 @@ final class LanguageDialog extends Dialog
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function createLanguageList(): array
     {
         LanguageDialogAsset::register($this->view);
@@ -70,12 +75,12 @@ final class LanguageDialog extends Dialog
         return Yii::$app->cache->getOrSet(
             [
                 __METHOD__,
-                Yii::$app->locale,
+                Yii::$app->getLocale(),
                 ArrayHelper::getValue(Yii::$app->params, 'assetRevision'),
             ],
             fn (): array => array_map(
                 fn (Language $lang): string => match ($lang->lang) {
-                    Yii::$app->locale => Html::tag(
+                    Yii::$app->getLocale() => Html::tag(
                         'div',
                         $this->renderLanguageItem($lang),
                         [
@@ -173,9 +178,12 @@ final class LanguageDialog extends Dialog
         }
     }
 
+    /**
+     * @return string[]
+     */
     private function createHintList(): array
     {
-        $enabledMachineTranslation = Yii::$app->isEnabledMachineTranslation;
+        $enabledMachineTranslation = Yii::$app->getIsEnabledMachineTranslation();
 
         return [
             Html::tag(
@@ -260,12 +268,12 @@ final class LanguageDialog extends Dialog
             return implode('', [
                 Html::tag(
                     'span',
-                    FlagIcon::fg('gb'),
+                    (string)FlagIcon::fg('gb'),
                     ['class' => 'mr-1'],
                 ),
                 Html::tag(
                     'span',
-                    FlagIcon::fg('au'),
+                    (string)FlagIcon::fg('au'),
                     ['class' => 'mr-1'],
                 ),
             ]);
@@ -275,12 +283,12 @@ final class LanguageDialog extends Dialog
             return implode('', [
                 Html::tag(
                     'span',
-                    FlagIcon::fg('tw'),
+                    (string)FlagIcon::fg('tw'),
                     ['class' => 'mr-1'],
                 ),
                 Html::tag(
                     'span',
-                    FlagIcon::fg('hk'),
+                    (string)FlagIcon::fg('hk'),
                     ['class' => 'mr-1'],
                 ),
             ]);
@@ -288,7 +296,7 @@ final class LanguageDialog extends Dialog
 
         return Html::tag(
             'span',
-            $countryCode |> strtolower(...) |> FlagIcon::fg(...),
+            (string)($countryCode |> strtolower(...) |> FlagIcon::fg(...)),
             ['class' => 'mr-1'],
         );
     }

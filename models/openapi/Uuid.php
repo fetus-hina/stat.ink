@@ -16,6 +16,9 @@ class Uuid extends Component
 {
     use Util;
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -40,11 +43,17 @@ class Uuid extends Component
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [];
     }
 
+    /**
+     * @param array<int|string, mixed> $options
+     */
     public static function example(string $category, string $value, array $options = []): string
     {
         return '982902e7-fde3-439f-94ef-b4e8dd93af95';

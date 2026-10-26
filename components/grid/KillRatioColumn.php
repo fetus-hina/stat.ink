@@ -9,11 +9,15 @@ declare(strict_types=1);
 
 namespace app\components\grid;
 
+use Override;
 use Yii;
 use app\assets\KillRatioColumnAsset;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 use yii\grid\DataColumn;
 use yii\helpers\Json;
+use yii\web\View;
 
 use function hash;
 use function microtime;
@@ -22,14 +26,18 @@ use function substr;
 use function uniqid;
 use function vsprintf;
 
+/**
+ * @template TModel of ActiveRecord
+ */
 class KillRatioColumn extends DataColumn
 {
-    public static $idPrefix;
-    public static $idCounter = 0;
+    public static ?string $idPrefix = null;
+    public static int $idCounter = 0;
 
     public bool $killRate = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -61,7 +69,7 @@ class KillRatioColumn extends DataColumn
                 ];
             }
 
-            $view = Yii::$app->getView();
+            $view = TypeHelper::instanceOf(Yii::$app->getView(), View::class);
             KillRatioColumnAsset::register($view);
             $id = sprintf('%s%d', static::$idPrefix, ++static::$idCounter);
             $view->registerJs(vsprintf('jQuery(%s).killRatioColumn();', [
@@ -88,17 +96,23 @@ class KillRatioColumn extends DataColumn
         }
     }
 
+    /**
+     * @param TModel $model
+     */
     protected function getKillRatio(Model $model): ?float
     {
-        return $model->kill_ratio !== null
-            ? (float)$model->kill_ratio
+        return $model->getAttribute('kill_ratio') !== null
+            ? (float)$model->getAttribute('kill_ratio')
             : null;
     }
 
+    /**
+     * @param TModel $model
+     */
     protected function getKillRate(Model $model): ?float
     {
-        return $model->kill_rate !== null
-            ? (float)$model->kill_rate / 100.0
+        return $model->getAttribute('kill_rate') !== null
+            ? (float)$model->getAttribute('kill_rate') / 100.0
             : null;
     }
 }

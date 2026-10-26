@@ -16,7 +16,6 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @phpstan-import-type DailyData from SeasonXPowerAction
  *
  * @var DailyData[] $dailyData
  * @var Rule3[] $rules
@@ -31,7 +30,7 @@ $tEnd = new DateTimeImmutable($season->end_at)->setTimezone($tz);
 $tInterval = new DateInterval('P1D');
 
 // format-pattern string for "month and day"
-$dateFormat = IntlDatePatternGenerator::create(Yii::$app->locale) ?->getBestPattern('MMM d') ?? 'd MMM';
+$dateFormat = IntlDatePatternGenerator::create(Yii::$app->getLocale()) ?->getBestPattern('MMM d') ?: 'd MMM';
 
 $data = ArrayHelper::index($dailyData, 'rule_id', 'date');
 

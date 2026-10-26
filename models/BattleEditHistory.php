@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $battle_id
  * @property string $diff
- * @property string $at
+ * @property string|null $at
  *
  * @property Battle $battle
  */

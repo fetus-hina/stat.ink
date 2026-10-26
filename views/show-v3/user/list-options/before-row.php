@@ -12,6 +12,7 @@ use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle3;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
  * @var View $this
@@ -21,7 +22,7 @@ BattleListGroupHeaderAsset::register($this);
 
 return function (Battle3 $model, int $key, int $index, GridView $widget): ?string {
   static $lastPeriod = null;
-  if ($lastPeriod === $model->period) {
+  if ($model->period === null || $lastPeriod === $model->period) {
     return null;
   }
 

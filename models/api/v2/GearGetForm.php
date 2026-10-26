@@ -25,8 +25,17 @@ class GearGetForm extends Model
 {
     use OapiUtil;
 
+    /**
+     * @var string|array<mixed>|null
+     */
     public $type;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $brand;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $ability;
 
     public function rules()
@@ -57,7 +66,7 @@ class GearGetForm extends Model
         ];
     }
 
-    public function filterQuery(ActiveQuery $query)
+    public function filterQuery(ActiveQuery $query): ActiveQuery
     {
         return $query
             ->innerJoinWith(['type', 'brand'])
@@ -67,6 +76,9 @@ class GearGetForm extends Model
             ->andFilterWhere(['{{ability2}}.[[key]]' => $this->ability]);
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function oapiParameters(): array
     {
         return [

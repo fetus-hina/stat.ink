@@ -67,6 +67,10 @@ trait AverageGPTrait
             ])
             ->all();
 
+        if (!$targetSeasons) {
+            return;
+        }
+
         fwrite(STDERR, "Average GPs calculation start...\n");
         Yii::$app->db->transaction(
             fn (Connection $db) => $this->makeStatAverageGPsImpl($db, $targetSeasons, $yesterday),
@@ -76,7 +80,7 @@ trait AverageGPTrait
     }
 
     /**
-     * @param Season3[] $targetSeasons
+     * @param non-empty-array<Season3> $targetSeasons
      */
     private function makeStatAverageGPsImpl(
         Connection $db,
@@ -125,7 +129,7 @@ trait AverageGPTrait
                 ['not', ['{{%battle3}}.[[x_power_before]]' => null]],
                 ['not', ['{{%battle_player3}}.[[weapon_id]]' => null]],
                 ['between', '{{%battle3}}.[[start_at]]',
-                    min(ArrayHelper::getColumn($targetSeasons, 'start_at')),
+                    min(array_map(fn (Season3 $season): string => $season->start_at, $targetSeasons)),
                     $yesterday->format(DateTimeInterface::ATOM),
                 ],
                 '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',

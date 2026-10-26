@@ -7,21 +7,29 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\models\LoginForm;
+use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class LoginAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->getRequest();
         $form = new LoginForm();
         if ($request->isPost) {
             $form->attributes = $request->post('LoginForm');
             if ($form->login()) {
+                if (!$user = Yii::$app->user->identity) {
+                    throw new ServerErrorHttpException();
+                }
+
                 return $this->controller->goBack(
-                    ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name],
+                    ['show-user/profile', 'screen_name' => $user->screen_name],
                 );
             }
         }

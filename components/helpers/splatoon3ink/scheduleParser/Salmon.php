@@ -27,6 +27,10 @@ trait Salmon
     use Common;
     use TypeHelperTrait;
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     protected static function salmon(array $nodes, bool $isBigRun): array
     {
         return array_values(
@@ -37,6 +41,10 @@ trait Salmon
         );
     }
 
+    /**
+     * @param array<mixed> $schedule
+     * @return array<string, mixed>
+     */
     private static function processSalmonSchedule(array $schedule, bool $isBigRun): array
     {
         return [
@@ -87,6 +95,7 @@ trait Salmon
     }
 
     /**
+     * @param array<mixed> $info
      * @return SalmonWeapon3|SalmonRandom3|null
      */
     private static function parseSalmonWeapon(array $info): ?ActiveRecord

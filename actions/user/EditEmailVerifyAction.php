@@ -9,22 +9,27 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\components\helpers\AddressUpdatedEmailSender;
 use app\models\EmailVerifyForm;
 use app\models\Language;
 use yii\web\BadRequestHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
+use function is_array;
 use function time;
 
 class EditEmailVerifyAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->request;
         $form = Yii::createObject(EmailVerifyForm::class);
-        $form->load($request->bodyParams);
+        $params = $request->bodyParams;
+        $form->load(is_array($params) ? $params : []);
         if (!$realEmail = $form->realEmail) {
             throw new BadRequestHttpException('Bad request');
         }
@@ -44,7 +49,9 @@ class EditEmailVerifyAction extends ViewAction
         $form->validVerifyCode = $verifyCodeInfo['code'];
 
         if ($form->validate()) {
-            $user = Yii::$app->user->identity;
+            if (!$user = Yii::$app->user->identity) {
+                throw new ServerErrorHttpException();
+            }
             $oldEmail = null;
             $oldEmailLang = null;
             if ($user->email) {
@@ -54,7 +61,7 @@ class EditEmailVerifyAction extends ViewAction
 
             $newEmailLang = Language::findOne(['lang' => Yii::$app->getLocale()]);
             $user->email = $realEmail;
-            $user->email_lang_id = $newEmailLang->id;
+            $user->email_lang_id = $newEmailLang?->id;
             $user->save();
 
             AddressUpdatedEmailSender::sendAddressUpdatedEmail(

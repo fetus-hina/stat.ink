@@ -7,6 +7,7 @@
 
 namespace app\components\widgets\battle;
 
+use Override;
 use Yii;
 use app\components\widgets\Icon;
 use yii\base\Widget;
@@ -17,20 +18,33 @@ use function preg_replace_callback;
 
 class PanelListWidget extends Widget
 {
-    public $panelClass = 'panel panel-default';
-    public $template;
-    public $models = [];
-    public $title;
-    public $titleLink;
-    public $titleLinkText;
-    public $feedLink;
-    public $emptyText;
-    public $itemClass;
+    public string $panelClass = 'panel panel-default';
+    public string $template;
+    /**
+     * @var array<mixed>
+     */
+    public array $models = [];
+    public ?string $title = null;
+    /**
+     * @var string|array<mixed>|null
+     */
+    public string|array|null $titleLink = null;
+    public ?string $titleLinkText = null;
+    /**
+     * @var string|array<mixed>|null
+     */
+    public string|array|null $feedLink = null;
+    public string $emptyText;
+    /**
+     * @var class-string<Widget>
+     */
+    public string $itemClass;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
-        if (!$this->template) {
+        if (!isset($this->template)) {
             $this->template = Html::tag(
                 'div',
                 implode('', [
@@ -40,7 +54,7 @@ class PanelListWidget extends Widget
                 ['class' => '{panelClass}'],
             );
         }
-        if (!$this->emptyText) {
+        if (!isset($this->emptyText)) {
             $this->emptyText = Html::tag(
                 'div',
                 Html::tag(
@@ -50,7 +64,7 @@ class PanelListWidget extends Widget
                 ['class' => 'panel-body'],
             );
         }
-        if (!$this->itemClass) {
+        if (!isset($this->itemClass)) {
             $this->itemClass = PanelListItemWidget::class;
         }
     }
@@ -58,7 +72,7 @@ class PanelListWidget extends Widget
     public function run()
     {
         $replace = [
-            '{title}' => Html::encode($this->title),
+            '{title}' => Html::encode($this->title ?? ''),
             '{titleLink}' => $this->renderTitleLink(),
             '{feedLink}' => $this->renderFeedLink(),
             '{panelClass}' => $this->panelClass,

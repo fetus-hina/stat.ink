@@ -15,6 +15,7 @@ use app\models\Salmon3UserStatsEvent;
 use app\models\User;
 use yii\db\Connection;
 use yii\db\Query;
+use LogicException;
 
 use function array_keys;
 use function array_map;
@@ -75,7 +76,7 @@ trait UserEventTrait
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($select->select),
+                        array_keys($select->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $select->createCommand($db)->rawSql,
@@ -91,7 +92,8 @@ trait UserEventTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }

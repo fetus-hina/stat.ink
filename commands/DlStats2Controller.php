@@ -11,10 +11,12 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Throwable;
 use Yii;
 use ZipArchive;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
 use yii\console\Controller;
@@ -53,21 +55,22 @@ class DlStats2Controller extends Controller
 
     public $defaultAction = 'create';
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->timeZone = 'Asia/Tokyo';
     }
 
-    public function actionCreate()
+    public function actionCreate(): void
     {
         $this->actionCreateBattleResultsCsv();
     }
 
-    public function actionCreateBattleResultsCsv()
+    public function actionCreateBattleResultsCsv(): void
     {
         $aDay = new DateInterval('P1D');
-        for ($date = static::startDay(), $end = static::today(); $date < $end; $date = $date->add($aDay)) {
+        for ($date = self::startDay(), $end = self::today(); $date < $end; $date = $date->add($aDay)) {
             printf("%s - %s\n", __METHOD__, $date->format('Y-m-d'));
             $file = implode('/', [
                 Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV),
@@ -117,7 +120,7 @@ class DlStats2Controller extends Controller
                     }
 
                     if ($b->is_win == $p->is_my_team) {
-                        if ($b->rule->key === 'nawabari') {
+                        if ($b->rule?->key === 'nawabari') {
                             return $point - 1000;
                         }
                     }
@@ -165,7 +168,7 @@ class DlStats2Controller extends Controller
             foreach ($query->each(500) as $battle) {
                 if (count($battle->myTeamPlayers) && count($battle->hisTeamPlayers)) {
                     if (!$header) {
-                        fwrite($fh, static::csvRow(array_merge(
+                        fwrite($fh, self::csvRow(array_merge(
                             [
                                 '# period',
                                 'game-ver',
@@ -190,14 +193,14 @@ class DlStats2Controller extends Controller
                     }
                     printf("      #%d %s\n", $battle->id, $battle->start_at);
 
-                    $csv = static::csvRow([
-                        gmdate(DateTime::ATOM, BattleHelper::periodToRange2($battle->period)[0]),
+                    $csv = self::csvRow([
+                        gmdate(DateTime::ATOM, BattleHelper::periodToRange2(TypeHelper::int($battle->period))[0]),
                         $battle->version->tag ?? '',
-                        $battle->mode->key,
-                        $battle->lobby->key,
-                        $battle->rule->key,
-                        $battle->map->key,
-                        (string)(strtotime($battle->end_at) - strtotime($battle->start_at)),
+                        $battle->mode->key ?? '',
+                        $battle->lobby->key ?? '',
+                        $battle->rule->key ?? '',
+                        $battle->map->key ?? '',
+                        (string)(strtotime($battle->end_at ?? '') - strtotime($battle->start_at ?? '')),
                         $battle->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                     ]);
@@ -213,11 +216,11 @@ class DlStats2Controller extends Controller
                         }
                     });
                     for ($i = 0; $i < 4; ++$i) {
-                        $csv .= ',' . static::csvRow($playerCsv($battle, $team[$i] ?? null));
+                        $csv .= ',' . self::csvRow($playerCsv($battle, $team[$i] ?? null));
                     }
                     $team = $battle->hisTeamPlayers;
                     for ($i = 0; $i < 4; ++$i) {
-                        $csv .= ',' . static::csvRow($playerCsv($battle, $team[$i] ?? null));
+                        $csv .= ',' . self::csvRow($playerCsv($battle, $team[$i] ?? null));
                     }
                     fwrite($fh, $csv . "\x0d\x0a");
                 }
@@ -308,6 +311,9 @@ class DlStats2Controller extends Controller
             ->setTime(0, 0, 0);
     }
 
+    /**
+     * @param string[] $cols
+     */
     private static function csvRow(array $cols): string
     {
         return implode(',', array_map(

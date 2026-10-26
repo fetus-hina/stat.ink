@@ -10,6 +10,7 @@ declare(strict_types=1);
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\Icon;
+use app\models\Language;
 use app\models\SalmonMap3;
 use app\models\SalmonMap3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
@@ -20,7 +21,7 @@ use yii\web\View;
 /**
  * @var SalmonMap3[] $stages
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TableResponsiveForceAsset::register($this);
@@ -56,7 +57,7 @@ $fmt = Yii::$app->formatter;
     <tbody>
 <?php foreach ($stages as $stage) { ?>
       <tr>
-        <?= Html::tag('td', Icon::s3SalmonStage($stage)) . "\n" ?>
+        <?= Html::tag('td', Icon::s3SalmonStage($stage) ?? '') . "\n" ?>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag(
           'td',

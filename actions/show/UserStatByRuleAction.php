@@ -7,6 +7,7 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\User;
@@ -18,7 +19,8 @@ class UserStatByRuleAction extends BaseAction
 {
     use UserStatFilterTrait;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -38,7 +40,13 @@ class UserStatByRuleAction extends BaseAction
         ]);
     }
 
-    private function getData(User $user, BattleFilterForm $filter)
+    /**
+     * @return array<string, array{
+     *   name: string,
+     *   rules: array<string, array{name: string, win: int, lose: int}>
+     * }>
+     */
+    private function getData(User $user, BattleFilterForm $filter): array
     {
         $query = new Query()
             ->select([
@@ -64,27 +72,29 @@ class UserStatByRuleAction extends BaseAction
             ->andWhere(['in', '{{battle}}.[[is_win]]', [true, false]])
             ->groupBy(['{{battle}}.[[rule_id]]', '{{battle}}.[[is_win]]']);
 
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
 
         $modes = [];
         foreach ($query->createCommand()->queryAll() as $row) {
             $row = (object)$row;
-            if (!isset($modes[$row->mode_key])) {
-                $modes[$row->mode_key] = [
+            $modeKey = (string)$row->mode_key;
+            $ruleKey = (string)$row->rule_key;
+            if (!isset($modes[$modeKey])) {
+                $modes[$modeKey] = [
                     'name' => Yii::t('app-rule', $row->mode_name),
                     'rules' => [],
                 ];
             }
-            if (!isset($modes[$row->mode_key]['rules'][$row->rule_key])) {
-                $modes[$row->mode_key]['rules'][$row->rule_key] = [
+            if (!isset($modes[$modeKey]['rules'][$ruleKey])) {
+                $modes[$modeKey]['rules'][$ruleKey] = [
                     'name' => Yii::t('app-rule', $row->rule_name),
                     'win' => 0,
                     'lose' => 0,
                 ];
             }
-            $modes[$row->mode_key]['rules'][$row->rule_key][$row->result] = (int)$row->count;
+            $modes[$modeKey]['rules'][$ruleKey][$row->result === 'win' ? 'win' : 'lose'] = (int)$row->count;
         }
         return $modes;
     }

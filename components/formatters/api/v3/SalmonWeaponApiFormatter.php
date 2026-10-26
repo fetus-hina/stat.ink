@@ -13,6 +13,9 @@ use app\models\SalmonWeapon3;
 
 final class SalmonWeaponApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?SalmonWeapon3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

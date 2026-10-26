@@ -11,11 +11,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use app\models\query\SalmonMainWeapon2Query;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 use function implode;
 use function sprintf;
 
@@ -27,40 +29,18 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
- * @property integer $weapon_id
+ * @property integer|null $splatnet
+ * @property integer|null $weapon_id
  *
- * @property Weapon2 $weapon
+ * @property Weapon2|null $weapon
  */
 class SalmonMainWeapon2 extends ActiveRecord
 {
     use openapi\Util;
 
-    public static function find()
+    public static function find(): SalmonMainWeapon2Query
     {
-        return new class (static::class) extends ActiveQuery {
-            public function sorted(): self
-            {
-                $kumaFirst = sprintf('(CASE %s END)', implode(' ', [
-                    'WHEN {{salmon_main_weapon2}}.[[weapon_id]] IS NULL THEN 0',
-                    'ELSE 1',
-                ]));
-
-                $this
-                    ->joinWith([
-                        'weapon',
-                        'weapon.type',
-                    ])
-                    ->orderBy([
-                        $kumaFirst => SORT_ASC,
-                        '{{weapon_type2}}.[[category_id]]' => SORT_ASC,
-                        '{{weapon_type2}}.[[rank]]' => SORT_ASC,
-                        '{{salmon_main_weapon2}}.[[key]]' => SORT_ASC,
-                    ]);
-
-                return $this;
-            }
-        };
+        return new SalmonMainWeapon2Query(static::class);
     }
 
     /**
@@ -112,6 +92,9 @@ class SalmonMainWeapon2 extends ActiveRecord
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -121,6 +104,9 @@ class SalmonMainWeapon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -146,6 +132,9 @@ class SalmonMainWeapon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -154,9 +143,12 @@ class SalmonMainWeapon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->andWhere([
@@ -168,6 +160,6 @@ class SalmonMainWeapon2 extends ActiveRecord
                 ->sorted()
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

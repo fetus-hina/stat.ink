@@ -18,9 +18,9 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property integer $schedule_id
- * @property integer $map_id
+ * @property integer|null $map_id
  *
- * @property Map3 $map
+ * @property Map3|null $map
  * @property Schedule3 $schedule
  */
 class ScheduleMap3 extends ActiveRecord

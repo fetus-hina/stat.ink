@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\info;
 
+use Override;
 use Yii;
 use app\models\BigrunMap3;
 use app\models\Language;
@@ -16,14 +17,14 @@ use app\models\Map3;
 use app\models\SalmonMap3;
 use yii\web\ViewAction;
 
-use function array_values;
 use function strcmp;
 use function strnatcasecmp;
 use function usort;
 
 final class Stage3Action extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;
@@ -64,6 +65,6 @@ final class Stage3Action extends ViewAction
                     ?: strcmp($a->key, $b->key),
         );
 
-        return array_values($list);
+        return $list;
     }
 }

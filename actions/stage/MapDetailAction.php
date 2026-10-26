@@ -7,6 +7,7 @@
 
 namespace app\actions\stage;
 
+use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map;
@@ -24,23 +25,27 @@ use function uasort;
 
 class MapDetailAction extends BaseAction
 {
-    public $map;
-    public $rule;
+    public Map $map;
+    public Rule $rule;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
         $req = Yii::$app->request;
-        $this->map = Map::findOne(['key' => $req->get('map')]);
-        $this->rule = Rule::findOne(['key' => $req->get('rule')]);
-        if (!$this->map || !$this->rule) {
-            static::http404();
-            return;
+        $map = Map::findOne(['key' => $req->get('map')]);
+        $rule = Rule::findOne(['key' => $req->get('rule')]);
+        if (!$map || !$rule) {
+            self::http404();
         }
+
+        $this->map = $map;
+        $this->rule = $rule;
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return $this->controller->render('map-detail', [
             'map' => $this->map,
@@ -52,11 +57,14 @@ class MapDetailAction extends BaseAction
         ]);
     }
 
-    private static function http404()
+    private static function http404(): never
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getMaps(): array
     {
         $ret = [];
@@ -67,6 +75,9 @@ class MapDetailAction extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getRules(): array
     {
         $ret = [];
@@ -76,6 +87,9 @@ class MapDetailAction extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function getHistory(): array
     {
         $endAt = null;
@@ -98,6 +112,9 @@ class MapDetailAction extends BaseAction
         );
     }
 
+    /**
+     * @return StatWeaponMapTrend[]
+     */
     private function getWeaponData(): array
     {
         return StatWeaponMapTrend::find()

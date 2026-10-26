@@ -14,10 +14,10 @@ use yii\db\ActiveRecord;
  * This is the model class for table "winikalog_version".
  *
  * @property integer $id
- * @property integer $revision_id
+ * @property integer|null $revision_id
  * @property string $build_at
  *
- * @property IkalogVersion $revision
+ * @property IkalogVersion|null $revision
  */
 class WinikalogVersion extends ActiveRecord
 {

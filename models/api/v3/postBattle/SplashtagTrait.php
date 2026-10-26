@@ -50,7 +50,7 @@ trait SplashtagTrait
         return (int)$model->id;
     }
 
-    protected static function hashNumberVal($value): ?string
+    protected static function hashNumberVal(mixed $value): ?string
     {
         // もし3桁以下の数字だったら0埋めする
         $intVal = self::intVal($value);

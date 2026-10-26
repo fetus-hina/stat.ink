@@ -12,8 +12,10 @@ namespace app\components\widgets;
 use Throwable;
 use Uri\WhatWg\Url as WhatWgUrl;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\base\Widget;
 
+use function is_string;
 use function parse_str;
 use function preg_match;
 use function substr;
@@ -56,18 +58,18 @@ class EmbedVideo extends Widget
                 parse_str($queryStr, $query);
             }
             if ($host === 'www.youtube.com' && $path === '/watch') {
-                if (isset($query['v']) && static::isValidYoutubeId($query['v'])) {
+                if (isset($query['v']) && is_string($query['v']) && static::isValidYoutubeId($query['v'])) {
                     return Yii::createObject([
                         'class' => embedVideo\Youtube::class,
                         'videoId' => $query['v'],
-                        'timeCode' => $query['t'] ?? null,
+                        'timeCode' => TypeHelper::stringOrNull($query['t'] ?? null),
                     ]);
                 }
             } elseif ($host === 'youtu.be' && static::isValidYoutubeId(substr($path, 1))) {
                 return Yii::createObject([
                     'class' => embedVideo\Youtube::class,
                     'videoId' => substr($path, 1),
-                    'timeCode' => $query['t'] ?? null,
+                    'timeCode' => TypeHelper::stringOrNull($query['t'] ?? null),
                 ]);
             } elseif ($host === 'www.twitch.tv' || $host === 'secure.twitch.tv') {
                 if (preg_match('#/videos/(\d+)#', $path, $match)) {

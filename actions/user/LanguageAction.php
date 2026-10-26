@@ -7,9 +7,9 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
-use app\models\Language;
-use yii\base\DynamicModel;
+use app\models\UserLanguageForm;
 use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
 
@@ -17,16 +17,21 @@ use function time;
 
 class LanguageAction extends BaseAction
 {
-    private $previousLanguage = null;
+    private ?string $previousLanguage = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         $this->previousLanguage = Yii::$app->language;
         Yii::$app->language = 'en-US';
         parent::init();
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';
@@ -52,17 +57,8 @@ class LanguageAction extends BaseAction
         ];
     }
 
-    private function makeValidationModel()
+    private function makeValidationModel(): UserLanguageForm
     {
-        return DynamicModel::validateData(
-            ['language' => null],
-            [
-                [['language'], 'required'],
-                [['language'], 'exist',
-                    'targetClass' => Language::className(),
-                    'targetAttribute' => 'lang',
-                ],
-            ],
-        );
+        return UserLanguageForm::validateData(['language' => null]);
     }
 }

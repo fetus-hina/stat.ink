@@ -35,8 +35,8 @@ use const SORT_ASC;
 
 final class UserMiniInfo3 extends Widget
 {
-    public $id = 'user-miniinfo';
-    public $user;
+    public string $id = 'user-miniinfo';
+    public User $user;
 
     public ?Lobby3 $activeLobby = null;
 
@@ -121,7 +121,7 @@ final class UserMiniInfo3 extends Widget
     }
 
     /**
-     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
+     * @param array{group: ?LobbyGroup3, stats: UserStat3[]}[] $models
      */
     private function renderStatsTotal(array $models): string
     {
@@ -336,11 +336,8 @@ final class UserMiniInfo3 extends Widget
         foreach ($models as $model) {
             $group = $model['group'];
             if ($group) {
-                if ($this->activeLobby) {
-                    $activeGroup = $this->activeLobby->group;
-                    if ($activeGroup && $activeGroup->key === $group->key) {
-                        return $group->key;
-                    }
+                if ($this->activeLobby?->group->key === $group->key) {
+                    return $group->key;
                 }
 
                 if ($group->importance > $importance) {
@@ -360,7 +357,7 @@ final class UserMiniInfo3 extends Widget
     private function makePeakRankInfo(array $models): ?array
     {
         /**
-         * @var array{0: Rank3, 1: ?int} $list
+         * @var array<array{Rank3, ?int}> $list
          */
         $list = array_filter(
             array_map(

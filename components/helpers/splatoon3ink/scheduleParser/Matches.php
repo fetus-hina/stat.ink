@@ -18,7 +18,6 @@ use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
-use function array_values;
 use function ceil;
 use function filter_var;
 use function is_int;
@@ -32,36 +31,64 @@ trait Matches
 {
     use TypeHelperTrait;
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     protected static function regularMatch(array $nodes): array
     {
         return self::process($nodes, 'regularMatchSetting', null);
     }
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     protected static function bankaraOpen(array $nodes): array
     {
         return self::process($nodes, 'bankaraMatchSettings', 'OPEN');
     }
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     protected static function bankaraChallenge(array $nodes): array
     {
         return self::process($nodes, 'bankaraMatchSettings', 'CHALLENGE');
     }
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     protected static function xMatch(array $nodes): array
     {
         return self::process($nodes, 'xMatchSetting', null);
     }
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     protected static function leagueMatch(array $nodes): array
     {
         return self::process($nodes, 'leagueMatchSetting', null);
     }
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     protected static function splatfestMatch(array $nodes): array
     {
         return self::process($nodes, 'festMatchSetting', null);
     }
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     private static function process(array $nodes, string $structureKey, ?string $modeKey = null): array
     {
         $results = [];
@@ -93,9 +120,13 @@ trait Matches
             fn (array $a, array $b): int => $a['period'] <=> $b['period'],
         );
 
-        return array_values($results);
+        return $results;
     }
 
+    /**
+     * @param array<mixed> $dataStructure
+     * @return array<string, mixed>
+     */
     private static function processNode(array $dataStructure, string $startTimeStr): array
     {
         return [

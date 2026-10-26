@@ -44,7 +44,7 @@ $iconSize = $panelSize - $panelPadding * 2;
   <div class="panel-body" style="position:relative">
     <?= Html::tag(
       $count > 0 ? null : 'span', 
-      Icon::s3Weapon($key, "{$iconSize}px"),
+      Icon::s3Weapon($key, "{$iconSize}px") ?? '',
       [
         'style' => [
           'filter' => 'grayscale(1)',
@@ -54,7 +54,7 @@ $iconSize = $panelSize - $panelPadding * 2;
     ) . "\n" ?>
     <?= Html::tag(
       'div',
-      Html::encode($count),
+      Html::encode((string)$count),
       [
         'class' => 'auto-tooltip badge',
         'style' => [

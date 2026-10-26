@@ -7,6 +7,7 @@
 
 namespace app\actions\api\internal;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\api\internal\PatchBattleForm as Form;
@@ -16,14 +17,15 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 
-use function is_scalar;
+use function is_string;
 use function preg_match;
 
 class PatchBattleAction extends ViewAction
 {
-    public $battle;
+    public Battle $battle;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -42,20 +44,26 @@ class PatchBattleAction extends ViewAction
         }
 
         $id = $req->get('id');
-        if (!is_scalar($id) || !preg_match('/^\d+$/', $id)) {
+        if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
             throw new BadRequestHttpException();
         }
 
-        if (!$this->battle = Battle::findOne(['id' => $id])) {
+        if (!$battle = Battle::findOne(['id' => (int)$id])) {
             throw new NotFoundHttpException();
         }
 
-        if ($this->battle->user_id != Yii::$app->user->identity->id) {
+        if ($battle->user_id != Yii::$app->user->getIdentity()?->id) {
             throw new ForbiddenHttpException();
         }
+
+        $this->battle = $battle;
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $form = new Form();
         $form->attributes = $_POST;
@@ -76,6 +84,10 @@ class PatchBattleAction extends ViewAction
         return $battle->toJsonArray();
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     * @return array{error: array<string, string[]>}
+     */
     public function formatError(array $errors, int $code = 400): array
     {
         $resp = Yii::$app->getResponse();

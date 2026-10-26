@@ -7,14 +7,18 @@
 
 namespace app\components\ability\effect;
 
+use Override;
+
 class v020900 extends v020800
 {
-    public function getCalculatorVersion()
+    #[Override]
+    public function getCalculatorVersion(): string
     {
         return '2.9.0';
     }
 
-    protected function getSpecialDurationDefaultSec()
+    #[Override]
+    protected function getSpecialDurationDefaultSec(): int|float|null
     {
         switch ($this->battle->weapon->special->key ?? null) {
             case 'barrier':
@@ -28,7 +32,8 @@ class v020900 extends v020800
         }
     }
 
-    protected function getSpecialDurationUpPattern()
+    #[Override]
+    protected function getSpecialDurationUpPattern(): int
     {
         switch ($this->battle->weapon->special->key ?? null) {
             case 'barrier':

@@ -25,6 +25,7 @@ use function array_merge;
 use function filter_var;
 use function http_build_query;
 use function implode;
+use function is_array;
 use function is_float;
 use function microtime;
 use function sprintf;
@@ -74,18 +75,18 @@ use const SORT_DESC;
  * @property integer $hoko_rank_peak
  * @property string $updated_at
  * @property integer $asari_rank_peak
- * @property integer $area_current_rank
- * @property integer $yagura_current_rank
- * @property integer $hoko_current_rank
- * @property integer $asari_current_rank
- * @property string $area_current_x_power
- * @property string $yagura_current_x_power
- * @property string $hoko_current_x_power
- * @property string $asari_current_x_power
- * @property string $area_x_power_peak
- * @property string $yagura_x_power_peak
- * @property string $hoko_x_power_peak
- * @property string $asari_x_power_peak
+ * @property integer|null $area_current_rank
+ * @property integer|null $yagura_current_rank
+ * @property integer|null $hoko_current_rank
+ * @property integer|null $asari_current_rank
+ * @property numeric-string|null $area_current_x_power
+ * @property numeric-string|null $yagura_current_x_power
+ * @property numeric-string|null $hoko_current_x_power
+ * @property numeric-string|null $asari_current_x_power
+ * @property numeric-string|null $area_x_power_peak
+ * @property numeric-string|null $yagura_x_power_peak
+ * @property numeric-string|null $hoko_x_power_peak
+ * @property numeric-string|null $asari_x_power_peak
  *
  * @property User $user
  */
@@ -93,7 +94,7 @@ class UserStat2 extends ActiveRecord
 {
     use openapi\Util;
 
-    public static function getLock(int $userId, float $timeout = 10.0, bool $autoRelease = true)
+    public static function getLock(int $userId, float $timeout = 10.0, bool $autoRelease = true): bool|Resource
     {
         // {{{
         $mutex = Yii::$app->pgMutex;
@@ -259,7 +260,10 @@ class UserStat2 extends ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'createdAtAttribute' => false,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
                 'value' => fn () => new Now(),
             ],
         ];
@@ -602,7 +606,8 @@ class UserStat2 extends ActiveRecord
 
         // echo $query->createCommand()->rawSql . "\n";
 
-        if (!$row = $query->one()) {
+        $row = $query->one();
+        if (!is_array($row) || !$row) {
             foreach (array_keys($this->attributes) as $k) {
                 if ($k === 'user_id' || $k === 'updated_at') {
                     continue;
@@ -627,6 +632,9 @@ class UserStat2 extends ActiveRecord
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getLastBattle(string $ruleKey): array
     {
         $query = new Query()
@@ -666,14 +674,18 @@ class UserStat2 extends ActiveRecord
                         'ELSE {{battle2}}.[[rank_after_exp]]',
                     ])),
                 ]),
-                'xpower' => vsprintf('(CASE %s END)', [
+                'xpower' => sprintf('(CASE %s END)', implode(' ', [
                     'WHEN {{battle2}}.[[x_power_after]] IS NOT NULL THEN {{battle2}}.[[x_power_after]]',
                     'WHEN {{battle2}}.[[x_power]] IS NOT NULL THEN {{battle2}}.[[x_power]]',
-                ]),
+                ])),
             ]);
-        return $query->one() ?: [];
+        $row = $query->one();
+        return is_array($row) ? $row : [];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -825,7 +837,7 @@ class UserStat2 extends ActiveRecord
         return $cache[$value];
     }
 
-    private function xPowerFormatForJson($value): JsExpression
+    private function xPowerFormatForJson(mixed $value): JsExpression
     {
         $value = filter_var($value, FILTER_VALIDATE_FLOAT);
         return is_float($value) && $value > 0.0
@@ -833,6 +845,9 @@ class UserStat2 extends ActiveRecord
             : new JsExpression('null');
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -1099,10 +1114,10 @@ class UserStat2 extends ActiveRecord
                             'type' => 'object',
                             'description' => Yii::t('app-apidoc2', 'Per rule information'),
                             'properties' => [
-                                'area' => static::openApiSchemaRule('Splat Zones'),
-                                'yagura' => static::openApiSchemaRule('Tower Control'),
-                                'hoko' => static::openApiSchemaRule('Rainmaker'),
-                                'asari' => static::openApiSchemaRule('Clam Blitz'),
+                                'area' => self::openApiSchemaRule('Splat Zones'),
+                                'yagura' => self::openApiSchemaRule('Tower Control'),
+                                'hoko' => self::openApiSchemaRule('Rainmaker'),
+                                'asari' => self::openApiSchemaRule('Clam Blitz'),
                             ],
                         ],
                     ],
@@ -1116,6 +1131,9 @@ class UserStat2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private static function openApiSchemaRule(string $rule): array
     {
         return [
@@ -1150,12 +1168,18 @@ class UserStat2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         $model = Yii::createObject([

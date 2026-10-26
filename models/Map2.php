@@ -11,12 +11,13 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
-use yii\db\ActiveQuery;
+use app\models\query\Map2Query;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 use function call_user_func;
 use function count;
 use function is_callable;
@@ -34,24 +35,17 @@ use function substr;
  * @property string $key
  * @property string $name
  * @property string $short_name
- * @property integer $area
- * @property string $release_at
- * @property integer $splatnet
+ * @property integer|null $area
+ * @property string|null $release_at
+ * @property integer|null $splatnet
  */
 class Map2 extends ActiveRecord
 {
     use openapi\Util;
 
-    public static function find(): ActiveQuery
+    public static function find(): Map2Query
     {
-        return new class (static::class) extends ActiveQuery {
-            public function excludeMystery(): self
-            {
-                return $this->andWhere(['and',
-                    ['not', ['like', 'key', 'mystery%', false]],
-                ]);
-            }
-        };
+        return new Map2Query(static::class);
     }
 
     /**
@@ -62,7 +56,10 @@ class Map2 extends ActiveRecord
         return 'map2';
     }
 
-    public static function getSortedMap($callback = null): array
+    /**
+     * @return array<string, string>
+     */
+    public static function getSortedMap(mixed $callback = null): array
     {
         Yii::beginProfile(__METHOD__, self::class);
         try {
@@ -122,6 +119,9 @@ class Map2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         $t = $this->release_at ? strtotime($this->release_at) : null;
@@ -179,6 +179,9 @@ class Map2 extends ActiveRecord
         return 0;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::sort(static::find()->all());
@@ -212,6 +215,9 @@ class Map2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -220,9 +226,12 @@ class Map2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::sort(
                 static::find()
@@ -234,6 +243,6 @@ class Map2 extends ActiveRecord
                     ])
                     ->all(),
             ),
-        );
+        ));
     }
 }

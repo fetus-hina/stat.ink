@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\SalmonStatsHistoryAsset;
+use app\models\User;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -36,13 +38,14 @@ use const SEEK_SET;
 
 class SalmonStatsHistoryWidget extends Widget
 {
-    public $user;
-    public $html;
+    public User $user;
+    public string $html;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
-        if (!$this->html) {
+        if (!isset($this->html)) {
             $this->html = $this->loadDefaultTemplate();
         }
     }
@@ -59,7 +62,7 @@ class SalmonStatsHistoryWidget extends Widget
             function (array $match): string {
                 switch ($match[1]) {
                     case 'id':
-                        return Html::encode($this->id);
+                        return Html::encode($this->id ?? '');
 
                     case 'apiUrl':
                         return Html::encode(
@@ -203,6 +206,9 @@ class SalmonStatsHistoryWidget extends Widget
         return 'points';
     }
 
+    /**
+     * @return array<string, array{short: string, api: string, total: bool, average: bool}>
+     */
     protected function getTabs(): array
     {
         return [

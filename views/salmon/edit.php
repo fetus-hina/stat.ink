@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\models\Salmon2;
+use app\models\Salmon2DeleteForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -15,6 +16,7 @@ use yii\web\View;
 
 /**
  * @var Salmon2 $model
+ * @var Salmon2DeleteForm $deleteForm
  * @var View $this
  */
 

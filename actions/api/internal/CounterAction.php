@@ -25,9 +25,7 @@ use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\Url;
 use yii\web\AssetBundle;
-use yii\web\AssetManager;
 use yii\web\HttpException;
-use yii\web\View;
 
 use function array_merge;
 use function filter_var;
@@ -37,7 +35,10 @@ use const FILTER_VALIDATE_INT;
 
 final class CounterAction extends Action
 {
-    public function run()
+    /**
+     * @return array<string, array{type: string, icon: ?string, label: string, count: int}>
+     */
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'compact-json';
@@ -52,6 +53,9 @@ final class CounterAction extends Action
         throw new HttpException(503, 'Fetch failed');
     }
 
+    /**
+     * @return array<string, array{type: string, icon: ?string, label: string, count: int}>
+     */
     private function make(): array
     {
         $data = Yii::$app->cache->getOrSet(
@@ -124,6 +128,7 @@ final class CounterAction extends Action
 
     /**
      * @param class-string<AssetBundle> $iconAsset
+     * @return array<string, array{type: string, icon: ?string, label: string, count: int}>
      */
     private static function format(
         string $key,
@@ -140,20 +145,14 @@ final class CounterAction extends Action
         $iconUrl = null;
         if ($iconAsset && $iconFile) {
             $am = Yii::$app->assetManager;
-            $view = Yii::$app->view;
-            if (
-                $am instanceof AssetManager &&
-                $view instanceof View
-            ) {
-                $iconUrl = Url::to(
-                    $am->getAssetUrl(
-                        bundle: $am->getBundle($iconAsset),
-                        asset: $iconFile,
-                        appendTimestamp: false,
-                    ),
-                    true,
-                );
-            }
+            $iconUrl = Url::to(
+                $am->getAssetUrl(
+                    bundle: $am->getBundle($iconAsset),
+                    asset: $iconFile,
+                    appendTimestamp: false,
+                ),
+                true,
+            );
         }
 
         return [

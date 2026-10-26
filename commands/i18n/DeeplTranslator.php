@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands\i18n;
 
 use DOMDocument;
+use DOMElement;
 use DOMNode;
 use DOMXPath;
 use DateTimeImmutable;
@@ -18,11 +19,12 @@ use DirectoryIterator;
 use Exception;
 use Normalizer;
 use ParagonIE\ConstantTime\Base32;
+use RuntimeException;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Language;
 use yii\base\Component;
-use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\httpclient\Client as HttpClient;
@@ -33,7 +35,6 @@ use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_merge;
-use function array_reduce;
 use function array_slice;
 use function array_unique;
 use function array_values;
@@ -55,6 +56,7 @@ use function mb_strlen;
 use function mb_strpos;
 use function mb_substr;
 use function natcasesort;
+use function preg_last_error_msg;
 use function preg_replace;
 use function preg_replace_callback;
 use function rawurlencode;
@@ -68,6 +70,7 @@ use function strnatcasecmp;
 use function strpos;
 use function strtolower;
 use function strtoupper;
+use function strval;
 use function substr;
 use function trim;
 use function usort;
@@ -109,18 +112,23 @@ class DeeplTranslator extends Component
             }
             return $status;
         } finally {
-            setlocale(LC_ALL, $oldLocale);
+            if ($oldLocale !== false) {
+                setlocale(LC_ALL, $oldLocale);
+            }
         }
     }
 
+    /**
+     * @param string[] $targetFileNames
+     */
     private function runLanguage(string $lang, array $targetFileNames): bool
     {
         foreach ($targetFileNames as $targetFileName) {
             fwrite(STDERR, "Processing machine-translation: {$lang} / {$targetFileName}\n");
 
-            $japanesePath = Yii::getAlias(static::BASE_MESSAGE_DIR) . '/ja/' . $targetFileName;
+            $japanesePath = Yii::getAlias(self::BASE_MESSAGE_DIR) . '/ja/' . $targetFileName;
             $outputPath = implode('/', [
-                Yii::getAlias(static::OUT_MESSAGE_DIR),
+                Yii::getAlias(self::OUT_MESSAGE_DIR),
                 $lang,
                 $targetFileName,
             ]);
@@ -135,17 +143,16 @@ class DeeplTranslator extends Component
             }
 
             $englishTexts = array_filter(
-                array_keys(include $japanesePath),
-                fn ($text) => is_array(static::tokenizePattern($text)),
+                array_map(strval(...), array_keys(include $japanesePath)),
+                fn ($text) => is_array(self::tokenizePattern($text)),
             );
 
             // "Salmon Run" は翻訳対象から外す
             $englishTexts = array_filter($englishTexts, fn ($text) => $text !== 'Salmon Run');
 
             usort($englishTexts, fn ($a, $b) => strnatcasecmp($a, $b) ?: strcmp($a, $b));
-            $englishTexts = array_values($englishTexts);
             $localizedTexts = array_map(
-                fn ($text) => static::xml2template($text),
+                fn ($text) => self::xml2template($text),
                 $this->translate(
                     $lang,
                     array_map(
@@ -153,7 +160,7 @@ class DeeplTranslator extends Component
                         // テンプレート部分を XML の要素に押し込める
                         // 当該部分は翻訳されないことになるが、 "{start}" が "{開始}" とかに変換される
                         // 最悪の事態は避けられるし、不自然に翻訳が適用されない箇所も減らせるハズ
-                        fn ($text) => static::template2xml($text) ?? '',
+                        fn ($text) => self::template2xml($text) ?? '',
                         $englishTexts,
                     ),
                 ),
@@ -164,6 +171,11 @@ class DeeplTranslator extends Component
 
             fwrite(STDERR, "Writing...\n");
             $fh = fopen($outputPath, 'wt');
+            if (!$fh) {
+                fwrite(STDERR, 'Could not open file: ' . $outputPath . "\n");
+                return false;
+            }
+
             fwrite($fh, "<?php\n\n");
             fwrite($fh, "/**\n");
             vfprintf($fh, " * @copyright Copyright (C) 2015-%d AIZAWA Hina\n", [
@@ -189,6 +201,9 @@ class DeeplTranslator extends Component
         return true;
     }
 
+    /**
+     * @return list<string>
+     */
     private function getTargetLanguages(): array
     {
         $statinkLanguages = array_map(
@@ -215,6 +230,9 @@ class DeeplTranslator extends Component
         return $results |> array_unique(...) |> array_values(...);
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getDeeplSupportedLanguages(): array
     {
         static $cache = null;
@@ -250,10 +268,13 @@ class DeeplTranslator extends Component
         return $cache;
     }
 
+    /**
+     * @return list<string>
+     */
     private function getTargetFiles(): array
     {
         $list = [];
-        $it = new DirectoryIterator(Yii::getAlias(static::BASE_MESSAGE_DIR) . '/ja');
+        $it = new DirectoryIterator(Yii::getAlias(self::BASE_MESSAGE_DIR) . '/ja');
         foreach ($it as $entry) {
             if (
                 $entry->isDot() ||
@@ -299,6 +320,10 @@ class DeeplTranslator extends Component
         return array_values($list);
     }
 
+    /**
+     * @param string[] $englishTexts
+     * @return string[]
+     */
     private function translate(string $lang, array $englishTexts): array
     {
         $results = [];
@@ -313,6 +338,10 @@ class DeeplTranslator extends Component
         return $results;
     }
 
+    /**
+     * @param string[] $englishTexts
+     * @return string[]
+     */
     private function doTranslate(string $lang, array $englishTexts): array
     {
         $resp = $this->httpPostJson(
@@ -335,17 +364,21 @@ class DeeplTranslator extends Component
             )),
         );
         return array_map(
-            fn ($data) => Normalizer::normalize(trim($data['text']), Normalizer::FORM_C),
+            fn ($data) => TypeHelper::string(Normalizer::normalize(trim($data['text']), Normalizer::FORM_C)),
             $resp['translations'],
         );
     }
 
+    /**
+     * @param array<string, mixed> $params
+     * @return array<mixed>
+     */
     private function httpGetJson(string $url, array $params = []): array
     {
         fprintf(STDERR, "  * Requesting to %s\n", $url);
         $client = Yii::createObject([
             'class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
             'responseConfig' => [
                 'format' => HttpClient::FORMAT_JSON,
             ],
@@ -362,12 +395,17 @@ class DeeplTranslator extends Component
         return $resp->getData();
     }
 
-    private function httpPostJson(string $url, array $params = [], $contents = ''): array
+    /**
+     * @param array<string, mixed> $params
+     * @param array<mixed>|string $contents
+     * @return array<mixed>
+     */
+    private function httpPostJson(string $url, array $params = [], array|string $contents = ''): array
     {
         fprintf(STDERR, "  * Requesting to %s\n", $url);
         $client = Yii::createObject([
             'class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
             'responseConfig' => [
                 'format' => HttpClient::FORMAT_JSON,
             ],
@@ -404,13 +442,13 @@ class DeeplTranslator extends Component
         // タグのようなものを見つけたら XML として解釈できないか試行して、地の文だけ翻訳を試みる
         // Ref. https://github.com/fetus-hina/stat.ink/issues/739
         return str_contains($text, '<')
-            ? static::templateToXmlMayXml($text)
-            : static::templateToXmlSimple($text);
+            ? self::templateToXmlMayXml($text)
+            : self::templateToXmlSimple($text);
     }
 
     private static function templateToXmlSimple(string $text): ?string
     {
-        $tokens = static::tokenizePattern($text);
+        $tokens = self::tokenizePattern($text);
         if ($tokens === false) {
             return null;
         }
@@ -428,7 +466,7 @@ class DeeplTranslator extends Component
         ));
     }
 
-    private static function templateToXmlMayXml(string $textMayXml): ?string
+    private static function templateToXmlMayXml(string $textMayXml): string
     {
         try {
             $wrapped = vsprintf('%s<div id="wrap">%s</div>', [
@@ -439,20 +477,19 @@ class DeeplTranslator extends Component
             $doc->preserveWhiteSpace = true;
             $doc->recover = true;
             if ($doc->loadXML($wrapped, LIBXML_COMPACT | LIBXML_NOCDATA | LIBXML_NONET)) {
-                $replaced = static::processTemplateXml(
-                    $doc,
-                    new DOMXPath($doc)
-                        ->query('/div[@id="wrap"]', $doc)
-                        ->item(0),
-                );
-                if ($replaced !== null) {
-                    return $replaced;
+                $nodes = new DOMXPath($doc)->query('/div[@id="wrap"]', $doc);
+                $wrap = $nodes ? $nodes->item(0) : null;
+                if ($wrap instanceof DOMNode) {
+                    $replaced = self::processTemplateXml($doc, $wrap);
+                    if ($replaced !== null) {
+                        return $replaced;
+                    }
                 }
             }
         } catch (Throwable $e) {
         }
 
-        return static::xml2template($textMayXml);
+        return self::xml2template($textMayXml);
     }
 
     private static function processTemplateXml(
@@ -460,18 +497,15 @@ class DeeplTranslator extends Component
         DOMNode $node,
         bool $isRoot = true,
     ): ?string {
-        if ($node->nodeType !== XML_ELEMENT_NODE) {
+        if (!$node instanceof DOMElement) {
             return null;
         }
 
-        $startTag = Html::beginTag($node->nodeName, array_reduce(
-            ArrayHelper::getColumn(
-                $node->attributes,
-                fn (DOMNode $attr): array => [$attr->nodeName => $attr->nodeValue],
-            ),
-            fn (array $acc, array $cur) => array_merge($acc, $cur),
-            [],
-        ));
+        $attributes = [];
+        foreach ($node->attributes as $attr) {
+            $attributes[$attr->nodeName] = $attr->nodeValue;
+        }
+        $startTag = Html::beginTag($node->nodeName, $attributes);
 
         // process empty element
         if (isset(Html::$voidElements[strtolower($node->nodeName)])) {
@@ -482,14 +516,14 @@ class DeeplTranslator extends Component
         foreach ($node->childNodes as $child) {
             switch ($child->nodeType) {
                 case XML_ELEMENT_NODE:
-                    if (!$tmp = static::processTemplateXml($doc, $child, false)) {
+                    if (!$tmp = self::processTemplateXml($doc, $child, false)) {
                         return null;
                     }
                     $contents[] = $tmp;
                     break;
 
                 case XML_TEXT_NODE:
-                    $tmp = static::templateToXmlSimple($child->nodeValue);
+                    $tmp = self::templateToXmlSimple($child->nodeValue ?? '');
                     if ($tmp === null) {
                         return null;
                     }
@@ -516,16 +550,20 @@ class DeeplTranslator extends Component
             '#<param data="([2-7A-Za-z]+=*)"\s*/>#',
             fn ($match) => ' ' . Base32::decode($match[1]) . ' ',
             $text,
-        );
-        $text = preg_replace('/\x20{2,}/', ' ', $text);
+        ) ?? throw new RuntimeException(preg_last_error_msg());
+        $text = preg_replace('/\x20{2,}/', ' ', $text) ?? throw new RuntimeException(preg_last_error_msg());
         return trim($text);
     }
 
     // Copied from MessageFormatter
     // Copyright (C) Copyright (c) 2008 Yii Software LLC
-    private static function tokenizePattern($pattern)
+
+    /**
+     * @return list<string|list<string>>|false
+     */
+    private static function tokenizePattern(string $pattern): array|false
     {
-        $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        $charset = Yii::$app->charset;
         $depth = 1;
         if (($start = $pos = mb_strpos($pattern, '{', 0, $charset)) === false) {
             return [$pattern];
@@ -558,7 +596,7 @@ class DeeplTranslator extends Component
                 $start = $open;
             }
 
-            if ($depth !== 0 && ($open === false || $close === false)) {
+            if ($depth !== 0 && $close === false) {
                 break;
             }
         }

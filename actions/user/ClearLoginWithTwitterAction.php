@@ -7,17 +7,23 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use yii\helpers\Url;
+use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class ClearLoginWithTwitterAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): Response
     {
         $response = Yii::$app->response;
 
-        $user = Yii::$app->user->identity;
+        if (!$user = Yii::$app->user->identity) {
+            throw new ServerErrorHttpException();
+        }
         $info = $user->loginWithTwitter;
         if ($info) {
             $info->delete();

@@ -14,6 +14,7 @@ use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\components\widgets\WinLoseLegend;
+use app\models\Battle2FilterForm;
 use app\models\User;
 use jp3cki\yii2\flot\FlotPieAsset;
 use statink\yii2\stages\spl2\Spl2Stage;
@@ -23,8 +24,12 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var Battle2FilterForm $filter
  * @var User $user
  * @var View $this
+ * @var array<string, array<string, array{win: int, lose: int, kill: int|null, death: int|null, kd_battle: int}>> $data
+ * @var array<string, string> $mapNames
+ * @var array<string, string> $ruleNames
  */
 
 TableResponsiveForceAsset::register($this);

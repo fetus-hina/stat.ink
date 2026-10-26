@@ -20,6 +20,9 @@ final class SalmonApiFormatter
 {
     use FloatValTrait;
 
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(
         ?Salmon3 $model,
         bool $isAuthenticated = false,
@@ -98,7 +101,7 @@ final class SalmonApiFormatter
     private static function guessKingSalmonid(Salmon3 $model): ?SalmonKing3
     {
         try {
-            if (version_compare($model->version?->tag ?? '0.0.0', '6.0.0', '<')) {
+            if (version_compare($model->version->tag ?? '0.0.0', '6.0.0', '<')) {
                 return null;
             }
 

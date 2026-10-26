@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use Override;
 use app\commands\asset\CleanupAction;
 use app\commands\asset\PublishAction;
 use app\commands\asset\UpRevisionAction;
@@ -16,8 +17,11 @@ use yii\console\Controller;
 
 class AssetController extends Controller
 {
-    /** @return array */
-    public function actions()
+    /**
+     * @return array<string, class-string>
+     */
+    #[Override]
+    public function actions(): array
     {
         return [
             'cleanup' => CleanupAction::class,

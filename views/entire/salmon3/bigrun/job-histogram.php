@@ -29,7 +29,6 @@ if (
     !$histogram ||
     !$abstract ||
     count($histogram) < 5 ||
-    $abstract->average === null ||
     $abstract->stddev === null
 ) {
   return;
@@ -48,12 +47,10 @@ $datasetHistogram = [
   'borderColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderWidth' => 1,
   'categoryPercentage' => 1.0,
-  'data' => array_values(
-    array_map(
-      fn (int $x, int $y): array => compact('x', 'y'),
-      array_keys($histogram),
-      array_values($histogram),
-    ),
+  'data' => array_map(
+    fn (int $x, int $y): array => compact('x', 'y'),
+    array_keys($histogram),
+    array_values($histogram),
   ),
   'label' => Yii::t('app-salmon2', 'Jobs'),
   'type' => 'bar',
@@ -83,7 +80,8 @@ $makeWaveDistributionData = function (
     $abstract->{$prefix . '_jobs'} >= 10 &&
     $abstract->{$prefix . '_average'} !== null &&
     $abstract->{$prefix . '_stddev'} !== null &&
-    $abstract->{$prefix . '_stddev'} > 0
+    $abstract->{$prefix . '_stddev'} > 0 &&
+    $abstract->histogram_width !== null
   ) {
     $color = $failedWave > 3
       ? new JsExpression('window.colorScheme.graph1')
@@ -174,7 +172,7 @@ $datasetClearedDistrib = $makeWaveDistributionData($abstract, 4, 'clear');
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => $abstract?->histogram_width ?? 5,
+              'stepSize' => $abstract->histogram_width ?? 5,
             ],
           ],
           'y' => [

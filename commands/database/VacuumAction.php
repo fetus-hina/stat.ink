@@ -14,7 +14,6 @@ use yii\base\Action;
 use yii\console\ExitCode;
 use yii\db\Connection;
 
-use function assert;
 use function microtime;
 use function preg_match;
 use function vfprintf;
@@ -26,7 +25,6 @@ final class VacuumAction extends Action
     public function run(): int
     {
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
 
         vfprintf(STDERR, "Vacuuming database (database=%s)\n", [
             $this->getDatabaseName($db) ?? '[unknown]',

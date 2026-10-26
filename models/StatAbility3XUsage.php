@@ -21,11 +21,11 @@ use yii\db\ActiveRecord;
  * @property integer $range_id
  * @property integer $players
  * @property integer $key_players
- * @property double $key_avg_gp
- * @property double $key_sd_gp
+ * @property double|null $key_avg_gp
+ * @property double|null $key_sd_gp
  * @property integer $_players
- * @property double $_avg_gp
- * @property double $_sd_gp
+ * @property double|null $_avg_gp
+ * @property double|null $_sd_gp
  *
  * @property StatWeapon3XUsageRange $range
  * @property Rule3 $rule

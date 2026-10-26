@@ -10,17 +10,23 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
+use app\models\BattleFilterForm;
 use app\models\Language;
 use app\models\User;
 use yii\bootstrap\ActiveForm;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\widgets\ListView;
 
 /**
+ * @var ActiveDataProvider $battleDataProvider
+ * @var BattleFilterForm $filter
  * @var User $user
  * @var View $this
+ * @var stdClass $summary
+ * @var string $permLink
  */
 
 BattleListAsset::register($this);

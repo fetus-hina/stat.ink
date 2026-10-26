@@ -18,7 +18,6 @@ use yii\i18n\Formatter;
 use yii\web\View;
 
 /**
- * @phpstan-import-type WaveStats from OverfishingTrait
  *
  * @var Formatter $fmt
  * @var SalmonEvent3|null $event

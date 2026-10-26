@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\models\openapi;
 
+use Closure;
 use ParagonIE\ConstantTime\Base32;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -83,14 +84,14 @@ trait Util
     /**
      * @param string|callable $category
      * @param array<mixed> $items
-     * @param string|callable|null $keyColumn
+     * @param string|Closure|null $keyColumn
      * @param string|string[]|null $splatnetKeys
      */
     public static function oapiKeyValueTable(
         string $valueLabel,
         /* string|callable */ $category,
         array $items,
-        /* ?string|callable */ $keyColumn = 'key',
+        /* ?string|Closure */ $keyColumn = 'key',
         ?string $valueColumn = 'name',
         ?string $keyLabelHtml = null,
         /* null|string|array */ $splatnetKeys = null,
@@ -114,8 +115,8 @@ trait Util
         $splatnetKeys = $splatnetKeys ? (array)$splatnetKeys : [];
 
         return Html::tag('table', implode('', [
-            static::oapiKeyValueTableThead($keyLabelHtml, $valueLabel, $splatnetKeys),
-            static::oapiKeyValueTableTbody(
+            self::oapiKeyValueTableThead($keyLabelHtml, $valueLabel, $splatnetKeys),
+            self::oapiKeyValueTableTbody(
                 ArrayHelper::getColumn($items, $keyColumn),
                 ArrayHelper::getColumn(
                     $items,
@@ -163,7 +164,7 @@ trait Util
     /**
      * @param string[] $keys
      * @param string[] $values
-     * @param string[] $splatnetValues
+     * @param string[][] $splatnetValues
      */
     private static function oapiKeyValueTableTbody(
         array $keys,

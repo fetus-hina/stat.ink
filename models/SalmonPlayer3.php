@@ -20,26 +20,26 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $salmon_id
  * @property boolean $is_me
- * @property string $name
- * @property string $number
- * @property integer $splashtag_title_id
- * @property integer $uniform_id
- * @property integer $special_id
- * @property integer $golden_eggs
- * @property integer $golden_assist
- * @property integer $power_eggs
- * @property integer $rescue
- * @property integer $rescued
- * @property integer $defeat_boss
+ * @property string|null $name
+ * @property string|null $number
+ * @property integer|null $splashtag_title_id
+ * @property integer|null $uniform_id
+ * @property integer|null $special_id
+ * @property integer|null $golden_eggs
+ * @property integer|null $golden_assist
+ * @property integer|null $power_eggs
+ * @property integer|null $rescue
+ * @property integer|null $rescued
+ * @property integer|null $defeat_boss
  * @property boolean $is_disconnected
- * @property integer $species_id
+ * @property integer|null $species_id
  *
  * @property Salmon3 $salmon
  * @property SalmonPlayerWeapon3[] $salmonPlayerWeapon3s
- * @property Special3 $special
- * @property Species3 $species
- * @property SplashtagTitle3 $splashtagTitle
- * @property SalmonUniform3 $uniform
+ * @property Special3|null $special
+ * @property Species3|null $species
+ * @property SplashtagTitle3|null $splashtagTitle
+ * @property SalmonUniform3|null $uniform
  */
 class SalmonPlayer3 extends ActiveRecord
 {

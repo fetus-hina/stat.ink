@@ -12,6 +12,7 @@ namespace app\commands;
 use Curl\Curl;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 
@@ -69,6 +70,9 @@ class CloudflareController extends Controller
         return 0;
     }
 
+    /**
+     * @return list<string>|null
+     */
     private function downloadIpRanges(): ?array
     {
         $list = array_merge(
@@ -98,13 +102,16 @@ class CloudflareController extends Controller
             }
 
             // アドレス順に並ぶはず
-            return strcmp(inet_pton($aAddr), inet_pton($bAddr))
+            return strcmp(TypeHelper::string(inet_pton($aAddr)), TypeHelper::string(inet_pton($bAddr)))
                 ?: strcmp($a, $b);
         });
 
         return $list ? ($list |> array_unique(...) |> array_values(...)) : null;
     }
 
+    /**
+     * @return list<string>|null
+     */
     private function downloadIpRangesFile(string $url, int $filterFlag): ?array
     {
         try {

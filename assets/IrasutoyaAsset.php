@@ -18,6 +18,9 @@ class IrasutoyaAsset extends AssetBundle
     public $css = [];
     public $js = [];
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function img(string $file, array $options = []): string
     {
         return Html::img(

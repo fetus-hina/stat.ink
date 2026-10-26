@@ -11,12 +11,12 @@ use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\components\helpers\TypeHelper;
 use app\models\SalmonEvent3;
 use app\models\SalmonWaterLevel2;
+use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @phpstan-import-type EventStats from EventTrait
  *
  * @var EventStats $eventStats
  * @var SalmonEvent3|null $event
@@ -25,7 +25,7 @@ use yii\web\View;
  * @var array<int, SalmonWaterLevel2> $tides
  */
 
-$tideStats = ArrayHelper::getValue($eventStats, $event?->id ?? 0);
+$tideStats = $eventStats[$event->id ?? 0] ?? null;
 if (!$tideStats) {
   return;
 }
@@ -44,19 +44,19 @@ foreach ($eventStats as $row1) {
   <?= Html::tag(
     'th',
     Html::encode(
-      Yii::t('app-salmon-event3', $event?->name ?? '(Normal)'),
+      Yii::t('app-salmon-event3', $event->name ?? '(Normal)'),
     ),
     ['class' => $event ? 'text-left' : 'text-center'],
   ) . "\n" ?>
 <?php foreach ($tides as $tide) { ?>
-<?php $row = ArrayHelper::getValue($tideStats, $tide->id); ?>
+<?php $row = $tideStats[$tide->id] ?? null; ?>
   <?= $this->render('event-row/tide', [
-    'cleared' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'cleared')),
+    'cleared' => TypeHelper::intOrNull(ArrayHelper::getValue($row ?? [], 'cleared')),
     'tideWaves' => $totalWavesPerTide[$tide->id] ?? 0,
-    'totalDelivered' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'total_delivered')),
-    'totalQuota' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'total_quota')),
+    'totalDelivered' => TypeHelper::intOrNull(ArrayHelper::getValue($row ?? [], 'total_delivered')),
+    'totalQuota' => TypeHelper::intOrNull(ArrayHelper::getValue($row ?? [], 'total_quota')),
     'totalWaves' => $totalWaves,
-    'waves' => TypeHelper::intOrNull(ArrayHelper::getValue($row, 'waves')),
+    'waves' => TypeHelper::intOrNull(ArrayHelper::getValue($row ?? [], 'waves')),
   ]) . "\n" ?>
 <?php } ?>
 </tr>

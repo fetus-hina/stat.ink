@@ -56,6 +56,9 @@ final class BigrunAction extends Action
         return $controller->render('salmon3/bigrun', $thing);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(Connection $db): Response|array
     {
         $scheduleId = filter_var(Yii::$app->request->get('shift'), FILTER_VALIDATE_INT);
@@ -171,11 +174,11 @@ final class BigrunAction extends Action
     }
 
     private static function ruleOfThumbDistrib(
-        StatBigrunDistribJobAbstract3 $abstract,
+        ?StatBigrunDistribJobAbstract3 $abstract,
     ): ?NormalDistribution {
         if (
+            $abstract === null ||
             $abstract->users < 50 ||
-            $abstract->average === null ||
             $abstract->stddev === null ||
             $abstract->p95 === null ||
             $abstract->p80 === null ||

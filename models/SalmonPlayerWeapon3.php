@@ -19,10 +19,10 @@ use yii\db\ActiveRecord;
  *
  * @property integer $player_id
  * @property integer $wave
- * @property integer $weapon_id
+ * @property integer|null $weapon_id
  *
  * @property SalmonPlayer3 $player
- * @property SalmonWeapon3 $weapon
+ * @property SalmonWeapon3|null $weapon
  */
 class SalmonPlayerWeapon3 extends ActiveRecord
 {

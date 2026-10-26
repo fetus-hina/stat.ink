@@ -17,6 +17,7 @@ use app\models\User;
 use app\models\UserStatEggstraWork3;
 use yii\db\Connection;
 use yii\db\Query;
+use LogicException;
 
 use function vsprintf;
 
@@ -49,11 +50,15 @@ trait EggstraWorkTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private static function makeEggstraWorkStats(
         Connection $db,
         User $user,

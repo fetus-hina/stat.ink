@@ -27,12 +27,12 @@ class MachineTranslateHelper
         string $message,
         string $language,
     ): ?string {
-        if (!$paths = static::getMessagePaths($category, $language)) {
+        if (!$paths = self::getMessagePaths($category, $language)) {
             return null;
         }
 
         foreach ($paths as $path) {
-            if (($text = static::getMessage($path, $message)) !== null) {
+            if (($text = self::getMessage($path, $message)) !== null) {
                 return $text;
             }
         }
@@ -50,18 +50,24 @@ class MachineTranslateHelper
         return $cache[$path][$message] ?? null;
     }
 
+    /**
+     * @return list<string>|null
+     */
     private static function getMessagePaths(string $category, string $language): ?array
     {
         static $cache = [];
 
         $cacheId = $language . '/' . $category;
         if (!isset($cache[$cacheId])) {
-            $cache[$cacheId] = static::getMessagePathsImpl($category, $language);
+            $cache[$cacheId] = self::getMessagePathsImpl($category, $language);
         }
 
         return $cache[$cacheId];
     }
 
+    /**
+     * @return list<string>|null
+     */
     private static function getMessagePathsImpl(string $category, string $language): ?array
     {
         $msgSource = Yii::$app->i18n->getMessageSource($category);
@@ -73,7 +79,7 @@ class MachineTranslateHelper
         $results = [];
         foreach ($langCandidates as $lang) {
             $path = implode('/', [
-                Yii::getAlias(static::BASE_DIRECTORY),
+                Yii::getAlias(self::BASE_DIRECTORY),
                 $lang,
                 $fileName,
             ]);

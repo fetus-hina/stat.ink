@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 
 use const SORT_ASC;
 
@@ -79,7 +80,10 @@ class Ability extends ActiveRecord
         return $this->hasMany(Brand::class, ['weakness_id' => 'id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -87,6 +91,9 @@ class Ability extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -110,6 +117,9 @@ class Ability extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -117,14 +127,17 @@ class Ability extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $models = static::find()
             ->orderBy(['key' => SORT_ASC])
             ->all();
-        return array_map(
+        return array_values(array_map(
             fn ($model) => $model->toJsonArray(),
             $models,
-        );
+        ));
     }
 }

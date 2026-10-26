@@ -11,6 +11,7 @@ namespace app\components\widgets;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use RuntimeException;
 use Throwable;
 use Yii;
 use app\assets\TimezoneDialogAsset;
@@ -27,6 +28,7 @@ use function array_merge;
 use function array_slice;
 use function floor;
 use function implode;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function sprintf;
@@ -73,7 +75,7 @@ final class TimezoneDialog extends Dialog
         return Yii::$app->cache->getOrSet(
             [
                 __METHOD__,
-                Yii::$app->locale,
+                Yii::$app->getLocale(),
                 Yii::$app->timeZone,
             ],
             fn (): string => Html::tag(
@@ -201,7 +203,8 @@ final class TimezoneDialog extends Dialog
                         'class' => 'collapse',
                         'id' => sprintf(
                             'tzgroup-%s',
-                            trim(preg_replace('/[^a-z]+/', '-', strtolower($group->name)), '-'),
+                            trim(preg_replace('/[^a-z]+/', '-', strtolower($group->name))
+                                ?? throw new RuntimeException(preg_last_error_msg()), '-'),
                         ),
                     ],
                 );
@@ -231,7 +234,8 @@ final class TimezoneDialog extends Dialog
                     'toggle' => 'collapse',
                     'target' => sprintf(
                         '#tzgroup-%s',
-                        trim(preg_replace('/[^a-z]+/', '-', strtolower($group->name)), '-'),
+                        trim(preg_replace('/[^a-z]+/', '-', strtolower($group->name))
+                            ?? throw new RuntimeException(preg_last_error_msg()), '-'),
                     ),
                 ],
             ],

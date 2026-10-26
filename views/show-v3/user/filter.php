@@ -23,7 +23,6 @@ use yii\web\View;
  * @var Battle3FilterWidget $filter
  * @var User $user
  * @var View $this
- * @var array $summary
  */
 
 $columns = require __DIR__ . '/list-options/columns.php';

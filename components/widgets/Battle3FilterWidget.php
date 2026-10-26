@@ -11,6 +11,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\AutoTooltipAsset;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3FilterForm;
 use app\models\Battle3PlayedWith;
 use app\models\User;
@@ -31,7 +32,7 @@ use function vsprintf;
 
 final class Battle3FilterWidget extends Widget
 {
-    public $id = 'filter-form';
+    public string $id = 'filter-form';
     public ?string $route = null;
     public ?User $user = null;
     public ?Battle3FilterForm $filter = null;
@@ -79,7 +80,7 @@ final class Battle3FilterWidget extends Widget
             echo $this->drawFields($form);
             ActiveForm::end();
             echo Html::endTag('div');
-            return ob_get_contents();
+            return TypeHelper::string(ob_get_contents());
         } finally {
             ob_end_clean();
         }
@@ -360,7 +361,7 @@ final class Battle3FilterWidget extends Widget
                 ->dropDownList(
                     ...$filter->getPlayedWithDropdown(
                         $this->user,
-                        $filter->played_with && !$filter->hasErrors('played_with')
+                        $this->user && $filter->played_with && !$filter->hasErrors('played_with')
                             ? Battle3PlayedWith::findOne([
                                 'user_id' => $this->user->id,
                                 'ref_id' => $filter->played_with,

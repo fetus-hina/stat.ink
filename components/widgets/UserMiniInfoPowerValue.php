@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use RuntimeException;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 
 use function implode;
+use function preg_last_error_msg;
 use function preg_replace_callback;
 
 final class UserMiniInfoPowerValue extends Widget
@@ -51,7 +53,7 @@ final class UserMiniInfoPowerValue extends Widget
                         Html::tag('span', Html::encode($match[2]), ['class' => 'small text-muted']),
                     ]),
                     $text,
-                ),
+                ) ?? throw new RuntimeException(preg_last_error_msg()),
                 [
                     'class' => 'scale-x',
                     'style' => [
@@ -71,7 +73,7 @@ final class UserMiniInfoPowerValue extends Widget
                     Html::tag('span', Html::encode($match[3]), ['class' => 'small text-muted']),
                 ]),
                 $text,
-            ),
+            ) ?? throw new RuntimeException(preg_last_error_msg()),
             [
                 'class' => 'scale-x',
                 'style' => [

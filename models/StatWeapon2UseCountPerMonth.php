@@ -36,10 +36,10 @@ use yii\db\ActiveRecord;
  * @property integer $inked_with_time
  * @property integer $inked_time_available
  * @property integer $inked_time_seconds
- * @property integer $knockout_wins
- * @property integer $timeup_wins
- * @property integer $knockout_loses
- * @property integer $timeup_loses
+ * @property integer|null $knockout_wins
+ * @property integer|null $timeup_wins
+ * @property integer|null $knockout_loses
+ * @property integer|null $timeup_loses
  *
  * @property Rule2 $rule
  * @property Weapon2 $weapon

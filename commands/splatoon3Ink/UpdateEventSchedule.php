@@ -11,6 +11,7 @@ namespace app\commands\splatoon3Ink;
 
 use DateTimeInterface;
 use Exception;
+use LogicException;
 use UnexpectedValueException;
 use Yii;
 use app\components\helpers\TypeHelper;
@@ -39,6 +40,9 @@ use const STDERR;
 
 trait UpdateEventSchedule
 {
+    /**
+     * @param array<string, mixed> $schedules
+     */
     protected function updateEventSchedule(array $schedules): int
     {
         $events = ArrayHelper::getValue($schedules, 'event');
@@ -50,7 +54,8 @@ trait UpdateEventSchedule
             function (Connection $db) use ($events): int {
                 foreach ($events as $event) {
                     if (!$this->registerEventSchedule($event)) {
-                        $db->transaction->rollBack();
+                        ($db->transaction ?? throw new LogicException('No active transaction'))
+                            ->rollBack();
                         return ExitCode::UNSPECIFIED_ERROR;
                     }
                 }
@@ -61,6 +66,9 @@ trait UpdateEventSchedule
         );
     }
 
+    /**
+     * @param array<string, mixed> $eventData
+     */
     private function registerEventSchedule(array $eventData): bool
     {
         $event = $this->registerEventBaseData($eventData);
@@ -71,6 +79,9 @@ trait UpdateEventSchedule
         return true;
     }
 
+    /**
+     * @param array<string, mixed> $eventData
+     */
     private function registerEventBaseData(array $eventData): Event3
     {
         $internalId = ArrayHelper::getValue($eventData, 'id');
@@ -111,18 +122,26 @@ trait UpdateEventSchedule
         return $model;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function registerEventSchedule3(Event3 $event, array $data): EventSchedule3
     {
+        $periods = TypeHelper::array($data['periods']);
+        if (!$periods) {
+            throw new Exception('Invalid periods');
+        }
+
         $startAt = min(
             array_map(
                 fn (array $period): int => $period['start_at'],
-                $data['periods'],
+                $periods,
             ),
         );
         $endAt = max(
             array_map(
                 fn (array $period): int => $period['end_at'],
-                $data['periods'],
+                $periods,
             ),
         );
         if (!$startAt || !$endAt) {
@@ -148,10 +167,9 @@ trait UpdateEventSchedule
         }
 
         if (
+            $model->isNewRecord ||
             $model->event_id !== $event->id ||
             $model->rule_id !== $rule->id ||
-            $model->start_at === null ||
-            $model->end_at === null ||
             strtotime($model->start_at) !== $startAt ||
             strtotime($model->end_at) !== $endAt
         ) {
@@ -169,6 +187,9 @@ trait UpdateEventSchedule
         return $model;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function registerEventMaps(EventSchedule3 $schedule, array $data): void
     {
         $mapIds = ArrayHelper::getValue($data, 'map_ids');
@@ -205,6 +226,9 @@ trait UpdateEventSchedule
         }
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function registerEventPeriods(EventSchedule3 $schedule, array $data): void
     {
         $convData = array_map(

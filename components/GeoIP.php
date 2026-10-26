@@ -19,11 +19,17 @@ use yii\base\Component;
 use function file_exists;
 use function substr;
 
+/**
+ * @property-read string $lang
+ */
 final class GeoIP extends Component
 {
-    public $dbCity = '@geoip/GeoLite2-City.mmdb';
-    public $dbCountry = '@geoip/GeoLite2-Country.mmdb';
+    public string $dbCity = '@geoip/GeoLite2-City.mmdb';
+    public string $dbCountry = '@geoip/GeoLite2-Country.mmdb';
 
+    /**
+     * @param string[] $locales
+     */
     public function city(
         string $ipAddress,
         array $locales = ['en'],
@@ -40,6 +46,9 @@ final class GeoIP extends Component
         }
     }
 
+    /**
+     * @param string[] $locales
+     */
     public function country(
         string $ipAddress,
         array $locales = ['en'],
@@ -56,6 +65,9 @@ final class GeoIP extends Component
         }
     }
 
+    /**
+     * @param string[] $locales
+     */
     protected function getReader(string $dbPathAlias, array $locales): ?Reader
     {
         Yii::beginProfile(__METHOD__, __METHOD__);

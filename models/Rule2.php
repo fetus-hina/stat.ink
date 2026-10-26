@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use Closure;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveQuery;
@@ -14,6 +15,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 use function call_user_func;
 use function is_callable;
 
@@ -86,6 +88,9 @@ class Rule2 extends ActiveRecord
         return $this->hasMany(Mode2::class, ['id' => 'mode_id'])->viaTable('mode_rule2', ['rule_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -94,10 +99,13 @@ class Rule2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function getSortedAll(
         ?string $mode,
-        $queryCallback = null,
-        $valueCallback = null,
+        mixed $queryCallback = null,
+        Closure|string|null $valueCallback = null,
     ): array {
         $query = static::find()->orderBy(['rule2.id' => SORT_ASC]);
         if ($mode) {
@@ -116,6 +124,9 @@ class Rule2 extends ActiveRecord
         return ArrayHelper::map($query->all(), 'key', $valueCallback);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()->orderBy(['id' => SORT_ASC])->all();
@@ -137,6 +148,9 @@ class Rule2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -144,13 +158,16 @@ class Rule2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

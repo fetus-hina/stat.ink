@@ -12,6 +12,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use LogicException;
 use PDO;
 use Yii;
 use app\commands\stat\Knockout3Trait;
@@ -24,17 +25,15 @@ use app\commands\stat\actions\KDWinRate3Action;
 use app\commands\stat\actions\StealthJump3Action;
 use app\commands\stat\actions\XPowerDistrib3Action;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
 use app\models\Battle3;
-use app\models\BattlePlayer;
 use app\models\EventSchedule3;
-use app\models\Knockout;
 use app\models\Lobby;
 use app\models\Lobby2;
 use app\models\Mode2;
 use app\models\Rank2;
-use app\models\Rule;
 use app\models\Rule2;
 use app\models\Salmon3;
 use app\models\SplatoonVersion2;
@@ -43,13 +42,10 @@ use app\models\StatAgentUser2;
 use app\models\StatEntireSalmon3;
 use app\models\StatEntireUser;
 use app\models\StatEntireUser3;
-use app\models\StatWeapon;
 use app\models\StatWeapon2UseCount;
 use app\models\StatWeapon2UseCountPerMonth;
 use app\models\StatWeapon2UseCountPerWeek;
-use app\models\StatWeaponBattleCount;
 use app\models\StatWeaponKDWinRate;
-use app\models\StatWeaponKillDeath;
 use app\models\StatWeaponUseCount;
 use app\models\StatWeaponUseCountPerWeek;
 use app\models\StatWeaponVsWeapon;
@@ -107,11 +103,10 @@ final class StatController extends Controller
      *
      * これを実行しないとブキ統計は表示されません。
      */
-    public function actionUpdateEntireWeapons()
+    public function actionUpdateEntireWeapons(): void
     {
         $this->updateEntireWeapons3();
         // $this->updateEntireWeapons2();
-        // $this->updateEntireWeapons1();
     }
 
     public function actionUpdateEntireEvent3(int $force = 0): int
@@ -133,227 +128,12 @@ final class StatController extends Controller
         return ExitCode::OK;
     }
 
-    private function updateEntireWeapons1()
-    {
-        // {{{
-        $db = Yii::$app->db;
-        $transaction = $db->beginTransaction();
-        echo "Delete old data...\n";
-        StatWeapon::deleteAll();
-        StatWeaponBattleCount::deleteAll();
-        StatWeaponKillDeath::deleteAll();
-
-        echo "INSERT stat_weapon...\n";
-        $select = $this->createSelectQueryForUpdateEntireWeapons();
-        $sql = sprintf(
-            'INSERT INTO %s (%s) %s',
-            $db->quoteTableName(StatWeapon::tableName()),
-            implode(', ', array_map(
-                fn ($k) => $db->quoteColumnName($k),
-                array_keys($select->select),
-            )),
-            $select->createCommand()->rawSql,
-        );
-        $db->createCommand($sql)->execute();
-
-        echo "INSERT stat_weapon_battle_count...\n";
-        $select = $this->createSelectQueryForUpdateEntireWeaponsBattleCount();
-        $sql = sprintf(
-            'INSERT INTO %s (%s) %s',
-            $db->quoteTableName(StatWeaponBattleCount::tableName()),
-            implode(', ', array_map(
-                fn ($k) => $db->quoteColumnName($k),
-                array_keys($select->select),
-            )),
-            $select->createCommand()->rawSql,
-        );
-        $db->createCommand($sql)->execute();
-
-        echo "INSERT stat_weapon_kill_death...\n";
-        $select = $this->createSelectQueryForUpdateEntireWeaponsKillDeath();
-        $sql = sprintf(
-            'INSERT INTO %s ( %s) %s',
-            $db->quoteTableName(StatWeaponKillDeath::tableName()),
-            implode(', ', array_map(
-                fn ($k) => $db->quoteColumnName($k),
-                array_keys($select->select),
-            )),
-            $select->createCommand()->rawSql,
-        );
-        $db->createCommand($sql)->execute();
-        echo "done.\n";
-        $transaction->commit();
-    }
-
-    private function createSelectQueryForUpdateEntireWeapons()
-    {
-        $ruleNawabari = Rule::findOne(['key' => 'nawabari'])->id;
-
-        $query = BattlePlayer::find()
-            ->innerJoinWith([
-                'battle' => fn ($q) => $q->orderBy(null),
-                'battle.lobby',
-                'weapon',
-            ])
-            ->andWhere(['{{battle}}.[[is_automated]]' => true])
-            ->andWhere(['{{battle}}.[[use_for_entire]]' => true])
-            // プライベートバトルを除外
-            ->andWhere(['<>', '{{lobby}}.[[key]]', 'private'])
-            // 不完全っぽいデータを除外
-            ->andWhere(['not', ['{{battle}}.[[is_win]]' => null]])
-            ->andWhere(['not', ['{{battle_player}}.[[kill]]' => null]])
-            ->andWhere(['not', ['{{battle_player}}.[[death]]' => null]])
-            // 自分は集計対象外（重複しまくる）
-            ->andWhere(['{{battle_player}}.[[is_me]]' => false])
-            ->groupBy('{{battle}}.[[rule_id]], {{battle_player}}.[[weapon_id]]');
-
-        // ルール別の処理を記述
-        $query->andWhere(['or',
-            // フェスマッチなら味方全部除外（連戦で無意味な重複の可能性が高い）
-            // ナワバリは回線落ち判定ができるので回線落ちしたものは除外する
-            // 厳密には全く塗らなかった人も除外されるが明らかに外れ値なので気にしない
-            ['and',
-                ['{{battle}}.[[rule_id]]' => $ruleNawabari],
-                ['not', ['{{battle_player}}.[[point]]' => null]],
-                ['or',
-                    [
-                        '{{lobby}}.[[key]]' => 'standard',
-                    ],
-                    [
-                        '{{lobby}}.[[key]]' => 'fest',
-                        '{{battle_player}}.[[is_my_team]]' => false,
-                    ],
-                ],
-                ['or',
-                    [
-                        // 勝ったチームは 300p より大きい
-                        'and',
-                        // 自分win && 自チーム
-                        // 自分lose && 相手チーム
-                        // このどちらかなら勝ってるので、結果的に is_win と is_my_team を比較すればいい
-                        ['=', '{{battle}}.[[is_win]]', new Expression('battle_player.is_my_team')],
-                        ['>', '{{battle_player}}.[[point]]', 300],
-                    ],
-                    [
-                        // 負けたチームは 0p より大きい
-                        'and',
-                        ['<>', '{{battle}}.[[is_win]]', new Expression('battle_player.is_my_team')],
-                        ['>', '{{battle_player}}.[[point]]', 0],
-                    ],
-                ],
-            ],
-            // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
-            ['and',
-                ['<>', '{{battle}}.[[rule_id]]', $ruleNawabari],
-                ['or',
-                    ['not like', '{{lobby}}.[[key]]', 'squad_%', false],
-                    ['and',
-                        ['like', '{{lobby}}.[[key]]', 'squad_%', false],
-                        ['{{battle_player}}.[[is_my_team]]' => false],
-                    ],
-                ],
-            ],
-        ]);
-
-        $query->select([
-            'rule_id' => '{{battle}}.[[rule_id]]',
-            'weapon_id' => '{{battle_player}}.[[weapon_id]]',
-            'players' => 'COUNT(*)',
-            'total_kill' => 'SUM({{battle_player}}.[[kill]])',
-            'total_death' => 'SUM({{battle_player}}.[[death]])',
-            'win_count' => sprintf(
-                'SUM(CASE %s END)',
-                implode(' ', [
-                    'WHEN {{battle}}.[[is_win]] = TRUE AND {{battle_player}}.[[is_my_team]] = TRUE THEN 1',
-                    'WHEN {{battle}}.[[is_win]] = FALSE AND {{battle_player}}.[[is_my_team]] = FALSE THEN 1',
-                    'ELSE 0',
-                ]),
-            ),
-            'total_point' => sprintf(
-                'CASE WHEN {{battle}}.[[rule_id]] <> %d THEN NULL ELSE %s END',
-                $ruleNawabari,
-                sprintf(
-                    'SUM(CASE %s END)',
-                    implode(' ', [
-                        'WHEN {{battle_player}}.[[point]] IS NULL THEN 0',
-                        'WHEN {{battle}}.[[is_win]] = {{battle_player}}.[[is_my_team]] THEN battle_player.point - 300',
-                        'ELSE {{battle_player}}.[[point]]',
-                    ]),
-                ),
-            ),
-            'point_available' => sprintf(
-                'CASE WHEN {{battle}}.[[rule_id]] <> %d THEN NULL ELSE %s END',
-                $ruleNawabari,
-                sprintf(
-                    'SUM(CASE %s END)',
-                    implode(' ', [
-                        'WHEN {{battle_player}}.[[point]] IS NULL THEN 0',
-                        'ELSE 1',
-                    ]),
-                ),
-            ),
-        ]);
-
-        return $query;
-    }
-
-    private function createSelectQueryForUpdateEntireWeaponsBattleCount()
-    {
-        $query = $this->createSelectQueryForUpdateEntireWeapons();
-        $query
-            ->select([
-                'rule_id' => '{{battle}}.[[rule_id]]',
-                'count' => 'COUNT(DISTINCT {{battle_player}}.[[battle_id]])',
-            ])
-            ->groupBy('{{battle}}.[[rule_id]]');
-        return $query;
-    }
-
-    private function createSelectQueryForUpdateEntireWeaponsKillDeath()
-    {
-        return new Query()
-            ->select([
-                'weapon_id' => '{{p}}.[[weapon_id]]',
-                'rule_id' => '{{b}}.[[rule_id]]',
-                'kill' => '{{p}}.[[kill]]',
-                'death' => '{{p}}.[[death]]',
-                'battle' => 'COUNT(*)',
-                'win' => sprintf(
-                    'SUM(CASE %s END)',
-                    implode(' ', [
-                        'WHEN {{b}}.[[is_win]] = TRUE AND {{p}}.[[is_my_team]] = TRUE THEN 1',
-                        'WHEN {{b}}.[[is_win]] = FALSE AND {{p}}.[[is_my_team]] = FALSE THEN 1',
-                        'ELSE 0',
-                    ]),
-                ),
-            ])
-            ->from('{{battle_player}} {{p}}')
-            ->innerJoin('{{battle}} {{b}}', '{{p}}.[[battle_id]] = {{b}}.[[id]]')
-            ->innerJoin('{{lobby}}', '{{b}}.[[lobby_id]] = {{lobby}}.[[id]]')
-            ->innerJoin('{{rule}}', '{{b}}.[[rule_id]] = {{rule}}.[[id]]')
-            ->innerJoin('{{weapon}}', '{{p}}.[[weapon_id]] = {{weapon}}.[[id]]')
-            ->andWhere(['and',
-                ['{{b}}.[[is_automated]]' => true],
-                ['{{b}}.[[use_for_entire]]' => true],
-                ['<>', '{{lobby}}.[[key]]', 'private'],
-                ['not', ['{{p}}.[[kill]]' => null]],
-                ['not', ['{{p}}.[[death]]' => null]],
-            ])
-            ->groupBy([
-                '{{p}}.[[weapon_id]]',
-                '{{b}}.[[rule_id]]',
-                '{{p}}.[[kill]]',
-                '{{p}}.[[death]]',
-            ]);
-        // }}}
-    }
-
     /**
      * 全体統計 - 利用者数を更新します。
      *
      * これを実行しなくてもリアルタイム集計しますが数が増えると死にます。
      */
-    public function actionUpdateEntireUser()
+    public function actionUpdateEntireUser(): void
     {
         $this->updateEntireUser1();
         $this->updateEntireUser2();
@@ -361,7 +141,7 @@ final class StatController extends Controller
         $this->updateEntireSalmonUser3();
     }
 
-    private function updateEntireUser1()
+    private function updateEntireUser1(): void
     {
         // {{{
         // 集計対象期間を計算する
@@ -401,7 +181,7 @@ final class StatController extends Controller
         // }}}
     }
 
-    private function updateEntireUser2()
+    private function updateEntireUser2(): void
     {
         // {{{
         // 集計対象期間を計算する
@@ -494,7 +274,7 @@ final class StatController extends Controller
                         ', ',
                         array_map(
                             fn (string $c): string => $db->quoteColumnName($c),
-                            array_keys($select->select),
+                            array_keys($select->select ?? throw new LogicException('No columns selected')),
                         ),
                     ),
                     $select->createCommand($db)->rawSql,
@@ -509,7 +289,7 @@ final class StatController extends Controller
                                         $db->quoteTableName('excluded'),
                                     ])
                                     : null,
-                                array_keys($select->select),
+                                array_keys($select->select ?? throw new LogicException('No columns selected')),
                             ),
                             fn (?string $v): bool => $v !== null,
                         ),
@@ -525,13 +305,13 @@ final class StatController extends Controller
     /**
      * 全体統計 - エージェント別利用者を更新します。
      */
-    public function actionUpdateAgentUser()
+    public function actionUpdateAgentUser(): void
     {
         $this->updateAgentUser1();
         $this->updateAgentUser2();
     }
 
-    private function updateAgentUser1()
+    private function updateAgentUser1(): void
     {
         // {{{
         // 集計対象期間を計算する
@@ -588,7 +368,7 @@ final class StatController extends Controller
         // }}}
     }
 
-    private function updateAgentUser2()
+    private function updateAgentUser2(): void
     {
         // {{{
         // 集計対象期間を計算する
@@ -648,135 +428,9 @@ final class StatController extends Controller
      *
      * これを実行しないとブキ統計は表示されません。
      */
-    public function actionUpdateKnockout()
+    public function actionUpdateKnockout(): void
     {
         $this->updateKnockout3();
-        // $this->updateKnockout2();
-        // $this->updateKnockout1();
-    }
-
-    private function updateKnockout1()
-    {
-        // {{{
-        $db = Yii::$app->db;
-        $transaction = $db->beginTransaction();
-        Knockout::deleteAll();
-        $db->createCommand()
-            ->batchInsert(
-                Knockout::tableName(),
-                ['map_id', 'rule_id', 'battles', 'knockouts'],
-                array_map(
-                    fn ($row) => [
-                        $row['map_id'],
-                        $row['rule_id'],
-                        $row['battles'],
-                        $row['knockouts'],
-                    ],
-                    new Query()
-                        ->select([
-                            'map_id' => '{{battle}}.[[map_id]]',
-                            'rule_id' => '{{battle}}.[[rule_id]]',
-                            'battles' => 'COUNT({{battle}}.*)',
-                            'knockouts' => 'SUM(CASE WHEN {{battle}}.[[is_knock_out]] THEN 1 ELSE 0 END)',
-                        ])
-                        ->from('battle')
-                        ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
-                        ->innerJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
-                        ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
-                        ->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')
-                        ->andWhere(['and',
-                            ['not', ['{{battle}}.[[is_win]]' => null]],
-                            ['not', ['{{battle}}.[[is_knock_out]]' => null]],
-                            ['not', ['{{lobby}}.[[key]]' => 'private']],
-                            ['{{game_mode}}.[[key]]' => 'gachi'],
-                            ['{{battle}}.[[is_automated]]' => true],
-                            ['{{battle}}.[[use_for_entire]]' => true],
-                        ])
-                        ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[rule_id]]'])
-                        ->createCommand()
-                        ->queryAll(),
-                ),
-            )
-            ->execute();
-        $transaction->commit();
-        // }}}
-    }
-
-    private function updateKnockout2()
-    {
-        $db = Yii::$app->db;
-        $transaction = $db->beginTransaction();
-        $timestamp = fn (string $column): string => sprintf('EXTRACT(EPOCH FROM %s)', $column);
-
-        $select = Battle2::find() // {{{
-            ->innerJoinWith([
-                'lobby',
-                'mode',
-                'rule',
-                'map',
-                'battlePlayers' => function ($query) {
-                    $query->orderBy(null);
-                },
-                'battlePlayers.rank',
-            ])
-            ->where(['and',
-                ['not', ['battle2.is_win' => null]],
-                ['not', ['battle2.is_knockout' => null]],
-                ['not', ['battle2.start_at' => null]],
-                ['not', ['battle2.end_at' => null]],
-                ['battle2.is_automated' => true],
-                ['battle2.use_for_entire' => true],
-                ['<>', 'lobby2.key', 'private'],
-                ['<>', 'rule2.key', 'nawabari'],
-                ['mode2.key' => 'gachi'],
-            ])
-            ->groupBy([
-                'battle2.rule_id',
-                'battle2.map_id',
-                'battle2.lobby_id',
-                'battle_player2.rank_id',
-            ])
-            ->orderBy(null)
-            ->select([
-                'rule_id' => 'battle2.rule_id',
-                'map_id' => 'battle2.map_id',
-                'lobby_id' => 'battle2.lobby_id',
-                'rank_id' => 'battle_player2.rank_id',
-                'battles' => 'COUNT(*)',
-                'knockouts' => sprintf('SUM(CASE %s END)', implode(' ', [
-                    'WHEN battle2.is_knockout THEN 1',
-                    'ELSE 0',
-                ])),
-                'avg_game_time' => sprintf(
-                    'AVG(%s)',
-                    sprintf(
-                        '(%s - %s)::double precision',
-                        $timestamp('battle2.end_at'),
-                        $timestamp('battle2.start_at'),
-                    ),
-                ),
-                'avg_knockout_time' => sprintf('COALESCE(AVG(CASE %s END), 300)', implode(' ', [
-                    sprintf(
-                        'WHEN battle2.is_knockout THEN (%s - %s)::double precision',
-                        $timestamp('battle2.end_at'),
-                        $timestamp('battle2.start_at'),
-                    ),
-                    'ELSE NULL',
-                ])),
-            ]);
-        // }}}
-
-        $insert = 'INSERT INTO knockout2 (' . implode(', ', array_keys($select->select)) . ') ' .
-            $select->createCommand()->rawSql . ' ' .
-            'ON CONFLICT ( rule_id, map_id, lobby_id, rank_id ) DO UPDATE SET ' .
-            implode(', ', array_map(
-                fn (string $column): string => sprintf('%1$s = EXCLUDED.%1$s', $column),
-                ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time'],
-            ));
-
-        $db->createCommand($insert)->execute();
-
-        $transaction->commit();
     }
 
     /**
@@ -784,7 +438,7 @@ final class StatController extends Controller
      *
      * これを実行しないと当該統計は表示されません。
      */
-    public function actionUpdateKDWinRate()
+    public function actionUpdateKDWinRate(): void
     {
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
@@ -878,9 +532,9 @@ final class StatController extends Controller
             StatWeaponKDWinRate::tableName(),
             implode(', ', array_map(
                 fn ($col) => "[[{$col}]]",
-                array_keys($select->select),
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
             )),
-            $select->createCommand()->rawsql,
+            $select->createCommand()->rawSql,
         );
         $db->createCommand($sql)->execute();
         $transaction->commit();
@@ -892,7 +546,7 @@ final class StatController extends Controller
      *
      * これを実行しないと当該統計は表示されません。
      */
-    public function actionUpdateWeaponVsWeapon()
+    public function actionUpdateWeaponVsWeapon(): void
     {
         $db = Yii::$app->db;
         $constraintName = (function () use ($db): string {
@@ -903,7 +557,7 @@ final class StatController extends Controller
                     'table_name' => StatWeaponVsWeapon::tableName(),
                     'constraint_type' => 'PRIMARY KEY',
                 ]);
-            return $select->scalar($db);
+            return TypeHelper::string($select->scalar($db));
         })();
 
         $select = new Query()
@@ -951,7 +605,7 @@ final class StatController extends Controller
                 ', ',
                 array_map(
                     fn (string $a): string => sprintf('[[%s]]', $a),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand()->rawSql,
@@ -972,14 +626,14 @@ final class StatController extends Controller
      *
      * これを実行しないと当該統計は表示されません。
      */
-    public function actionUpdateWeaponUseCount()
+    public function actionUpdateWeaponUseCount(): void
     {
         $this->updateWeaponUseCount1();
         $this->updateWeaponUseCount2();
         $this->actionUpdateWeaponUseTrend();
     }
 
-    private function updateWeaponUseCount1()
+    private function updateWeaponUseCount1(): void
     {
         // {{{
         $db = Yii::$app->db;
@@ -1037,7 +691,10 @@ final class StatController extends Controller
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeaponUseCount::tablename(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
+            )),
             $select->createCommand()->rawSql,
         );
 
@@ -1085,12 +742,15 @@ final class StatController extends Controller
                     'table_name' => StatWeaponUseCountPerWeek::tableName(),
                     'constraint_type' => 'PRIMARY KEY',
                 ]);
-            return $select->scalar($db);
+            return TypeHelper::string($select->scalar($db));
         })();
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ON CONSTRAINT [[%s]] DO UPDATE SET %s',
             StatWeaponUseCountPerWeek::tableName(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectWeek->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($selectWeek->select ?? throw new LogicException('No columns selected')),
+            )),
             $selectWeek->createCommand()->rawSql,
             $constraintName,
             implode(', ', [
@@ -1115,7 +775,7 @@ final class StatController extends Controller
         // }}}
     }
 
-    private function updateWeaponUseCount2()
+    private function updateWeaponUseCount2(): void
     {
         $db = Yii::$app->db;
         // {{{
@@ -1351,7 +1011,10 @@ final class StatController extends Controller
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeapon2UseCount::tablename(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
+            )),
             $select->createCommand()->rawSql,
         );
         $insert .= sprintf(
@@ -1466,7 +1129,10 @@ final class StatController extends Controller
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s',
             StatWeapon2UseCountPerWeek::tableName(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectWeek->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($selectWeek->select ?? throw new LogicException('No columns selected')),
+            )),
             $selectWeek->createCommand()->rawSql,
             implode(', ', array_map(fn (string $a): string => "[[{$a}]]", ['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'map_id'])),
             implode(', ', array_map(fn (string $a): string => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a), ['battles', 'wins'])),
@@ -1504,7 +1170,10 @@ final class StatController extends Controller
         $upsertMonth = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s',
             StatWeapon2UseCountPerMonth::tableName(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectMonth->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($selectMonth->select ?? throw new LogicException('No columns selected')),
+            )),
             $selectMonth->createCommand()->rawSql,
             implode(', ', array_map(fn (string $a): string => "[[{$a}]]", ['year_month', 'rule_id', 'weapon_id', 'map_id'])),
             implode(', ', array_map(fn (string $a): string => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a), $columns)),
@@ -1541,7 +1210,7 @@ final class StatController extends Controller
      *
      * これを実行しないと当該統計は表示されません。
      */
-    public function actionUpdateWeaponUseTrend()
+    public function actionUpdateWeaponUseTrend(): void
     {
         $db = Yii::$app->db;
         $select = new Query()
@@ -1591,7 +1260,10 @@ final class StatController extends Controller
             ]));
         $insertTrend = sprintf(
             'INSERT INTO {{stat_weapon_map_trend}} ( %s ) %s',
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
+            )),
             $select->createCommand()->rawSql,
         );
 
@@ -1612,7 +1284,7 @@ final class StatController extends Controller
      * これを実行しないとバトルのプレーヤーリストからユーザへのリンクや
      * アイコン表示が機能しません。
      */
-    public function actionUpdatePlayerIdMap()
+    public function actionUpdatePlayerIdMap(): void
     {
         $db = Yii::$app->db;
 
@@ -1636,8 +1308,8 @@ final class StatController extends Controller
     public function actionUpdateWeaponTier2(): void
     {
         Yii::$app->db->transaction(function ($db): void {
-            $lobby = Lobby2::findOne(['key' => 'standard']);
-            $mode = Mode2::findOne(['key' => 'gachi']);
+            $lobby = TypeHelper::instanceOf(Lobby2::findOne(['key' => 'standard']), Lobby2::class);
+            $mode = TypeHelper::instanceOf(Mode2::findOne(['key' => 'gachi']), Mode2::class);
             $ruleIds = ArrayHelper::getColumn(
                 Rule2::findAll(['key' => ['area', 'yagura', 'hoko', 'asari']]),
                 'id',
@@ -1744,6 +1416,9 @@ final class StatController extends Controller
         Yii::$app->db->createCommand('VACUUM ANALYZE {{stat_weapon2_tier}}')->execute();
     }
 
+    /**
+     * @return array<mixed>
+     */
     private function createHighestRankFilter(): array
     {
         // {{{
@@ -1759,11 +1434,14 @@ final class StatController extends Controller
         // }}}
     }
 
+    /**
+     * @return array<int, int[]>
+     */
     private function getHighestRankMap(): array
     {
         // {{{
-        $rankSP = Rank2::findOne(['key' => 's+']);
-        $rankX = Rank2::findOne(['key' => 'x']);
+        $rankSP = TypeHelper::instanceOf(Rank2::findOne(['key' => 's+']), Rank2::class);
+        $rankX = TypeHelper::instanceOf(Rank2::findOne(['key' => 'x']), Rank2::class);
         $xVersions = [];
         $spVersions = [];
         foreach ($this->getReleasedVersions() as $version) {
@@ -1793,6 +1471,9 @@ final class StatController extends Controller
         )));
     }
 
+    /**
+     * @return array<string, array{int, int}>
+     */
     private function getMonthlyPeriodRangeForSplatoon2(): array
     {
         // {{{
@@ -1822,6 +1503,9 @@ final class StatController extends Controller
         // }}}
     }
 
+    /**
+     * @return SplatoonVersion2[]
+     */
     private function getReleasedVersions(): array
     {
         // {{{

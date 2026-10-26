@@ -12,6 +12,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use app\components\helpers\TypeHelper;
 
 use function array_map;
 use function array_merge;
@@ -32,37 +33,41 @@ use const SORT_DESC;
  * @property integer $id
  * @property integer $work_id
  * @property boolean $is_me
- * @property string $splatnet_id
- * @property string $name
- * @property integer $special_id
- * @property integer $rescue
- * @property integer $death
- * @property integer $golden_egg_delivered
- * @property integer $power_egg_collected
- * @property integer $species_id
- * @property integer $gender_id
+ * @property string|null $splatnet_id
+ * @property string|null $name
+ * @property integer|null $special_id
+ * @property integer|null $rescue
+ * @property integer|null $death
+ * @property integer|null $golden_egg_delivered
+ * @property integer|null $power_egg_collected
+ * @property integer|null $species_id
+ * @property integer|null $gender_id
  *
  * @property SalmonBoss2[] $bosses
- * @property Gender $gender
+ * @property Gender|null $gender
  * @property SalmonPlayerBossKill2[] $salmonPlayerBossKill2s
  * @property SalmonPlayerSpecialUse2[] $salmonPlayerSpecialUse2s
  * @property SalmonPlayerWeapon2[] $salmonPlayerWeapon2s
- * @property SalmonSpecial2 $special
- * @property Species2 $species
+ * @property SalmonSpecial2|null $special
+ * @property Species2|null $species
  * @property Salmon2 $work
  *
- * @property-read ForceBlackout2 $forceBlackout
+ * @property-read ForceBlackout2|null $forceBlackout
  * @property-read SalmonPlayerBossKill2[] $bossKills
- * @property-read SalmonPlayerSpecialUse2 $specialUses
+ * @property-read SalmonPlayerSpecialUse2[] $specialUses
  * @property-read SalmonPlayerWeapon2[] $weapons
- * @property-read bool $isForceBlackout
+ * @property-read string $anonymizeSeed
+ * @property-read string $iconUrl
+ * @property-read bool $isForceBlackouted
+ * @property-read string $jdenticonHash
+ * @property-read User|null $user
  */
 class SalmonPlayer2 extends ActiveRecord
 {
     use openapi\Util;
 
-    public $top_500 = false; // compat with BattlePlayer2 and used by PlayerName2Widget
-    private $user = false;
+    public bool $top_500 = false; // compat with BattlePlayer2 and used by PlayerName2Widget
+    private User|false|null $user = false;
 
     public static function tableName()
     {
@@ -189,7 +194,7 @@ class SalmonPlayer2 extends ActiveRecord
     {
         $id = $this->getAnonymizeSeed();
         if (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $id, $match)) {
-            $id = hex2bin($match[1]);
+            $id = TypeHelper::string(hex2bin($match[1]));
         }
         return substr(
             hash('sha256', $id, false),
@@ -200,7 +205,7 @@ class SalmonPlayer2 extends ActiveRecord
 
     public function getAnonymizeSeed(): string
     {
-        $value = trim($this->splatnet_id);
+        $value = trim($this->splatnet_id ?? '');
         return $value !== ''
             ? $value
             : hash_hmac('sha256', (string)$this->id, (string)$this->work_id);
@@ -215,7 +220,7 @@ class SalmonPlayer2 extends ActiveRecord
         return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
     }
 
-    public function getForceBlackout()
+    public function getForceBlackout(): ActiveQuery
     {
         return $this->hasOne(ForceBlackout2::class, ['splatnet_id' => 'splatnet_id']);
     }
@@ -244,6 +249,9 @@ class SalmonPlayer2 extends ActiveRecord
         return $this->user;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         if ($this->is_me) {
@@ -258,17 +266,17 @@ class SalmonPlayer2 extends ActiveRecord
             'splatnet_id' => $this->splatnet_id,
             'name' => $anonymize ? str_repeat('*', 10) : $this->name,
             'special' => $this->special_id
-                ? $this->special->toJsonArray()
+                ? $this->special?->toJsonArray()
                 : null,
             'rescue' => $this->rescue,
             'death' => $this->death,
             'golden_egg_delivered' => $this->golden_egg_delivered,
             'power_egg_collected' => $this->power_egg_collected,
             'species' => $this->species_id
-                ? $this->species->toJsonArray()
+                ? $this->species?->toJsonArray()
                 : null,
             'gender' => $this->gender_id
-                ? $this->gender->toJsonArray()
+                ? $this->gender?->toJsonArray()
                 : null,
             'special_uses' => $this->specialUses
                 ? array_map(
@@ -278,7 +286,7 @@ class SalmonPlayer2 extends ActiveRecord
                 : null,
             'weapons' => $this->weapons
                 ? array_map(
-                    fn ($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
+                    fn ($model) => $model->weapon->toJsonArray(),
                     $this->weapons,
                 )
                 : null,
@@ -321,6 +329,9 @@ class SalmonPlayer2 extends ActiveRecord
         });
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -415,6 +426,9 @@ class SalmonPlayer2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -422,6 +436,9 @@ class SalmonPlayer2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function openApiExample(): array
     {
         return [];

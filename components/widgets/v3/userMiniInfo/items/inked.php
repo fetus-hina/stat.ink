@@ -15,7 +15,7 @@ use app\models\UserStat3;
 return [
     'label' => Yii::t('app-results', 'Avg Inked'),
     'format' => ['decimal', 0],
-    'value' => fn (UserStat3 $model): ?float => $model->agg_battles
+    'value' => fn (UserStat3 $model): float => $model->agg_battles
         ? $model->inked / $model->agg_battles
         : 0.0,
 ];

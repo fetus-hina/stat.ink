@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\GameMode;
@@ -27,11 +28,16 @@ use function strcmp;
 use function substr;
 use function usort;
 
+/**
+ * @property-read array<string, string> $maps
+ * @property-read array<string, string|array<string, string>> $weapons
+ */
 class KDWinAction extends BaseAction
 {
     public const KD_LIMIT = 16;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $filter = new BattleFilterForm();
         $filter->load($_GET);
@@ -60,6 +66,9 @@ class KDWinAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return array<int, array<int, array{battle: int, win: int}>> indexed by kills, then by deaths
+     */
     private function makeData(Rule $rule, BattleFilterForm $filter): array
     {
         $ret = [];
@@ -77,13 +86,19 @@ class KDWinAction extends BaseAction
         foreach ($this->query($rule, $filter) as $row) {
             $i = $row['kill'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['kill'];
             $j = $row['death'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['death'];
-            $ret[$i][$j]['battle'] += $row['count'];
-            $ret[$i][$j]['win'] += $row['win'];
+            $cell = $ret[$i][$j];
+            $ret[$i][$j] = [
+                'battle' => $cell['battle'] + (int)$row['count'],
+                'win' => $cell['win'] + (int)$row['win'],
+            ];
         }
 
         return $ret;
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     private function query(Rule $rule, BattleFilterForm $filter): array
     {
         $t = StatWeaponKDWinRate::tableName();
@@ -148,6 +163,9 @@ class KDWinAction extends BaseAction
         return $query->all();
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getMaps(): array
     {
         $ret = [];
@@ -161,6 +179,9 @@ class KDWinAction extends BaseAction
         );
     }
 
+    /**
+     * @return array<string, string|array<string, string>>
+     */
     public function getWeapons(): array
     {
         $ret = [

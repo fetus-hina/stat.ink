@@ -7,6 +7,7 @@
 
 namespace app\actions\api\internal;
 
+use Override;
 use Yii;
 use app\models\User;
 use yii\web\ViewAction as BaseAction;
@@ -17,14 +18,14 @@ use function is_scalar;
 
 abstract class BaseStatAction extends BaseAction
 {
-    public $user;
+    public User $user;
 
-    public function getCacheFormatVersion()
+    public function getCacheFormatVersion(): int
     {
         return 1;
     }
 
-    public function getCacheId()
+    public function getCacheId(): string
     {
         return hash_hmac(
             'sha256',
@@ -37,12 +38,13 @@ abstract class BaseStatAction extends BaseAction
         );
     }
 
-    public function getCacheExpires()
+    public function getCacheExpires(): int
     {
         return 600;
     }
 
-    public function run()
+    #[Override]
+    public function run(): mixed
     {
         $response = Yii::$app->getResponse();
         $response->format = 'compact-json';
@@ -54,19 +56,18 @@ abstract class BaseStatAction extends BaseAction
             return ['error' => ['screen_name' => ['not found']]];
         }
 
-        if (!$this->user = User::findOne(['screen_name' => $screenName])) {
+        if (!$user = User::findOne(['screen_name' => $screenName])) {
             return ['error' => ['screen_name' => ['not found']]];
         }
+
+        $this->user = $user;
 
         return $this->decorate($this->makeDataOrLoadCache());
     }
 
-    private function makeDataOrLoadCache()
+    private function makeDataOrLoadCache(): mixed
     {
         $cache = Yii::$app->cache;
-        if (!$cache) {
-            return $this->makeData();
-        }
         $key = $this->getCacheId();
         $data = $cache->get($key);
         if ($data !== false) {
@@ -77,9 +78,9 @@ abstract class BaseStatAction extends BaseAction
         return $data;
     }
 
-    abstract protected function makeData();
+    abstract protected function makeData(): mixed;
 
-    protected function decorate($data)
+    protected function decorate(mixed $data): mixed
     {
         return $data;
     }

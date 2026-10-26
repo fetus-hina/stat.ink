@@ -47,7 +47,7 @@ if (!$maps || !$goldenEggHistogramAbstracts) {
         Icon::s3SalmonStage($abstract->map ?? null),
         Html::tag(
           'span',
-          Html::encode(Yii::t('app-map3', $maps[$abstract->map_id]?->short_name ?? '')) ?: Icon::unknown(),
+          Html::encode(Yii::t('app-map3', $maps[$abstract->map_id]->short_name ?? '')) ?: Icon::unknown(),
           ['class' => 'd-none d-sm-inline'],
         ),
       ]),
@@ -60,7 +60,7 @@ if (!$maps || !$goldenEggHistogramAbstracts) {
               'h4',
               implode(' ', [
                 Icon::s3SalmonStage($abstract->map ?? null) ?? Icon::unknown(),
-                Html::encode(Yii::t('app-map3', $maps[$abstract->map_id]?->name ?? '')),
+                Html::encode(Yii::t('app-map3', $maps[$abstract->map_id]->name ?? '')),
               ]),
               ['class' => 'text-center m-0'],
             ),

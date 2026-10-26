@@ -10,29 +10,35 @@ namespace app\actions\entire;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Override;
 use ParagonIE\ConstantTime\Base32;
 use RangeException;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\AgentGroup;
+use app\models\EntireAgentForm;
 use app\models\StatAgentUser;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 
 use function array_keys;
 use function array_values;
 use function ksort;
 use function max;
-use function mb_check_encoding;
 use function min;
 
 use const SORT_ASC;
 
+/**
+ * @property-read array<int, array<string, mixed>> $combineds
+ * @property-read list<array{date: string, battle: int, user: int}> $postStats
+ */
 final class AgentAction extends Action
 {
-    public $form;
+    public ?EntireAgentForm $form = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -40,41 +46,17 @@ final class AgentAction extends Action
             ->createCommand("SET timezone TO 'UTC-6'")
             ->execute();
 
-        $form = new DynamicModel(['b32name' => Yii::$app->request->get('b32name')]);
-        $form->addRule('b32name', 'required')
-            ->addRule('b32name', 'match', ['pattern' => '/^[a-zA-Z2-7]+$/'])
-            ->addRule('b32name', function ($attr, $conf) use ($form) {
-                try {
-                    $decoded = Base32::decode($form->$attr);
-                    if ($decoded === '') {
-                        $form->addError($attr, 'invalid name');
-                        return;
-                    }
-                } catch (RangeException $e) {
-                    $form->addError($attr, 'invalid name');
-                    return;
-                }
-
-                if (!mb_check_encoding($decoded, 'UTF-8')) {
-                    $form->addError($attr, 'broken encoding');
-                    return;
-                }
-
-                if (!StatAgentUser::findOne(['agent' => $decoded])) {
-                    $form->addError($attr, 'not found');
-                    return;
-                }
-            });
+        $form = new EntireAgentForm(['b32name' => Yii::$app->request->get('b32name')]);
         if (!$form->validate()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
         $this->form = $form;
     }
 
-    public function run()
+    public function run(): string
     {
         try {
-            $name = Base32::decode($this->form->b32name);
+            $name = Base32::decode(TypeHelper::string($this->form?->b32name));
         } catch (RangeException $e) {
             $name = '';
         }
@@ -85,11 +67,14 @@ final class AgentAction extends Action
         ]);
     }
 
-    public function getPostStats()
+    /**
+     * @return list<array{date: string, battle: int, user: int}>
+     */
+    public function getPostStats(): array
     {
         try {
             $list = StatAgentUser::find()
-                ->andWhere(['agent' => Base32::decode($this->form->b32name)])
+                ->andWhere(['agent' => Base32::decode(TypeHelper::string($this->form?->b32name))])
                 ->orderBy(['date' => SORT_ASC])
                 ->asArray()
                 ->all();
@@ -103,6 +88,10 @@ final class AgentAction extends Action
                 'battle' => (int)$a['battle_count'],
                 'user' => (int)$a['user_count'],
             ];
+        }
+
+        if ($ret === []) {
+            return [];
         }
 
         // 歯抜けデータの処理
@@ -127,7 +116,10 @@ final class AgentAction extends Action
         return array_values($ret);
     }
 
-    public function getCombineds()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function getCombineds(): array
     {
         try {
             return AgentGroup::find()
@@ -137,7 +129,7 @@ final class AgentAction extends Action
                     },
                 ], false)
                 ->where([
-                    '{{agent_group_map}}.[[agent_name]]' => Base32::decode($this->form->b32name),
+                    '{{agent_group_map}}.[[agent_name]]' => Base32::decode(TypeHelper::string($this->form?->b32name)),
                 ])
                 ->orderBy(['{{agent_group}}.[[name]]' => SORT_ASC])
                 ->asArray()

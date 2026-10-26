@@ -9,6 +9,13 @@ declare(strict_types=1);
 
 use app\components\helpers\IPHelper;
 use app\components\helpers\UserAgentHelper;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $code
+ * @var string $lang
+ */
 
 $req = Yii::$app->request;
 $t = function (

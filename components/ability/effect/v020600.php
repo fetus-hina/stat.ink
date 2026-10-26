@@ -7,16 +7,20 @@
 
 namespace app\components\ability\effect;
 
+use Override;
+
 use function ceil;
 
 class v020600 extends v020500
 {
-    public function getCalculatorVersion()
+    #[Override]
+    public function getCalculatorVersion(): string
     {
         return '2.6.0';
     }
 
-    public function getInkUsePctMain()
+    #[Override]
+    public function getInkUsePctMain(): ?float
     {
         $x = $this->calcX('ink_saver_main', 200 / 3);
         if ($x === null) {
@@ -25,7 +29,8 @@ class v020600 extends v020500
         return 1 - $x;
     }
 
-    public function getInkUsePctSub()
+    #[Override]
+    public function getInkUsePctSub(): ?float
     {
         $x = $this->calcX('ink_saver_sub', 600 / 7);
         if ($x === null) {
@@ -34,7 +39,8 @@ class v020600 extends v020500
         return 1 - $x;
     }
 
-    public function getInkRecoverySec()
+    #[Override]
+    public function getInkRecoverySec(): ?float
     {
         $x = $this->calcX('ink_recovery_up', 200 / 3);
         if ($x === null) {
@@ -44,7 +50,8 @@ class v020600 extends v020500
         return ceil(100 / $f) / 60;
     }
 
-    public function getSpecialDurationSec()
+    #[Override]
+    public function getSpecialDurationSec(): ?float
     {
         $x = $this->calcX('special_duration_up', $this->getSpecialDurationUpPattern());
         if ($x === null) {
@@ -57,7 +64,7 @@ class v020600 extends v020500
         return (1 + $x) * $defSec;
     }
 
-    protected function getSpecialDurationUpPattern()
+    protected function getSpecialDurationUpPattern(): int
     {
         switch ($this->battle->weapon->special->key ?? null) {
             case 'supershot':

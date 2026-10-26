@@ -40,7 +40,7 @@ if ($totalUsers < 1) {
   return;
 }
 
-$binWidth = $abstract?->histogram_width ?? 10;
+$binWidth = $abstract->histogram_width ?? 10;
 $keyMax = $histogram |> array_keys(...) |> max(...);
 $totalHistogram = [];
 for ($x = $binWidth / 2; $x <= $keyMax; $x += $binWidth) {
@@ -68,8 +68,8 @@ $datasetHistogram = [
 ];
 
 $makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chartMax): array {
-  assert($abstract);
-  assert($chartMax);
+  assert($abstract !== null);
+  assert($chartMax > 0);
 
   $results = [];
   $makeStep = 2;
@@ -222,7 +222,7 @@ if ($chartMax > 0) {
                 'type' => 'linear',
                 'ticks' => [
                   'precision' => 0,
-                  'stepSize' => $abstract?->histogram_width ?? 5,
+                  'stepSize' => $abstract->histogram_width ?? 5,
                 ],
               ],
               'y' => [

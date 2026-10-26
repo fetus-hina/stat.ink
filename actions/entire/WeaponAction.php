@@ -7,7 +7,9 @@
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
@@ -17,10 +19,12 @@ use app\models\WeaponType;
 use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 use function array_map;
+use function array_values;
 use function array_walk;
 use function date;
 use function is_scalar;
@@ -32,12 +36,21 @@ use function usort;
 use const SORT_ASC;
 use const SORT_NATURAL;
 
+/**
+ * @property-read list<array{kill: int, death: int, battle: int, win: int}> $killDeath
+ * @property-read list<array{key: string, name: string}> $maps
+ * @property-read array<string, array{battle: int, win: int}> $mapWinPercentage
+ * @property-read Rule[] $rules
+ * @property-read list<array{date: string, battles: int, use_pct: float|int, win_pct: float|int}> $useCount
+ * @property-read array<string, array<string, string>> $weapons
+ */
 final class WeaponAction extends Action
 {
     private ?Weapon $weapon = null;
     private ?Rule $rule = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -66,8 +79,8 @@ final class WeaponAction extends Action
     public function run()
     {
         if (!$this->rule) {
-            return $this->controller->redirect(['entire/weapon',
-                'weapon' => $this->weapon->key,
+            return TypeHelper::instanceOf($this->controller, Controller::class)->redirect(['entire/weapon',
+                'weapon' => $this->weapon?->key,
                 'rule' => 'nawabari',
             ]);
         }
@@ -84,7 +97,10 @@ final class WeaponAction extends Action
         ]);
     }
 
-    public function getRules()
+    /**
+     * @return Rule[]
+     */
+    public function getRules(): array
     {
         $list = Rule::find()->with('mode')->all();
         array_walk($list, function ($a) {
@@ -99,17 +115,20 @@ final class WeaponAction extends Action
         return $list;
     }
 
-    public function getKillDeath()
+    /**
+     * @return list<array{kill: int, death: int, battle: int, win: int}>
+     */
+    public function getKillDeath(): array
     {
         $tmp = StatWeaponKillDeath::find()
             ->andWhere([
-                'weapon_id' => $this->weapon->id,
-                'rule_id' => $this->rule->id,
+                'weapon_id' => $this->weapon?->id,
+                'rule_id' => $this->rule?->id,
             ])
             ->orderBy('kill, death')
             ->asArray()
             ->all();
-        return array_map(
+        return array_values(array_map(
             fn ($a) => [
                 'kill' => (int)$a['kill'],
                 'death' => (int)$a['death'],
@@ -117,7 +136,7 @@ final class WeaponAction extends Action
                 'win' => (int)$a['win'],
             ],
             $tmp,
-        );
+        ));
     }
 
     /**
@@ -139,7 +158,10 @@ final class WeaponAction extends Action
         );
     }
 
-    public function getMaps()
+    /**
+     * @return list<array{key: string, name: string}>
+     */
+    public function getMaps(): array
     {
         $ret = array_map(
             fn ($row) => [
@@ -152,7 +174,10 @@ final class WeaponAction extends Action
         return $ret;
     }
 
-    public function getMapWinPercentage()
+    /**
+     * @return array<string, array{battle: int, win: int}>
+     */
+    public function getMapWinPercentage(): array
     {
         $table = StatWeaponKDWinRate::tableName();
         $map = Map::tableName();
@@ -165,8 +190,8 @@ final class WeaponAction extends Action
             ->from($table)
             ->innerJoin($map, "{{{$table}}}.[[map_id]] = {{{$map}}}.[[id]]")
             ->andWhere([
-                "{{{$table}}}.[[rule_id]]" => $this->rule->id,
-                "{{{$table}}}.[[weapon_id]]" => $this->weapon->id,
+                "{{{$table}}}.[[rule_id]]" => $this->rule?->id,
+                "{{{$table}}}.[[weapon_id]]" => $this->weapon?->id,
             ])
             ->groupBy("{{{$table}}}.[[map_id]]");
         return (function ($rows) {
@@ -181,9 +206,12 @@ final class WeaponAction extends Action
         })($query->createCommand()->queryAll());
     }
 
-    public function getUseCount()
+    /**
+     * @return list<array{date: string, battles: int, use_pct: float|int, win_pct: float|int}>
+     */
+    public function getUseCount(): array
     {
-        $weaponId = (int)$this->weapon->id;
+        $weaponId = (int)$this->weapon?->id;
         $query = new Query()
             ->select([
                 'isoyear' => 'isoyear',
@@ -194,7 +222,7 @@ final class WeaponAction extends Action
             ])
             ->from('stat_weapon_use_count_per_week')
             ->where(['and',
-                ['rule_id' => $this->rule->id],
+                ['rule_id' => $this->rule?->id],
                 ['or',
                     ['>', 'isoyear', 2015],
                     ['and',
@@ -207,14 +235,14 @@ final class WeaponAction extends Action
             ->groupBy('isoyear, isoweek')
             ->having(['>', 'SUM([[battles]])', 0])
             ->orderBy('isoyear, isoweek');
-        return array_map(
+        return array_values(array_map(
             fn (array $row): array => [
-                'date' => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
+                'date' => date('Y-m-d', TypeHelper::int(strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek'])))),
                 'battles' => (int)$row['all_battles'],
                 'use_pct' => $row['battles'] / $row['all_battles'] * 100,
                 'win_pct' => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
             ],
             $query->createCommand()->queryAll(),
-        );
+        ));
     }
 }

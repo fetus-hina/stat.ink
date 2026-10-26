@@ -60,7 +60,8 @@ final class BattlePrevNext extends Widget
 
     private function renderPrev(): string
     {
-        if (!$this->prevBattle || !$this->user) {
+        $user = $this->user;
+        if (!$this->prevBattle || !$user) {
             return '';
         }
 
@@ -71,7 +72,7 @@ final class BattlePrevNext extends Widget
                     Icon::prevPage(),
                     $this->generatePrevLabel($this->prevBattle),
                 ]),
-                $this->generateUrl($this->prevBattle),
+                $this->generateUrl($this->prevBattle, $user),
                 ['class' => 'btn btn-default'],
             ),
             ['class' => 'col-xs-6'],
@@ -80,7 +81,8 @@ final class BattlePrevNext extends Widget
 
     private function renderNext(): string
     {
-        if (!$this->nextBattle || !$this->user) {
+        $user = $this->user;
+        if (!$this->nextBattle || !$user) {
             return '';
         }
 
@@ -91,7 +93,7 @@ final class BattlePrevNext extends Widget
                     $this->generateNextLabel($this->nextBattle),
                     Icon::nextPage(),
                 ]),
-                $this->generateUrl($this->nextBattle),
+                $this->generateUrl($this->nextBattle, $user),
                 ['class' => 'btn btn-default'],
             ),
             ['class' => 'col-xs-6 pull-right text-right'],
@@ -134,19 +136,20 @@ final class BattlePrevNext extends Widget
 
     /**
      * @param Battle3|Salmon3 $model
+     * @return array<int|string, string>
      */
-    private function generateUrl($model): array
+    private function generateUrl($model, User $user): array
     {
         switch ($model::class) {
             case Battle3::class:
                 return ['/show-v3/battle',
-                    'screen_name' => $this->user->screen_name,
+                    'screen_name' => $user->screen_name,
                     'battle' => $model->uuid,
                 ];
 
             case Salmon3::class:
                 return ['/salmon-v3/view',
-                    'screen_name' => $this->user->screen_name,
+                    'screen_name' => $user->screen_name,
                     'battle' => $model->uuid,
                 ];
 

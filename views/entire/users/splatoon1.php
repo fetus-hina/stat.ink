@@ -9,6 +9,14 @@ use ParagonIE\ConstantTime\Base32;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array<int, array<string, mixed>> $agents
+ * @var string[] $agentNames
+ * @var string[] $combineds
+ */
 
 ?>
 <?= Html::tag(

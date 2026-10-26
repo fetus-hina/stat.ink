@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use app\assets\EntireWeaponsUseAsset;
 use app\assets\GraphIconAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\WeaponCompareForm;
@@ -16,13 +17,18 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
  * @var View $this
+ * @var WeaponCompareForm $form
+ * @var array<string, array<string, string>|string> $rules
+ * @var array<string, array<string, string>|string> $weapons
+ * @var array{data: list<array{legend: string, data: list<array{string, mixed}>}>, events: list<array{string, string, mixed}>} $data
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $title = Yii::t('app', 'Weapons');
 $subTitle = Yii::t('app-entire', 'Compare Number Of Uses');

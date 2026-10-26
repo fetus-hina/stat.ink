@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\site;
 
+use Override;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Yii;
@@ -39,17 +40,19 @@ class LicenseAction extends SimpleAction
     private const CATEGORY_MANUAL = 1;
     private const CATEGORY_NPM = 1;
 
-    public $view = 'license';
-    private $mdParser;
+    public string|false $view = 'license';
+    private Markdown $mdParser;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         $this->mdParser = new Markdown();
         $this->mdParser->html5 = true;
-        return parent::init();
+        parent::init();
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $this->params['myself'] = (object)[
             'category' => null,
@@ -60,6 +63,9 @@ class LicenseAction extends SimpleAction
         return parent::run();
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function loadDepends(): array
     {
         $ret = array_merge(
@@ -86,6 +92,9 @@ class LicenseAction extends SimpleAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function loadManualLicenses(): array
     {
         $basedir = Yii::getAlias('@app/data/licenses/');
@@ -106,13 +115,13 @@ class LicenseAction extends SimpleAction
 
             if (str_ends_with(strtolower($basename), '.md')) {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_MANUAL,
+                    'category' => self::CATEGORY_MANUAL,
                     'name' => substr($basename, 0, strlen($basename) - 3),
                     'html' => $this->loadMarkdown($entry->getPathname()),
                 ];
             } else {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_MANUAL,
+                    'category' => self::CATEGORY_MANUAL,
                     'name' => $basename,
                     'html' => $this->loadPlain($entry->getPathname()),
                 ];
@@ -121,6 +130,9 @@ class LicenseAction extends SimpleAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function loadComposerDepends(): array
     {
         $basedir = Yii::getAlias('@app/data/licenses-composer/');
@@ -148,7 +160,7 @@ class LicenseAction extends SimpleAction
             );
             if ($html) {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_COMPOSER,
+                    'category' => self::CATEGORY_COMPOSER,
                     'name' => substr($basename, 0, strlen($basename) - 12),
                     'html' => $html,
                 ];
@@ -158,6 +170,9 @@ class LicenseAction extends SimpleAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function loadNpmDepends(): array
     {
         $basedir = Yii::getAlias('@app/data/licenses-npm/');
@@ -185,7 +200,7 @@ class LicenseAction extends SimpleAction
             );
             if ($html) {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_NPM,
+                    'category' => self::CATEGORY_NPM,
                     'name' => substr($basename, 0, strlen($basename) - 12),
                     'html' => $html,
                 ];
@@ -203,7 +218,7 @@ class LicenseAction extends SimpleAction
             : null;
     }
 
-    private function loadMarkdown($path, ?callable $checker = null): ?string
+    private function loadMarkdown(string $path, ?callable $checker = null): ?string
     {
         $text = $this->loadFile($path, $checker);
         return $text !== null
@@ -214,6 +229,10 @@ class LicenseAction extends SimpleAction
     private function loadFile(string $path, ?callable $checker): ?string
     {
         $text = file_get_contents($path, false);
+        if ($text === false) {
+            return null;
+        }
+
         if ($checker && !call_user_func($checker, $text)) {
             return null;
         }

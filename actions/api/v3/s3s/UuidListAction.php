@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\s3s;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\models\Battle3;
@@ -29,10 +30,8 @@ final class UuidListAction extends Action
 {
     use ApiInitializerTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit('compact-json');
@@ -110,11 +109,16 @@ final class UuidListAction extends Action
     {
         if ($lobby === 'bankara') {
             return [
-                self::getLobbyIdByKey('bankara_challenge'),
-                self::getLobbyIdByKey('bankara_open'),
+                self::getSingleLobbyIdByKey('bankara_challenge'),
+                self::getSingleLobbyIdByKey('bankara_open'),
             ];
         }
 
+        return self::getSingleLobbyIdByKey($lobby);
+    }
+
+    private static function getSingleLobbyIdByKey(string $lobby): int
+    {
         $model = Lobby3::find()
             ->andWhere(['key' => $lobby])
             ->limit(1)

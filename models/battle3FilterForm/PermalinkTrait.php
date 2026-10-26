@@ -28,8 +28,9 @@ trait PermalinkTrait
 {
     /**
      * @param string|false $formName
+     * @return array<string, string>
      */
-    public function toPermLink($formName = false)
+    public function toPermLink($formName = false): array
     {
         $formName = trim(is_string($formName) ? $formName : $this->formName());
 
@@ -131,8 +132,8 @@ trait PermalinkTrait
         try {
             $tz = new DateTimeZone(Yii::$app->timeZone);
 
-            $date1 = new DateTimeImmutable($this->term_from, $tz);
-            $date2 = new DateTimeImmutable($this->term_to, $tz);
+            $date1 = new DateTimeImmutable(TypeHelper::string($this->term_from), $tz);
+            $date2 = new DateTimeImmutable(TypeHelper::string($this->term_to), $tz);
             $push(
                 $date1->getTimestamp(),
                 $date2->getTimestamp(),

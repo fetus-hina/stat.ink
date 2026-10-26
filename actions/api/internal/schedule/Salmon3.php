@@ -26,6 +26,9 @@ use const SORT_ASC;
 
 trait Salmon3
 {
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     protected function getSalmon3(): array
     {
         return array_merge(
@@ -34,6 +37,9 @@ trait Salmon3
         );
     }
 
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     private function getSalmon3Impl(bool $isEggstraWork): array
     {
         $key = $isEggstraWork ? 'salmon_eggstra' : 'salmon';
@@ -80,8 +86,8 @@ trait Salmon3
                             function (SalmonScheduleWeapon3 $info): array {
                                 $w = $info->weapon ?: $info->random;
                                 return [
-                                    'key' => $w->key,
-                                    'name' => Yii::t('app-weapon3', $w->name),
+                                    'key' => $w?->key,
+                                    'name' => Yii::t('app-weapon3', $w->name ?? ''),
                                     'icon' => null,
                                 ];
                             },
@@ -93,6 +99,9 @@ trait Salmon3
         ];
     }
 
+    /**
+     * @return array{key: string, name: string, image: null}|null
+     */
     private function salmonMap3(SalmonMap3|Map3|BigrunMap3|null $info): ?array
     {
         if (!$info) {
@@ -106,6 +115,9 @@ trait Salmon3
         ];
     }
 
+    /**
+     * @return array{key: string, name: string, image: null}|null
+     */
     private function salmonKing3(SalmonKing3|null $king): ?array
     {
         if (!$king) {

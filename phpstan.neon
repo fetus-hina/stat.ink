@@ -1,7 +1,8 @@
 includes:
-  - vendor/proget-hq/phpstan-yii2/extension.neon
+  - vendor/mspirkov/yii2-phpstan/extension.neon
 
 parameters:
+  level: 8
   phpVersion: 80500
 
   paths:
@@ -10,28 +11,231 @@ parameters:
     - commands/
     - components/
     - controllers/
-    - deploy/
+    - deploy/deploy.php
     - messages/
     - models/
     - views/
+
+  excludePaths:
+    analyse:
+      # One-off scripts that rewrite the translation catalogs, not catalogs themselves
+      - messages/*.php
+
+  scanDirectories:
+    - deploy/vendor/deployer/deployer/src/
+
+  ignoreErrors:
+    -
+      # Code shared by the web and console applications. PHPStan types these
+      # components by the web config, but they differ on the console.
+      identifier: instanceof.alwaysTrue
+      message: '#^Instanceof between (yii\\web\\View|app\\components\\web\\(AssetManager|Request)) and yii\\web\\(View|AssetManager|Request) will always evaluate to true\.$#'
+    -
+      # Follows from the web-only View type above (fallback for the console)
+      identifier: booleanAnd.leftAlwaysTrue
+      path: components/widgets/Icon.php
+    -
+      identifier: deadCode.unreachable
+      path: components/widgets/Icon.php
+    -
+      identifier: booleanNot.alwaysFalse
+      path: components/widgets/v3/SalmonPlayers.php
+    -
+      # Yii::$app->controller is null on the console
+      identifier: booleanNot.alwaysFalse
+      path: components/helpers/I18n.php
+    -
+      # Used by the migrations, which are not analysed
+      identifier: trait.unused
+      path: components/db/*
+    -
+      # Public or protected API; narrowing it is a signature change for callers and subclasses
+      identifier: return.unusedType
+      paths:
+        - actions/entire/v3/InkColor3Action.php
+        - components/formatters/api/v3/SalmonPlayerApiFormatter.php
+        - components/formatters/api/v3/SalmonSpecialUseApiFormatter.php
+        - components/formatters/api/v3/SalmonWaveApiFormatter.php
+        - components/widgets/BattleFilterWidget.php
+        - components/widgets/BattleKillDeathColumn.php
+        - components/widgets/HappyNewYearWidget.php
+        - components/widgets/Icon.php
+        - components/widgets/IndexI18nButtons.php
+        - components/widgets/Label.php
+        - components/widgets/SnsWidget.php
+        - components/widgets/battle/panelItem/SalmonItem3Widget.php
+    -
+      # The return types match the callback type that the receiver documents,
+      # and the never-returned members come only from PHPDoc types
+      identifier: return.unusedType
+      paths:
+        - components/widgets/SalmonWaves.php
+        - views/entire/v3/weapons3/charts/ka-ratio.php
+        - views/entire/v3/weapons3/charts/kill-adv.php
+        - views/entire/v3/weapons3/charts/kill-ratio.php
+    -
+      # refresh() reloads is_deleted, which another request may have changed
+      identifier: if.alwaysTrue
+      paths:
+        - actions/api/v3/DeleteBattleAction.php
+        - actions/api/v3/salmon/DeleteSalmonAction.php
+    -
+      # The s3-img-gen prefetch is disabled for now by a "&& false" switch
+      identifier: booleanAnd.rightAlwaysFalse
+      paths:
+        - actions/api/v3/PostBattleAction.php
+        - actions/api/v3/salmon/PostSalmonAction.php
+    -
+      # Kept to document the category order with the other CATEGORY_* constants
+      identifier: classConstant.unused
+      path: actions/site/LicenseAction.php
+    -
+      # Every table keeps the same $compats/$remarks shape, even when it is empty
+      identifiers:
+        - isset.offset
+        - nullCoalesce.offset
+      path: commands/Api2MarkdownController.php
+    -
+      # findMissing() keeps the extra fields of the calls (file, line), which its PHPDoc cannot express
+      identifier: offsetAccess.notFound
+      message: '#^Offset ''(file|line)'' might not exist on array\{category: string, message: string, reason: string, \.\.\.\}\.$#'
+      path: commands/i18n/CheckKeysAction.php
+    -
+      # Runtime guard for values that only PHPDoc types
+      identifier: function.alreadyNarrowedType
+      path: commands/dlStats3/CsvUtilTrait.php
+    -
+      # $at holds a Now expression until the record is inserted
+      identifier: function.alreadyNarrowedType
+      message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+      path: models/Battle.php
+    -
+      # Checks a battle built from a form before it is saved
+      identifier: notIdentical.alwaysTrue
+      path: models/Battle2.php
+    -
+      # asArray() queries return arrays
+      identifier: instanceof.alwaysTrue
+      path: models/query/AcceptLanguageQuery.php
+    -
+      # config/git-revision.php is generated at deployment and may be absent
+      identifier: nullCoalesce.offset
+      path: views/layouts/footer.php
+    -
+      # asArray() queries return arrays, but ActiveQuery types the results by the model
+      identifier: argument.type
+      message: '#^Parameter \#\d+ \$callback of function (array_map|usort) expects .+, Closure\(array(, array)?\): .+ given\.$#'
+      paths:
+        - actions/api/info/GearAction.php
+        - actions/api/info/Weapon2Action.php
+        - actions/api/info/WeaponAction.php
+        - actions/entire/users/Splatoon2.php
+        - actions/entire/users/Splatoon3.php
+        - actions/show/v2/UserStatReportAction.php
+        - components/widgets/Battle2FilterWidget.php
+        - models/EntireWeapon2Form.php
+        - views/entire/kd-win2.php
+    -
+      # asArray() queries return arrays, but ActiveQuery types the results by the model
+      identifier: return.type
+      message: '#^Method .+ should return array<int, array<string, mixed>> but returns array<T of array\|yii\\db\\ActiveRecord = array<mixed>\|yii\\db\\ActiveRecord>\.$#'
+      paths:
+        - actions/entire/AgentAction.php
+        - actions/entire/users/Splatoon2.php
+    -
+      # The grid passes the row models of TModel, which the native type of the closures cannot express
+      identifier: argument.type
+      message: '#^Parameter \#1 \$model of method app\\components\\grid\\KillRatioColumn<TModel of yii\\db\\ActiveRecord>::getKillRat(e|io)\(\) expects TModel of yii\\db\\ActiveRecord, yii\\base\\Model given\.$#'
+      path: components/grid/KillRatioColumn.php
+    -
+      # EachValidator::validateValue() documents its [message, params] result only as array
+      identifier: return.type
+      message: '#^Method app\\components\\validators\\ArrayValidator::validateValue\(\) should return array\{string, array<string, mixed>\}\|null but returns array\|null\.$#'
+      path: components/validators/ArrayValidator.php
+    -
+      # host() returns an ObjectProxy for several hosts, which forwards set() to each Host
+      identifier: method.notFound
+      message: '#^Call to an undefined method Deployer\\Host\\Host\|Deployer\\Support\\ObjectProxy::set\(\)\.$#'
+      path: deploy/deploy.php
+    -
+      # Reads the template after __halt_compiler()
+      identifier: argument.invalidConstant
+      path: components/widgets/SalmonStatsHistoryWidget.php
+    -
+      # The API reports the errors of the players nested under the attribute
+      identifier: argument.type
+      message: '#^Parameter \#2 \$error of method yii\\base\\Model::addError\(\) expects string, array<string, array<string>> given\.$#'
+      paths:
+        - models/api/v1/PostBattleForm.php
+        - models/api/v2/PostBattleForm.php
+    -
+      # registerJsVar() encodes any value with Json::htmlEncode()
+      identifier: argument.type
+      message: '#^Parameter \#2 \$value of method yii\\web\\View::registerJsVar\(\) expects array\|string, .+ given\.$#'
+    -
+      # false omits the name attribute of the select element
+      identifier: argument.type
+      message: '#^Parameter \#1 \$name of static method yii\\helpers\\BaseHtml::dropDownList\(\) expects string, false given\.$#'
+      path: views/entire/weapon2.php
+
+  typeAliases:
+    DailyData: 'array{rule_id: int, date: string, count: int, avg: float, final: ?float, max: float, max_id: int, min: float}'
+    EventStats: 'array<int, array<int, array{tide_id: int, event_id: int, waves: int, cleared: int, total_quota: int, total_delivered: int}>>'
+    OverfishingStats: 'array{total: TotalEggs, waves: WaveStats[]}'
+    PlayerStats: 'array{name: string, number: string, jobs: int, cleared: int, waves: int, max_danger_rate: int|float|numeric-string|null, clear_danger_rate: int|float|numeric-string|null, total_golden_result: int|null, avg_golden_result: int|float|numeric-string|null, max_golden_result: int|float|numeric-string|null, total_golden: int|null, avg_golden: int|float|numeric-string|null, max_golden: int|null, total_rescue: int|null, avg_rescue: int|float|numeric-string|null, total_rescued: int|null, avg_rescued: int|float|numeric-string|null, total_boss: int|null, avg_boss: int|float|numeric-string|null}'
+    TotalEggs: 'array{total_3_night: int|null, total_2_night: int|null, total_1_night: int|null, total_0_night: int|null}'
+    WaveStats: 'array{event_id: int, tide_id: int, golden_eggs: int}'
+    WeaponStats: 'array{weapon_id: int, normal_waves: int, normal_cleared: int, xtra_waves: int, xtra_cleared: int}'
+    SAssists: '\app\models\StatWeapon3Assist[]|\app\models\StatWeapon3AssistPerVersion[]'
+    SDeaths: '\app\models\StatWeapon3Death[]|\app\models\StatWeapon3DeathPerVersion[]'
+    SInkeds: '\app\models\StatWeapon3Inked[]|\app\models\StatWeapon3InkedPerVersion[]'
+    SKillOrAssists: '\app\models\StatWeapon3KillOrAssist[]|\app\models\StatWeapon3KillOrAssistPerVersion[]'
+    SKills: '\app\models\StatWeapon3Kill[]|\app\models\StatWeapon3KillPerVersion[]'
+    SSpecials: '\app\models\StatWeapon3Special[]|\app\models\StatWeapon3SpecialPerVersion[]'
+    Weapon3Stat: '\app\models\StatWeapon3Assist|\app\models\StatWeapon3AssistPerVersion|\app\models\StatWeapon3Death|\app\models\StatWeapon3DeathPerVersion|\app\models\StatWeapon3Inked|\app\models\StatWeapon3InkedPerVersion|\app\models\StatWeapon3KillOrAssist|\app\models\StatWeapon3KillOrAssistPerVersion|\app\models\StatWeapon3Kill|\app\models\StatWeapon3KillPerVersion|\app\models\StatWeapon3Special|\app\models\StatWeapon3SpecialPerVersion'
+    DataType: 'array{assist: SAssists, death: SDeaths, inked: SInkeds, ka: SKillOrAssists, kill: SKills, special: SSpecials}'
 
   bootstrapFiles:
     - vendor/autoload.php
     - vendor/yiisoft/yii2/Yii.php
     - config/web-bootstrap.php
+    - data/phpstan/bootstrap-deployer.php
 
-  yii2:
-    config_path: %rootDir%/../../../config/web.php
-
-  ignoreErrors:
-    - /during method call all at/
-    - /during method call andWhere at/
-    - /during method call asArray at/
-    - /during method call innerJoinWith at/
-    - /during method call join at/
-    - /during method call joinWith at/
-    - /during method call limit at/
-    - /during method call one at/
-    - /during method call orderBy at/
-    - /during method call with at/
-    - /provided to createObject method/
+  mspirkovYii2:
+    enableAllRules: false
+    enableValidationRules: true
+    aliases:
+      '@app': .
+    yiiAppTypes:
+      -
+        paths:
+          - actions
+          - assets
+          - components/grid
+          - components/web
+          - components/widgets
+          - controllers
+          - views
+        type: app\components\web\Application
+        nullable: false
+      -
+        paths:
+          - commands
+        type: yii\console\Application
+        nullable: false
+      -
+        paths:
+          - .
+        type: yii\console\Application|app\components\web\Application
+        nullable: false
+    applicationConfigs:
+      -
+        paths:
+          - .
+        files:
+          - config/web.php
+      -
+        paths:
+          - commands
+        files:
+          - config/console.php

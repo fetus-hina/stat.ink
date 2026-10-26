@@ -33,12 +33,19 @@ final class WaveForm extends Model
 {
     use TypeHelperTrait;
 
+    /** @var mixed */
     public $tide;
+    /** @var mixed */
     public $event;
+    /** @var mixed */
     public $golden_quota;
+    /** @var mixed */
     public $golden_delivered;
+    /** @var mixed */
     public $golden_appearances;
+    /** @var mixed */
     public $special_uses;
+    /** @var mixed */
     public $danger_rate;
 
     public function behaviors()

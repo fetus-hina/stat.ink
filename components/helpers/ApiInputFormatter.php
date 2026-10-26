@@ -20,7 +20,7 @@ use const FILTER_VALIDATE_INT;
 
 class ApiInputFormatter extends Component
 {
-    public function asString($value): ?string
+    public function asString(mixed $value): ?string
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -30,7 +30,7 @@ class ApiInputFormatter extends Component
         return $value;
     }
 
-    public function asInteger($value): ?int
+    public function asInteger(mixed $value): ?int
     {
         $value = $this->asString($value);
         if ($value === null) {
@@ -42,12 +42,15 @@ class ApiInputFormatter extends Component
     }
 
     public function asKeyId(
-        $value,
+        mixed $value,
         string $class,
         string $keyColumn = 'key',
         ?string $splatnetIdColumn = null,
     ): ?int {
         $value = $this->asString($value);
+        if ($value === null) {
+            return null;
+        }
 
         if ($splatnetIdColumn !== null && substr($value, 0, 1) === '#' && preg_match('/^#\d+$/', $value)) {
             $model = $class::findOne([$splatnetIdColumn => substr($value, 1)]);

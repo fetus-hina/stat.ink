@@ -7,11 +7,14 @@
 
 namespace app\models;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\ability\Effect;
+use app\components\ability\effect\Base as AbilityEffect;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\models\query\BattleQuery;
 use stdClass;
@@ -52,97 +55,113 @@ use const SORT_STRING;
  *
  * @property integer $id
  * @property integer $user_id
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $weapon_id
- * @property integer $level
- * @property integer $rank_id
- * @property boolean $is_win
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
- * @property string $start_at
- * @property string $end_at
+ * @property integer|null $rule_id
+ * @property integer|null $map_id
+ * @property integer|null $weapon_id
+ * @property integer|null $level
+ * @property integer|null $rank_id
+ * @property boolean|null $is_win
+ * @property integer|null $rank_in_team
+ * @property integer|null $kill
+ * @property integer|null $death
+ * @property string|null $start_at
+ * @property string|null $end_at
  * @property string $at
- * @property integer $agent_id
- * @property integer $level_after
- * @property integer $rank_after_id
- * @property integer $rank_exp
- * @property integer $rank_exp_after
- * @property integer $cash
- * @property integer $cash_after
- * @property integer $lobby_id
- * @property string $kill_ratio
- * @property integer $gender_id
- * @property integer $fest_title_id
- * @property integer $fest_title_after_id
- * @property integer $fest_exp
- * @property integer $fest_exp_after
- * @property integer $my_team_color_hue
- * @property integer $his_team_color_hue
- * @property string $my_team_color_rgb
- * @property string $his_team_color_rgb
- * @property integer $my_point
- * @property integer $my_team_final_point
- * @property integer $his_team_final_point
- * @property string $my_team_final_percent
- * @property string $his_team_final_percent
- * @property boolean $is_knock_out
- * @property integer $my_team_count
- * @property integer $his_team_count
+ * @property integer|null $agent_id
+ * @property integer|null $level_after
+ * @property integer|null $rank_after_id
+ * @property integer|null $rank_exp
+ * @property integer|null $rank_exp_after
+ * @property integer|null $cash
+ * @property integer|null $cash_after
+ * @property integer|null $lobby_id
+ * @property-read numeric-string|null $kill_ratio
+ * @property-write float|string|null $kill_ratio
+ * @property integer|null $gender_id
+ * @property integer|null $fest_title_id
+ * @property integer|null $fest_title_after_id
+ * @property integer|null $fest_exp
+ * @property integer|null $fest_exp_after
+ * @property integer|null $my_team_color_hue
+ * @property integer|null $his_team_color_hue
+ * @property string|null $my_team_color_rgb
+ * @property string|null $his_team_color_rgb
+ * @property integer|null $my_point
+ * @property integer|null $my_team_final_point
+ * @property integer|null $his_team_final_point
+ * @property numeric-string|null $my_team_final_percent
+ * @property numeric-string|null $his_team_final_percent
+ * @property boolean|null $is_knock_out
+ * @property integer|null $my_team_count
+ * @property integer|null $his_team_count
  * @property integer $period
- * @property string $ua_custom
- * @property string $ua_variables
- * @property integer $env_id
+ * @property string|null $ua_custom
+ * @property-read array<string, mixed>|string|null $ua_variables
+ * @property-write array<string, mixed>|string|null $ua_variables
+ * @property integer|null $env_id
  * @property boolean $is_automated
- * @property integer $headgear_id
- * @property integer $clothing_id
- * @property integer $shoes_id
- * @property string $link_url
- * @property string $note
- * @property string $private_note
- * @property integer $my_team_power
- * @property integer $his_team_power
- * @property integer $fest_power
- * @property integer $version_id
- * @property string $client_uuid
- * @property integer $agent_game_version_id
- * @property string $agent_game_version_date
- * @property integer $max_kill_combo
- * @property integer $max_kill_streak
+ * @property integer|null $headgear_id
+ * @property integer|null $clothing_id
+ * @property integer|null $shoes_id
+ * @property string|null $link_url
+ * @property string|null $note
+ * @property string|null $private_note
+ * @property integer|null $my_team_power
+ * @property integer|null $his_team_power
+ * @property integer|null $fest_power
+ * @property integer|null $version_id
+ * @property string|null $client_uuid
+ * @property integer|null $agent_game_version_id
+ * @property string|null $agent_game_version_date
+ * @property integer|null $max_kill_combo
+ * @property integer|null $max_kill_streak
  * @property boolean $use_for_entire
- * @property integer $bonus_id
+ * @property integer|null $bonus_id
  *
- * @property Agent $agent
- * @property Environment $env
- * @property FestTitle $festTitle
- * @property FestTitle $festTitleAfter
- * @property GearConfiguration $headgear
- * @property GearConfiguration $clothing
- * @property GearConfiguration $shoes
- * @property Gender $gender
- * @property Lobby $lobby
- * @property Map $map
- * @property Rank $rank
- * @property Rank $rankAfter
- * @property Rule $rule
+ * @property Agent|null $agent
+ * @property Environment|null $env
+ * @property FestTitle|null $festTitle
+ * @property FestTitle|null $festTitleAfter
+ * @property GearConfiguration|null $headgear
+ * @property GearConfiguration|null $clothing
+ * @property GearConfiguration|null $shoes
+ * @property Gender|null $gender
+ * @property Lobby|null $lobby
+ * @property Map|null $map
+ * @property Rank|null $rank
+ * @property Rank|null $rankAfter
+ * @property Rule|null $rule
  * @property User $user
- * @property Weapon $weapon
+ * @property Weapon|null $weapon
  * @property BattleDeathReason[] $battleDeathReasons
  * @property DeathReason[] $reasons
  * @property BattleImage[] $battleImages
  * @property BattlePlayer[] $battlePlayers
- * @property SplatoonVersion $splatoonVersion
- * @property SplatoonVersion $agentGameVersion
- * @property TurfwarWinBonus $bonus
+ * @property SplatoonVersion|null $splatoonVersion
+ * @property SplatoonVersion|null $agentGameVersion
+ * @property TurfwarWinBonus|null $bonus
  *
  * @property-read BattleImage|null $battleImageGear
  * @property-read BattleImage|null $battleImageJudge
  * @property-read BattleImage|null $battleImageResult
+ * @property-read BattleEvents|null $battleEvents
+ * @property-read string|null $events
+ * @property-read array<string, mixed> $extraData
+ * @property-read AbilityEffect|null $abilityEffects
+ * @property-read stdClass $gearAbilities
+ * @property-read BattlePlayer[] $hisTeamPlayers
+ * @property-read int|null $inked
+ * @property-read bool $isGachi
+ * @property-read bool $isMeaningful
+ * @property-read float|int|null $kill_rate
+ * @property-read BattlePlayer[] $myTeamPlayers
+ * @property-read Battle|null $nextBattle
+ * @property-read Battle|null $previousBattle
+ * @property-read WeaponAttack|null $weaponAttack
  */
 class Battle extends ActiveRecord
 {
-    public $skipSaveHistory = false;
+    public bool $skipSaveHistory = false;
 
     public static function find(): BattleQuery
     {
@@ -170,7 +189,7 @@ class Battle extends ActiveRecord
         return null;
     }
 
-    public static function getTotalRoughCount()
+    public static function getTotalRoughCount(): int|false
     {
         $list = [
             self::getRoughCount(...),
@@ -179,7 +198,7 @@ class Battle extends ActiveRecord
         $total = 0;
         foreach ($list as $callback) {
             $tmp = $callback();
-            if ($tmp === false || $tmp === null) {
+            if ($tmp === null) {
                 return false;
             }
             $total += $tmp;
@@ -206,7 +225,8 @@ class Battle extends ActiveRecord
         return 'battle';
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->on(ActiveRecord::EVENT_BEFORE_INSERT, $this->setKillRatio(...));
@@ -458,7 +478,7 @@ class Battle extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
-    public function getWeaponAttack()
+    public function getWeaponAttack(): ?WeaponAttack
     {
         $weapon = $this->weapon;
         $version = $this->splatoonVersion;
@@ -495,13 +515,13 @@ class Battle extends ActiveRecord
             ->orderBy('{{battle_player}}.[[id]] ASC');
     }
 
-    public function getMyTeamPlayers()
+    public function getMyTeamPlayers(): ActiveQuery
     {
         return $this->getBattlePlayers()
             ->andWhere(['{{battle_player}}.[[is_my_team]]' => true]);
     }
 
-    public function getHisTeamPlayers()
+    public function getHisTeamPlayers(): ActiveQuery
     {
         return $this->getBattlePlayers()
             ->andWhere(['{{battle_player}}.[[is_my_team]]' => false]);
@@ -515,69 +535,72 @@ class Battle extends ActiveRecord
         return $this->hasMany(BattleImage::class, ['battle_id' => 'id']);
     }
 
-    public function getBattleImageJudge()
+    public function getBattleImageJudge(): ActiveQuery
     {
         return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_JUDGE]);
     }
 
-    public function getBattleImageResult()
+    public function getBattleImageResult(): ActiveQuery
     {
         return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
     }
 
-    public function getBattleImageGear()
+    public function getBattleImageGear(): ActiveQuery
     {
         return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_GEAR]);
     }
 
-    public function getBattleEvents()
+    public function getBattleEvents(): ActiveQuery
     {
         return $this->hasOne(BattleEvents::class, ['id' => 'id']);
     }
 
+    /**
+     * @return string|null
+     */
     public function getEvents()
     {
         $model = $this->battleEvents;
         return $model ? $model->events : null;
     }
 
-    public function getSplatoonVersion()
+    public function getSplatoonVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion::class, ['id' => 'version_id']);
     }
 
-    public function getAgentGameVersion()
+    public function getAgentGameVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion::class, ['id' => 'agent_game_version_id']);
     }
 
-    public function getBonus()
+    public function getBonus(): ActiveQuery
     {
         return $this->hasOne(TurfwarWinBonus::class, ['id' => 'bonus_id']);
     }
 
-    public function getIsNawabari()
+    public function getIsNawabari(): bool
     {
         return $this->getIsThisGameMode('regular');
     }
 
-    public function getIsGachi()
+    public function getIsGachi(): bool
     {
         return $this->getIsThisGameMode('gachi');
     }
 
-    private function getIsThisGameMode($key)
+    private function getIsThisGameMode(string $key): bool
     {
-        if ($this->rule && $this->rule->mode) {
+        if ($this->rule) {
             return $this->rule->mode->key === $key;
         }
         return false;
     }
 
-    public function getIsMeaningful()
+    public function getIsMeaningful(): bool
     {
         $props = [
             'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team', 'kill', 'death',
@@ -591,11 +614,18 @@ class Battle extends ActiveRecord
     }
 
     // compat
+
+    /**
+     * @return int
+     */
     public function getPeriodId()
     {
         return $this->period;
     }
 
+    /**
+     * @return int|null
+     */
     public function getInked()
     {
         if (
@@ -612,7 +642,7 @@ class Battle extends ActiveRecord
             : $this->my_point;
     }
 
-    public function getPreviousBattle()
+    public function getPreviousBattle(): ActiveQuery
     {
         return $this->hasOne(static::class, ['user_id' => 'user_id'])
             ->andWhere(['<', '{{battle}}.[[id]]', $this->id])
@@ -620,7 +650,7 @@ class Battle extends ActiveRecord
             ->limit(1);
     }
 
-    public function getNextBattle()
+    public function getNextBattle(): ActiveQuery
     {
         return $this->hasOne(static::class, ['user_id' => 'user_id'])
             ->andWhere(['>', '{{battle}}.[[id]]', $this->id])
@@ -628,7 +658,7 @@ class Battle extends ActiveRecord
             ->limit(1);
     }
 
-    public function setPeriod()
+    public function setPeriod(): void
     {
         // 開始時間があれば開始時間から15秒(適当)引いた値を使うを使う。
         // 終了時間があれば終了時間から3分30秒(適当)引いた値を仕方ないので使う。
@@ -637,7 +667,7 @@ class Battle extends ActiveRecord
         $now = (int)(@$_SERVER['REQUEST_TIME'] ?: time());
 
         $time = false;
-        if ($time === false && is_string($this->start_at) && trim($this->start_at) !== '') {
+        if (is_string($this->start_at) && trim($this->start_at) !== '') {
             if (($t = strtotime($this->start_at)) !== false && $t >= $onSale && $t <= $now) {
                 $time = $t - 15;
             }
@@ -658,7 +688,7 @@ class Battle extends ActiveRecord
         $this->period = \app\components\helpers\Battle::calcPeriod($time);
     }
 
-    public function setBonus()
+    public function setBonus(): void
     {
         $this->bonus_id = null;
         if (!$this->rule_id) {
@@ -676,7 +706,7 @@ class Battle extends ActiveRecord
         $this->bonus_id = $bonus->id;
     }
 
-    public function setKillRatio()
+    public function setKillRatio(): void
     {
         if ($this->kill === null || $this->death === null) {
             $this->kill_ratio = null;
@@ -689,7 +719,7 @@ class Battle extends ActiveRecord
         $this->kill_ratio = sprintf('%.2f', $this->kill / $this->death);
     }
 
-    public function setSplatoonVersion()
+    public function setSplatoonVersion(): void
     {
         if ($this->version_id) {
             return;
@@ -710,7 +740,7 @@ class Battle extends ActiveRecord
         $this->version_id = $version ? $version->id : null;
     }
 
-    public function updateUserStat()
+    public function updateUserStat(): void
     {
         if (!$stat = UserStat::findOne(['user_id' => $this->user_id])) {
             $stat = new UserStat();
@@ -720,6 +750,9 @@ class Battle extends ActiveRecord
         $stat->save();
     }
 
+    /**
+     * @return false|void
+     */
     public function updateUserWeapon()
     {
         $dirty = $this->getDirtyAttributes();
@@ -804,7 +837,11 @@ class Battle extends ActiveRecord
         return true;
     }
 
-    public function toJsonArray(array $skips = [])
+    /**
+     * @param string[] $skips
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(array $skips = []): array
     {
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
@@ -814,7 +851,7 @@ class Battle extends ActiveRecord
         return [
             'id' => $this->id,
             'url' => Url::to(['show/battle', 'screen_name' => $this->user->screen_name, 'battle' => $this->id], true),
-            'user' => !in_array('user', $skips, true) && $this->user ? $this->user->toJsonArray() : null,
+            'user' => !in_array('user', $skips, true) ? $this->user->toJsonArray() : null,
             'lobby' => $this->lobby ? $this->lobby->toJsonArray() : null,
             'rule' => $this->rule ? $this->rule->toJsonArray() : null,
             'map' => $this->map ? $this->map->toJsonArray() : null,
@@ -899,11 +936,10 @@ class Battle extends ActiveRecord
                 'game_version_date' => $this->agent_game_version_date,
                 'custom' => $this->ua_custom,
                 'variables' => $this->ua_variables
-                    ? match (true) {
-                        is_array($this->ua_variables) => $this->ua_variables,
-                        is_string($this->ua_variables) => @json_decode($this->ua_variables, false),
-                        default => null,
-                    }
+                    ? (is_string($this->ua_variables)
+                        ? @json_decode($this->ua_variables, false)
+                        : $this->ua_variables
+                    )
                     : null,
             ],
             'automated' => !!$this->is_automated,
@@ -924,14 +960,17 @@ class Battle extends ActiveRecord
         ];
     }
 
-    public function toIkaLogCsv()
+    /**
+     * @return string[]
+     */
+    public function toIkaLogCsv(): array
     {
         // https://github.com/hasegaw/IkaLog/blob/b2e3f3f1315719ad42837ffdb2362680ae09a5dc/ikalog/outputs/csv.py#L130
         // t_unix, t_str, map, rule, won
 
         // t_str = t.strftime("%Y,%m,%d,%H,%M")
         // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
-        $t = strtotime($this->end_at ?: $this->at);
+        $t = ($this->end_at ?: $this->at) |> strtotime(...) |> TypeHelper::int(...);
         return [
             (string)$t,
             date('Y', $t),
@@ -947,7 +986,10 @@ class Battle extends ActiveRecord
         ];
     }
 
-    public function toIkaLogJson()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toIkaLogJson(): array
     {
         $ret = [
             'time' => strtotime($this->end_at ?: $this->at),
@@ -1028,7 +1070,10 @@ class Battle extends ActiveRecord
         return $ret;
     }
 
-    public function getDeathReasonNamesFromEvents()
+    /**
+     * @return array<string, string|null>
+     */
+    public function getDeathReasonNamesFromEvents(): array
     {
         try {
             if ($this->events === null || $this->events === '') {
@@ -1067,7 +1112,7 @@ class Battle extends ActiveRecord
         }
     }
 
-    public function getGearAbilities()
+    public function getGearAbilities(): stdClass
     {
         $gears = [
             $this->headgear,
@@ -1113,12 +1158,12 @@ class Battle extends ActiveRecord
         return (object)$ret;
     }
 
-    public function getHasAbilities()
+    public function getHasAbilities(): bool
     {
         return $this->headgear && $this->clothing && $this->shoes;
     }
 
-    public function getAbilityEffects()
+    public function getAbilityEffects(): ?AbilityEffect
     {
         if (!$this->getHasAbilities()) {
             return null;
@@ -1126,6 +1171,9 @@ class Battle extends ActiveRecord
         return Effect::factory($this);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getExtraData(): array
     {
         $json = $this->ua_variables;
@@ -1150,7 +1198,7 @@ class Battle extends ActiveRecord
         })();
     }
 
-    public function getKillRate()
+    public function getKillRate(): int|float|null
     {
         if ($this->kill + $this->death === 0) {
             return null;
@@ -1158,7 +1206,7 @@ class Battle extends ActiveRecord
         return $this->kill / ($this->kill + $this->death);
     }
 
-    public function saveEditHistory()
+    public function saveEditHistory(): bool
     {
         if ($this->skipSaveHistory) {
             return true;
@@ -1178,7 +1226,7 @@ class Battle extends ActiveRecord
         );
     }
 
-    public function saveDeleteHistory()
+    public function saveDeleteHistory(): bool
     {
         if ($this->skipSaveHistory) {
             return true;
@@ -1190,16 +1238,18 @@ class Battle extends ActiveRecord
         );
     }
 
-    protected function saveEditHistoryImpl($jsonBefore, $jsonAfter)
+    protected function saveEditHistoryImpl(string $jsonBefore, string $jsonAfter): bool
     {
         try {
-            $edit = new BattleEditHistory();
-            $edit->battle_id = $this->id;
-            $edit->diff = Differ::diff($jsonBefore, $jsonAfter);
-            $edit->at = new Now();
-            if ($edit->diff == '') {
+            $diff = Differ::diff($jsonBefore, $jsonAfter);
+            if ($diff === null || $diff === '') {
                 return true;
             }
+
+            $edit = new BattleEditHistory();
+            $edit->battle_id = $this->id;
+            $edit->diff = $diff;
+            $edit->at = new Now();
             return !!$edit->save();
         } catch (Throwable $e) {
             return false;
@@ -1208,6 +1258,6 @@ class Battle extends ActiveRecord
 
     public function getCreatedAt(): int
     {
-        return strtotime($this->at);
+        return $this->at |> strtotime(...) |> TypeHelper::int(...);
     }
 }

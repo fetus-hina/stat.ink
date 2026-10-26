@@ -7,6 +7,7 @@
 
 namespace app\components\helpers;
 
+use Override;
 use RuntimeException;
 use Yii;
 use yii\base\Component;
@@ -17,28 +18,33 @@ use function vsprintf;
 
 final class CriticalSection extends Component
 {
-    public $name;
-    public $timeout = 0;
-    public $mutex;
+    public ?string $name = null;
+    public int $timeout = 0;
+    public Mutex $mutex;
 
     public static function lock(
         string $name,
         int $timeout = 0,
         ?Mutex $mutex = null,
     ): Resource {
-        return Yii::createObject([
+        $config = [
             'class' => static::class,
-            'mutex' => $mutex,
             'name' => $name,
             'timeout' => $timeout,
-        ])->enter();
+        ];
+        if ($mutex !== null) {
+            $config['mutex'] = $mutex;
+        }
+
+        return Yii::createObject($config)->enter();
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
-        if ($this->mutex === null) {
+        if (!isset($this->mutex)) {
             $this->mutex = Yii::$app->mutex;
         }
     }
@@ -51,10 +57,6 @@ final class CriticalSection extends Component
 
         if ($this->timeout < 0) {
             throw new InvalidConfigException('$mutex->timeout is now negative value.');
-        }
-
-        if (!$this->mutex instanceof Mutex) {
-            throw new InvalidConfigException('$mutex->mutex is not instance of ' . Mutex::class . '.');
         }
 
         Yii::trace(__METHOD__ . '(): Entering a critical section that named ' . $this->name);

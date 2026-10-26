@@ -31,16 +31,25 @@ use function substr;
 
 class AssetPublishAction extends Action
 {
-    public $directories = [
+    /**
+     * @var array<string, string>
+     */
+    public array $directories = [
         '@app/assets' => 'app\assets',
     ];
-    public $classes = [
+    /**
+     * @var string[]
+     */
+    public array $classes = [
         AssetBundle::class,
         JqueryAsset::class,
         YiiAsset::class,
     ];
 
-    public function run()
+    /**
+     * @return string[]
+     */
+    public function run(): array
     {
         $resp = Yii::$app->response;
         $resp->format = 'yaml';
@@ -54,6 +63,9 @@ class AssetPublishAction extends Action
         return $classes;
     }
 
+    /**
+     * @return string[]
+     */
     protected function enumerateClasses(): array
     {
         $list = array_reduce(
@@ -69,6 +81,9 @@ class AssetPublishAction extends Action
         return $list |> array_unique(...) |> array_values(...);
     }
 
+    /**
+     * @return string[]
+     */
     protected function enumerateDirectoryClasses(string $directory, string $namespace): array
     {
         $result = [];

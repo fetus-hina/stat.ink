@@ -13,7 +13,6 @@ use Exception;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\TranslateMessage;
-use yii\caching\Cache;
 use yii\console\ExitCode;
 use yii\db\Connection;
 use yii\db\Transaction;
@@ -70,13 +69,8 @@ trait SplatfestMessages
 
         if ($updated) {
             fwrite(STDERR, "Updated message(s), flushing cache\n");
-            $cache = Yii::$app->get('messageCache');
-            if ($cache && $cache instanceof Cache) {
-                $cache->flush();
-                fwrite(STDERR, "Flushed\n");
-            } else {
-                fwrite(STDERR, "Skip. Not configured\n");
-            }
+            Yii::$app->get('messageCache')->flush();
+            fwrite(STDERR, "Flushed\n");
 
             fwrite(STDERR, "VACUUMing message tables\n");
             $tables = [
@@ -99,6 +93,10 @@ trait SplatfestMessages
         return ExitCode::OK;
     }
 
+    /**
+     * @param array<mixed> $dstJson
+     * @param array<mixed> $srcJson
+     */
     private function updateSplatfestLangMessages(string $langCode, array $dstJson, array $srcJson): bool
     {
         $categoryMap = [

@@ -35,9 +35,6 @@ final class KDWinRate3Action extends Action
     public function run(): int
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            throw new LogicException();
-        }
 
         $isOk = $db->transaction(
             fn (Connection $db): bool => $this->makeStats($db),
@@ -131,7 +128,7 @@ final class KDWinRate3Action extends Action
 
         return vsprintf('INSERT INTO %s ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s', [
             $db->quoteTableName('{{%stat_kd_win_rate3}}'),
-            self::columnList($db, array_keys($select->select)),
+            self::columnList($db, array_keys($select->select ?? throw new LogicException('No columns selected'))),
             $select->createCommand($db)->rawSql,
             self::columnList($db, ['season_id', 'lobby_id', 'rule_id', 'kills', 'deaths']),
             implode(

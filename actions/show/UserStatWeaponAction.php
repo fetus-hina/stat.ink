@@ -7,14 +7,17 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\User;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class UserStatWeaponAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): Response
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);

@@ -17,6 +17,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\web\HeaderCollection;
+use yii\web\Request as WebRequest;
 
 use function base64_encode;
 use function hash;
@@ -33,12 +34,15 @@ use const SORT_STRING;
  *
  * @property integer $id
  * @property string $hash
- * @property array $value
+ * @property array<string, string> $value
  *
  * @property UserLoginHistory[] $userLoginHistories
  */
 class HttpClientHint extends ActiveRecord
 {
+    /**
+     * @param array<string, mixed>|null $data
+     */
     public static function findOrCreate(?array $data = null): ?self
     {
         if ($data === null) {
@@ -100,16 +104,24 @@ class HttpClientHint extends ActiveRecord
         return $this->hasMany(UserLoginHistory::class, ['client_hint_id' => 'id']);
     }
 
+    /**
+     * @return array<string, SfItem|SfList>|null
+     */
     public static function createDataFromHeaders(?HeaderCollection $headers = null): ?array
     {
         if ($headers === null) {
-            $headers = Yii::$app->getRequest()->getHeaders();
+            $request = Yii::$app->getRequest();
+            if (!$request instanceof WebRequest) {
+                return null;
+            }
+
+            $headers = $request->getHeaders();
         }
 
         $results = [];
-        foreach (static::getSupportedHeaders() as $key => $type) {
+        foreach (self::getSupportedHeaders() as $key => $type) {
             if ($headers->has($key)) {
-                $value = static::convertHeaderValue((string)$headers->get($key), $type);
+                $value = self::convertHeaderValue((string)$headers->get($key), $type);
                 if ($value !== null) {
                     $results[$key] = $value;
                 }
@@ -119,7 +131,7 @@ class HttpClientHint extends ActiveRecord
         return $results ?: null;
     }
 
-    private static function convertHeaderValue(string $value, string $type)
+    private static function convertHeaderValue(string $value, string $type): SfItem|SfList|null
     {
         if ($type === 'list') {
             if (!$list = SfList::create($value)) {
@@ -165,6 +177,9 @@ class HttpClientHint extends ActiveRecord
         }
     }
 
+    /**
+     * @return array<string, string>
+     */
     private static function getSupportedHeaders(): array
     {
         return [

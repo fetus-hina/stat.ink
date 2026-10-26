@@ -15,7 +15,13 @@ use yii\web\ServerErrorHttpException;
 
 class Salmon2DeleteForm extends Model
 {
+    /**
+     * @var Salmon2|null
+     */
     public $model;
+    /**
+     * @var string|null
+     */
     public $agree;
 
     public function rules()
@@ -41,10 +47,14 @@ class Salmon2DeleteForm extends Model
             return false;
         }
 
-        if (!$this->model->isEditable) {
+        if (!$model = $this->model) {
+            throw new ServerErrorHttpException('The job is not set');
+        }
+
+        if (!$model->isEditable) {
             throw new ServerErrorHttpException('User mismatch and logic error');
         }
 
-        return !!$this->model->delete();
+        return !!$model->delete();
     }
 }

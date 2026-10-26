@@ -6,6 +6,11 @@
  */
 
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $list = [
   'ko' => Yii::t('app-results', 'Knockout'),

@@ -8,14 +8,21 @@
 declare(strict_types=1);
 
 use app\assets\IrasutoyaAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\FA;
+use app\models\Battle2;
+use app\models\BattlePlayer2;
 use app\models\User;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\bootstrap\Html;
 use yii\web\View;
 
 /**
+ * @var Battle2 $battle
+ * @var BattlePlayer2 $player
  * @var View $this
+ * @var int $historyCount
+ * @var string $teamKey
  */
 
 $namePartInner = trim(implode(' ', [
@@ -62,8 +69,7 @@ $namePartInner = trim(implode(' ', [
       // We can only show an anonymized name
       $anonymize = true;
     } else {
-      $user = Yii::$app->user;
-      if (!$user->isGuest && $user->identity->id == $battle->user_id) {
+      if (Yii::$app->user->getIdentity()?->id === $battle->user_id) {
         // Logged in user is also battle owner.
         // All users' name will be shown
         $anonymize = false;
@@ -116,7 +122,7 @@ $namePartInner = trim(implode(' ', [
                 hash(
                   'sha256',
                   (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $raw, $match))
-                    ? hex2bin($match[1])
+                    ? TypeHelper::string(hex2bin($match[1]))
                     : $raw
                 ),
                 0,

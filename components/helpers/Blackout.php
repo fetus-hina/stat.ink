@@ -15,8 +15,14 @@ use function range;
 
 class Blackout
 {
-    public static function getBlackoutTargetList($lobbyKey, $blackoutConfigValue, $myPosition): array
-    {
+    /**
+     * @return array<int, int>
+     */
+    public static function getBlackoutTargetList(
+        mixed $lobbyKey,
+        mixed $blackoutConfigValue,
+        mixed $myPosition,
+    ): array {
         if ($myPosition === false) {
             return [];
         }
@@ -31,7 +37,7 @@ class Blackout
                 if ($lobbyKey === 'private') {
                     return [];
                 }
-                return static::createList([$myPosition]);
+                return self::createList([$myPosition]);
 
             // プラベでは黒塗りしない
             // タッグマッチ(3-4人)では味方チームを黒塗りしない
@@ -42,18 +48,22 @@ class Blackout
                 }
                 if ($lobbyKey === 'squad_3' || $lobbyKey === 'squad_4') {
                     return $myPosition <= 4
-                        ? static::createList([1, 2, 3, 4])
-                        : static::createList([5, 6, 7, 8]);
+                        ? self::createList([1, 2, 3, 4])
+                        : self::createList([5, 6, 7, 8]);
                 }
-                return static::createList([$myPosition]);
+                return self::createList([$myPosition]);
 
             // 自分以外黒塗り
             case User::BLACKOUT_ALWAYS:
             default:
-                return static::createList([$myPosition]);
+                return self::createList([$myPosition]);
         }
     }
 
+    /**
+     * @param array<mixed> $except
+     * @return array<int, int>
+     */
     private static function createList(array $except): array
     {
         return array_filter(

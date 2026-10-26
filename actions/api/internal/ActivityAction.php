@@ -11,13 +11,16 @@ namespace app\actions\api\internal;
 
 use DateTime;
 use DateTimeImmutable;
+use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
+use app\models\InternalActivityForm;
 use app\models\User;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 use function array_keys;
@@ -35,7 +38,8 @@ final class ActivityAction extends Action
     /** @var Response */
     public $resp;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -45,7 +49,7 @@ final class ActivityAction extends Action
         $this->resp->format = Response::FORMAT_JSON;
     }
 
-    public function run()
+    public function run(): void
     {
         $form = $this->getInputPseudoForm();
         if ($form->hasErrors()) {
@@ -54,31 +58,28 @@ final class ActivityAction extends Action
             return;
         }
 
-        $user = User::findOne(['screen_name' => $form->screen_name]);
+        if (!$user = User::findOne(['screen_name' => $form->screen_name])) {
+            throw new NotFoundHttpException();
+        }
+
         [$from, $to] = BattleHelper::getActivityDisplayRange();
-        $this->resp->data = $this->makeData($user, $from, $to, $form->only);
+        $this->resp->data = $this->makeData($user, $from, $to, TypeHelper::stringOrNull($form->only));
     }
 
-    private function getInputPseudoForm(): DynamicModel
+    private function getInputPseudoForm(): InternalActivityForm
     {
         $req = Yii::$app->getRequest();
-        return DynamicModel::validateData(
+        return InternalActivityForm::validateData(
             [
                 'screen_name' => $req->get('screen_name'),
                 'only' => $req->get('only'),
             ],
-            [
-                [['screen_name'], 'required'],
-                [['screen_name', 'only'], 'string'],
-                [['screen_name'], 'exist', 'skipOnError' => true,
-                    'targetClass' => User::class,
-                    'targetAttribute' => 'screen_name',
-                ],
-                [['only'], 'in', 'range' => ['spl1', 'spl2', 'spl3', 'salmon2', 'salmon3']],
-            ],
         );
     }
 
+    /**
+     * @return list<array{date: string, count: int}>
+     */
     private function makeData(
         User $user,
         DateTimeImmutable $from,
@@ -113,6 +114,10 @@ final class ActivityAction extends Action
         return $kind === $only;
     }
 
+    /**
+     * @param array<string, int> $inData
+     * @return list<array{date: string, count: int}>
+     */
     private function reformatData(array $inData): array
     {
         return array_map(
@@ -125,6 +130,10 @@ final class ActivityAction extends Action
         );
     }
 
+    /**
+     * @param array<array<string, mixed>> $dataList
+     * @return array<string, int>
+     */
     private function mergeData(array $dataList): array
     {
         $result = [];
@@ -137,6 +146,9 @@ final class ActivityAction extends Action
         return $result;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function makeDataSplatoon1Battle(
         User $user,
         DateTimeImmutable $from,
@@ -165,6 +177,9 @@ final class ActivityAction extends Action
         return $this->listToMap($query->all());
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function makeDataSplatoon2Battle(
         User $user,
         DateTimeImmutable $from,
@@ -193,6 +208,9 @@ final class ActivityAction extends Action
         return $this->listToMap($query->all());
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function makeDataSplatoon2Salmon(
         User $user,
         DateTimeImmutable $from,
@@ -220,6 +238,9 @@ final class ActivityAction extends Action
         return $this->listToMap($query->all());
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function makeDataSplatoon3Battle(
         User $user,
         DateTimeImmutable $from,
@@ -251,6 +272,9 @@ final class ActivityAction extends Action
         return $this->listToMap($query->all());
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function makeDataSplatoon3Salmon(
         User $user,
         DateTimeImmutable $from,
@@ -281,6 +305,10 @@ final class ActivityAction extends Action
         return $this->listToMap($query->all());
     }
 
+    /**
+     * @param array<int, array<string, mixed>> $list
+     * @return array<string, mixed>
+     */
     private function listToMap(array $list): array
     {
         return ArrayHelper::map($list, 'date', 'count');

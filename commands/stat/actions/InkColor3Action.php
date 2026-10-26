@@ -33,9 +33,6 @@ final class InkColor3Action extends Action
     public function run(): int
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            throw new LogicException();
-        }
 
         $isOk = $db->transaction(
             fn (Connection $db): bool => $this->makeStats($db),
@@ -99,7 +96,7 @@ final class InkColor3Action extends Action
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,

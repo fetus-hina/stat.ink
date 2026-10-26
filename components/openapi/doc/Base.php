@@ -12,12 +12,17 @@ namespace app\components\openapi\doc;
 use Yii;
 use app\components\openapi\OpenApiSpec;
 use yii\base\Component;
+use LogicException;
 
 abstract class Base extends Component
 {
-    private $renderer;
+    private ?OpenApiSpec $renderer = null;
 
     abstract public function getTitle(): string;
+
+    /**
+     * @return array<string, mixed>
+     */
     abstract public function getPaths(): array;
 
     public function render(): string
@@ -33,19 +38,19 @@ abstract class Base extends Component
 
     protected function registerSecurityScheme(string $className): self
     {
-        $this->renderer->registerSecurityScheme($className);
+        ($this->renderer ?? throw new LogicException('Not rendering'))->registerSecurityScheme($className);
         return $this;
     }
 
     protected function registerSchema(string $className): self
     {
-        $this->renderer->registerSchema($className);
+        ($this->renderer ?? throw new LogicException('Not rendering'))->registerSchema($className);
         return $this;
     }
 
     protected function registerTag(string $key, ?string $description = null): self
     {
-        $this->renderer->registerTag($key, $description);
+        ($this->renderer ?? throw new LogicException('Not rendering'))->registerTag($key, $description);
         return $this;
     }
 }

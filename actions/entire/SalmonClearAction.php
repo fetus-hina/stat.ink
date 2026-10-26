@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use app\models\StatSalmon2ClearRate;
 use yii\web\ViewAction;
 
@@ -16,7 +17,8 @@ use const SORT_ASC;
 
 class SalmonClearAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return $this->controller->render('salmon-clear', [
             'models' => StatSalmon2ClearRate::find()

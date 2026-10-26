@@ -7,6 +7,7 @@
 
 namespace app\actions\api\v1;
 
+use Override;
 use Yii;
 use app\models\DeathReason;
 use app\models\api\v1\DeathReasonGetForm;
@@ -16,7 +17,11 @@ use function array_map;
 
 class DeathReasonAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';

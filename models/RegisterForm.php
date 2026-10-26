@@ -10,6 +10,7 @@ namespace app\models;
 use Override;
 use Yii;
 use app\components\helpers\Password;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use yii\base\Model;
 
@@ -20,9 +21,21 @@ class RegisterForm extends Model
      */
     public const SCENARIO_PASSKEY = 'passkey';
 
+    /**
+     * @var string|null
+     */
     public $screen_name;
+    /**
+     * @var string|null
+     */
     public $password;
+    /**
+     * @var string|null
+     */
     public $password_repeat;
+    /**
+     * @var string|null
+     */
     public $name;
 
     #[Override]
@@ -73,14 +86,16 @@ class RegisterForm extends Model
         ];
     }
 
-    public function toUserModel()
+    public function toUserModel(): User
     {
+        $screenName = TypeHelper::string($this->screen_name);
+
         $u = new User();
-        $u->name = $this->name == '' ? $this->screen_name : $this->name;
-        $u->screen_name = $this->screen_name;
+        $u->name = $this->name == '' ? $screenName : TypeHelper::string($this->name);
+        $u->screen_name = $screenName;
         $u->password = $this->scenario === self::SCENARIO_PASSKEY
             ? null
-            : Password::hash($this->password);
+            : Password::hash(TypeHelper::string($this->password));
         $u->api_key = User::generateNewApiKey();
         $u->blackout = User::BLACKOUT_NOT_BLACKOUT;
         $u->default_language_id = $this->getCurrentLanguageId();
@@ -91,18 +106,18 @@ class RegisterForm extends Model
         return $u;
     }
 
-    private function getCurrentLanguageId()
+    private function getCurrentLanguageId(): int
     {
-        return Language::findOne(['lang' => Yii::$app->language])->id;
+        return TypeHelper::instanceOf(Language::findOne(['lang' => Yii::$app->language]), Language::class)->id;
     }
 
-    private function getCurrentRegionId()
+    private function getCurrentRegionId(): int
     {
-        return Region::findOne(['key' => 'jp'])->id;
+        return TypeHelper::instanceOf(Region::findOne(['key' => 'jp']), Region::class)->id;
     }
 
     private function getDefaultLinkModeId(): int
     {
-        return LinkMode::findOne(['key' => 'in_game'])->id;
+        return TypeHelper::instanceOf(LinkMode::findOne(['key' => 'in_game']), LinkMode::class)->id;
     }
 }

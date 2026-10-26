@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -22,19 +23,27 @@ use function time;
  *
  * @property integer $user_id
  * @property integer $battle_count
- * @property string $wp
- * @property string $wp_short
+ * @property numeric-string|null $wp
+ * @property numeric-string|null $wp_short
  * @property integer $total_kill
  * @property integer $total_death
  * @property integer $nawabari_count
- * @property string $nawabari_wp
+ * @property numeric-string|null $nawabari_wp
  * @property integer $nawabari_kill
  * @property integer $nawabari_death
  * @property integer $gachi_count
- * @property string $gachi_wp
+ * @property numeric-string|null $gachi_wp
  * @property integer $gachi_kill
  * @property integer $gachi_death
  * @property integer $total_kd_battle_count
+ * @property integer $nawabari_inked
+ * @property integer $nawabari_inked_max
+ * @property integer $nawabari_inked_battle
+ * @property integer $gachi_kd_battle
+ * @property integer $gachi_kill2
+ * @property integer $gachi_death2
+ * @property integer $gachi_total_time
+ * @property integer $gachi_rank_peak
  *
  * @property User $user
  */
@@ -98,7 +107,7 @@ class UserStat extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function createCurrentData()
+    public function createCurrentData(): static
     {
         $db = Yii::$app->db;
         static $rules = null;
@@ -133,7 +142,7 @@ class UserStat extends ActiveRecord
 
         static $private = null;
         if ($private === null) {
-            $private = Lobby::findOne(['key' => 'private'])->id;
+            $private = TypeHelper::instanceOf(Lobby::findOne(['key' => 'private']), Lobby::class)->id;
         }
         $condIsNotPrivate = sprintf(
             '({{battle}}.[[lobby_id]] IS NULL OR {{battle}}.[[lobby_id]] <> %s)',
@@ -442,7 +451,7 @@ class UserStat extends ActiveRecord
             ->leftJoin('rank rank_after', '{{battle}}.[[rank_after_id]] = {{rank_after}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user_id]);
 
-        $this->attributes = $query->createCommand()->queryOne();
+        $this->attributes = $query->createCommand()->queryOne() |> TypeHelper::array(...);
 
         $keys = [
             'battle_count', 'total_kill', 'total_death', 'total_kd_battle_count',
@@ -457,7 +466,10 @@ class UserStat extends ActiveRecord
         return $this;
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'entire' => [

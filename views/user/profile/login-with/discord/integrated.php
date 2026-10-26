@@ -17,11 +17,11 @@ use yii\web\View;
  * @var View $this
  */
 
-$displayName = $user->loginWithDiscord->name;
-$email = $user->loginWithDiscord->email;
+$displayName = $user->loginWithDiscord?->name;
+$email = $user->loginWithDiscord?->email;
 
 echo implode(' ', [
-  Html::encode($displayName),
+  Html::encode($displayName ?? ''),
   $email !== null && $email !== ''
     ? sprintf('(%s)', Html::encode($email))
     : '',

@@ -10,8 +10,10 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use GeoIp2\Model\City;
+use Override;
 use Throwable;
 use Yii;
+use app\components\GeoIP;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -25,17 +27,18 @@ use function strtolower;
 
 class LocationColumnWidget extends Widget
 {
-    public $geoip;
-    private $cityInfo = false;
+    public GeoIP $geoip;
+    private City|false|null $cityInfo = false;
 
-    public $remoteAddr;
-    public $remoteAddrMasked;
-    public $remoteHost;
+    public ?string $remoteAddr = null;
+    public ?string $remoteAddrMasked = null;
+    public ?string $remoteHost = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
-        if (!$this->geoip) {
+        if (!isset($this->geoip)) {
             $this->geoip = Yii::$app->geoip;
         }
     }
@@ -77,7 +80,7 @@ class LocationColumnWidget extends Widget
             'sha256',
             $this->remoteAddrMasked
                 ? $this->remoteAddrMasked
-                : $this->remoteAddr,
+                : $this->remoteAddr ?? '',
         );
     }
 
@@ -141,11 +144,12 @@ class LocationColumnWidget extends Widget
 
     protected function renderLocationIcon(City $city): ?string
     {
-        if (!$country = $city->country) {
+        $isoCode = $city->country->isoCode;
+        if ($isoCode === null) {
             return null;
         }
 
-        return (string)($country->isoCode |> strtolower(...) |> FlagIcon::fg(...));
+        return (string)($isoCode |> strtolower(...) |> FlagIcon::fg(...));
     }
 
     protected function renderIpAddress(): ?string
@@ -177,11 +181,15 @@ class LocationColumnWidget extends Widget
     {
         if ($this->cityInfo === false) {
             try {
-                $this->cityInfo = $this->geoip->city($this->remoteAddr);
+                $cityInfo = $this->remoteAddr !== null ? $this->geoip->city($this->remoteAddr) : null;
             } catch (Throwable $e) {
-                $this->cityInfo = null;
+                $cityInfo = null;
             }
+
+            $this->cityInfo = $cityInfo;
+            return $cityInfo;
         }
+
         return $this->cityInfo;
     }
 }

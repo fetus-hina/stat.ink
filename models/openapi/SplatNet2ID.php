@@ -16,6 +16,9 @@ class SplatNet2ID extends Component
 {
     use Util;
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -26,11 +29,17 @@ class SplatNet2ID extends Component
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [];
     }
 
+    /**
+     * @param array<int|string, mixed> $options
+     */
     public static function example(string $category, string $value, array $options = []): ?int
     {
         return 42;

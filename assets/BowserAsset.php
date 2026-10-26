@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\web\AssetBundle;
 
 use function preg_match;
@@ -26,7 +28,8 @@ class BowserAsset extends AssetBundle
     public $depends = [
     ];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->publishOptions['filter'] = [$this, 'filterIsUsableAssets'];
@@ -34,7 +37,7 @@ class BowserAsset extends AssetBundle
 
     public function filterIsUsableAssets(string $path): bool
     {
-        $prefix = Yii::getAlias($this->sourcePath);
+        $prefix = Yii::getAlias(TypeHelper::string($this->sourcePath));
         if (!str_starts_with($path, $prefix)) {
             return false;
         }

@@ -55,7 +55,7 @@ final class PerLobby extends Widget
     {
         return Html::tag(
             'p',
-            Html::encode(Yii::t('app-lobby3', $model->lobby->name)),
+            Html::encode(Yii::t('app-lobby3', $model->lobby->name ?? '')),
             ['class' => 'label-user mb-1'],
         );
     }
@@ -88,9 +88,12 @@ final class PerLobby extends Widget
         );
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListAttributes(User $user, UserStat3 $model): array
     {
-        switch ($model->lobby->key) {
+        switch ($model->lobby?->key) {
             case 'regular':
             case 'splatfest_challenge':
             case 'splatfest_open':
@@ -108,6 +111,9 @@ final class PerLobby extends Widget
         return $this->getListDefaultAttributes($user, $model);
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListDefaultAttributes(User $user, UserStat3 $model): array
     {
         return [
@@ -120,12 +126,15 @@ final class PerLobby extends Widget
         ];
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListAttributesForTurfWar(User $user, UserStat3 $model): array
     {
         return [
             require __DIR__ . '/items/battles.php',
             require __DIR__ . '/items/win-pct.php',
-            $model->lobby->key === 'splatfest_challenge'
+            $model->lobby?->key === 'splatfest_challenge'
                 ? require __DIR__ . '/items/fest-power.php'
                 : require __DIR__ . '/items/inked.php',
             require __DIR__ . '/items/kill.php',
@@ -134,6 +143,9 @@ final class PerLobby extends Widget
         ];
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListAttributesForBankara(User $user, UserStat3 $model): array
     {
         return [
@@ -146,6 +158,9 @@ final class PerLobby extends Widget
         ];
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListAttributesForXMatch(User $user, UserStat3 $model): array
     {
         return [
@@ -158,17 +173,21 @@ final class PerLobby extends Widget
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function attrPeakRank(): array
     {
-        if (!$this->peakRank) {
+        $peakRank = $this->peakRank;
+        if (!$peakRank) {
             return require __DIR__ . '/items/empty.php';
         }
 
         return [
             'label' => Yii::t('app', 'Peak'),
             'format' => 'raw',
-            'value' => function (): string {
-                [$rank, $sPlus] = $this->peakRank;
+            'value' => function () use ($peakRank): string {
+                [$rank, $sPlus] = $peakRank;
                 return Rank::widget([
                     'model' => $rank,
                     'splus' => $sPlus,

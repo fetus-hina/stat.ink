@@ -11,6 +11,7 @@ use app\components\widgets\FA;
 use app\components\widgets\Icon;
 use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
  * @var User $user

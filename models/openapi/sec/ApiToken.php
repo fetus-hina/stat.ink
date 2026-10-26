@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\models\openapi\sec;
 
+use Override;
 use Yii;
 use app\models\openapi\SecurityInterface;
 use yii\base\Component;
@@ -19,6 +20,11 @@ use function vsprintf;
 
 class ApiToken extends Component implements SecurityInterface
 {
+    /**
+     * @param string[] $options
+     * @return array<string, string[]>
+     */
+    #[Override]
     public static function oapiSecUse(array $options = []): array
     {
         return [
@@ -26,11 +32,16 @@ class ApiToken extends Component implements SecurityInterface
         ];
     }
 
+    #[Override]
     public static function oapiSecName(): string
     {
         return 'APITokenAuth';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
     public static function oapiSecurity(): array
     {
         return [

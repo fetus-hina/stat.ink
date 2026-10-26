@@ -8,8 +8,11 @@
 namespace app\models\api\v1;
 
 use Exception;
+use Generator;
 use RuntimeException;
 use app\components\helpers\CriticalSection;
+use app\components\helpers\Resource;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\models\Ability;
 use app\models\AgentAttribute;
@@ -41,6 +44,7 @@ use function count;
 use function explode;
 use function file_get_contents;
 use function filter_var;
+use function get_object_vars;
 use function gmdate;
 use function hash_hmac;
 use function imagecreatefromstring;
@@ -55,6 +59,7 @@ use function is_string;
 use function json_encode;
 use function ltrim;
 use function mb_check_encoding;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function rtrim;
@@ -70,72 +75,135 @@ use function vsprintf;
 use const FILTER_VALIDATE_FLOAT;
 use const FILTER_VALIDATE_INT;
 use const JSON_FORCE_OBJECT;
+use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
+/**
+ * @property-read bool $isTest
+ * @property-read User|null $user
+ */
 class PostBattleForm extends Model
 {
     public const SAME_BATTLE_THRESHOLD_TIME = 86400;
 
     // API
+    /** @var mixed */
     public $apikey;
+    /** @var mixed */
     public $test;
     // common
+    /** @var mixed */
     public $lobby;
+    /** @var mixed */
     public $rule;
+    /** @var mixed */
     public $map;
+    /** @var mixed */
     public $weapon;
+    /** @var mixed */
     public $rank;
+    /** @var mixed */
     public $rank_after;
+    /** @var mixed */
     public $rank_exp;
+    /** @var mixed */
     public $rank_exp_after;
+    /** @var mixed */
     public $level;
+    /** @var mixed */
     public $level_after;
+    /** @var mixed */
     public $cash;
+    /** @var mixed */
     public $cash_after;
+    /** @var mixed */
     public $result;
+    /** @var mixed */
     public $rank_in_team;
+    /** @var mixed */
     public $kill;
+    /** @var mixed */
     public $death;
+    /** @var mixed */
     public $death_reasons;
+    /** @var mixed */
     public $gender;
+    /** @var mixed */
     public $fest_title;
+    /** @var mixed */
     public $fest_title_after;
+    /** @var mixed */
     public $fest_exp;
+    /** @var mixed */
     public $fest_exp_after;
+    /** @var mixed */
     public $fest_power;
+    /** @var mixed */
     public $my_team_power;
+    /** @var mixed */
     public $his_team_power;
+    /** @var mixed */
     public $my_team_color;
+    /** @var mixed */
     public $his_team_color;
+    /** @var UploadedFile|string|null */
     public $image_judge;
+    /** @var UploadedFile|string|null */
     public $image_result;
+    /** @var UploadedFile|string|null */
     public $image_gear;
+    /** @var mixed */
     public $start_at;
+    /** @var mixed */
     public $end_at;
+    /** @var mixed */
     public $my_point;
+    /** @var mixed */
     public $my_team_final_point;
+    /** @var mixed */
     public $his_team_final_point;
+    /** @var mixed */
     public $my_team_final_percent;
+    /** @var mixed */
     public $his_team_final_percent;
+    /** @var mixed */
     public $knock_out;
+    /** @var mixed */
     public $my_team_count;
+    /** @var mixed */
     public $his_team_count;
+    /** @var mixed */
     public $players;
+    /** @var mixed */
     public $gears;
+    /** @var mixed */
     public $events;
+    /** @var mixed */
     public $automated;
+    /** @var mixed */
     public $link_url;
+    /** @var mixed */
     public $note;
+    /** @var mixed */
     public $private_note;
+    /** @var mixed */
     public $agent;
+    /** @var mixed */
     public $agent_version;
+    /** @var mixed */
     public $agent_custom;
+    /** @var mixed */
     public $agent_variables;
+    /** @var mixed */
     public $agent_game_version;
+    /** @var mixed */
     public $agent_game_version_date;
+    /** @var mixed */
     public $uuid;
+    /** @var mixed */
     public $max_kill_combo;
+    /** @var mixed */
     public $max_kill_streak;
 
     public function rules()
@@ -230,8 +298,10 @@ class PostBattleForm extends Model
             [['note', 'private_note'], 'string'],
             [['note', 'private_note'], 'filter', 'filter' => function ($value) {
                 $value = (string)$value;
-                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
-                $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
+                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value)
+                    ?? throw new RuntimeException(preg_last_error_msg());
+                $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value)
+                    ?? throw new RuntimeException(preg_last_error_msg());
                 $value = trim($value);
                 return $value === '' ? null : $value;
             },
@@ -255,7 +325,7 @@ class PostBattleForm extends Model
         ];
     }
 
-    public function getSameBattle()
+    public function getSameBattle(): ?Battle
     {
         if (trim($this->uuid) === '') {
             return null;
@@ -276,7 +346,7 @@ class PostBattleForm extends Model
             ->one();
     }
 
-    public function validateDeathReasons($attribute, $params)
+    public function validateDeathReasons(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -290,7 +360,7 @@ class PostBattleForm extends Model
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }
-        foreach ($value as $k => $v) {
+        foreach ((array)$value as $k => $v) {
             $tmp = filter_var($v, FILTER_VALIDATE_INT);
             if ($tmp === false || $tmp < 1 || $tmp > 99) {
                 $this->addError($attribute, "Value of {$attribute}[{$k}] (= {$v}) looks broken.");
@@ -298,7 +368,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function validatePlayers($attribute, $params)
+    public function validatePlayers(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -330,7 +400,7 @@ class PostBattleForm extends Model
         $this->$attribute = $newValues;
     }
 
-    public function validateGears($attribute, $params)
+    public function validateGears(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -349,7 +419,7 @@ class PostBattleForm extends Model
         $this->$attribute = $form;
     }
 
-    public function validateEvents($attribute, $params)
+    public function validateEvents(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -382,7 +452,7 @@ class PostBattleForm extends Model
         $this->$attribute = $newValues;
     }
 
-    public function validateTeamColor($attribute, $params)
+    public function validateTeamColor(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -404,7 +474,7 @@ class PostBattleForm extends Model
         $this->$attribute = $subForm->attributes;
     }
 
-    public function validateImageFile($attribute, $params)
+    public function validateImageFile(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -414,18 +484,18 @@ class PostBattleForm extends Model
             $this->addError($attribute, '[BUG?] $attributes is not an instance of UploadedFile');
             return;
         }
-        return $this->validateImageStringImpl(
+        $this->validateImageStringImpl(
             file_get_contents($this->$attribute->tempName, false, null),
             $attribute,
         );
     }
 
-    public function validateImageString($attribute, $params)
+    public function validateImageString(string $attribute, mixed $params): void
     {
-        return $this->validateImageStringImpl($this->$attribute, $attribute);
+        $this->validateImageStringImpl($this->$attribute, $attribute);
     }
 
-    private function validateImageStringImpl($binary, $attribute)
+    private function validateImageStringImpl(mixed $binary, string $attribute): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -436,7 +506,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function validateStrictUTF8($attribute, $params)
+    public function validateStrictUTF8(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -449,7 +519,7 @@ class PostBattleForm extends Model
         $this->addError($attribute, 'Invalid UTF-8 sequence given.');
     }
 
-    public function validateAgentVariables($attribute, $params)
+    public function validateAgentVariables(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -468,8 +538,8 @@ class PostBattleForm extends Model
         }
         if (is_object($value) && ($value instanceof stdClass)) {
             $newValue = new stdClass();
-            foreach ($value as $k => $v) {
-                $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
+            foreach (get_object_vars($value) as $k => $v) {
+                $k = (string)$k;
                 if (!mb_check_encoding($k, 'UTF-8')) {
                     $this->addError($attribute, 'Invalid UTF-8 sequence in KEY');
                     return;
@@ -497,7 +567,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function validateAndFixAgentGameVersion($attr, $params)
+    public function validateAndFixAgentGameVersion(string $attr, mixed $params): void
     {
         if ($this->hasErrors($attr)) {
             return;
@@ -521,7 +591,7 @@ class PostBattleForm extends Model
         $this->$attr = null;
     }
 
-    public function validateAndFixAgentGameVersionDate($attr, $params)
+    public function validateAndFixAgentGameVersionDate(string $attr, mixed $params): void
     {
         if ($this->hasErrors($attr)) {
             return;
@@ -537,31 +607,43 @@ class PostBattleForm extends Model
         $this->$attr = null;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         return User::findOne(['api_key' => $this->apikey]);
     }
 
-    public function getIsTest()
+    public function getIsTest(): bool
     {
         return $this->test != '';
     }
 
-    public function toBattle()
+    public function toBattle(): Battle
     {
-        $user = $this->getUser();
+        if (!$user = $this->getUser()) {
+            throw new RuntimeException('The user is not found');
+        }
 
         $o = new Battle();
         $o->user_id = $user->id;
         $o->env_id = $user->env_id;
-        $o->lobby_id = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
-        $o->rule_id = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
-        $o->map_id = $this->map ? Map::findOne(['key' => $this->map])->id : null;
-        $o->weapon_id = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
+        $o->lobby_id = $this->lobby
+            ? TypeHelper::instanceOf(Lobby::findOne(['key' => $this->lobby]), Lobby::class)->id
+            : null;
+        $o->rule_id = $this->rule
+            ? TypeHelper::instanceOf(Rule::findOne(['key' => $this->rule]), Rule::class)->id
+            : null;
+        $o->map_id = $this->map ? TypeHelper::instanceOf(Map::findOne(['key' => $this->map]), Map::class)->id : null;
+        $o->weapon_id = $this->weapon
+            ? TypeHelper::instanceOf(Weapon::findOne(['key' => $this->weapon]), Weapon::class)->id
+            : null;
         $o->level = $this->level ? (int)$this->level : null;
         $o->level_after = $this->level_after ? (int)$this->level_after : null;
-        $o->rank_id = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
-        $o->rank_after_id = $this->rank_after ? Rank::findOne(['key' => $this->rank_after])->id : null;
+        $o->rank_id = $this->rank
+            ? TypeHelper::instanceOf(Rank::findOne(['key' => $this->rank]), Rank::class)->id
+            : null;
+        $o->rank_after_id = $this->rank_after
+            ? TypeHelper::instanceOf(Rank::findOne(['key' => $this->rank_after]), Rank::class)->id
+            : null;
         $o->rank_exp = (string)$this->rank_exp != '' ? (int)$this->rank_exp : null;
         $o->rank_exp_after = (string)$this->rank_exp_after != '' ? (int)$this->rank_exp_after : null;
         $o->cash = (string)$this->cash != '' ? (int)$this->cash : null;
@@ -571,9 +653,11 @@ class PostBattleForm extends Model
         $o->kill = (string)$this->kill != '' ? (int)$this->kill : null;
         $o->death = (string)$this->death != '' ? (int)$this->death : null;
         $o->gender_id = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
-        $o->fest_title_id = $this->fest_title ? FestTitle::findOne(['key' => $this->fest_title])->id : null;
+        $o->fest_title_id = $this->fest_title
+            ? TypeHelper::instanceOf(FestTitle::findOne(['key' => $this->fest_title]), FestTitle::class)->id
+            : null;
         $o->fest_title_after_id = $this->fest_title_after
-            ? FestTitle::findOne(['key' => $this->fest_title_after])->id
+            ? TypeHelper::instanceOf(FestTitle::findOne(['key' => $this->fest_title_after]), FestTitle::class)->id
             : null;
         $o->fest_exp = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
         $o->fest_exp_after = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;
@@ -592,7 +676,7 @@ class PostBattleForm extends Model
             : new Now();
         $o->agent_id = null;
         $o->ua_custom = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
-        $o->ua_variables = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
+        $o->ua_variables = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT | JSON_THROW_ON_ERROR) : null;
         $o->agent_game_version_id = $this->agent_game_version != ''
             ? (SplatoonVersion::findOne(['tag' => $this->agent_game_version])->id ?? null)
             : null;
@@ -646,22 +730,25 @@ class PostBattleForm extends Model
         return $o;
     }
 
-    public function toEvents(Battle $battle)
+    public function toEvents(Battle $battle): ?BattleEvents
     {
         if (!$this->events) {
             return null;
         }
         $o = new BattleEvents();
         $o->id = $battle->id;
-        $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
         return $o;
     }
 
-    public function toDeathReasons(Battle $battle)
+    /**
+     * @return Generator<int, BattleDeathReason, mixed, void>
+     */
+    public function toDeathReasons(Battle $battle): Generator
     {
         if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
-            foreach ($this->death_reasons as $key => $count) {
+            foreach ((array)$this->death_reasons as $key => $count) {
                 $reason = DeathReason::findOne(['key' => $key]);
                 if ($key === 'unknown' || !$reason) {
                     $unknownCount += (int)$count;
@@ -686,7 +773,10 @@ class PostBattleForm extends Model
         }
     }
 
-    public function toPlayers(Battle $battle)
+    /**
+     * @return Generator<int, BattlePlayer, mixed, void>
+     */
+    public function toPlayers(Battle $battle): Generator
     {
         if (is_array($this->players) && $this->players) {
             foreach ($this->players as $form) {
@@ -721,27 +811,30 @@ class PostBattleForm extends Model
         }
     }
 
-    public function toImageJudge(Battle $battle)
+    public function toImageJudge(Battle $battle): ?BattleImage
     {
         return $this->toImage($battle, BattleImageType::ID_JUDGE, 'image_judge');
     }
 
-    public function toImageResult(Battle $battle)
+    public function toImageResult(Battle $battle): ?BattleImage
     {
         return $this->toImage($battle, BattleImageType::ID_RESULT, 'image_result');
     }
 
-    public function toImageGear(Battle $battle)
+    public function toImageGear(Battle $battle): ?BattleImage
     {
         return $this->toImage($battle, BattleImageType::ID_GEAR, 'image_gear');
     }
 
-    protected function toImage(Battle $battle, $imageTypeId, $attr)
+    /**
+     * @param 'image_judge'|'image_result'|'image_gear' $attr
+     */
+    protected function toImage(Battle $battle, int $imageTypeId, string $attr): ?BattleImage
     {
         if ($this->getIsTest()) {
             return null;
         }
-        if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
+        if (!$this->$attr instanceof UploadedFile && $this->$attr == '') {
             return null;
         }
         $o = new BattleImage();
@@ -752,7 +845,7 @@ class PostBattleForm extends Model
         return $o;
     }
 
-    public function estimateAutomatedAgent()
+    public function estimateAutomatedAgent(): void
     {
         if ($this->hasErrors()) {
             return;
@@ -770,7 +863,10 @@ class PostBattleForm extends Model
         }
     }
 
-    protected function processGear($key)
+    /**
+     * @param 'headgear'|'clothing'|'shoes' $key
+     */
+    protected function processGear(string $key): ?int
     {
         if ($this->getIsTest() || !($this->gears instanceof PostGearsForm)) {
             return null;
@@ -831,7 +927,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function getIsUsableForEntireStats()
+    public function getIsUsableForEntireStats(): bool
     {
         if ($this->automated !== 'yes') {
             return false;
@@ -872,7 +968,8 @@ class PostBattleForm extends Model
                 fn ($a) => (string)(int)ltrim($a, '0'),
                 explode(
                     '.',
-                    trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date))),
+                    trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date))
+                        ?? throw new RuntimeException(preg_last_error_msg())),
                 ),
             ),
         );
@@ -884,7 +981,7 @@ class PostBattleForm extends Model
         );
     }
 
-    public function getCriticalSectionName()
+    public function getCriticalSectionName(): string
     {
         return rtrim(
             base64_encode(
@@ -894,7 +991,7 @@ class PostBattleForm extends Model
         );
     }
 
-    public function acquireLock($timeout = 60)
+    public function acquireLock(int $timeout = 60): Resource|false
     {
         try {
             return CriticalSection::lock($this->getCriticalSectionName(), $timeout);

@@ -10,9 +10,11 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Normalizer;
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\I18n as I18nHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Gear2;
 use app\models\GearType;
 use app\models\Map2;
@@ -41,14 +43,21 @@ use function trim;
 use const SORT_ASC;
 use const STDERR;
 
+/**
+ * @property-read array<string, string> $localeMap
+ */
 class Splatoon2InkI18nController extends Controller
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::setAlias('@messages', '@app/messages');
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getLocaleMap(): array
     {
         return [
@@ -123,8 +132,8 @@ class Splatoon2InkI18nController extends Controller
 
         $url = sprintf('https://splatoon2.ink/data/locale/%s.json', $locales[$locale]);
         $client = Yii::createObject([
-            '__class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'class' => HttpClient::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
         $request = $client->createRequest()
             ->setOptions([
@@ -282,6 +291,9 @@ class Splatoon2InkI18nController extends Controller
         return $status ? 0 : 1;
     }
 
+    /**
+     * @return array<int|string, mixed>|null
+     */
     private function getEnglishData(string $jsonKey): ?array
     {
         $cachePath = $this->getCacheFilePath('en');
@@ -291,7 +303,7 @@ class Splatoon2InkI18nController extends Controller
         }
 
         $json = ArrayHelper::getValue(
-            Json::decode(file_get_contents($cachePath)),
+            Json::decode(TypeHelper::string(file_get_contents($cachePath))),
             $jsonKey,
         );
         $data = [];
@@ -301,6 +313,9 @@ class Splatoon2InkI18nController extends Controller
         return $data;
     }
 
+    /**
+     * @param array<int|string, mixed> $englishData
+     */
     private function update(
         string $locale, // "ja-JP"
         string $fileName, // "weapon2"
@@ -324,7 +339,7 @@ class Splatoon2InkI18nController extends Controller
         $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/{$fileName}.php";
         $currentData = require $filePath;
         $splatNetData = ArrayHelper::getValue(
-            Json::decode(file_get_contents($cachePath)),
+            Json::decode(TypeHelper::string(file_get_contents($cachePath))),
             $jsonKey,
         );
         $updated = false;
@@ -333,7 +348,7 @@ class Splatoon2InkI18nController extends Controller
             if (!$splatNetName) {
                 continue;
             }
-            $splatNetName = static::normalize($splatNetName);
+            $splatNetName = self::normalize($splatNetName);
             $oldName = $currentData[$englishName] ?? null;
             if ($oldName !== $splatNetName) {
                 fprintf(STDERR, "    %s => %s\n", $oldName ?: $englishName, $splatNetName);
@@ -357,7 +372,7 @@ class Splatoon2InkI18nController extends Controller
 
     private static function normalize(string $string): string
     {
-        $string = Normalizer::normalize($string, Normalizer::FORM_C);
+        $string = TypeHelper::string(Normalizer::normalize($string, Normalizer::FORM_C));
         $string = mb_convert_kana($string, 'asKV', 'UTF-8');
         $string = trim($string);
         return $string;

@@ -13,6 +13,7 @@ use DateTime;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\DateTimeFormatter;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
@@ -29,11 +30,11 @@ use const FILTER_VALIDATE_INT;
  *
  * @property integer $id
  * @property integer $user_id
- * @property integer $work_count
- * @property integer $total_golden_eggs
- * @property integer $total_eggs
- * @property integer $total_rescued
- * @property integer $total_point
+ * @property integer|null $work_count
+ * @property integer|null $total_golden_eggs
+ * @property integer|null $total_eggs
+ * @property integer|null $total_rescued
+ * @property integer|null $total_point
  * @property string $as_of
  * @property string $created_at
  *
@@ -53,8 +54,9 @@ class SalmonStats2 extends ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => false,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
             ],
         ];
     }
@@ -98,11 +100,14 @@ class SalmonStats2 extends ActiveRecord
         ];
     }
 
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         $int = function ($value): ?int {
@@ -135,6 +140,9 @@ class SalmonStats2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $nullableBigint = fn (
@@ -174,12 +182,18 @@ class SalmonStats2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         $ts = fn (string $timestamp): array => $timestamp |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...);

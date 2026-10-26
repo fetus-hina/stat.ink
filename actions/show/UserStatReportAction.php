@@ -13,9 +13,10 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\models\User;
-use yii\base\DynamicModel;
+use app\models\UserStatReportForm;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -28,9 +29,10 @@ use function usort;
 
 class UserStatReportAction extends BaseAction
 {
-    private $user;
+    private User $user;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         Yii::$app->db->createCommand(
             Yii::$app->db
@@ -39,50 +41,40 @@ class UserStatReportAction extends BaseAction
                 ->rawSql,
         )->execute();
 
-        $this->user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
-        if (!$this->user) {
+        $user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
+        $this->user = $user;
     }
 
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $now = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
 
         $request = Yii::$app->request;
-        $form = DynamicModel::validateData(
-            [
-                'year' => $request->get('year'),
-                'month' => $request->get('month'),
-            ],
-            [
-                [['year'], 'required'],
-                [['year'], 'integer',
-                    'min' => 2015,
-                    'max' => (int)$now->format('Y'),
-                ],
-                [['month'], 'integer',
-                    'min' => 1,
-                    'max' => 12,
-                ],
-            ],
-        );
+        $form = UserStatReportForm::validateData([
+            'year' => $request->get('year'),
+            'month' => $request->get('month'),
+            'maxYear' => (int)$now->format('Y'),
+        ]);
         if ($form->hasErrors()) {
             $this->controller->redirect(['show/user-stat-report',
                 'screen_name' => $this->user->screen_name,
                 'year' => (int)$now->format('Y'),
                 'month' => (int)$now->format('n'),
             ]);
-            return;
+            return null;
         }
         return $form->month
             ? $this->runMonth($form)
             : $this->runYear($form);
     }
 
-    protected function runMonth($form)
+    protected function runMonth(UserStatReportForm $form): string
     {
         $tz = new DateTimeZone(Yii::$app->timeZone);
 
@@ -130,12 +122,15 @@ class UserStatReportAction extends BaseAction
         ]);
     }
 
-    protected function runYear($form)
+    protected function runYear(UserStatReportForm $form): never
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
-    private function query($from, $to, $date)
+    /**
+     * @return list<array<string, mixed>>
+     */
+    private function query(string $from, string $to, string $date): array
     {
         $query = new Query()
             ->select([

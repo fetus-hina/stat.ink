@@ -68,6 +68,9 @@ final class Weapons3Action extends Action
             : $controller->render('v3/weapons3', $params);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(
         Controller $controller,
         Connection $db,
@@ -92,7 +95,7 @@ final class Weapons3Action extends Action
 
             return $controller->redirect(['entire/weapons3',
                 'lobby' => $this->getDefaultLobbyKey($season, $version),
-                'rule' => $rule?->key ?? 'area',
+                'rule' => $rule->key ?? 'area',
                 'version' => $version?->tag,
                 self::PARAM_SEASON_ID => $season?->id,
             ]);
@@ -239,7 +242,7 @@ final class Weapons3Action extends Action
     }
 
     /**
-     * @return StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]
+     * @return StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[]
      */
     private function getData(
         Connection $db,
@@ -309,7 +312,7 @@ final class Weapons3Action extends Action
                 ->all($db);
         }
 
-        return null;
+        return [];
     }
 
     /**
@@ -348,6 +351,9 @@ final class Weapons3Action extends Action
         );
     }
 
+    /**
+     * @return SplatoonVersion3[]
+     */
     private function getVersions(Connection $db): array
     {
         $ts = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))

@@ -7,6 +7,7 @@
 
 namespace app\actions\stage;
 
+use Override;
 use Yii;
 use app\models\Map;
 use app\models\PeriodMap;
@@ -17,10 +18,11 @@ use yii\web\ViewAction as BaseAction;
 
 class MapHistoryJsonAction extends BaseAction
 {
-    public $map;
-    public $rule;
+    public ?Map $map = null;
+    public ?Rule $rule = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -30,12 +32,16 @@ class MapHistoryJsonAction extends BaseAction
         $this->map = Map::findOne(['key' => $req->get('map')]);
         $this->rule = Rule::findOne(['key' => $req->get('rule')]);
         if (!$this->map || !$this->rule) {
-            static::http404();
+            self::http404();
             return;
         }
     }
 
-    public function run()
+    /**
+     * @return array<string, int>
+     */
+    #[Override]
+    public function run(): array
     {
         $query = new Query()
             ->select([
@@ -44,8 +50,8 @@ class MapHistoryJsonAction extends BaseAction
             ])
             ->from(PeriodMap::tableName())
             ->where([
-                'map_id' => $this->map->id,
-                'rule_id' => $this->rule->id,
+                'map_id' => $this->map?->id,
+                'rule_id' => $this->rule?->id,
             ])
             ->groupBy('CAST(period_to_timestamp([[period]]) as DATE)')
             ->orderBy('date ASC');
@@ -56,7 +62,7 @@ class MapHistoryJsonAction extends BaseAction
         return $ret;
     }
 
-    private static function http404()
+    private static function http404(): void
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }

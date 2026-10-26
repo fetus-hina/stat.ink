@@ -8,14 +8,24 @@
 declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\Label;
 use app\models\Battle2;
+use app\models\BattlePlayer2;
 use yii\bootstrap\Html;
 use yii\web\View;
 
 /**
  * @var View $this
  * @var Battle2 $battle
+ * @var BattlePlayer2[] $players
+ * @var array<string, int> $historyCount
+ * @var bool $hasKD
+ * @var bool $hasRankedInked
+ * @var bool $hidePoint
+ * @var bool $hideRank
+ * @var int $bonus
+ * @var string $teamKey
  */
 
 $fmt = Yii::$app->formatter;
@@ -82,8 +92,8 @@ echo Html::tag(
           ($battle->my_team_fest_theme_id !== null && $battle->his_team_fest_theme_id !== null)
             ? Yii::t('app-show-v2', 'Team {theme}', [
               'theme' => ($teamKey === 'my')
-                ? $battle->myTeamFestTheme->name
-                : $battle->hisTeamFestTheme->name,
+                ? $battle->myTeamFestTheme?->name
+                : $battle->hisTeamFestTheme?->name,
             ])
             : Yii::t('app', ($teamKey === 'my') ? 'Good Guys' : 'Bad Guys')
         ),
@@ -91,7 +101,7 @@ echo Html::tag(
           ? ''
           : Html::a(
             Html::img(
-              $teamIcon,
+              TypeHelper::string($teamIcon),
               [
                 'title' => $teamId,
                 'class' => 'auto-tooltip',
@@ -185,7 +195,7 @@ foreach ($players as $i => $player) {
         'td',
         $this->render('_battle_details_player_name', array_merge(
           compact('battle', 'player', 'teamKey'),
-          ['historyCount' => $historyCount[$player->splatnet_id] ?? 0],
+          ['historyCount' => $historyCount[$player->splatnet_id ?? ''] ?? 0],
         )),
         [
           'class' => 'col-name',
@@ -234,7 +244,7 @@ foreach ($players as $i => $player) {
         'td',
         sprintf(
           '%2$s%1$s',
-          Html::encode($player->level),
+          Html::encode((string)$player->level),
           (($player->star_rank ?? 0) > 0)
             ? Html::tag('span', Html::encode('★'), [
               'style' => [
@@ -307,10 +317,10 @@ foreach ($players as $i => $player) {
         ? ''
         : Html::tag('td',
           implode(Html::tag('br'), [
-            Html::encode($player->getFormattedKillRatio()),
+            Html::encode($player->getFormattedKillRatio() ?? ''),
             Html::tag(
               'small',
-              Html::encode($player->getFormattedKillRate()),
+              Html::encode($player->getFormattedKillRate() ?? ''),
               ['class' => 'text-muted']
             ),
           ]),

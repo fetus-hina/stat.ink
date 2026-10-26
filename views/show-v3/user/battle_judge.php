@@ -72,7 +72,7 @@ $draw = function (
         ? $bar($theirValue, $ourValue, $thirdValue, 'progress-bar-danger', $theirString, $theirTitle, $theirColor)
         : '',
       $thirdValue > 0
-        ? $bar($thirdValue, $ourValue, $theirValue, 'progress-bar-warning', $thirdString, $thirdTitle, $thirdColor)
+        ? $bar($thirdValue, $ourValue, $theirValue, 'progress-bar-warning', $thirdString ?? '', $thirdTitle, $thirdColor)
         : '',
     ]),
     ['class' => 'progress'],

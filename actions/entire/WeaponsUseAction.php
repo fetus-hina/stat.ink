@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\actions\entire;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\components\validators\WeaponKeyValidator;
 use app\models\Event;
 use app\models\GameMode;
@@ -27,6 +28,7 @@ use function array_first;
 use function array_last;
 use function array_map;
 use function array_merge;
+use function array_values;
 use function count;
 use function date;
 use function implode;
@@ -40,9 +42,13 @@ use function uasort;
 use const SORT_ASC;
 use const SORT_NATURAL;
 
+/**
+ * @property-read array<string, string|array<string, string>> $rules
+ * @property-read array<string, string|array<string, string>> $weapons
+ */
 final class WeaponsUseAction extends Action
 {
-    public function run()
+    public function run(): string
     {
         $form = Yii::createObject(WeaponCompareForm::class);
         if (!$form->load($_GET) || !$form->validate()) {
@@ -65,6 +71,9 @@ final class WeaponsUseAction extends Action
         ]);
     }
 
+    /**
+     * @return array<string, string|array<string, string>>
+     */
     public function getWeapons(): array
     {
         return array_merge(
@@ -78,13 +87,16 @@ final class WeaponsUseAction extends Action
         );
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     public function getWeaponGroups(): array
     {
         $ret = [];
         foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
             $typeName = Yii::t('app-weapon', $type->name);
             $ret[$typeName] = array_merge(
-                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName)],
+                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', [$typeName])],
                 (function (WeaponType $type): array {
                     $ret = [];
                     foreach ($type->weapons as $weapon) {
@@ -187,6 +199,9 @@ final class WeaponsUseAction extends Action
         );
     }
 
+    /**
+     * @return array{data: list<array{legend: string, data: list<array{string, float|int|null}>}>, events: array<int, array{string, string, mixed}>}
+     */
     public function getData(WeaponCompareForm $form): array
     {
         $list = $this->queryData($form);
@@ -202,29 +217,34 @@ final class WeaponsUseAction extends Action
             }
             $ret['data'][] = [
                 'legend' => $this->makeLegend($form->{"weapon{$i}"}, $form->{"rule{$i}"}),
-                'data' => array_map(
+                'data' => array_values(array_map(
                     function (array $row) use ($columnKey, $bColumnKey): array {
                         $battles = (int)$row[$bColumnKey];
                         return [
-                            date('Y-m-d', strtotime(sprintf(
+                            date('Y-m-d', TypeHelper::int(strtotime(sprintf(
                                 '%04d-W%02d',
                                 $row['isoyear'],
                                 $row['isoweek'],
-                            ))),
+                            )))),
                             $battles > 0 ? $row[$columnKey] * 100 / $battles : null,
                         ];
                     },
                     $list,
-                ),
+                )),
             ];
         }
         return $ret;
     }
 
-    protected function getEventData($firstData, $lastData): array
+    /**
+     * @param array<string, mixed> $firstData
+     * @param array<string, mixed> $lastData
+     * @return array<int, array{string, string, mixed}>
+     */
+    protected function getEventData(array $firstData, array $lastData): array
     {
-        $first = strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek']));
-        $last = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
+        $first = TypeHelper::int(strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek'])));
+        $last = TypeHelper::int(strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek'])));
 
         $query = Event::find()
             ->andWhere(['between',
@@ -235,16 +255,20 @@ final class WeaponsUseAction extends Action
             ->orderBy('[[date]] ASC');
 
         return array_map(fn (array $row): array => [
-            date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
+            date('Y-m-d', TypeHelper::int(strtotime(date('o-\WW', TypeHelper::int(strtotime($row['date'])))))),
             Yii::t('app-event', $row['name']),
             $row['icon'],
         ], $query->asArray()->all());
     }
 
+    /**
+     * @param string|null $weapon
+     * @param string|null $rule
+     */
     protected function makeLegend($weapon, $rule): string
     {
         $weaponName = (function ($key) {
-            switch (substr($key, 0, 1)) {
+            switch (substr($key ?? '', 0, 1)) {
                 case WeaponKeyValidator::PREFIX_WEAPON_GROUP:
                     $type = WeaponType::findOne(['key' => substr($key, 1)]);
                     return Yii::t('app-weapon', 'All of {0}', [
@@ -265,7 +289,7 @@ final class WeaponsUseAction extends Action
 
                 default:
                     $weapon = Weapon::findOne(['key' => $key]);
-                    return Yii::t('app-weapon', $weapon->name ?? $key);
+                    return Yii::t('app-weapon', $weapon->name ?? $key ?? '');
             }
         })($weapon);
 
@@ -290,6 +314,9 @@ final class WeaponsUseAction extends Action
         return (string)$weaponName;
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     protected function queryData(WeaponCompareForm $form): array
     {
         $db = Yii::$app->db;

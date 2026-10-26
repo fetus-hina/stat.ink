@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\BattleApiFormatter;
@@ -22,6 +23,7 @@ use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
 use function array_map;
@@ -32,10 +34,8 @@ final class PostBattleAction extends Action
 {
     use ApiInitializerTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();
@@ -44,7 +44,8 @@ final class PostBattleAction extends Action
     public function run(): Response
     {
         $form = Yii::createObject(PostBattleForm::class);
-        $form->attributes = Yii::$app->request->getBodyParams();
+        $params = Yii::$app->request->getBodyParams();
+        $form->attributes = is_array($params) ? $params : [];
         foreach (['image_judge', 'image_result', 'image_gear'] as $key) {
             if (!$form->$key) {
                 $form->$key = UploadedFile::getInstanceByName($key);
@@ -116,6 +117,9 @@ final class PostBattleAction extends Action
             ->andWhere(['uuid' => $uuid])
             ->limit(1)
             ->one();
+        if (!$battle) {
+            throw new ServerErrorHttpException('Could not load the saved battle');
+        }
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
@@ -150,6 +154,9 @@ final class PostBattleAction extends Action
         return $resp;
     }
 
+    /**
+     * @param array<string, string>|null $errors
+     */
     private function formatError(?array $errors, int $code): Response
     {
         $resp = Yii::$app->response;
@@ -161,9 +168,6 @@ final class PostBattleAction extends Action
     private function registerBackgroundJob(Battle3 $battle): void
     {
         $user = $battle->user;
-        if (!$user) {
-            return;
-        }
 
         // 一緒に遊んだプレイヤー
         BattlePlayedWith3Job::pushQueue($user, $battle);

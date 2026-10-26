@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands\splatoon3Ink;
 
+use LogicException;
 use Throwable;
 use Yii;
 use app\models\Lobby3;
@@ -30,6 +31,9 @@ use const STDERR;
 
 trait UpdateSchedule
 {
+    /**
+     * @param array<string, mixed> $schedules
+     */
     protected function updateSchedule(array $schedules): int
     {
         return Yii::$app->db->transaction(
@@ -45,7 +49,8 @@ trait UpdateSchedule
                         ->one();
                     if ($lobby) {
                         if (!$this->registerSchedules($lobby, $scheduleData)) {
-                            $db->transaction->rollBack();
+                            ($db->transaction ?? throw new LogicException('No active transaction'))
+                                ->rollBack();
                             return ExitCode::UNSPECIFIED_ERROR;
                         }
                     }
@@ -57,6 +62,9 @@ trait UpdateSchedule
         );
     }
 
+    /**
+     * @param array<array<string, mixed>> $schedules
+     */
     private function registerSchedules(Lobby3 $lobby, array $schedules): bool
     {
         foreach ($schedules as $schedule) {
@@ -75,6 +83,9 @@ trait UpdateSchedule
         return true;
     }
 
+    /**
+     * @param array<int|null> $mapIds
+     */
     private function registerSchedule(Lobby3 $lobby, int $period, int $ruleId, array $mapIds): bool
     {
         return Yii::$app->db->transaction(
@@ -96,12 +107,17 @@ trait UpdateSchedule
                     return true;
                 }
 
-                $db->transaction->rollBack();
+                ($db->transaction ?? throw new LogicException('No active transaction'))
+
+                    ->rollBack();
                 return false;
             },
         );
     }
 
+    /**
+     * @param array<int|null> $mapIds
+     */
     private function isScheduleRegistered(Lobby3 $lobby, int $period, int $ruleId, array $mapIds): bool
     {
         $schedule = Schedule3::find()
@@ -178,6 +194,9 @@ trait UpdateSchedule
         return true;
     }
 
+    /**
+     * @param array<int|null> $mapIds
+     */
     private function registerScheduleImpl(Lobby3 $lobby, int $period, int $ruleId, array $mapIds): bool
     {
         $schedule = Yii::createObject([

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands\bugfix;
 
 use LogicException;
+use RuntimeException;
 use Yii;
 use app\components\helpers\RandomFilename;
 use app\models\BattleImage;
@@ -17,20 +18,18 @@ use app\models\BattleImage2;
 use app\models\UserIcon;
 use yii\base\Action;
 use yii\console\ExitCode;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\db\Connection;
 use yii\db\Expression;
 use yii\helpers\FileHelper;
 
 use function array_reverse;
-use function assert;
 use function count;
 use function dirname;
 use function file_exists;
 use function fprintf;
 use function is_file;
 use function json_encode;
+use function preg_last_error_msg;
 use function preg_quote;
 use function preg_replace;
 use function rename;
@@ -91,6 +90,9 @@ final class EqualsInFilenameAction extends Action
         return $failed ? ExitCode::UNSPECIFIED_ERROR : ExitCode::OK;
     }
 
+    /**
+     * @param array{label: string, modelClass: class-string<ActiveRecord>, directoryAlias: string, extension: string, companionExtensions: string[], hasBucket: bool} $target
+     */
     private function processTarget(array $target, bool $dryRun): bool
     {
         fprintf(STDERR, "[Info] Processing %s\n", $target['label']);
@@ -98,7 +100,6 @@ final class EqualsInFilenameAction extends Action
         /** @var class-string<ActiveRecord> $modelClass */
         $modelClass = $target['modelClass'];
         $directory = Yii::getAlias($target['directoryAlias']);
-        assert($directory !== false);
 
         // PK-cursor iteration: updated rows leave the filtered set, and skipped
         // rows would otherwise be returned forever by plain LIMIT.
@@ -119,7 +120,6 @@ final class EqualsInFilenameAction extends Action
                 ->andWhere($filterExpr)
                 ->orderBy([$pkColumn => SORT_ASC])
                 ->limit(500);
-            assert($query instanceof ActiveQuery);
             if ($lastPk !== null) {
                 $query->andWhere(['>', $pkColumn, $lastPk]);
             }
@@ -128,7 +128,6 @@ final class EqualsInFilenameAction extends Action
                 break;
             }
             foreach ($batch as $model) {
-                assert($model instanceof ActiveRecord);
                 $status = $this->processRow($model, $target, $directory, $dryRun);
                 match ($status) {
                     'ok' => ++$okCount,
@@ -144,7 +143,8 @@ final class EqualsInFilenameAction extends Action
     }
 
     /**
-     * @return string 'ok' | 'skip' | 'fail'
+     * @param array{label: string, modelClass: class-string<ActiveRecord>, directoryAlias: string, extension: string, companionExtensions: string[], hasBucket: bool} $target
+     * @return 'ok'|'skip'|'fail'
      */
     private function processRow(
         ActiveRecord $model,
@@ -152,14 +152,14 @@ final class EqualsInFilenameAction extends Action
         string $directory,
         bool $dryRun,
     ): string {
-        $oldFilename = (string)$model->filename;
+        $oldFilename = (string)$model->getAttribute('filename');
 
         // Only the default local bucket can be moved on disk by this action.
-        if ($target['hasBucket'] && (int)$model->bucket_id !== 1) {
+        if ($target['hasBucket'] && (int)$model->getAttribute('bucket_id') !== 1) {
             vfprintf(STDERR, "[Warn] %s: skip %s (non-default bucket_id=%s)\n", [
                 $target['label'],
                 $oldFilename,
-                (string)$model->bucket_id,
+                (string)$model->getAttribute('bucket_id'),
             ]);
             return 'skip';
         }
@@ -238,6 +238,9 @@ final class EqualsInFilenameAction extends Action
             : 'fail';
     }
 
+    /**
+     * @param array{label: string, modelClass: class-string<ActiveRecord>, directoryAlias: string, extension: string, companionExtensions: string[], hasBucket: bool} $target
+     */
     private function generateNewFilename(array $target): string
     {
         $modelClass = $target['modelClass'];
@@ -266,9 +269,13 @@ final class EqualsInFilenameAction extends Action
             '/' . preg_quote($fromSuffix, '/') . '$/',
             $toSuffix,
             $filename,
-        );
+        ) ?? throw new RuntimeException(preg_last_error_msg());
     }
 
+    /**
+     * @param array{label: string, modelClass: class-string<ActiveRecord>, directoryAlias: string, extension: string, companionExtensions: string[], hasBucket: bool} $target
+     * @param array<string, array{old: string, new: string}> $moves
+     */
     private function applyFix(
         ActiveRecord $model,
         array $target,
@@ -297,10 +304,9 @@ final class EqualsInFilenameAction extends Action
             $movedOrder[] = $ext;
         }
 
-        $model->filename = $newFilename;
+        $model->setAttribute('filename', $newFilename);
 
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
         $saved = $db->transaction(static fn (): bool => $model->save());
         if (!$saved) {
             vfprintf(STDERR, "[Error] %s: failed to save model (%s -> %s): %s\n", [

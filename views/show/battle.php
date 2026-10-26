@@ -15,6 +15,7 @@ use app\assets\GearCalcAsset;
 use app\assets\GraphIconAsset;
 use app\assets\PhotoSwipeAsset;
 use app\components\helpers\IkalogVersion;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\FA;
@@ -29,6 +30,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\JsExpression;
 use yii\web\View;
 
@@ -37,7 +39,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $user = $battle->user;
 $canonicalUrl = Url::to(
@@ -319,12 +321,8 @@ $specials = Special::find()->asArray()->all();
               ),
               Html::encode(Yii::t('app-weapon', $battle->weapon->name)),
               Html::encode(sprintf('(%s)', implode(' / ', [
-                $battle->weapon->subweapon
-                  ? Yii::t('app-subweapon', $battle->weapon->subweapon->name)
-                  : '?',
-                $battle->weapon->special
-                  ? Yii::t('app-special', $battle->weapon->special->name)
-                  : '?',
+                Yii::t('app-subweapon', $battle->weapon->subweapon->name),
+                Yii::t('app-special', $battle->weapon->special->name),
               ]))),
             ]) ?></td>
           </tr>
@@ -337,7 +335,7 @@ $specials = Special::find()->asArray()->all();
                 ? [
                   Html::encode(Yii::t('app-rank', $battle->rank->name)),
                   ($battle->rank_exp !== null)
-                    ? Html::encode($battle->rank_exp)
+                    ? Html::encode((string)$battle->rank_exp)
                     : ''
                 ]
                 : '?',
@@ -346,7 +344,7 @@ $specials = Special::find()->asArray()->all();
                 ? [
                   Html::encode(Yii::t('app-rank', $battle->rankAfter->name)),
                   ($battle->rank_exp_after !== null)
-                    ? Html::encode($battle->rank_exp_after)
+                    ? Html::encode((string)$battle->rank_exp_after)
                     : ''
                 ]
                 : '?',
@@ -357,9 +355,9 @@ $specials = Special::find()->asArray()->all();
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Level')) ?></th>
             <td><?= implode(' ', [
-              Html::encode($battle->level ?: '?'),
+              Html::encode((string)($battle->level ?: '?')),
               (string)FA::fas('arrow-right')->fw(),
-              Html::encode($battle->level_after ?: '?'),
+              Html::encode((string)($battle->level_after ?: '?')),
             ]) ?></td>
           </tr>
 <?php } ?>
@@ -384,7 +382,7 @@ $specials = Special::find()->asArray()->all();
                       '***',
                     ])),
                     ($battle->fest_exp !== null)
-                      ? Html::encode($battle->fest_exp)
+                      ? Html::encode((string)$battle->fest_exp)
                       : '',
                   ]
                   : '?',
@@ -398,7 +396,7 @@ $specials = Special::find()->asArray()->all();
                       ])
                     ),
                     ($battle->fest_exp_after !== null)
-                      ? Html::encode($battle->fest_exp_after)
+                      ? Html::encode((string)$battle->fest_exp_after)
                       : '',
                   ]
                   : '?',
@@ -409,17 +407,17 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->fest_power) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Splatfest Power')) ?></th>
-            <td><?= Html::encode($battle->fest_power) ?></td>
+            <td><?= Html::encode((string)$battle->fest_power) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->my_team_power || $battle->his_team_power) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app-show', 'My Team Splatfest Power')) ?></th>
-            <td><?= Html::encode($battle->my_team_power ?: '?') ?></td>
+            <td><?= Html::encode((string)($battle->my_team_power ?: '?')) ?></td>
           </tr>
           <tr>
             <th><?= Html::encode(Yii::t('app-show', 'Their Team Splatfest Power')) ?></th>
-            <td><?= Html::encode($battle->his_team_power ?: '?') ?></td>
+            <td><?= Html::encode((string)($battle->his_team_power ?: '?')) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->is_win !== null) { ?>
@@ -437,9 +435,6 @@ $specials = Special::find()->asArray()->all();
                   ])
               ) . "\n" ?>
 <?php } ?>
-<?php if ($battle->is_win === null) { ?>
-              ?
-<?php } else { ?>
               <?= (
                 ($battle->is_win)
                   ? Html::tag('span', Html::encode(Yii::t('app-results', 'Won')), [
@@ -449,7 +444,6 @@ $specials = Special::find()->asArray()->all();
                     'class' => 'label label-danger',
                   ])
               ) . "\n" ?>
-<?php } ?>
             </td>
           </tr>
 <?php } ?>
@@ -499,13 +493,13 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->max_kill_combo !== null) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app-battle', 'Max Kill Combo')) ?></th>
-            <td><?= Html::encode($battle->max_kill_combo) ?></td>
+            <td><?= Html::encode((string)$battle->max_kill_combo) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->max_kill_streak !== null) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app-battle', 'Max Kill Streak')) ?></th>
-            <td><?= Html::encode($battle->max_kill_streak) ?></td>
+            <td><?= Html::encode((string)$battle->max_kill_streak) ?></td>
           </tr>
 <?php } ?>
 <?php $deathReasons = BattleDeathReason::find()
@@ -523,7 +517,7 @@ $specials = Special::find()->asArray()->all();
 <?php foreach ($deathReasons as $deathReason) { ?>
                   <tr>
                     <td><?= Html::encode(
-                      ($deathReason->reason && $deathReason->reason->translatedName)
+                      $deathReason->reason->translatedName
                         ? $deathReason->reason->translatedName
                         : '?'
                     ) ?></td>
@@ -585,11 +579,11 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->my_team_count || $battle->his_team_count) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app-battle', 'My Team Count')) ?></th>
-            <td><?= Html::encode($battle->my_team_count ?? '?') ?></td>
+            <td><?= Html::encode((string)($battle->my_team_count ?? '?')) ?></td>
           </tr>
           <tr>
             <th><?= Html::encode(Yii::t('app-battle', 'Their Team Count')) ?></th>
-            <td><?= Html::encode($battle->his_team_count ?? '?') ?></td>
+            <td><?= Html::encode((string)($battle->his_team_count ?? '?')) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->cash || $battle->cash_after) { ?>
@@ -633,7 +627,7 @@ $specials = Special::find()->asArray()->all();
             </td>
           </tr>
 <?php } ?>
-<?php $_editable = (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $battle->user_id) ?>
+<?php $_editable = Yii::$app->user->getIdentity()?->id === $battle->user_id ?>
 <?php if ($battle->link_url != '' || $_editable) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Link')) ?></th>
@@ -772,8 +766,7 @@ $specials = Special::find()->asArray()->all();
 <?php } ?>
 <?php if (
   $battle->private_note != '' &&
-  !Yii::$app->user->isGuest &&
-  Yii::$app->user->identity->id == $user->id
+  Yii::$app->user->getIdentity()?->id === $user->id
 ) { ?>
 <?php BattlePrivateNoteAsset::register($this) ?>
           <tr>
@@ -798,7 +791,7 @@ $specials = Special::find()->asArray()->all();
           </tr>
         </tbody>
       </table>
-<?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $user->id) { ?>
+<?php if (Yii::$app->user->getIdentity()?->id === $user->id) { ?>
       <p class="text-right"><?= Html::a(
         Html::encode(Yii::t('app', 'Edit')),
         ['show/edit-battle',
@@ -974,7 +967,7 @@ foreach ($battle->$attr as $player) {
                 ) . "\n" ?>
 <?php } ?>
               </td>
-              <td class="col-level text-right"><?= Html::encode($player->level) ?></td>
+              <td class="col-level text-right"><?= Html::encode((string)$player->level) ?></td>
 <?php if (!$hideRank) { ?>
               <td class="col-rank text-center"><?= Html::encode(
                 Yii::t('app-rank', $player->rank->name ?? '')
@@ -988,12 +981,12 @@ foreach ($battle->$attr as $player) {
               ) ?></td>
 <?php } ?>
               <td class="col-kd text-center">
-                <?= (($player->kill === null) ? '?' : Html::encode($player->kill)) . "\n" ?>
+                <?= (($player->kill === null) ? '?' : Html::encode((string)$player->kill)) . "\n" ?>
 <?php if ($hasMyKill && $teamKey === 'his') { ?>
-                (<?= ($player->my_kill === null) ? '?' : Html::encode($player->my_kill) ?>)
+                (<?= ($player->my_kill === null) ? '?' : Html::encode((string)$player->my_kill) ?>)
 <?php } ?>
                 /
-                <?= (($player->death === null) ? '?' : Html::encode($player->death)) . "\n" ?>
+                <?= (($player->death === null) ? '?' : Html::encode((string)$player->death)) . "\n" ?>
                 <?= KillRatioBadgeWidget::widget([
                   'kill' => $player->kill,
                   'death' => $player->death,
@@ -1028,7 +1021,7 @@ foreach ($battle->$attr as $player) {
       </table>
 <?php } ?>
 <?php if ($battle->events) { ?>
-<?php $events = is_array($battle->events) ? $battle->events : @json_decode($battle->events, false) ?>
+<?php $events = @json_decode($battle->events, false) ?>
 <?php if ($events) { ?>
 <?php
 BattleTimelineAsset::register($this);
@@ -1141,8 +1134,7 @@ if ($effects) {
 }
 ?>
 <?php if (
-  !Yii::$app->user->isGuest &&
-  Yii::$app->user->identity->id == $user->id &&
+  Yii::$app->user->getIdentity()?->id === $user->id &&
   $hasExtendedData
 ) { ?>
       <p class="text-right"><?= Html::a(

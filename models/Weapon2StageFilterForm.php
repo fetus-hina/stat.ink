@@ -13,8 +13,17 @@ use function sprintf;
 
 class Weapon2StageFilterForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $result;
+    /**
+     * @var string|null
+     */
     public $rank;
+    /**
+     * @var string|null
+     */
     public $version;
 
     public function formName()
@@ -47,7 +56,10 @@ class Weapon2StageFilterForm extends Model
         ];
     }
 
-    public function toQueryParams($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toQueryParams(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();

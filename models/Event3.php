@@ -19,8 +19,8 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $internal_id
  * @property string $name
- * @property string $desc
- * @property string $regulation
+ * @property string|null $desc
+ * @property string|null $regulation
  *
  * @property Battle3[] $battle3s
  * @property EventSchedule3[] $eventSchedule3s

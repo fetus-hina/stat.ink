@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\info;
 
+use Override;
 use Yii;
 use app\components\helpers\Translator;
 use app\models\Gear;
@@ -25,14 +26,15 @@ use const SORT_ASC;
 
 final class GearAction extends Action
 {
-    public $type;
+    public ?string $type = null;
 
-    public function getType()
+    public function getType(): ?GearType
     {
         return GearType::findOne(['key' => (string)$this->type]);
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if (!$this->getType()) {
@@ -40,7 +42,7 @@ final class GearAction extends Action
         }
     }
 
-    public function run()
+    public function run(): string
     {
         $type = $this->getType();
         $gears = array_map(
@@ -53,7 +55,7 @@ final class GearAction extends Action
             ],
             Gear::find()
                 ->with(['brand', 'ability'])
-                ->andWhere(['type_id' => $type->id])
+                ->andWhere(['type_id' => $type?->id])
                 ->asArray()
                 ->all(),
         );

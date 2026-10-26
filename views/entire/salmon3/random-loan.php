@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use app\components\helpers\DateTimeHelper;
 use app\components\helpers\OgpHelper;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
@@ -21,6 +22,7 @@ use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -33,7 +35,7 @@ use yii\web\View;
  * @var int $total
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $title = vsprintf('%s - %s', [
   Yii::t('app-salmon3', 'Salmon Run'),
@@ -167,7 +169,7 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
                   'app-map3',
                   $schedule->is_random_map_big_run
                     ? 'Multiple Sites'
-                    : ($schedule->map?->name ?? $schedule->bigMap?->name ?? '?'),
+                    : ($schedule->map->name ?? $schedule->bigMap->name ?? '?'),
                 ),
               ),
             ],
@@ -180,7 +182,7 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
                 ])
                 : implode(' ', [
                   Icon::s3SalmonRandom($info->random),
-                  Html::encode(Yii::t('app-weapon3', $info->random?->name ?? '?')),
+                  Html::encode(Yii::t('app-weapon3', $info->random->name ?? '?')),
                 ]),
               $schedule->salmonScheduleWeapon3s,
             ),

@@ -17,16 +17,16 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property string $key
- * @property integer $type_id
- * @property integer $weapon_id
- * @property integer $subweapon_id
- * @property integer $special_id
+ * @property integer|null $type_id
+ * @property integer|null $weapon_id
+ * @property integer|null $subweapon_id
+ * @property integer|null $special_id
  * @property string $name
  *
- * @property DeathReasonType2 $type
- * @property Special2 $special
- * @property Subweapon2 $subweapon
- * @property Weapon2 $weapon
+ * @property DeathReasonType2|null $type
+ * @property Special2|null $special
+ * @property Subweapon2|null $subweapon
+ * @property Weapon2|null $weapon
  */
 class DeathReason2 extends ActiveRecord
 {
@@ -116,7 +116,10 @@ class DeathReason2 extends ActiveRecord
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -130,7 +133,10 @@ class DeathReason2 extends ActiveRecord
         ];
     }
 
-    public function getTranslatedNameList()
+    /**
+     * @return array<string, string>
+     */
+    public function getTranslatedNameList(): array
     {
         if ($this->type) {
             switch ($this->type->key) {

@@ -7,9 +7,11 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\models\LoginForm;
 use app\models\RegisterForm;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class RegisterAction extends BaseAction
@@ -17,7 +19,8 @@ class RegisterAction extends BaseAction
     public const METHOD_PASSKEY = 'passkey';
     public const METHOD_PASSWORD = 'password';
 
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->getRequest();
 

@@ -78,7 +78,7 @@ final class UserTimeZone
                 );
             }
 
-            return self::isUsable($tz) ? $tz : null;
+            return $tz && self::isUsable($tz) ? $tz : null;
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
@@ -146,6 +146,9 @@ final class UserTimeZone
         return $result[0];
     }
 
+    /**
+     * @return array{Timezone, string}|null
+     */
     public static function guessByGeoIPEx(): ?array
     {
         try {
@@ -219,12 +222,7 @@ final class UserTimeZone
                 __METHOD__,
             );
 
-            if (!$location = $city->location) {
-                Yii::warning('Could not determinate user\'s city from IP ' . $ipAddr, __METHOD__);
-                return null;
-            }
-
-            $tz = trim((string)$location->timeZone);
+            $tz = trim((string)$city->location->timeZone);
             if ($tz === '') {
                 Yii::warning(
                     'GeoIP\'s record has not a time zone information, IP ' . $ipAddr,

@@ -37,6 +37,8 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/auto-tooltip.js \
 	resources/.compiled/stat.ink/battle-detail.css \
 	resources/.compiled/stat.ink/battle-edit.js \
+	resources/.compiled/stat.ink/battle-image-lazy-load.css \
+	resources/.compiled/stat.ink/battle-image-lazy-load.js \
 	resources/.compiled/stat.ink/battle-list-config.js \
 	resources/.compiled/stat.ink/battle-list-group-header.css \
 	resources/.compiled/stat.ink/battle-list.js \
@@ -204,6 +206,10 @@ vendor: composer.lock composer.phar
 	php composer.phar install --prefer-dist
 	@touch vendor
 
+deploy/vendor: deploy/composer.lock composer.phar
+	php composer.phar install --prefer-dist --working-dir=deploy
+	@touch $@
+
 node_modules: package-lock.json
 	npm install --unsafe-perm
 	@touch $@
@@ -217,12 +223,8 @@ check-style-php: vendor
 	php vendor/bin/phpcs -p
 
 .PHONY: phpstan
-phpstan: vendor
-	php vendor/bin/phpstan --level=0 --memory-limit=1G
-
-.PHONY: phpstan1
-phpstan1: vendor
-	php vendor/bin/phpstan --level=1 --memory-limit=1G
+phpstan: vendor deploy/vendor $(SIMPLE_CONFIG_TARGETS) config/cookie-secret.php config/db.php
+	php vendor/bin/phpstan --memory-limit=1G
 
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
@@ -240,6 +242,7 @@ clean: clean-resource
 	rm -rf \
 		composer.phar \
 		data/GeoIP \
+		deploy/vendor \
 		node_modules \
 		vendor
 
@@ -293,6 +296,8 @@ resources/.compiled/stat.ink/api-info-weapon3-matching-range.js: resources/stat.
 resources/.compiled/stat.ink/auto-tooltip.js: resources/stat.ink/auto-tooltip.es node_modules
 resources/.compiled/stat.ink/battle-detail.css: resources/stat.ink/battle-detail.scss node_modules
 resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js node_modules
+resources/.compiled/stat.ink/battle-image-lazy-load.css: resources/stat.ink/battle-image-lazy-load.scss node_modules
+resources/.compiled/stat.ink/battle-image-lazy-load.js: resources/stat.ink/battle-image-lazy-load.es node_modules
 resources/.compiled/stat.ink/battle-list-config.js: resources/stat.ink/battle-list-config.es node_modules
 resources/.compiled/stat.ink/battle-list-group-header.css: resources/stat.ink/battle-list-group-header.scss node_modules
 resources/.compiled/stat.ink/battle-list.js: resources/stat.ink/battle-list.es node_modules

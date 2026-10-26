@@ -7,11 +7,12 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\User;
-use yii\base\Widget;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
+use yii\i18n\Formatter;
 use yii\web\View;
 use yii\widgets\DetailView;
 
@@ -27,7 +28,7 @@ echo DetailView::widget([
   'options' => [
     'class' => ['table', 'table-striped'],
   ],
-  'template' => function (array $attribute, $index, Widget $widget): ?string {
+  'template' => function (array $attribute, $index, DetailView $widget): ?string {
     if ($attribute['value'] === null) {
       return null;
     }
@@ -41,7 +42,7 @@ echo DetailView::widget([
       '<tr><th{captionOptions}>{label}</th><td{contentOptions}>{value}</td></tr>',
       [
         '{label}' => $attribute['label'],
-        '{value}' => $widget->formatter->format($attribute['value'], $attribute['format']),
+        '{value}' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->format($attribute['value'], $attribute['format']),
         '{captionOptions}' => $captionOptions,
         '{contentOptions}' =>  $contentOptions,
       ]

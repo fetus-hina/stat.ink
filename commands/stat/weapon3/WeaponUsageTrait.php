@@ -14,6 +14,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
+use LogicException;
 use Yii;
 use app\models\Lobby3;
 use app\models\Rule3;
@@ -47,9 +48,6 @@ trait WeaponUsageTrait
     protected function makeStatWeapon3Usage(): void
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return;
-        }
 
         $db->transaction(
             fn (Connection $db) => $this->makeStatWeapon3UsageImpl($db),
@@ -96,12 +94,12 @@ trait WeaponUsageTrait
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
         ]);
-        $db->createCommand($sql)->execute($db);
+        $db->createCommand($sql)->execute();
     }
 
     private function makeStatWeapon3UsagePerVersion(Connection $db): void
@@ -120,12 +118,12 @@ trait WeaponUsageTrait
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
         ]);
-        $db->createCommand($sql)->execute($db);
+        $db->createCommand($sql)->execute();
     }
 
     private function makeStatWeapon3XUsagePerSeason(Connection $db): void
@@ -144,12 +142,12 @@ trait WeaponUsageTrait
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
         ]);
-        $db->createCommand($sql)->execute($db);
+        $db->createCommand($sql)->execute();
     }
 
     private function makeStatWeapon3XUsagePerVersion(Connection $db): void
@@ -168,12 +166,12 @@ trait WeaponUsageTrait
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
         ]);
-        $db->createCommand($sql)->execute($db);
+        $db->createCommand($sql)->execute();
     }
 
     /**
@@ -415,6 +413,9 @@ trait WeaponUsageTrait
         return $select;
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function buildSelectMetricsForWeapon3Usage(string $baseName, string $column, bool $mode = true): array
     {
         $percentile = fn (string $column, int $percentile): string => sprintf(

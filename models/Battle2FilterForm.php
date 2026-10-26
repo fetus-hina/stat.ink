@@ -10,15 +10,17 @@ namespace app\models;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
 use function array_filter;
 use function array_map;
 use function array_merge;
-use function call_user_func;
 use function date;
 use function explode;
 use function implode;
@@ -37,27 +39,78 @@ use function vsprintf;
 
 class Battle2FilterForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $screen_name;
 
+    /**
+     * @var string|null
+     */
     public $rule;
+    /**
+     * @var string|null
+     */
     public $map;
+    /**
+     * @var string|null
+     */
     public $weapon;
+    /**
+     * @var string|null
+     */
     public $rank;
+    /**
+     * @var string|bool|null
+     */
     public $result;
+    /**
+     * @var string|bool|null
+     */
     public $has_disconnect;
+    /**
+     * @var string|null
+     */
     public $term;
+    /**
+     * @var string|null
+     */
     public $term_from;
+    /**
+     * @var string|null
+     */
     public $term_to;
+    /**
+     * @var string|null
+     */
     public $timezone;
-    public $id_from; // old, for compatibility. Use filterIdRange.
-    public $id_to; // old, for compatibility. Use filterIdRange.
+    /**
+     * @var string|null old, for compatibility. Use filterIdRange.
+     */
+    public $id_from;
+    /**
+     * @var string|null old, for compatibility. Use filterIdRange.
+     */
+    public $id_to;
+    /**
+     * @var string|null
+     */
     public $filter;
-    public $with_team; // "good" or "bad", refs $filterWithPrincipalId
+    /**
+     * @var string|null "good" or "bad", refs $filterWithPrincipalId
+     */
+    public $with_team;
 
-    private $filterTeam;
-    private $filterIdRange; // [ from, to ]
-    private $filterPeriod; // [ from, to ]
-    private $filterWithPrincipalId;
+    private ?string $filterTeam = null;
+    /**
+     * @var array{int, int}|null [ from, to ]
+     */
+    private ?array $filterIdRange = null;
+    /**
+     * @var array{int, int}|null [ from, to ]
+     */
+    private ?array $filterPeriod = null;
+    private ?string $filterWithPrincipalId = null;
 
     public function formName()
     {
@@ -119,36 +172,36 @@ class Battle2FilterForm extends Model
             [['weapon'], 'exist',
                 'targetClass' => Weapon2::class,
                 'targetAttribute' => 'key',
-                'when' => fn (): bool => !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true),
+                'when' => fn (): bool => !in_array(substr($this->weapon ?? '', 0, 1), ['@', '+', '*', '~'], true),
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => WeaponType2::class,
                 ],
-                'when' => fn (): bool => substr($this->weapon, 0, 1) === '@',
+                'when' => fn (): bool => substr($this->weapon ?? '', 0, 1) === '@',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Subweapon2::class,
                 ],
-                'when' => fn (): bool => substr($this->weapon, 0, 1) === '+',
+                'when' => fn (): bool => substr($this->weapon ?? '', 0, 1) === '+',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Special2::class,
                 ],
-                'when' => fn (): bool => substr($this->weapon, 0, 1) === '*',
+                'when' => fn (): bool => substr($this->weapon ?? '', 0, 1) === '*',
             ],
             [['weapon'], 'validateRepresentativeWeapon',
-                'when' => fn (): bool => substr($this->weapon, 0, 1) === '~',
+                'when' => fn (): bool => substr($this->weapon ?? '', 0, 1) === '~',
             ],
             [['rank'], 'exist',
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',
-                'when' => fn (): bool => substr($this->rank, 0, 1) !== '~',
+                'when' => fn (): bool => substr($this->rank ?? '', 0, 1) !== '~',
             ],
             [['rank'], 'validateRankGroup',
-                'when' => fn () => substr($this->rank, 0, 1) === '~',
+                'when' => fn () => substr($this->rank ?? '', 0, 1) === '~',
             ],
             [['result'], 'boolean',
                 'trueValue' => 'win',
@@ -222,24 +275,30 @@ class Battle2FilterForm extends Model
         ];
     }
 
+    /**
+     * @param array<mixed> $data
+     */
+    #[Override]
     public function load($data, $formName = null)
     {
         foreach (['id_from', 'id_to'] as $key) {
             if (isset($data[$key])) {
                 $value = $data[$key];
-                if (is_scalar($value) && trim($value) !== '') {
-                    $this->$key = trim($value);
+                if (is_scalar($value) && trim((string)$value) !== '') {
+                    $this->$key = trim((string)$value);
                 }
             }
         }
         return parent::load($data, $formName);
     }
 
-    public function validateWeapon(string $attr, $params): void
+    /**
+     * @param array{modelClass: class-string<ActiveRecord>} $params
+     */
+    public function validateWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
-        $method = [$params['modelClass'], 'findOne'];
-        $isExist = !!call_user_func($method, ['key' => $value]);
+        $isExist = !!$params['modelClass']::findOne(['key' => $value]);
         if (!$isExist) {
             $this->addError(
                 $attr,
@@ -250,7 +309,7 @@ class Battle2FilterForm extends Model
         }
     }
 
-    public function validateRepresentativeWeapon(string $attr, $params): void
+    public function validateRepresentativeWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $count = Weapon2::find()
@@ -267,7 +326,7 @@ class Battle2FilterForm extends Model
         }
     }
 
-    public function validateRankGroup(string $attr, $params): void
+    public function validateRankGroup(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $count = RankGroup2::find()
@@ -283,7 +342,7 @@ class Battle2FilterForm extends Model
         }
     }
 
-    public function validateTimezone($attr, $params)
+    public function validateTimezone(string $attr, mixed $params): void
     {
         $value = $this->$attr;
         if (is_scalar($value) && $value != '') {
@@ -295,7 +354,7 @@ class Battle2FilterForm extends Model
         $this->$attr = Yii::$app->timeZone;
     }
 
-    public function validateFilter($attr, $params)
+    public function validateFilter(string $attr, mixed $params): void
     {
         $value = trim((string)($this->$attr));
         if ($value === '' || $this->hasErrors($attr)) {
@@ -372,7 +431,10 @@ class Battle2FilterForm extends Model
         return !!preg_match('/^[0-9a-zA-Z]+$/', $value);
     }
 
-    public function toPermLink($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toPermLink(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();
@@ -454,7 +516,7 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'yesterday':
-                $t = mktime(12, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
+                $t = TypeHelper::int(mktime(12, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now)));
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d 00:00:00', $t));
                 $push('term_to', date('Y-m-d 23:59:59', $t));
@@ -467,7 +529,7 @@ class Battle2FilterForm extends Model
                     ->setTimestamp($now);
                 $thisMonth = new DateTimeImmutable()
                     ->setTimezone(new DateTimeZone('Etc/UTC'))
-                    ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                    ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n'), 1)
                     ->setTime(0, 0, 0);
                 $pushFilter('period', vsprintf('%d-%d', [
                     BattleHelper::calcPeriod2($thisMonth->getTimestamp()),
@@ -491,7 +553,7 @@ class Battle2FilterForm extends Model
                 $thisMonthPeriod = BattleHelper::calcPeriod2(
                     new DateTimeImmutable()
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
-                        ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                        ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n'), 1)
                         ->setTime(0, 0, 0)
                         ->getTimestamp(),
                 );
@@ -511,11 +573,11 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'term':
-                $from = strtotime($this->term_from);
+                $from = strtotime($this->term_from ?? '');
                 if ($from === false) {
                     $from = 0; // 1970-01-01 00:00:00 UTC
                 }
-                $to = strtotime($this->term_to);
+                $to = strtotime($this->term_to ?? '');
                 if ($to === false) {
                     $to = $_SERVER['REQUEST_TIME'] ?? time();
                 }
@@ -526,7 +588,7 @@ class Battle2FilterForm extends Model
                 break;
 
             default:
-                if (preg_match('/^last-(\d+)-battles/', $this->term, $match)) {
+                if (preg_match('/^last-(\d+)-battles/', $this->term ?? '', $match)) {
                     $range = BattleHelper::getNBattlesRange2($this, (int)$match[1]);
                     if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
                         break;
@@ -535,13 +597,13 @@ class Battle2FilterForm extends Model
                         'id',
                         sprintf('%d-%d', (int)$range['min_id'], (int)$range['max_id']),
                     );
-                } elseif (preg_match('/^last-(\d+)-periods/', $this->term, $match)) {
+                } elseif (preg_match('/^last-(\d+)-periods/', $this->term ?? '', $match)) {
                     $currentPeriod = BattleHelper::calcPeriod2($now);
                     $pushFilter(
                         'period',
                         sprintf('%d-%d', $currentPeriod - $match[1] + 1, $currentPeriod),
                     );
-                } elseif (preg_match('/^~?v\d+/', $this->term)) {
+                } elseif (preg_match('/^~?v\d+/', $this->term ?? '')) {
                     $push('term', $this->term);
                 }
                 break;
@@ -550,7 +612,10 @@ class Battle2FilterForm extends Model
         return $ret;
     }
 
-    public function toQueryParams($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toQueryParams(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();
@@ -590,11 +655,17 @@ class Battle2FilterForm extends Model
         return $this->filterTeam;
     }
 
+    /**
+     * @return array{int, int}|null
+     */
     public function getFilterIdRange(): ?array
     {
         return $this->filterIdRange;
     }
 
+    /**
+     * @return array{int, int}|null
+     */
     public function getFilterPeriod(): ?array
     {
         return $this->filterPeriod;

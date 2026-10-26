@@ -17,10 +17,12 @@ use app\models\User;
 use app\models\UserStatSalmon3;
 use yii\db\Connection;
 use yii\db\Query;
+use LogicException;
 
 use function array_merge;
 use function implode;
 use function vsprintf;
+use function is_array;
 
 use const SORT_DESC;
 
@@ -53,11 +55,15 @@ trait StatsTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private static function makeBasicStats(Connection $db, User $user, DateTimeImmutable $now): array
     {
         $condBasic = self::getBasicStatsCond();
@@ -73,7 +79,7 @@ trait StatsTrait
             ],
         );
 
-        return new Query()
+        $row = new Query()
             ->select([
                 'jobs' => 'COUNT(*)',
                 'agg_jobs' => $aggregate(),
@@ -87,8 +93,10 @@ trait StatsTrait
                 'rescues' => $aggregate(null, '{{%salmon_player3}}.[[rescue]]'),
                 'rescued' => $aggregate(null, '{{%salmon_player3}}.[[rescued]]'),
                 'peak_danger_rate' => vsprintf('MAX(CASE %s END)', [
-                    "WHEN {$condBasic} AND {{%salmon3}}.[[clear_waves]] >= 3 THEN {{%salmon3}}.[[danger_rate]]",
-                    'ELSE NULL',
+                    implode(' ', [
+                        "WHEN {$condBasic} AND {{%salmon3}}.[[clear_waves]] >= 3 THEN {{%salmon3}}.[[danger_rate]]",
+                        'ELSE NULL',
+                    ]),
                 ]),
                 'boss_defeated' => $aggregate(null, '{{%salmon_player3}}.[[defeat_boss]]'),
             ])
@@ -102,11 +110,16 @@ trait StatsTrait
                 '{{%salmon3}}.[[is_deleted]]' => false,
             ])
             ->one($db);
+
+        return is_array($row) ? $row : [];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private static function makeTitleStats(Connection $db, User $user, DateTimeImmutable $now): array
     {
-        return new Query()
+        $row = new Query()
             ->select([
                 'peak_title_id' => '{{%salmon3}}.[[title_after_id]]',
                 'peak_title_exp' => 'MAX({{%salmon3}}.[[title_exp_after]])',
@@ -132,6 +145,8 @@ trait StatsTrait
             ])
             ->limit(1)
             ->one($db);
+
+        return is_array($row) ? $row : [];
     }
 
     private static function getBasicStatsCond(): string

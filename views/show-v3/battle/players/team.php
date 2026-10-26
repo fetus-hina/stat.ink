@@ -62,6 +62,7 @@ if ($isXmatch && $useXMatchingRange && count($players) > 0) {
       fn (BattlePlayer3|BattleTricolorPlayer3 $model): ?float => filter_var(
         $model->weapon?->mainweapon?->matching_range,
         FILTER_VALIDATE_FLOAT,
+        FILTER_NULL_ON_FAILURE,
       ),
       $players
     ),
@@ -71,7 +72,7 @@ if ($isXmatch && $useXMatchingRange && count($players) > 0) {
     0.0,
   );
 
-  if ($tmpTotal !== null && count($players) > 0) {
+  if ($tmpTotal !== null) {
     $avgMR = $tmpTotal / count($players);
   }
 }

@@ -7,7 +7,9 @@
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Knockout2;
 use app\models\Knockout2FilterForm;
 use yii\helpers\ArrayHelper;
@@ -15,7 +17,8 @@ use yii\web\ViewAction as BaseAction;
 
 class Knockout2Action extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $form = Yii::createObject(Knockout2FilterForm::class);
 
@@ -51,7 +54,7 @@ class Knockout2Action extends BaseAction
                                 default:
                                     return 'ERROR';
                             }
-                        })($form->lobby),
+                        })(TypeHelper::string($form->lobby)),
                     ]);
             }
             if ($form->rank != '') {

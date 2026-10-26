@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -97,6 +98,9 @@ class StatWeaponMapTrend extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -130,6 +134,9 @@ class StatWeaponMapTrend extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -138,6 +145,9 @@ class StatWeaponMapTrend extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         $weapon = Weapon::find()
@@ -147,7 +157,7 @@ class StatWeaponMapTrend extends ActiveRecord
         return [
             'rank' => 1,
             'use_pct' => 1.23,
-            'weapon' => $weapon->toJsonArray(),
+            'weapon' => TypeHelper::instanceOf($weapon, Weapon::class)->toJsonArray(),
         ];
     }
 }

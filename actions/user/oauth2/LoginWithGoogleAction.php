@@ -39,6 +39,9 @@ final class LoginWithGoogleAction extends AbstractOAuth2LoginAction
         return 'oauth2state.google';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     #[Override]
     protected function getAuthorizationOptions(): array
     {

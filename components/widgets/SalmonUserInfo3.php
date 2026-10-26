@@ -269,7 +269,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
         );
     }
 
-    protected function getUserStats(): UserStatSalmon3
+    private function getUserStats(): UserStatSalmon3
     {
         return UserStatSalmon3::find()->andWhere(['user_id' => $this->user->id])->limit(1)->one()
             ?? Yii::createObject(UserStatSalmon3::class);

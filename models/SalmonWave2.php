@@ -18,16 +18,16 @@ use function array_merge;
  *
  * @property integer $salmon_id
  * @property integer $wave
- * @property integer $event_id
- * @property integer $water_id
- * @property integer $golden_egg_quota
- * @property integer $golden_egg_appearances
- * @property integer $golden_egg_delivered
- * @property integer $power_egg_collected
+ * @property integer|null $event_id
+ * @property integer|null $water_id
+ * @property integer|null $golden_egg_quota
+ * @property integer|null $golden_egg_appearances
+ * @property integer|null $golden_egg_delivered
+ * @property integer|null $power_egg_collected
  *
  * @property Salmon2 $salmon
- * @property SalmonEvent2 $event
- * @property SalmonWaterLevel2 $water
+ * @property SalmonEvent2|null $event
+ * @property SalmonWaterLevel2|null $water
  */
 class SalmonWave2 extends ActiveRecord
 {
@@ -113,11 +113,14 @@ class SalmonWave2 extends ActiveRecord
         return $this->hasOne(SalmonWaterLevel2::class, ['id' => 'water_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
-            'known_occurrence' => $this->event_id ? $this->event->toJsonArray() : null,
-            'water_level' => $this->water_id ? $this->water->toJsonArray() : null,
+            'known_occurrence' => $this->event_id ? $this->event?->toJsonArray() : null,
+            'water_level' => $this->water_id ? $this->water?->toJsonArray() : null,
             'golden_egg_quota' => $this->golden_egg_quota,
             'golden_egg_appearances' => $this->golden_egg_appearances,
             'golden_egg_delivered' => $this->golden_egg_delivered,
@@ -125,6 +128,9 @@ class SalmonWave2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -171,12 +177,18 @@ class SalmonWave2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         return [

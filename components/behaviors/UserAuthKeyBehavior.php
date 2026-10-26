@@ -10,7 +10,10 @@ declare(strict_types=1);
 namespace app\components\behaviors;
 
 use LogicException;
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
+use app\models\UserAuthKey;
 use yii\base\Behavior;
 use yii\base\Model;
 use yii\helpers\StringHelper;
@@ -25,6 +28,9 @@ use const PASSWORD_ARGON2I;
 use const PASSWORD_ARGON2ID;
 use const PASSWORD_BCRYPT;
 
+/**
+ * @extends Behavior<UserAuthKey>
+ */
 final class UserAuthKeyBehavior extends Behavior
 {
     public const RAW_KEY_BITS = 256;
@@ -34,7 +40,11 @@ final class UserAuthKeyBehavior extends Behavior
         return hash('crc32b', $input, false);
     }
 
-    public function events()
+    /**
+     * @return array<string, callable|string>
+     */
+    #[Override]
+    public function events(): array
     {
         return [
             Model::EVENT_BEFORE_VALIDATE => 'fillAuthKeyAttributes',
@@ -43,18 +53,20 @@ final class UserAuthKeyBehavior extends Behavior
 
     public function fillAuthKeyAttributes(): void
     {
+        $owner = TypeHelper::instanceOf($this->owner, UserAuthKey::class);
+
         // "raw", but Base64'ed
         $raw_key = $this->generateRawKey();
 
-        $this->owner->auth_key_raw = $raw_key;
+        $owner->auth_key_raw = $raw_key;
 
         // hint for finding
-        $this->owner->auth_key_hint = static::raw2hint($raw_key);
+        $owner->auth_key_hint = static::raw2hint($raw_key);
 
         [$algo, $algoOptions] = $this->getHashOptions();
 
         // hashed token
-        $this->owner->auth_key_hash = password_hash($raw_key, $algo, $algoOptions);
+        $owner->auth_key_hash = password_hash($raw_key, $algo, $algoOptions);
     }
 
     protected function generateRawKey(): string

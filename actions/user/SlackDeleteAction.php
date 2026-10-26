@@ -7,15 +7,20 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\models\Slack;
-use yii\base\DynamicModel;
+use app\models\SlackDeleteForm;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class SlackDeleteAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $ident = Yii::$app->user->getIdentity();
         if (!$ident) {
@@ -23,14 +28,9 @@ class SlackDeleteAction extends BaseAction
         }
 
         $req = Yii::$app->request;
-        $form = DynamicModel::validateData(
-            [
-                'id' => $req->post('id'),
-            ],
-            [
-                [['id'], 'exist', 'targetClass' => Slack::class, 'targetAttribute' => 'id'],
-            ],
-        );
+        $form = SlackDeleteForm::validateData([
+            'id' => $req->post('id'),
+        ]);
         if ($form->hasErrors()) {
             throw new BadRequestHttpException('Bad Request');
         }

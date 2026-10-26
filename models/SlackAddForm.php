@@ -25,19 +25,19 @@ use function vsprintf;
 
 final class SlackAddForm extends Model
 {
-    /** @var string */
+    /** @var string|null */
     public $webhook_url;
 
-    /** @var string */
+    /** @var string|null */
     public $username;
 
-    /** @var string */
+    /** @var string|null */
     public $icon;
 
-    /** @var string */
+    /** @var string|null */
     public $channel;
 
-    /** @var int */
+    /** @var int|null */
     public $language_id;
 
     public function rules()

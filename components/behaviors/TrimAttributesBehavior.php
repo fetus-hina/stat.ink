@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace app\components\behaviors;
 
+use ArrayAccess;
+use Override;
 use Traversable;
 use yii\base\Behavior;
 use yii\base\Model;
@@ -18,12 +20,15 @@ use function is_bool;
 use function is_scalar;
 use function trim;
 
+/**
+ * @extends Behavior<Model>
+ */
 class TrimAttributesBehavior extends Behavior
 {
     /**
      * @var array<array-key, mixed>
      */
-    public $targets;
+    public $targets = [];
 
     /**
      * @var bool
@@ -37,10 +42,6 @@ class TrimAttributesBehavior extends Behavior
     {
         parent::init();
 
-        if (!is_array($this->targets)) {
-            $this->targets = [];
-        }
-
         if ($this->recursive !== false) {
             $this->recursive = true;
         }
@@ -48,8 +49,10 @@ class TrimAttributesBehavior extends Behavior
 
     /**
      * @inheritdoc
+     * @return array<string, callable|string>
      */
-    public function events()
+    #[Override]
+    public function events(): array
     {
         return [
             Model::EVENT_BEFORE_VALIDATE => $this->trim(...),
@@ -63,7 +66,7 @@ class TrimAttributesBehavior extends Behavior
         }
     }
 
-    protected function doTrim($value)
+    protected function doTrim(mixed $value): mixed
     {
         if ($value === null || is_bool($value)) {
             return $value;
@@ -74,7 +77,7 @@ class TrimAttributesBehavior extends Behavior
             return $value === '' ? null : $value;
         }
 
-        if (is_array($value) || $value instanceof Traversable) {
+        if (is_array($value) || ($value instanceof Traversable && $value instanceof ArrayAccess)) {
             if ($this->recursive) {
                 foreach ($value as $k => $v) {
                     $value[$k] = $this->doTrim($v);

@@ -7,6 +7,7 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\BattleDeleteForm;
@@ -17,6 +18,7 @@ use app\models\Map;
 use app\models\Rule;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use function asort;
@@ -24,9 +26,10 @@ use function func_get_args;
 
 class EditBattleAction extends BaseAction
 {
-    private $battle;
+    private ?Battle $battle = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->battle = null;
@@ -38,13 +41,18 @@ class EditBattleAction extends BaseAction
         }
     }
 
-    public function getIsEditable()
+    public function getIsEditable(): bool
     {
         return !!$this->battle;
     }
 
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
+        if (!$battle = $this->battle) {
+            throw new ServerErrorHttpException();
+        }
+
         $form = new BattleForm();
         $del = new BattleDeleteForm();
         if (Yii::$app->request->isPost) {
@@ -54,35 +62,35 @@ class EditBattleAction extends BaseAction
             if (Yii::$app->request->post('_action') === 'delete') {
                 if ($del->validate()) {
                     $transaction = Yii::$app->db->beginTransaction();
-                    if ($this->battle->delete()) {
+                    if ($battle->delete()) {
                         $transaction->commit();
                         $this->controller->redirect([
                             'show/user',
-                            'screen_name' => $this->battle->user->screen_name,
+                            'screen_name' => $battle->user->screen_name,
                         ]);
-                        return;
+                        return null;
                     }
                     $transaction->rollback();
                 }
             } else {
                 if ($form->validate()) {
-                    $this->battle->attributes = $form->attributes;
-                    if ($this->battle->save()) {
+                    $battle->attributes = $form->attributes;
+                    if ($battle->save()) {
                         $this->controller->redirect([
                             'show/battle',
-                            'screen_name' => $this->battle->user->screen_name,
-                            'battle' => $this->battle->id,
+                            'screen_name' => $battle->user->screen_name,
+                            'battle' => $battle->id,
                         ]);
-                        return;
+                        return null;
                     }
                 }
             }
         } else {
-            $form->attributes = $this->battle->attributes;
+            $form->attributes = $battle->attributes;
         }
         return $this->controller->render('edit-battle', [
-            'user' => $this->battle->user,
-            'battle' => $this->battle,
+            'user' => $battle->user,
+            'battle' => $battle,
             'form' => $form,
             'delete' => $del,
             'lobbies' => $this->makeLobbies(),
@@ -92,7 +100,10 @@ class EditBattleAction extends BaseAction
         ]);
     }
 
-    private function makeLobbies()
+    /**
+     * @return array<string|int, string>
+     */
+    private function makeLobbies(): array
     {
         $ret = ['' => Yii::t('app', 'Unknown')];
         foreach (Lobby::find()->orderBy('[[id]] ASC')->all() as $model) {
@@ -101,7 +112,10 @@ class EditBattleAction extends BaseAction
         return $ret;
     }
 
-    private function makeRules()
+    /**
+     * @return array<string, string|array<int, string>>
+     */
+    private function makeRules(): array
     {
         $ret = ['' => Yii::t('app', 'Unknown')];
         $gameModes = GameMode::find()->orderBy('[[id]] ASC')->all();
@@ -121,20 +135,26 @@ class EditBattleAction extends BaseAction
         return $ret;
     }
 
-    private function makeMaps()
+    /**
+     * @return array<string|int, string>
+     */
+    private function makeMaps(): array
     {
         $ret = [];
         foreach (Map::find()->all() as $map) {
             $ret[$map->id] = Yii::t('app-map', $map->name);
         }
         asort($ret);
-        return static::arrayMerge(
+        return self::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
             $ret,
         );
     }
 
-    private function makeWeapons()
+    /**
+     * @return array<string, string|array<int, string>>
+     */
+    private function makeWeapons(): array
     {
         $ret = [];
         $types = WeaponType::find()->orderBy('[[id]] ASC')->all();
@@ -149,13 +169,16 @@ class EditBattleAction extends BaseAction
             asort($tmp);
             $ret[$typeName] = $tmp;
         }
-        return static::arrayMerge(
+        return self::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
             $ret,
         );
     }
 
-    private static function arrayMerge()
+    /**
+     * @return array<array-key, mixed>
+     */
+    private static function arrayMerge(): array
     {
         $ret = [];
         foreach (func_get_args() as $arg) {

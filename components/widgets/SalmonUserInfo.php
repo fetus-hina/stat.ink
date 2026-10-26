@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\UserMiniinfoAsset;
 use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
+use app\models\User;
 use yii\base\Event;
 use yii\base\Model;
 use yii\base\Widget;
@@ -30,9 +32,10 @@ use const SORT_DESC;
 
 class SalmonUserInfo extends Widget
 {
-    public $user;
+    public User $user;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -192,7 +195,7 @@ class SalmonUserInfo extends Widget
             ],
         ];
         $datetime = '';
-        if ($stats->as_of !== null && $stats->work_count) {
+        if (!$stats->isNewRecord && $stats->work_count) {
             ob_start();
             $historyWidget = SalmonStatsHistoryWidget::begin(['user' => $this->user]);
             SalmonStatsHistoryWidget::end();
@@ -290,10 +293,7 @@ class SalmonUserInfo extends Widget
         ]);
     }
 
-    /**
-     * @return SalmonStats2
-     */
-    protected function getUserStats(): Model
+    private function getUserStats(): SalmonStats2
     {
         $model = SalmonStats2::find()
             ->andWhere(['user_id' => $this->user->id])

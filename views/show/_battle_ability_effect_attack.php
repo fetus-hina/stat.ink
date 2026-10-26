@@ -18,7 +18,10 @@ if (!$attack = $battle->weaponAttack) {
   return '';
 }
 
-$effects = $battle->abilityEffects;
+if (!$effects = $battle->abilityEffects) {
+  return '';
+}
+
 $attackPct = $effects->attackPct;
 $baseHit2Kill = $attack->getHitToKill();
 $damageCap = $attack->getDamageCap();

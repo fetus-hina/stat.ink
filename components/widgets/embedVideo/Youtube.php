@@ -23,13 +23,13 @@ class Youtube extends Widget
 {
     public static $autoIdPrefix = 'w-youtube-';
 
-    public $videoId;
-    public $timeCode;
+    public ?string $videoId = null;
+    public ?string $timeCode = null;
 
-    public $width = 853;
-    public $height = 480;
-    public $noCookie = true;
-    public $rel = false;
+    public int $width = 853;
+    public int $height = 480;
+    public bool $noCookie = true;
+    public bool $rel = false;
 
     public function run()
     {
@@ -41,7 +41,7 @@ class Youtube extends Widget
             if (filter_var($this->timeCode, FILTER_VALIDATE_INT)) {
                 $params['start'] = (string)(int)$this->timeCode;
             } elseif (preg_match('/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/', $this->timeCode, $match)) {
-                $fConv = function ($index) use ($match) {
+                $fConv = function (int $index) use ($match): int {
                     if (!isset($match[$index])) {
                         return 0;
                     }
@@ -58,7 +58,7 @@ class Youtube extends Widget
             'src' => sprintf(
                 'https://%s/embed/%s?%s',
                 $this->noCookie ? 'www.youtube-nocookie.com' : 'www.youtube.com',
-                rawurlencode($this->videoId),
+                rawurlencode($this->videoId ?? ''),
                 http_build_query($params, '', '&'),
             ),
         ]);

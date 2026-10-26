@@ -19,10 +19,10 @@ use yii\web\View;
  * @var View $this
  */
 
-$user = Yii::$app->user->identity ?? null;
-$discordEnabled = (bool)(Yii::$app->params['discord']['read_enabled'] ?? false);
-$googleEnabled = (bool)(Yii::$app->params['google']['read_enabled'] ?? false);
-$twitterEnabled = (bool)(Yii::$app->params['twitter']['read_enabled'] ?? false);
+$user = Yii::$app->user->getIdentity() ?? null;
+$discordEnabled = Yii::$app->params['discord']['read_enabled'];
+$googleEnabled = Yii::$app->params['google']['read_enabled'];
+$twitterEnabled = Yii::$app->params['twitter']['read_enabled'];
 
 if (!$user) {
     PasskeyLoginNavbarAsset::register($this);

@@ -12,6 +12,7 @@ use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
 use app\components\helpers\OgpHelper;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\IndexI18nButtons;
@@ -32,11 +33,12 @@ use yii\web\View;
  */
 
 assert($this->context instanceof Controller);
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 PaintballAsset::register($this);
 
 $discordInviteCode = ArrayHelper::getValue(Yii::$app->params, 'discordInviteCode');
+$identity = Yii::$app->user->getIdentity();
 
 OgpHelper::default($this, Url::to(['site/index'], true));
 
@@ -104,10 +106,10 @@ OgpHelper::default($this, Url::to(['site/index'], true));
     },
     [
       array_filter([
-        Yii::$app->user->isGuest
+        $identity === null
           ? Html::a(Html::encode(Yii::t('app-site', 'Join us')), ['user/register'])
           : Html::a(Html::encode(Yii::t('app-site', 'Your Battles')), ['show-user/profile',
-            'screen_name' => Yii::$app->user->identity->screen_name,
+            'screen_name' => $identity->screen_name,
           ]),
         Html::a(Html::encode(Yii::t('app-site', 'Getting Started')), ['site/start']),
         Html::a(Html::encode(Yii::t('app-site', 'FAQ')), ['site/faq']),
@@ -240,8 +242,7 @@ $indexAppData = [
   'logged-in' => Yii::$app->user->isGuest ? '0' : '1',
   'latest-heading' => Yii::t('app', 'Recent Battles'),
 ];
-if (!Yii::$app->user->isGuest) {
-  $identity = Yii::$app->user->identity;
+if ($identity !== null) {
   $indexAppData['my-latest-heading'] = Yii::t('app', '{name}\'s Battles');
   $indexAppData['user-name'] = $identity->name;
   $indexAppData['user-url'] = Url::to(

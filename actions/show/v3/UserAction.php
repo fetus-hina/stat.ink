@@ -12,13 +12,16 @@ namespace app\actions\show\v3;
 use Yii;
 use app\components\formatters\api\v3\BattleApiFormatter;
 use app\components\helpers\BattleSummarizer;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\Battle3FilterForm;
 use app\models\User;
 use yii\base\Action;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -32,6 +35,9 @@ use function time;
 
 use const SORT_DESC;
 
+/**
+ * @property-read string $viewMode
+ */
 final class UserAction extends Action
 {
     /**
@@ -68,7 +74,7 @@ final class UserAction extends Action
             $next = $_GET;
             unset($next['v']);
             $next[0] = 'show-v3/user';
-            return $this->controller->redirect(Url::to($next));
+            return TypeHelper::instanceOf($this->controller, Controller::class)->redirect(Url::to($next));
         }
 
         $battle = Battle3::find()
@@ -114,9 +120,10 @@ final class UserAction extends Action
         $battleDataProvider = Yii::createObject([
             'class' => ActiveDataProvider::class,
             'query' => $battle,
-            'pagination' => [
+            'pagination' => Yii::createObject([
+                'class' => Pagination::class,
                 'pageSize' => 100,
-            ],
+            ]),
             'sort' => false,
         ]);
 
@@ -181,7 +188,6 @@ final class UserAction extends Action
             ]),
         );
 
-        $isAuthenticated = false;
         $fullTranslate = (bool)$request->get('full');
         $cache = Yii::$app->cache;
 
@@ -196,13 +202,13 @@ final class UserAction extends Action
                         'at' => $model->updated_at,
                         'battle' => $model->id,
                         'fullTranslate' => $fullTranslate ? 'yes' : 'no',
-                        'isAuthenticated' => $isAuthenticated ? 'yes' : 'no',
+                        'isAuthenticated' => 'no',
                     ]),
                     __METHOD__,
                 ),
-                fn (): ?array => BattleApiFormatter::toJson(
+                fn (): array => BattleApiFormatter::toJson(
                     model: $model,
-                    isAuthenticated: $isAuthenticated,
+                    isAuthenticated: false,
                     fullTranslate: $fullTranslate,
                 ),
                 duration: 7200,

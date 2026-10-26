@@ -7,6 +7,7 @@
 
 namespace app\components\behaviors;
 
+use Override;
 use yii\base\Behavior;
 use yii\base\Model;
 use yii\db\Query;
@@ -23,18 +24,25 @@ use const FILTER_VALIDATE_INT;
 
 class SplatnetNumberBehavior extends Behavior
 {
-    public $trigger = Model::EVENT_BEFORE_VALIDATE;
+    public string $trigger = Model::EVENT_BEFORE_VALIDATE;
 
-    public $attribute; // e.g. "weapon" $model->$attribute
-    public $prefix = '#';
-    public $tableName; // '{{weapon2}}'
-    public $tableAttribute = '[[splatnet]]';
-    public $keyAttribute = '[[key]]';
+    public ?string $attribute = null; // e.g. "weapon" $model->$attribute
+    public string $prefix = '#';
+    public string $tableName; // '{{weapon2}}'
+    public string $tableAttribute = '[[splatnet]]';
+    public string $keyAttribute = '[[key]]';
 
+    /**
+     * @var (callable(Query): void)|null
+     */
     public $modifier = null; // function (Query $query) : void {}
-    public $notFound = null; // value || function (int $value) : ?string {}
+    public mixed $notFound = null; // value || function (int $value) : ?string {}
 
-    public function events()
+    /**
+     * @return array<string, callable|string>
+     */
+    #[Override]
+    public function events(): array
     {
         return [
             $this->trigger => $this->doExec(...),

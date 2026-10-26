@@ -8,9 +8,11 @@
 declare(strict_types=1);
 
 use app\assets\AboutAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -22,7 +24,7 @@ $title = implode(' | ', [
   'About Translation',
 ]);
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = $title;
 
 AboutAsset::register($this);

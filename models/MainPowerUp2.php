@@ -11,6 +11,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -59,6 +60,9 @@ class MainPowerUp2 extends ActiveRecord
         return $this->hasMany(Weapon2::class, ['main_power_up_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -67,6 +71,9 @@ class MainPowerUp2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -91,6 +98,9 @@ class MainPowerUp2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -98,12 +108,16 @@ class MainPowerUp2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
-        return static::find()
+        $model = static::find()
             ->orderBy(['key' => SORT_ASC])
             ->limit(1)
-            ->one()
-            ->toJsonArray();
+            ->one();
+
+        return TypeHelper::instanceOf($model, static::class)->toJsonArray();
     }
 }

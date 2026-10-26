@@ -16,11 +16,11 @@ use yii\helpers\StringHelper;
  *
  * @var string $className the new migration class name without namespace
  * @var string $namespace the new migration class namespace
- * @var string[] $traits
+ * @var string[]|null $traits
  * @var bool $inTransaction
- * @var string $upCode
- * @var string $downCode
- * @var string $extraCode
+ * @var string|null $upCode
+ * @var string|null $downCode
+ * @var string|null $extraCode
  */
 
 $inTransaction = (isset($inTransaction) && $inTransaction);

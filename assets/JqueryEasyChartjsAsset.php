@@ -27,7 +27,7 @@ final class JqueryEasyChartjsAsset extends AssetBundle
     ];
 
     /**
-     * @var AssetBundle[]
+     * @var class-string<AssetBundle>[]
      */
     public $depends = [
         ChartJsAsset::class,

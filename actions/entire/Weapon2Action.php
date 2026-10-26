@@ -9,13 +9,14 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use app\models\Map2;
 use app\models\Rule2;
 use app\models\StatWeapon2Result;
 use app\models\Weapon2;
 use app\models\Weapon2StageFilterForm;
-use yii\db\ActiveQuery;
+use app\models\query\Map2Query;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
@@ -24,10 +25,11 @@ use const SORT_ASC;
 
 class Weapon2Action extends ViewAction
 {
-    public $weapon;
-    public $rule;
+    public ?Weapon2 $weapon = null;
+    public ?Rule2 $rule = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -39,10 +41,11 @@ class Weapon2Action extends ViewAction
         }
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
-        $maps = Map2::getSortedMap(function (ActiveQuery $query): void {
-            if ($this->rule->key !== 'nawabari') {
+        $maps = Map2::getSortedMap(function (Map2Query $query): void {
+            if ($this->rule?->key !== 'nawabari') {
                 $query->excludeMystery();
             }
         });
@@ -55,10 +58,10 @@ class Weapon2Action extends ViewAction
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
-                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
-                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                    'stat_weapon2_result.weapon_id' => $this->weapon?->id,
+                    'stat_weapon2_result.rule_id' => $this->rule?->id,
                 ])
-                ->applyFilter($stageFilter, ['result'])
+                ->applyFilter($stageFilter)
                 ->groupBy('stat_weapon2_result.map_id')
                 ->select([
                     'map' => 'MAX(map2.key)',
@@ -80,8 +83,8 @@ class Weapon2Action extends ViewAction
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
-                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
-                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                    'stat_weapon2_result.weapon_id' => $this->weapon?->id,
+                    'stat_weapon2_result.rule_id' => $this->rule?->id,
                 ])
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.kill'])
@@ -110,8 +113,8 @@ class Weapon2Action extends ViewAction
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
-                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
-                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                    'stat_weapon2_result.weapon_id' => $this->weapon?->id,
+                    'stat_weapon2_result.rule_id' => $this->rule?->id,
                 ])
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.death'])
@@ -140,8 +143,8 @@ class Weapon2Action extends ViewAction
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
-                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
-                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                    'stat_weapon2_result.weapon_id' => $this->weapon?->id,
+                    'stat_weapon2_result.rule_id' => $this->rule?->id,
                 ])
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.special'])
@@ -170,8 +173,8 @@ class Weapon2Action extends ViewAction
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
-                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
-                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                    'stat_weapon2_result.weapon_id' => $this->weapon?->id,
+                    'stat_weapon2_result.rule_id' => $this->rule?->id,
                 ])
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.assist'])

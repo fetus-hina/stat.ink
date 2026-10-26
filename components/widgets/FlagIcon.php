@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\FlagIconCssAsset;
 use yii\base\Widget;
@@ -21,37 +22,50 @@ use function trim;
 
 final class FlagIcon extends Widget
 {
-    public $tag = 'span';
-    public $isBackground = false; // deprecated
-    public $isSquare = false;
-    public $cc = null;
-    public $options = [];
+    public string $tag = 'span';
+    public bool $isBackground = false; // deprecated
+    public bool $isSquare = false;
+    public ?string $cc = null;
+    /**
+     * @var array<string, mixed>
+     */
+    public array $options = [];
 
-    private $asset;
-
+    /**
+     * @param array<string, mixed> $options
+     */
     public static function fg(string $cc, array $options = []): self
     {
         return static::factory($cc, false, $options);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public static function bg(string $cc, array $options = []): self
     {
         return static::factory($cc, true, $options);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     protected static function factory(string $cc, bool $isBG, array $options): self
     {
-        return Yii::createObject(ArrayHelper::merge([
+        /** @var array{class: class-string<static>} $config */
+        $config = ArrayHelper::merge([
             'class' => static::class,
             'isBackground' => $isBG,
             'cc' => $cc,
-        ], $options));
+        ], $options);
+        return Yii::createObject($config);
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
-        $this->asset = FlagIconCssAsset::register($this->view);
+        FlagIconCssAsset::register($this->view);
     }
 
     public function cc(string $cc): self

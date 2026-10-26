@@ -12,13 +12,14 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "user_stat3".
  *
  * @property integer $id
  * @property integer $user_id
- * @property integer $lobby_id
+ * @property integer|null $lobby_id
  * @property integer $battles
  * @property integer $agg_battles
  * @property integer $agg_seconds
@@ -29,20 +30,26 @@ use yii\db\ActiveRecord;
  * @property integer $specials
  * @property integer $inked
  * @property integer $max_inked
- * @property integer $peak_rank_id
- * @property integer $peak_s_plus
- * @property string $peak_x_power
- * @property string $peak_fest_power
- * @property string $peak_season
- * @property integer $current_rank_id
- * @property integer $current_s_plus
- * @property string $current_x_power
- * @property string $current_season
- * @property string $updated_at
+ * @property integer|null $peak_rank_id
+ * @property integer|null $peak_s_plus
+ * @property-read numeric-string|null $peak_x_power
+ * @property-write float|string|null $peak_x_power
+ * @property-read numeric-string|null $peak_fest_power
+ * @property-write float|string|null $peak_fest_power
+ * @property-read string|null $peak_season
+ * @property-write string|ExpressionInterface|null $peak_season
+ * @property integer|null $current_rank_id
+ * @property integer|null $current_s_plus
+ * @property-read numeric-string|null $current_x_power
+ * @property-write float|string|null $current_x_power
+ * @property-read string|null $current_season
+ * @property-write string|ExpressionInterface|null $current_season
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  *
- * @property Rank3 $currentRank
- * @property Lobby3 $lobby
- * @property Rank3 $peakRank
+ * @property Rank3|null $currentRank
+ * @property Lobby3|null $lobby
+ * @property Rank3|null $peakRank
  * @property User $user
  */
 class UserStat3 extends ActiveRecord

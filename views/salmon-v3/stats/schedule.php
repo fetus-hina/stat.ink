@@ -34,10 +34,6 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
- * @phpstan-import-type EventStats from EventTrait
- * @phpstan-import-type OverfishingStats from OverfishingTrait
- * @phpstan-import-type PlayerStats from PlayerTrait
- * @phpstan-import-type WeaponStats from WeaponTrait
  *
  * @var EventStats $eventStats
  * @var BigrunMap3|SalmonMap3|null $map
@@ -55,11 +51,11 @@ use yii\web\View;
  * @var array<int, SalmonWeapon3> $weapons
  * @var array<int, Special3> $specials
  * @var array<int, WeaponStats> $weaponStats
- * @var array<int, array> $specialStats
+ * @var array<int, array<string, mixed>> $specialStats
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
  * @var array<string, scalar|null> $stats
- * @var bool $isRandomWeaponSchedule
+ * @var bool $isRandomWeapon
  */
 
 $permLink = Url::to(
@@ -114,7 +110,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         'h2',
         Html::encode(
           match (true) {
-            $map === null && $schedule?->is_random_map_big_run => implode(' - ', [
+            $map === null && $schedule->is_random_map_big_run => implode(' - ', [
               Yii::t('app-salmon3', 'BIG Big Run'),
               Yii::t('app-map3', 'Multiple Sites'),
             ]),

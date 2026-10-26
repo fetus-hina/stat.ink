@@ -10,12 +10,17 @@ declare(strict_types=1);
 namespace app\actions\user\oauth2;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
+use League\OAuth2\Client\Token\AccessToken;
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
+use app\models\OAuth2LoginLinkInterface;
 use yii\base\Action;
-use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\Controller;
+use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 abstract class AbstractOAuth2LoginAction extends Action
 {
@@ -28,26 +33,28 @@ abstract class AbstractOAuth2LoginAction extends Action
     /**
      * Extra options passed to AbstractProvider::getAuthorizationUrl(),
      * e.g. ['scope' => ['identify', 'email']]. Return [] to use provider defaults.
+     *
+     * @return array<string, mixed>
      */
     abstract protected function getAuthorizationOptions(): array;
 
     /**
-     * Locate the LoginWithXxx record (must have a login(): bool method) for the given
+     * Locate the LoginWithXxx record for the given
      * external account id. Returning null means "no user is associated".
      */
-    abstract protected function findExistingLink(int|string $externalId): ?ActiveRecord;
+    abstract protected function findExistingLink(int|string $externalId): ?OAuth2LoginLinkInterface;
 
     abstract protected function getNoUserFoundMessage(): string;
 
     #[Override]
-    public function init()
+    public function init(): void
     {
         if (!$this->isProviderEnabled()) {
             throw new BadRequestHttpException();
         }
     }
 
-    public function run()
+    public function run(): Response
     {
         $request = Yii::$app->request;
         $response = Yii::$app->response;
@@ -68,17 +75,24 @@ abstract class AbstractOAuth2LoginAction extends Action
                 throw new BadRequestHttpException('Invalid state parameter.');
             }
 
-            $token = $provider->getAccessToken('authorization_code', [
-                'code' => (string)$request->get('code'),
-            ]);
+            $token = TypeHelper::instanceOf(
+                $provider->getAccessToken('authorization_code', [
+                    'code' => (string)$request->get('code'),
+                ]),
+                AccessToken::class,
+            );
             $resourceOwner = $provider->getResourceOwner($token);
             $externalId = $resourceOwner->getId();
             if ($externalId !== null && $externalId !== '') {
                 $info = $this->findExistingLink($externalId);
                 if ($info && $info->login()) {
-                    return $this->controller->goBack(
+                    if (!$user = Yii::$app->user->identity) {
+                        throw new ServerErrorHttpException();
+                    }
+
+                    return TypeHelper::instanceOf($this->controller, Controller::class)->goBack(
                         ['show-user/profile',
-                            'screen_name' => Yii::$app->user->identity->screen_name,
+                            'screen_name' => $user->screen_name,
                         ],
                     );
                 }

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands\license;
 
 use DirectoryIterator;
+use RuntimeException;
 use Yii;
 use stdClass;
 use yii\helpers\ArrayHelper;
@@ -25,6 +26,7 @@ use function file_get_contents;
 use function fwrite;
 use function implode;
 use function pathinfo;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function str_replace;
@@ -49,6 +51,9 @@ trait LicenseExtractTrait
         return 0;
     }
 
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     private function getPackages(): array
     {
         $cmdline = vsprintf('/usr/bin/env %s --no-interaction --no-plugins license --format=%s', [
@@ -56,11 +61,14 @@ trait LicenseExtractTrait
             escapeshellarg('json'),
         ]);
         return ArrayHelper::getValue(
-            Json::decode($this->execCommand($cmdline)),
+            Json::decode($this->execCommand($cmdline) ?? ''),
             'dependencies',
         );
     }
 
+    /**
+     * @param array<string, array<string, mixed>> $packages
+     */
     private function extractPackages(array $packages): void
     {
         foreach ($packages as $name => $info) {
@@ -154,7 +162,7 @@ trait LicenseExtractTrait
     private function hasLicense(string $path): bool
     {
         $text = file_get_contents($path, false);
-        return (bool)preg_match('/license|copyright/i', $text);
+        return $text !== false && preg_match('/license|copyright/i', $text);
     }
 
     private function sanitize(string $packageName): string
@@ -163,7 +171,7 @@ trait LicenseExtractTrait
             '/[^!#$%()+,.\/-9@-Z_a-z]+/',
             '-',
             $packageName,
-        );
+        ) ?? throw new RuntimeException(preg_last_error_msg());
         $packageName = str_replace('/../', '/', $packageName);
         $packageName = str_replace('/./', '/', $packageName);
         return $packageName;

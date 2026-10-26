@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "force_blackout2".
  *
  * @property string $splatnet_id
- * @property string $note
+ * @property string|null $note
  */
 class ForceBlackout2 extends ActiveRecord
 {

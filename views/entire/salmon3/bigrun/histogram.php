@@ -45,20 +45,18 @@ $datasetHistogram = [
   'borderColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderWidth' => 1,
   'categoryPercentage' => 1.0,
-  'data' => array_values(
-    array_map(
-      fn (int $x, int $y): array => compact('x', 'y'),
-      array_keys($histogram),
-      array_values($histogram),
-    ),
+  'data' => array_map(
+    fn (int $x, int $y): array => compact('x', 'y'),
+    array_keys($histogram),
+    array_values($histogram),
   ),
   'label' => Yii::t('app', 'Users'),
   'type' => 'bar',
 ];
 
 $makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chartMax): array {
-  assert($abstract);
-  assert($chartMax);
+  assert($abstract !== null);
+  assert($chartMax > 0);
 
   $results = [];
   $dataStep = $abstract->histogram_width ?? 5;
@@ -153,7 +151,7 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => $abstract?->histogram_width ?? 5,
+              'stepSize' => $abstract->histogram_width ?? 5,
             ],
           ],
           'y' => [

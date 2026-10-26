@@ -45,7 +45,8 @@ class m210124_210928_splatfest2_data extends Migration
         }
     }
 
-    public function afterDown()
+    #[Override]
+    public function afterDown(): void
     {
         $this->doVacuumTables();
     }

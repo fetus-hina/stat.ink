@@ -18,6 +18,8 @@ use yii\web\View;
 
 /**
  * @var View $this
+ * @var array<int, array<string, mixed>> $combineds
+ * @var list<array{date: string, battle: int, user: int}> $posts
  * @var string $name
  */
 

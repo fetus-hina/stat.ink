@@ -7,8 +7,11 @@
 
 namespace app\components\web;
 
+use LogicException;
+use Override;
 use Yii;
-use yii\base\InvalidValueException;
+use app\components\helpers\TypeHelper;
+use app\models\User as UserModel;
 use yii\helpers\StringHelper;
 use yii\web\Cookie;
 use yii\web\IdentityInterface;
@@ -27,26 +30,37 @@ use function substr;
 use function time;
 
 use const JSON_ERROR_NONE;
+use const JSON_THROW_ON_ERROR;
 use const OPENSSL_RAW_DATA;
 
+/**
+ * @extends \yii\web\User<UserModel>
+ */
 class User extends \yii\web\User
 {
     public const CRYPT_KEY_BITS = 256;
     public const CRYPT_METHOD = 'aes-256-gcm';
     public const CRYPT_KEY_SALT_BYTES = 16;
 
-    public $identityFixedKey;
+    public ?string $identityFixedKey = null;
 
-    protected function sendIdentityCookie($identity, $duration)
+    #[Override]
+    protected function sendIdentityCookie($identity, $duration): void
     {
-        $cookie = Yii::createObject(array_merge($this->identityCookie, [
+        /** @var array{class: class-string<Cookie>} $config */
+        $config = array_merge($this->identityCookie, [
             'class' => Cookie::class,
             'value' => $this->createIdentityCookieValue($identity, $duration),
             'expire' => time() + $duration,
-        ]));
+        ]);
+        $cookie = Yii::createObject($config);
         Yii::$app->getResponse()->getCookies()->add($cookie);
     }
 
+    /**
+     * @return array{identity: IdentityInterface, duration: mixed}|null
+     */
+    #[Override]
     protected function getIdentityAndDurationFromCookie()
     {
         $value = Yii::$app->getRequest()
@@ -61,12 +75,7 @@ class User extends \yii\web\User
             $class = $this->identityClass;
             $identity = $class::findIdentity($data['id']);
             if ($identity !== null) {
-                if (!$identity instanceof IdentityInterface) {
-                    throw new InvalidValueException(
-                        "$class::findIdentity() must return an object " .
-                        'implementing IdentityInterface.',
-                    );
-                } elseif (!$identity->validateAuthKey($data['authKey'])) {
+                if (!$identity->validateAuthKey($data['authKey'])) {
                     Yii::warning(
                         sprintf(
                             "Invalid auth key attempted for user '%s': %s",
@@ -96,7 +105,7 @@ class User extends \yii\web\User
 
         $security = Yii::$app->security;
         $ivBinary = $security->generateRandomKey(
-            openssl_cipher_iv_length(static::CRYPT_METHOD),
+            TypeHelper::int(openssl_cipher_iv_length(static::CRYPT_METHOD)),
         );
         $keySaltBinary = $security->generateRandomKey(static::CRYPT_KEY_SALT_BYTES);
         $keyBinary = $this->generateIdentityEncodeKey($keySaltBinary);
@@ -105,7 +114,7 @@ class User extends \yii\web\User
             'id' => $identity->getId(),
             'authKey' => $identity->getAuthKey(),
             'duration' => $duration,
-        ]);
+        ], JSON_THROW_ON_ERROR);
         $cryptedData = openssl_encrypt(
             $rawData,
             static::CRYPT_METHOD,
@@ -126,6 +135,9 @@ class User extends \yii\web\User
         return $result;
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     private function decodeIdentityCookieValue(string $value): ?array
     {
         Yii::beginProfile('decodeIdentityCookieValue', __METHOD__);
@@ -135,7 +147,7 @@ class User extends \yii\web\User
                 return null;
             }
 
-            $ivLen = openssl_cipher_iv_length(static::CRYPT_METHOD);
+            $ivLen = TypeHelper::int(openssl_cipher_iv_length(static::CRYPT_METHOD));
             $ivBinary = substr($value, 0, $ivLen);
             if (strlen($value) < $ivLen) {
                 return null;
@@ -177,7 +189,6 @@ class User extends \yii\web\User
         } finally {
             Yii::endProfile('decodeIdentityCookieValue', __METHOD__);
         }
-        return [];
     }
 
     private function generateIdentityEncodeKey(string $saltBinary): string
@@ -186,7 +197,7 @@ class User extends \yii\web\User
         $result = Yii::$app->security->pbkdf2(
             'sha512',
             $saltBinary,
-            $this->identityFixedKey,
+            $this->identityFixedKey ?? throw new LogicException('identityFixedKey is not configured'),
             1000,
             static::CRYPT_KEY_BITS / 8,
         );

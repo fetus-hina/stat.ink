@@ -12,6 +12,7 @@ namespace app\components\widgets\battle\panelItem;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\assets\SimpleBattleListAsset;
 use app\components\widgets\Icon;
@@ -28,17 +29,18 @@ use function vsprintf;
 
 final class SalmonItem3Widget extends Widget
 {
-    public ?User $user = null;
+    public User $user;
     public Salmon3 $model;
     public ?SalmonPlayer3 $myData = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
         SimpleBattleListAsset::register($this->view);
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->model->user;
         }
 
@@ -189,7 +191,7 @@ final class SalmonItem3Widget extends Widget
 
     protected function getMapName(): string
     {
-        return Yii::t('app-map3', $this->model->stage?->name ?? $this->model->bigStage?->name ?? '?');
+        return Yii::t('app-map3', $this->model->stage->name ?? $this->model->bigStage->name ?? '?');
     }
 
     protected function getHazardLevel(): string

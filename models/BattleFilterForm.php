@@ -7,13 +7,15 @@
 
 namespace app\models;
 
+use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
 use function array_map;
 use function array_merge;
-use function call_user_func;
 use function date;
 use function in_array;
 use function is_scalar;
@@ -27,19 +29,58 @@ use function trim;
 
 class BattleFilterForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $screen_name;
 
+    /**
+     * @var string|null
+     */
     public $lobby;
+    /**
+     * @var string|null
+     */
     public $rule;
+    /**
+     * @var string|null
+     */
     public $map;
+    /**
+     * @var string|null
+     */
     public $weapon;
+    /**
+     * @var string|null
+     */
     public $rank;
+    /**
+     * @var string|null
+     */
     public $result;
+    /**
+     * @var string|null
+     */
     public $term;
+    /**
+     * @var string|null
+     */
     public $term_from;
+    /**
+     * @var string|null
+     */
     public $term_to;
+    /**
+     * @var string|null
+     */
     public $timezone;
+    /**
+     * @var string|null
+     */
     public $id_from;
+    /**
+     * @var string|null
+     */
     public $id_to;
 
     public function formName()
@@ -61,10 +102,10 @@ class BattleFilterForm extends Model
             [['rule'], 'exist',
                 'targetClass' => Rule::class,
                 'targetAttribute' => 'key',
-                'when' => fn () => substr($this->rule, 0, 1) !== '@',
+                'when' => fn () => substr($this->rule ?? '', 0, 1) !== '@',
             ],
             [['rule'], 'validateGameMode',
-                'when' => fn () => substr($this->rule, 0, 1) === '@',
+                'when' => fn () => substr($this->rule ?? '', 0, 1) === '@',
             ],
             [['map'], 'exist',
                 'targetClass' => Map::class,
@@ -73,35 +114,35 @@ class BattleFilterForm extends Model
             [['weapon'], 'exist',
                 'targetClass' => Weapon::class,
                 'targetAttribute' => 'key',
-                'when' => fn () => !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true),
+                'when' => fn () => !in_array(substr($this->weapon ?? '', 0, 1), ['@', '+', '*', '~'], true),
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => WeaponType::class,
                 ],
-                'when' => fn () => substr($this->weapon, 0, 1) === '@',
+                'when' => fn () => substr($this->weapon ?? '', 0, 1) === '@',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Subweapon::class,
                 ],
-                'when' => fn () => substr($this->weapon, 0, 1) === '+',
+                'when' => fn () => substr($this->weapon ?? '', 0, 1) === '+',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Special::class,
                 ],
-                'when' => fn () => substr($this->weapon, 0, 1) === '*',
+                'when' => fn () => substr($this->weapon ?? '', 0, 1) === '*',
             ],
             [['weapon'], 'validateRepresentativeWeapon',
-                'when' => fn () => substr($this->weapon, 0, 1) === '~',
+                'when' => fn () => substr($this->weapon ?? '', 0, 1) === '~',
             ],
             [['rank'], 'exist',
                 'targetClass' => Rank::class, 'targetAttribute' => 'key',
-                'when' => fn () => substr($this->rank, 0, 1) !== '~',
+                'when' => fn () => substr($this->rank ?? '', 0, 1) !== '~',
             ],
             [['rank'], 'validateRankGroup',
-                'when' => fn () => substr($this->rank, 0, 1) === '~',
+                'when' => fn () => substr($this->rank ?? '', 0, 1) === '~',
             ],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['term'], 'in',
@@ -149,20 +190,24 @@ class BattleFilterForm extends Model
         ];
     }
 
+    /**
+     * @param array<mixed> $data
+     */
+    #[Override]
     public function load($data, $formName = null)
     {
         foreach (['id_from', 'id_to'] as $key) {
             if (isset($data[$key])) {
                 $value = $data[$key];
-                if (is_scalar($value) && trim($value) !== '') {
-                    $this->$key = trim($value);
+                if (is_scalar($value) && trim((string)$value) !== '') {
+                    $this->$key = trim((string)$value);
                 }
             }
         }
         return parent::load($data, $formName);
     }
 
-    public function validateGameMode($attr, $params)
+    public function validateGameMode(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $isExist = !!GameMode::findOne(['key' => $value]);
@@ -176,11 +221,13 @@ class BattleFilterForm extends Model
         }
     }
 
-    public function validateWeapon($attr, $params)
+    /**
+     * @param array{modelClass: class-string<ActiveRecord>} $params
+     */
+    public function validateWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
-        $method = [$params['modelClass'], 'findOne'];
-        $isExist = !!call_user_func($method, ['key' => $value]);
+        $isExist = !!$params['modelClass']::findOne(['key' => $value]);
         if (!$isExist) {
             $this->addError(
                 $attr,
@@ -191,7 +238,7 @@ class BattleFilterForm extends Model
         }
     }
 
-    public function validateRepresentativeWeapon($attr, $params)
+    public function validateRepresentativeWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $count = Weapon::find()
@@ -208,7 +255,7 @@ class BattleFilterForm extends Model
         }
     }
 
-    public function validateRankGroup($attr, $params)
+    public function validateRankGroup(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $count = RankGroup::find()
@@ -224,7 +271,7 @@ class BattleFilterForm extends Model
         }
     }
 
-    public function validateTimezone($attr, $params)
+    public function validateTimezone(string $attr, mixed $params): void
     {
         $value = $this->$attr;
         if (is_scalar($value) && $value != '') {
@@ -236,7 +283,10 @@ class BattleFilterForm extends Model
         $this->$attr = Yii::$app->timeZone;
     }
 
-    public function toPermLink($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toPermLink(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();
@@ -291,7 +341,7 @@ class BattleFilterForm extends Model
                 break;
 
             case 'yesterday':
-                $t = mktime(12, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
+                $t = TypeHelper::int(mktime(12, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now)));
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d 00:00:00', $t));
                 $push('term_to', date('Y-m-d 23:59:59', $t));
@@ -300,13 +350,19 @@ class BattleFilterForm extends Model
 
             case 'term':
                 $push('term', 'term');
-                $push('term_from', date('Y-m-d H:i:s', strtotime($this->term_from)));
-                $push('term_to', date('Y-m-d H:i:s', strtotime($this->term_to)));
+                $push(
+                    'term_from',
+                    date('Y-m-d H:i:s', ($this->term_from ?? '') |> strtotime(...) |> TypeHelper::int(...)),
+                );
+                $push(
+                    'term_to',
+                    date('Y-m-d H:i:s', ($this->term_to ?? '') |> strtotime(...) |> TypeHelper::int(...)),
+                );
                 $push('timezone', $tz);
                 break;
 
             default:
-                if (preg_match('/^last-(\d+)-battles/', $this->term, $match)) {
+                if (preg_match('/^last-(\d+)-battles/', $this->term ?? '', $match)) {
                     $range = BattleHelper::getNBattlesRange($this, (int)$match[1]);
                     if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
                         break;
@@ -315,7 +371,7 @@ class BattleFilterForm extends Model
                     $push('term_from', date('Y-m-d H:i:s', strtotime($range['min_at'])));
                     $push('term_to', date('Y-m-d H:i:s', strtotime($range['max_at'])));
                     $push('timezone', $tz);
-                } elseif (preg_match('/^v\d+/', $this->term)) {
+                } elseif (preg_match('/^v\d+/', $this->term ?? '')) {
                     $push('term', $this->term);
                 }
                 break;
@@ -324,7 +380,10 @@ class BattleFilterForm extends Model
         return $ret;
     }
 
-    public function toQueryParams($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toQueryParams(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();

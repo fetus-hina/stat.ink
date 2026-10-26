@@ -13,6 +13,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\kdWin\KDWinTable;
 use app\components\widgets\kdWin\LegendWidget;
+use app\models\KDWin2FilterForm;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
@@ -25,7 +26,9 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var KDWin2FilterForm $filter
  * @var View $this
+ * @var array<string, array<int, array<int, array{battle: int, win: int}>>> $data
  */
 
 $title = Yii::t('app-entire', 'Winning Percentage based on K/D');
@@ -147,7 +150,7 @@ TableResponsiveForceAsset::register($this);
 
 <?php
 $_q = Rule2::find()->orderBy(['id' => SORT_ASC]);
-if (substr((string)$filter->map, 0, 7) === 'mystery') {
+if (is_string($filter->map) && substr($filter->map, 0, 7) === 'mystery') {
   $_q->andWhere(['key' => 'nawabari']);
 }
 if ($filter->rank) {

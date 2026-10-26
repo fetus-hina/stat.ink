@@ -55,11 +55,11 @@ $fmt = Yii::$app->formatter;
           'value' => fn (StatSpecialUse3 $model): string => Html::a(
             implode(' ', [
               Icon::s3Special($specials[$model->special_id] ?? null),
-              Html::encode(Yii::t('app-special3', $specials[$model->special_id]?->name ?? '')),
+              Html::encode(Yii::t('app-special3', $specials[$model->special_id]->name ?? '')),
             ]),
             ['entire/special-use3-per-special',
               'season' => $season->id,
-              'special' => $specials[$model->special_id]?->key,
+              'special' => $specials[$model->special_id]->key ?? null,
               '#' => $rule?->key,
             ],
           ),

@@ -13,15 +13,21 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
 class LoginHistoryAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
-        $user = Yii::$app->getUser()->getIdentity();
+        if (!$user = Yii::$app->getUser()->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
 
         $time = new DateTimeImmutable(
             'now',
@@ -37,9 +43,10 @@ class LoginHistoryAction extends ViewAction
                         'userAgent',
                     ])
                     ->where(['>=', 'created_at', $time->format(DateTime::ATOM)]),
-                'pagination' => [
+                'pagination' => Yii::createObject([
+                    'class' => Pagination::class,
                     'pageSize' => 50,
-                ],
+                ]),
                 'sort' => false,
                 'key' => 'pseudoId',
             ]),

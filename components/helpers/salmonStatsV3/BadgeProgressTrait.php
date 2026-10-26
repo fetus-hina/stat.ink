@@ -18,6 +18,7 @@ use app\models\UserBadge3KingSalmonid;
 use yii\db\Connection;
 use yii\db\Exception as DbException;
 use yii\db\Query;
+use LogicException;
 
 use function vsprintf;
 
@@ -40,7 +41,8 @@ trait BadgeProgressTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }

@@ -17,6 +17,7 @@ use yii\helpers\ArrayHelper;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 use function strtotime;
 
 use const SORT_ASC;
@@ -27,8 +28,8 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $area
- * @property string $release_at
+ * @property integer|null $area
+ * @property string|null $release_at
  * @property string $short_name
  *
  * @property Battle[] $battles
@@ -88,7 +89,7 @@ final class Map extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return ActiveQuery<PeriodMap>
      */
     public function getPeriodMaps()
     {
@@ -103,7 +104,10 @@ final class Map extends ActiveRecord
         return $this->hasMany(SplapiMap::class, ['map_id' => 'id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         $t = $this->release_at ? strtotime($this->release_at) : null;
         return [
@@ -119,6 +123,9 @@ final class Map extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -152,6 +159,9 @@ final class Map extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -159,14 +169,17 @@ final class Map extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $values = static::find()
             ->orderBy(['key' => SORT_ASC])
             ->all();
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             $values,
-        );
+        ));
     }
 }

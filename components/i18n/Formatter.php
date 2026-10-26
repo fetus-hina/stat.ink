@@ -8,6 +8,7 @@
 namespace app\components\i18n;
 
 use DateTime;
+use RuntimeException;
 use Yii;
 use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
@@ -18,6 +19,7 @@ use function implode;
 use function is_int;
 use function is_string;
 use function pow;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function sprintf;
@@ -28,12 +30,12 @@ use function vsprintf;
 
 class Formatter extends \yii\i18n\Formatter
 {
-    public function asHtmlDatetime($value, $format = null)
+    public function asHtmlDatetime(mixed $value, ?string $format = null): string
     {
         return $this->asHtmlDatetimeEx($value, $format, $format);
     }
 
-    public function asHtmlDatetimeEx($value, $formatD = null, $formatT = null)
+    public function asHtmlDatetimeEx(mixed $value, ?string $formatD = null, ?string $formatT = null): string
     {
         if ($value === null) {
             return $this->asDatetime($value, $formatD);
@@ -50,7 +52,7 @@ class Formatter extends \yii\i18n\Formatter
         );
     }
 
-    public function asHtmlRelative($value): string
+    public function asHtmlRelative(mixed $value): string
     {
         if ($value === null) {
             return $this->asRelativeTime($value);
@@ -68,7 +70,7 @@ class Formatter extends \yii\i18n\Formatter
         );
     }
 
-    public function asTimestampColumn($value, bool $withReltime = true): ?string
+    public function asTimestampColumn(mixed $value, bool $withReltime = true): ?string
     {
         return TimestampColumnWidget::widget([
             'value' => $value,
@@ -77,7 +79,7 @@ class Formatter extends \yii\i18n\Formatter
         ]);
     }
 
-    public function asMetricPrefixed($value, int $decimal = 0): ?string
+    public function asMetricPrefixed(mixed $value, int $decimal = 0): ?string
     {
         if ($value === null) {
             return $this->nullDisplay;
@@ -108,29 +110,33 @@ class Formatter extends \yii\i18n\Formatter
             : $this->asDecimal($value, $decimal);
     }
 
+    /**
+     * @param array<mixed> $options
+     */
     public function asTranslated(
-        $value,
+        mixed $value,
         string $category = 'app',
         array $options = [],
         bool $escape = true,
     ): string {
         if ($value === null) {
-            return $this->nullDisplay;
+            return $this->nullDisplay ?? '';
         }
 
         $text = Yii::t($category, (string)$value, $options);
         return $escape ? $this->asText($text) : $text;
     }
 
-    public function asReplayCode3($value, bool $link = true): string
+    public function asReplayCode3(mixed $value, bool $link = true): string
     {
         if (!is_string($value)) {
-            return $this->nullDisplay;
+            return $this->nullDisplay ?? '';
         }
 
-        $value = preg_replace('/[^0-9A-Z]+/', '', strtoupper($value));
+        $value = preg_replace('/[^0-9A-Z]+/', '', strtoupper($value))
+            ?? throw new RuntimeException(preg_last_error_msg());
         if (!preg_match('/^[0-9A-Z]{16}$/', $value)) {
-            return $this->nullDisplay;
+            return $this->nullDisplay ?? '';
         }
 
         $value = implode('-', [

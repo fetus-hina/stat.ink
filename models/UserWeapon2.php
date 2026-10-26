@@ -7,10 +7,9 @@
 
 namespace app\models;
 
+use app\models\query\UserWeapon2Query;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-
-use const SORT_DESC;
 
 /**
  * This is the model class for table "user_weapon2".
@@ -25,16 +24,9 @@ use const SORT_DESC;
  */
 class UserWeapon2 extends ActiveRecord
 {
-    public static function find()
+    public static function find(): UserWeapon2Query
     {
-        return new class (static::class) extends ActiveQuery {
-            public function favoriteOrder(): self
-            {
-                return $this
-                    ->andWhere(['>', 'battles', 0])
-                    ->orderBy(['battles' => SORT_DESC]);
-            }
-        };
+        return new UserWeapon2Query(static::class);
     }
 
     /**

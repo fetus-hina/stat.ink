@@ -35,7 +35,6 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
- * @phpstan-import-type EventStats from EventTrait
  *
  * @var EventStats $eventStats
  * @var Salmon3UserStatsGoldenEggIndividualHistogram[] $goldenEggIndividualHistogramData
@@ -127,7 +126,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         'stats' => $stats,
         'tides' => $tides,
         'user' => $user,
-        'version' => $version ?? null,
+        'version' => $version,
       ]) . "\n" ?>
       <?= $this->render('stats/golden-eggs', compact(
         'goldenEggHistogramAbstracts',

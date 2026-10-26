@@ -13,10 +13,12 @@ use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
 use app\models\Rule3;
+use app\models\SalmonBoss3;
 use app\models\SalmonKing3;
 use app\models\Special3;
 use app\models\TricolorRole3;
 use app\models\User;
+use app\models\UserBadge3BossSalmonid;
 use app\models\UserBadge3KingSalmonid;
 use app\models\UserBadge3Rule;
 use app\models\UserBadge3Special;
@@ -28,17 +30,19 @@ use yii\web\View;
 /**
  * @var BadgeAction::ORDER_* $order
  * @var Rule3[] $rules
+ * @var SalmonBoss3[] $bosses
  * @var SalmonKing3[] $kings
  * @var Special3[] $specials
  * @var TricolorRole3[] $roles
  * @var User $user
  * @var View $this
+ * @var array<string, UserBadge3BossSalmonid> $badgeBosses
  * @var array<string, UserBadge3KingSalmonid> $badgeKings
  * @var array<string, UserBadge3Rule> $badgeRules
  * @var array<string, UserBadge3Special> $badgeSpecials
  * @var array<string, UserBadge3Tricolor> $badgeTricolor
  * @var array<string, int> $badgeAdjust
- * @var bool $isEdiable
+ * @var bool $isEditable
  * @var bool $isEditing
  */
 

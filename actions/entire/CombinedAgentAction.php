@@ -10,13 +10,15 @@ namespace app\actions\entire;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Override;
 use ParagonIE\ConstantTime\Base32;
 use RangeException;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\AgentGroup;
+use app\models\EntireCombinedAgentForm;
 use app\models\StatAgentUser;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
 
@@ -25,18 +27,21 @@ use function array_map;
 use function array_values;
 use function ksort;
 use function max;
-use function mb_check_encoding;
 use function min;
 use function sprintf;
 
 use const SORT_ASC;
 
+/**
+ * @property-read list<array{date: string, battle: int, user: int}> $postStats
+ */
 final class CombinedAgentAction extends Action
 {
-    public $form;
-    public $agentGroup;
+    public ?EntireCombinedAgentForm $form = null;
+    public AgentGroup $agentGroup;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -44,44 +49,18 @@ final class CombinedAgentAction extends Action
             ->createCommand("SET timezone TO 'UTC-6'")
             ->execute();
 
-        $action = $this;
-        $form = new DynamicModel(['b32name' => Yii::$app->request->get('b32name')]);
-        $form->addRule('b32name', 'required')
-            ->addRule('b32name', 'match', ['pattern' => '/^[a-zA-Z2-7]+$/'])
-            ->addRule('b32name', function ($attr, $conf) use ($action, $form) {
-                try {
-                    $decoded = Base32::decode($form->$attr);
-                } catch (RangeException $e) {
-                    $decoded = '';
-                }
-                if ($decoded === '') {
-                    $form->addError($attr, 'invalid name');
-                    return;
-                }
-
-                if (!mb_check_encoding($decoded, 'UTF-8')) {
-                    $form->addError($attr, 'broken encoding');
-                    return;
-                }
-
-                $group = AgentGroup::findOne(['name' => $decoded]);
-                if (!$group) {
-                    $form->addError($attr, 'not found');
-                    return;
-                }
-
-                $action->agentGroup = $group;
-            });
+        $form = new EntireCombinedAgentForm(['b32name' => Yii::$app->request->get('b32name')]);
         if (!$form->validate()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
+        $this->agentGroup = TypeHelper::instanceOf($form->getAgentGroup(), AgentGroup::class);
         $this->form = $form;
     }
 
-    public function run()
+    public function run(): string
     {
         try {
-            $name = Base32::decode($this->form->b32name);
+            $name = Base32::decode(TypeHelper::string($this->form?->b32name));
         } catch (RangeException $e) {
             $name = '';
         }
@@ -93,7 +72,10 @@ final class CombinedAgentAction extends Action
         ]);
     }
 
-    public function getPostStats()
+    /**
+     * @return list<array{date: string, battle: int, user: int}>
+     */
+    public function getPostStats(): array
     {
         $query = new Query()
             ->select([

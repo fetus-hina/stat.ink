@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\info;
 
+use Override;
 use Yii;
 use app\models\Language;
 use app\models\Map2;
@@ -21,7 +22,8 @@ use function usort;
 
 final class Stage2Action extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $langs = Language::find()->standard()->all();
         $stages = Map2::find()->all();

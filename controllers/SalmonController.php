@@ -25,6 +25,7 @@ use yii\web\Cookie;
 
 use function strpos;
 use function time;
+use function is_array;
 
 use const SORT_DESC;
 
@@ -150,7 +151,7 @@ class SalmonController extends Controller
     public function actionView(string $screen_name, int $id): ?string
     {
         $model = Salmon2::findOne(['id' => $id]);
-        if (!$model || !$model->user) {
+        if (!$model) {
             static::error404();
         }
 
@@ -195,12 +196,12 @@ class SalmonController extends Controller
         return 'standard';
     }
 
-    public function actionEdit(string $screen_name, int $id)
+    public function actionEdit(string $screen_name, int $id): ?string
     {
         $model = Salmon2::findOne([
             'id' => $id,
         ]);
-        if (!$model || !$model->user) {
+        if (!$model) {
             static::error404();
         }
         if ($model->user->screen_name !== $screen_name) {
@@ -222,12 +223,12 @@ class SalmonController extends Controller
         ]);
     }
 
-    public function actionDelete(string $screen_name, int $id)
+    public function actionDelete(string $screen_name, int $id): ?string
     {
         $model = Salmon2::findOne([
             'id' => $id,
         ]);
-        if (!$model || !$model->user) {
+        if (!$model) {
             static::error404();
         }
         if ($model->user->screen_name !== $screen_name) {
@@ -244,7 +245,8 @@ class SalmonController extends Controller
         }
 
         $form = Yii::createObject(Salmon2DeleteForm::class);
-        $form->load(Yii::$app->getRequest()->post());
+        $params = Yii::$app->getRequest()->post();
+        $form->load(is_array($params) ? $params : []);
         $form->model = $model;
         if ($form->delete()) {
             $this->redirect(

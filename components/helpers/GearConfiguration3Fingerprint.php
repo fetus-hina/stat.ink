@@ -35,6 +35,7 @@ final class GearConfiguration3Fingerprint
     /**
      * @param null $gear
      * @param array<Ability3|null> $secondaries
+     * @return array{gear: null, primary: string|null, secondary: list<string|null>}
      */
     private static function makeData($gear, ?Ability3 $primary, array $secondaries): array
     {

@@ -7,7 +7,9 @@
 
 namespace app\components\validators;
 
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveRecord;
 use yii\validators\ExistValidator;
 use yii\validators\Validator;
@@ -29,10 +31,8 @@ final class KeyValidator extends Validator
     public string $modelClassAttribute = 'key';
     public string $aliasClassAttribute = 'key';
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -43,25 +43,28 @@ final class KeyValidator extends Validator
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         if ($this->validateValueImpl($model->$attribute)) {
             return;
         }
 
-        $this->addError($model, $attribute, $this->message);
+        $this->addError($model, $attribute, TypeHelper::string($this->message));
     }
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
         if ($this->validateValueImpl($value)) {
-            return;
+            return null;
         }
 
-        return [$this->message, []];
+        return [TypeHelper::string($this->message), []];
     }
 
     /**

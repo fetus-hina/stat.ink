@@ -15,6 +15,9 @@ use app\models\WeaponType3;
 
 final class WeaponApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?Weapon3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {
@@ -26,7 +29,7 @@ final class WeaponApiFormatter
             'aliases' => AliasApiFormatter::allToJson($model->weapon3Aliases, $fullTranslate),
             'type' => WeaponTypeApiFormatter::toJson(self::getWeaponType($model), $fullTranslate),
             'name' => NameApiFormatter::toJson($model->name, 'app-weapon3', $fullTranslate),
-            'matching_range' => TypeHelper::floatOrNull($model->mainweapon?->matching_range),
+            'matching_range' => TypeHelper::floatOrNull($model->mainweapon->matching_range),
             'main' => self::getMainWeaponKey($model),
             'sub' => SubweaponApiFormatter::toJson($model->subweapon, $fullTranslate),
             'special' => SpecialApiFormatter::toJson($model->special, $fullTranslate),
@@ -35,21 +38,18 @@ final class WeaponApiFormatter
     }
 
     // "?->" 演算子が使えないのでヘルパ関数群
-    private static function getWeaponType(Weapon3 $model): ?WeaponType3
+    private static function getWeaponType(Weapon3 $model): WeaponType3
     {
-        $main = $model->mainweapon;
-        return $main ? $main->type : null;
+        return $model->mainweapon->type;
     }
 
-    private static function getMainWeaponKey(Weapon3 $model): ?string
+    private static function getMainWeaponKey(Weapon3 $model): string
     {
-        $main = $model->mainweapon;
-        return $main ? $main->key : null;
+        return $model->mainweapon->key;
     }
 
-    private static function getCanonicalKey(Weapon3 $model): ?string
+    private static function getCanonicalKey(Weapon3 $model): string
     {
-        $model2 = $model->canonical;
-        return $model2 ? $model2->key : null;
+        return $model->canonical->key;
     }
 }

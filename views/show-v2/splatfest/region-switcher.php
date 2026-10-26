@@ -7,7 +7,9 @@
 
 declare(strict_types=1);
 
+use app\models\Region2;
 use app\models\User;
+use app\models\UserStatSplatfest2Form;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -18,7 +20,9 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
- * @var object $input
+ * @var UserStatSplatfest2Form $input
+ * @var Region2 $region
+ * @var Region2[] $regions
  */
 
 $this->registerJs(sprintf(

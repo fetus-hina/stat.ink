@@ -193,6 +193,7 @@ final class Salmon3FilterForm extends Model
     }
 
     /**
+     * @param array<int|string, mixed> $options
      * @return string[]
      */
     private static function getKeyListFromDropdown(array $options, mixed $optionsUnused = null): array
@@ -203,7 +204,7 @@ final class Salmon3FilterForm extends Model
                 // optgroup
                 $results = array_merge($results, self::getKeyListFromDropdown($value));
             } else {
-                $results[] = $key;
+                $results[] = (string)$key;
             }
         }
 

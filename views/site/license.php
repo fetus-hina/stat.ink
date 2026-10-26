@@ -7,13 +7,15 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
  * @var View $this
- * @var object $myself
- * @var object[] $depends
+ * @var stdClass $myself
+ * @var stdClass[] $depends
  */
 
 $title = implode(' | ', [
@@ -21,7 +23,7 @@ $title = implode(' | ', [
   Yii::t('app-site', 'Open Source Licenses'),
 ]);
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = $title;
 
 ?>

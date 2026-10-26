@@ -297,6 +297,9 @@ trait QueryDecoratorTrait
         ]);
     }
 
+    /**
+     * @param 'this-period'|'last-period' $key
+     */
     private function decoratePeriodFilter(ActiveQuery $query, string $key): void
     {
         $currentPeriod = BattleHelper::calcPeriod2($_SERVER['REQUEST_TIME']);
@@ -497,7 +500,7 @@ trait QueryDecoratorTrait
             ->andWhere([$column => $key])
             ->limit(1)
             ->one();
-        return $model ? (int)$model->id : null;
+        return $model ? (int)$model->getAttribute('id') : null;
     }
 
     /**
@@ -515,7 +518,7 @@ trait QueryDecoratorTrait
                 $modelClass::find()
                     ->andWhere([$column => $key])
                     ->all(),
-                fn (ActiveRecord $model) => filter_var($model->id, FILTER_VALIDATE_INT),
+                fn (ActiveRecord $model) => filter_var($model->getAttribute('id'), FILTER_VALIDATE_INT),
             ),
             fn ($value): bool => is_int($value), // PHP 8: \is_int(...)
         );

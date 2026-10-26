@@ -26,11 +26,9 @@ use app\models\UserBadge3Tricolor;
 use yii\db\Connection;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Json;
 
 use function filter_var;
 use function is_int;
-use function is_iterable;
 use function is_string;
 
 use const FILTER_VALIDATE_INT;
@@ -38,6 +36,9 @@ use const SORT_ASC;
 
 trait DataCreator
 {
+    /**
+     * @return array<string, mixed>
+     */
     private function createData(User $user): array
     {
         return TypeHelper::instanceOf(Yii::$app->db, Connection::class)->transaction(
@@ -72,19 +73,11 @@ trait DataCreator
             return [];
         }
 
-        if (is_iterable($model->data)) {
-            return self::filterBadgeAdjustmentData($model->data);
-        }
-
-        if (is_string($model->data)) {
-            $data = Json::decode($model->data);
-            return is_iterable($data) ? self::filterBadgeAdjustmentData($data) : [];
-        }
-
-        return [];
+        return self::filterBadgeAdjustmentData($model->data);
     }
 
     /**
+     * @param iterable<mixed, mixed> $data
      * @return array<string, int>
      */
     private static function filterBadgeAdjustmentData(iterable $data): array

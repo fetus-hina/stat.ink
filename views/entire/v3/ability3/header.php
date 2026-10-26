@@ -8,12 +8,12 @@
 declare(strict_types=1);
 
 use app\components\widgets\Icon;
-use app\models\Ability;
+use app\models\Ability3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var Ability[] $abilities
+ * @var Ability3[] $abilities
  * @var View $this
  */
 
@@ -31,7 +31,7 @@ use yii\web\View;
       'th',
       Html::tag(
         'span',
-        Icon::s3Ability($ability),
+        Icon::s3Ability($ability) ?? '',
         [
           'class' => 'auto-tooltip',
           'style' => [

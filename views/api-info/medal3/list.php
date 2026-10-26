@@ -10,6 +10,7 @@ declare(strict_types=1);
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\Icon;
+use app\models\Language;
 use app\models\MedalCanonical3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -19,7 +20,7 @@ use yii\web\View;
 /**
  * @var MedalCanonical3[] $medals
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TableResponsiveForceAsset::register($this);

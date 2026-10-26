@@ -7,7 +7,9 @@
 
 namespace app\components\validators;
 
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\api\v3\postBattle\PlayerForm;
 use yii\validators\Validator;
 
@@ -17,10 +19,8 @@ use function vsprintf;
 
 final class BattlePlayer3FormValidator extends Validator
 {
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -31,7 +31,8 @@ final class BattlePlayer3FormValidator extends Validator
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         $errors = $this->validateValueImpl($model->$attribute);
         if (!$errors) {
@@ -45,12 +46,14 @@ final class BattlePlayer3FormValidator extends Validator
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
         $errors = $this->validateValueImpl($value);
         if (!$errors) {
-            return;
+            return null;
         }
 
         return [array_shift($errors), []];
@@ -63,7 +66,7 @@ final class BattlePlayer3FormValidator extends Validator
     private function validateValueImpl($value): array
     {
         if (!is_array($value)) {
-            return [$this->message];
+            return [TypeHelper::string($this->message)];
         }
 
         $form = Yii::createObject(PlayerForm::class);

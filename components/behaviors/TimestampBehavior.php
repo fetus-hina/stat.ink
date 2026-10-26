@@ -7,11 +7,13 @@
 
 namespace app\components\behaviors;
 
+use Override;
 use app\components\helpers\db\Now;
 
 class TimestampBehavior extends \yii\behaviors\TimestampBehavior
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->value = new Now();

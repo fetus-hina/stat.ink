@@ -27,6 +27,9 @@ trait Battle3Formatter
 {
     use UserFormatter;
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function formatBattle3(Battle3 $battle): array
     {
         return [
@@ -97,6 +100,9 @@ trait Battle3Formatter
             : null;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private static function mode3(Battle3 $model): ?array
     {
         if (!$lobby = $model->lobby) {
@@ -119,6 +125,9 @@ trait Battle3Formatter
         ];
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private static function stage3(Battle3 $model): ?array
     {
         return null;
@@ -149,12 +158,15 @@ trait Battle3Formatter
         }
 
         return match (true) {
-            $lobby->key === 'event' && $model->event !== null => Yii::t('db/event3', (string)$model->event?->name),
+            $lobby->key === 'event' && $model->event !== null => Yii::t('db/event3', (string)$model->event->name),
             $lobby->key === 'regular', $rule->key === 'nawabari' => Yii::t('app-rule3', (string)$rule->name),
             default => Yii::t('app-lobby3', $lobby->name),
         };
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private static function rule3(Battle3 $model): ?array
     {
         if (!$rule = $model->rule) {

@@ -17,9 +17,9 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property integer $config_id
- * @property integer $ability_id
+ * @property integer|null $ability_id
  *
- * @property Ability3 $ability
+ * @property Ability3|null $ability
  * @property GearConfiguration3 $config
  */
 class GearConfigurationSecondary3 extends ActiveRecord

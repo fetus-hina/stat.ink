@@ -12,14 +12,18 @@ use app\assets\SalmonWorkListAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\grid\SalmonActionColumn;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Icon;
 use app\components\widgets\Label;
 use app\models\Salmon2;
+use app\models\Salmon2Query;
 use app\models\SalmonSchedule2;
 use app\models\SalmonWeapon2;
+use app\models\User;
 use app\models\Weapon2;
+use yii\data\ActiveDataProvider;
 use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -28,6 +32,8 @@ use yii\web\View;
 use yii\widgets\ListView;
 
 /**
+ * @var ActiveDataProvider $dataProvider
+ * @var User $user
  * @var View $this
  */
 
@@ -45,7 +51,7 @@ SalmonWorkListAsset::register($this);
   ]) . "\n" ?>
 </div>
 <?= $this->render('_summary', [
-    'summary' => $dataProvider->query->summary(),
+    'summary' => TypeHelper::instanceOf($dataProvider->query, Salmon2Query::class)->summary(),
 ]) . "\n" ?>
 <p>
   <?= Html::a(
@@ -109,7 +115,7 @@ SalmonWorkListAsset::register($this);
       'label' => Yii::t('app', 'Stage'),
       'value' => function (Salmon2 $model): ?string {
         return $model->stage_id
-          ? Yii::t('app-salmon-map2', $model->stage->name)
+          ? Yii::t('app-salmon-map2', $model->stage->name ?? '')
           : null;
       },
     ],
@@ -120,7 +126,7 @@ SalmonWorkListAsset::register($this);
       'label' => Yii::t('app', 'Stage'),
       'value' => function (Salmon2 $model): ?string {
         return $model->stage_id
-          ? Yii::t('app-salmon-map2', $model->stage->short_name)
+          ? Yii::t('app-salmon-map2', $model->stage->short_name ?? '')
           : null;
       },
     ],
@@ -158,16 +164,16 @@ SalmonWorkListAsset::register($this);
             Label::widget([
               'color' => 'danger',
               'content' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
-                'waveNumber' => $column->grid->formatter->asInteger($model->clear_waves + 1),
+                'waveNumber' => TypeHelper::instanceOf($column->grid->formatter, Formatter::class)->asInteger($model->clear_waves + 1),
               ]),
             ]),
             $model->fail_reason_id
               ? Label::widget([
-                'color' => $model->failReason->color,
-                'content' => Yii::t('app-salmon2', $model->failReason->short_name),
+                'color' => $model->failReason?->color,
+                'content' => Yii::t('app-salmon2', $model->failReason->short_name ?? ''),
                 'options' => [
                   'class' => ['auto-tooltip'],
-                  'title' => Yii::t('app-salmon2', $model->failReason->name),
+                  'title' => Yii::t('app-salmon2', $model->failReason->name ?? ''),
                 ],
               ])
               : '',
@@ -381,7 +387,7 @@ SalmonWorkListAsset::register($this);
         }
 
         return implode(' ', [
-          Yii::t('app-salmon-title2', $model->titleBefore->name),
+          Yii::t('app-salmon-title2', $model->titleBefore->name ?? ''),
           $model->title_before_exp === null
             ? ''
             : Yii::$app->formatter->asInteger($model->title_before_exp),
@@ -398,7 +404,7 @@ SalmonWorkListAsset::register($this);
         }
 
         return implode(' ', [
-          Yii::t('app-salmon-title2', $model->titleAfter->name),
+          Yii::t('app-salmon-title2', $model->titleAfter->name ?? ''),
           $model->title_after_exp === null
             ? ''
             : Yii::$app->formatter->asInteger($model->title_after_exp),
@@ -450,7 +456,7 @@ SalmonWorkListAsset::register($this);
               'weapon',
             );
 
-            $asset = $weapons ? Spl2WeaponAsset::register(Yii::$app->getView()) : null;
+            $asset = $weapons ? Spl2WeaponAsset::register($this) : null;
 
             return vsprintf('%s %s - %s (%s)', [
               Html::a(
@@ -475,7 +481,7 @@ SalmonWorkListAsset::register($this);
                   }
 
                   return Html::img(
-                    $asset->getIconUrl($weapon->key),
+                    TypeHelper::instanceOf($asset, Spl2WeaponAsset::class)->getIconUrl($weapon->key),
                     [
                       'style' => ['height' => '1.2em'],
                       'title' => Yii::t('app-weapon2', $weapon->name),

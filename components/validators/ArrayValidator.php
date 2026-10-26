@@ -9,19 +9,19 @@ declare(strict_types=1);
 
 namespace app\components\validators;
 
-use ArrayAccess;
+use Override;
 use yii\validators\EachValidator;
 
 use function count;
-use function is_array;
+use function is_countable;
 
 final class ArrayValidator extends EachValidator
 {
     public ?int $min = null;
     public ?int $max = null;
 
-    public ?string $tooBig = null;
-    public ?string $tooSmall = null;
+    public string $tooBig;
+    public string $tooSmall;
 
     /**
      * @inheritdoc
@@ -31,22 +31,23 @@ final class ArrayValidator extends EachValidator
     {
         parent::init();
 
-        if ($this->tooBig === null) {
+        if (!isset($this->tooBig)) {
             $this->tooBig = '{attribute} must not contain more than {max} elements';
         }
 
-        if ($this->tooBig === null) {
-            $this->tooBig = '{attribute} must contain at least {min} elements';
+        if (!isset($this->tooSmall)) {
+            $this->tooSmall = '{attribute} must contain at least {min} elements';
         }
     }
 
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         $arrayOfValues = $model->$attribute;
-        if (is_array($arrayOfValues) || $arrayOfValues instanceof ArrayAccess) {
+        if (is_countable($arrayOfValues)) {
             if ($this->min !== null && count($arrayOfValues) < $this->min) {
                 $this->addError($model, $attribute, $this->tooSmall, ['min' => $this->min]);
                 return;
@@ -63,10 +64,12 @@ final class ArrayValidator extends EachValidator
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
-        if (is_array($value) || $value instanceof ArrayAccess) {
+        if (is_countable($value)) {
             if ($this->min !== null && count($value) < $this->min) {
                 return [$this->tooSmall, ['min' => $this->min]];
             }

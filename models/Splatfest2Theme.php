@@ -30,7 +30,7 @@ class Splatfest2Theme extends ActiveRecord
         if ($model = static::findOne(['name' => $name])) {
             return $model;
         }
-        if (!static::lockForFindOrCreate()) {
+        if (!self::lockForFindOrCreate()) {
             return null;
         }
         try {
@@ -49,11 +49,11 @@ class Splatfest2Theme extends ActiveRecord
             }
             return $model;
         } finally {
-            static::freeForFindOrCreate();
+            self::freeForFindOrCreate();
         }
     }
 
-    private static function lockForFindOrCreate()
+    private static function lockForFindOrCreate(): bool
     {
         $timeout = microtime(true) + 30.0;
         while (microtime(true) <= $timeout) {
@@ -65,7 +65,7 @@ class Splatfest2Theme extends ActiveRecord
         return false;
     }
 
-    private static function freeForFindOrCreate()
+    private static function freeForFindOrCreate(): void
     {
         Yii::$app->pgMutex->release(self::class);
     }

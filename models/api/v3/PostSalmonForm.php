@@ -41,7 +41,6 @@ use app\models\api\v3\postSalmon\BossForm;
 use app\models\api\v3\postSalmon\PlayerForm;
 use app\models\api\v3\postSalmon\WaveForm;
 use jp3cki\uuid\Uuid;
-use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -74,45 +73,81 @@ final class PostSalmonForm extends Model
     use TypeHelperTrait;
     use UserAgentTrait;
 
+    /** @var mixed */
     public $test;
 
+    /** @var mixed */
     public $uuid;
+    /** @var mixed */
     public $private;
+    /** @var mixed */
     public $big_run;
+    /** @var mixed */
     public $eggstra_work;
+    /** @var mixed */
     public $stage;
+    /** @var mixed */
     public $danger_rate;
+    /** @var mixed */
     public $clear_waves;
+    /** @var mixed */
     public $fail_reason;
+    /** @var mixed */
     public $king_smell;
+    /** @var mixed */
     public $king_salmonid;
+    /** @var mixed */
     public $clear_extra;
+    /** @var mixed */
     public $title_before;
+    /** @var mixed */
     public $title_exp_before;
+    /** @var mixed */
     public $title_after;
+    /** @var mixed */
     public $title_exp_after;
+    /** @var mixed */
     public $golden_eggs;
+    /** @var mixed */
     public $power_eggs;
+    /** @var mixed */
     public $gold_scale;
+    /** @var mixed */
     public $silver_scale;
+    /** @var mixed */
     public $bronze_scale;
+    /** @var mixed */
     public $job_point;
+    /** @var mixed */
     public $job_score;
+    /** @var mixed */
     public $job_rate;
+    /** @var mixed */
     public $job_bonus;
+    /** @var mixed */
     public $waves;
+    /** @var mixed */
     public $players;
+    /** @var mixed */
     public $bosses;
+    /** @var mixed */
     public $note;
+    /** @var mixed */
     public $private_note;
+    /** @var mixed */
     public $link_url;
+    /** @var mixed */
     public $agent;
+    /** @var mixed */
     public $agent_version;
+    /** @var mixed */
     public $automated;
+    /** @var mixed */
     public $start_at;
+    /** @var mixed */
     public $end_at;
 
-    /** @var array<string, string> */
+    /** @var array<string, string>|null */
     public $agent_variables;
 
     public function behaviors()
@@ -150,7 +185,7 @@ final class PostSalmonForm extends Model
             [['clear_waves'], 'integer',
                 'min' => 0,
                 'max' => 5,
-                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work),
+                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work) === true,
             ],
             [['king_smell'], 'integer', 'min' => 0, 'max' => 5],
             [['title_exp_before', 'title_exp_after'], 'integer', 'min' => 0, 'max' => 999],
@@ -214,7 +249,7 @@ final class PostSalmonForm extends Model
                 'rule' => [SalmonWave3FormValidator::class, 'skipOnEmpty' => false],
                 'min' => 1,
                 'max' => 5,
-                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work),
+                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work) === true,
             ],
             [['bosses'], SalmonBoss3Validator::class],
         ];
@@ -270,10 +305,7 @@ final class PostSalmonForm extends Model
             return true;
         }
 
-        if (!$lock = CriticalSection::lock($this->getCriticalSectionId(), 60)) {
-            $this->addError('_system', 'Failed to get lock. System busy. Try again.');
-            return null;
-        }
+        $lock = CriticalSection::lock($this->getCriticalSectionId(), 60);
 
         try {
             return $this->getSameBattle() ?? $this->saveNewBattleRelation();
@@ -307,9 +339,6 @@ final class PostSalmonForm extends Model
     {
         try {
             $connection = Yii::$app->db;
-            if (!$connection instanceof Connection) {
-                throw new InvalidConfigException();
-            }
 
             return $connection->transactionEx(function (Connection $connection): ?Salmon3 {
                 if (!$battle = $this->saveNewBattle()) {

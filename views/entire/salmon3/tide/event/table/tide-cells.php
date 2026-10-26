@@ -20,7 +20,7 @@ use yii\web\View;
  * @var StatSalmon3TideEvent[] $stats
  * @var View $this
  * @var int $tideJobs
- : @var int $totalJobs
+ * @var int $totalJobs
  */
 
 $targetStats = array_values(
@@ -66,7 +66,7 @@ echo Html::tag(
   'td',
   Html::encode(
     (int)$model?->jobs > 0
-      ? Yii::$app->formatter->asPercent($model->cleared / $model->jobs, 2)
+      ? Yii::$app->formatter->asPercent($model?->cleared / $model?->jobs, 2)
       : '',
   ),
   ['class' => 'text-center'],

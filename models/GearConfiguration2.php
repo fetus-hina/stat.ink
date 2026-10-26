@@ -21,15 +21,18 @@ use function rtrim;
  *
  * @property integer $id
  * @property string $finger_print
- * @property integer $gear_id
- * @property integer $primary_ability_id
+ * @property integer|null $gear_id
+ * @property integer|null $primary_ability_id
  *
- * @property Ability2 $primaryAbility
- * @property Gear2 $gear
+ * @property Ability2|null $primaryAbility
+ * @property Gear2|null $gear
  * @property GearConfigurationSecondary2[] $secondaries
  */
 class GearConfiguration2 extends ActiveRecord
 {
+    /**
+     * @param array<int|null> $secondaryAbitilyIdList
+     */
     public static function generateFingerPrint(
         ?int $gearId,
         ?int $primaryAbilityId,
@@ -118,7 +121,10 @@ class GearConfiguration2 extends ActiveRecord
         return $this->hasMany(GearConfigurationSecondary2::class, ['config_id' => 'id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'gear' => $this->gear

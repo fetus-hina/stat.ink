@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
 use app\assets\UserStatReportAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
@@ -20,6 +21,9 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
+ * @var list<array<string, mixed>> $list
+ * @var string|null $next
+ * @var string|null $prev
  */
 
 $title = Yii::t('app-battle', "{name}'s Battle Report", ['name' => $user->name]);
@@ -161,7 +165,6 @@ $weapons = Spl2WeaponAsset::register($this);
                 } else {
                   return Yii::t('app-rule2', 'Ranked Battle');
                 }
-                break;
 
               case 'fest_normal':
                 return Yii::t('app-rule2', 'Splatfest (Normal)');
@@ -175,7 +178,6 @@ $weapons = Spl2WeaponAsset::register($this);
                 } else {
                   return Yii::t('app-rule2', 'League Battle (Quad)');
                 }
-                break;
               
               default:
                 return $row['lobby_key'];
@@ -188,7 +190,7 @@ $weapons = Spl2WeaponAsset::register($this);
               : Html::a(
                 implode('', [
                   Html::img(
-                    Battle2::teamIcon($row['team_id']),
+                    TypeHelper::string(Battle2::teamIcon($row['team_id'])),
                     [
                       'style' => [
                         'width' => 'auto',

@@ -13,6 +13,9 @@ use app\models\ConchClash3;
 
 final class ConchClashApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?ConchClash3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

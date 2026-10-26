@@ -27,7 +27,10 @@ use const SORT_ASC;
 
 trait Splatoon2
 {
-    protected function getPostStats2()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    protected function getPostStats2(): array
     {
         $lastSummariedDate = null;
         if ($stats = $this->getPostStatsSummarized2()) {
@@ -63,6 +66,9 @@ trait Splatoon2
         );
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     private function getPostStatsSummarized2(): array
     {
         return StatEntireUser2::find()
@@ -71,6 +77,9 @@ trait Splatoon2
             ->all();
     }
 
+    /**
+     * @return array{term: array<string, mixed>, agents: list<array<string, mixed>>}
+     */
     protected function getAgentStats2(): array
     {
         $endAt = new DateTimeImmutable()
@@ -124,6 +133,9 @@ trait Splatoon2
         ];
     }
 
+    /**
+     * @return list<array{version: string, battles: int, users: int}>
+     */
     private function getAgentVersion2(
         string $name,
         DateTimeImmutable $startAt,

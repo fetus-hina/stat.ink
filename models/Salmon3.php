@@ -13,6 +13,7 @@ use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "salmon3".
@@ -22,65 +23,71 @@ use yii\db\ActiveRecord;
  * @property string $uuid
  * @property string $client_uuid
  * @property boolean $is_big_run
- * @property integer $stage_id
- * @property integer $big_stage_id
- * @property string $danger_rate
- * @property integer $clear_waves
- * @property integer $fail_reason_id
- * @property integer $king_smell
- * @property integer $king_salmonid_id
- * @property boolean $clear_extra
- * @property integer $title_before_id
- * @property integer $title_exp_before
- * @property integer $title_after_id
- * @property integer $title_exp_after
- * @property integer $golden_eggs
- * @property integer $power_eggs
- * @property integer $gold_scale
- * @property integer $silver_scale
- * @property integer $bronze_scale
- * @property integer $job_point
- * @property integer $job_score
- * @property string $job_rate
- * @property integer $job_bonus
- * @property string $note
- * @property string $private_note
- * @property string $link_url
- * @property integer $version_id
- * @property integer $agent_id
+ * @property integer|null $stage_id
+ * @property integer|null $big_stage_id
+ * @property-read numeric-string|null $danger_rate
+ * @property-write float|string|null $danger_rate
+ * @property integer|null $clear_waves
+ * @property integer|null $fail_reason_id
+ * @property integer|null $king_smell
+ * @property integer|null $king_salmonid_id
+ * @property boolean|null $clear_extra
+ * @property integer|null $title_before_id
+ * @property integer|null $title_exp_before
+ * @property integer|null $title_after_id
+ * @property integer|null $title_exp_after
+ * @property integer|null $golden_eggs
+ * @property integer|null $power_eggs
+ * @property integer|null $gold_scale
+ * @property integer|null $silver_scale
+ * @property integer|null $bronze_scale
+ * @property integer|null $job_point
+ * @property integer|null $job_score
+ * @property-read numeric-string|null $job_rate
+ * @property-write float|string|null $job_rate
+ * @property integer|null $job_bonus
+ * @property string|null $note
+ * @property string|null $private_note
+ * @property string|null $link_url
+ * @property integer|null $version_id
+ * @property integer|null $agent_id
  * @property boolean $is_automated
- * @property string $start_at
- * @property string $end_at
+ * @property-read string|null $start_at
+ * @property-write string|ExpressionInterface|null $start_at
+ * @property-read string|null $end_at
+ * @property-write string|ExpressionInterface|null $end_at
  * @property integer $period
- * @property integer $schedule_id
+ * @property integer|null $schedule_id
  * @property boolean $has_disconnect
  * @property boolean $is_deleted
  * @property string $remote_addr
  * @property integer $remote_port
- * @property string $created_at
- * @property string $updated_at
+ * @property-read string $created_at
+ * @property-write string|ExpressionInterface $created_at
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  * @property boolean $is_private
  * @property boolean $has_broken_data
- * @property string $scenario_code
+ * @property string|null $scenario_code
  * @property boolean $is_eggstra_work
  *
- * @property Agent $agent
- * @property BigrunMap3 $bigStage
+ * @property Agent|null $agent
+ * @property BigrunMap3|null $bigStage
  * @property SalmonBoss3[] $bosses
- * @property SalmonFailReason2 $failReason
- * @property SalmonKing3 $kingSalmonid
+ * @property SalmonFailReason2|null $failReason
+ * @property SalmonKing3|null $kingSalmonid
  * @property SalmonAgentVariable3[] $salmonAgentVariable3s
  * @property SalmonBossAppearance3[] $salmonBossAppearance3s
  * @property SalmonExportJson3[] $salmonExportJson3s
  * @property SalmonPlayer3[] $salmonPlayer3s
  * @property SalmonWave3[] $salmonWave3s
- * @property SalmonSchedule3 $schedule
- * @property SalmonMap3 $stage
- * @property SalmonTitle3 $titleAfter
- * @property SalmonTitle3 $titleBefore
+ * @property SalmonSchedule3|null $schedule
+ * @property SalmonMap3|null $stage
+ * @property SalmonTitle3|null $titleAfter
+ * @property SalmonTitle3|null $titleBefore
  * @property User $user
  * @property AgentVariable3[] $variables
- * @property SplatoonVersion3 $version
+ * @property SplatoonVersion3|null $version
  */
 class Salmon3 extends ActiveRecord
 {

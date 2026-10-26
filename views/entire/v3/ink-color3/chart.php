@@ -43,8 +43,8 @@ $pointData = array_filter(
 
       $c1 = $model->color1;
       $c2 = $model->color2;
-      $y1 = Color::getYUVFromRGB(hexdec(substr($c1, 0, 2)), hexdec(substr($c1, 2, 2)), hexdec(substr($c1, 4, 2)))[0];
-      $y2 = Color::getYUVFromRGB(hexdec(substr($c2, 0, 2)), hexdec(substr($c2, 2, 2)), hexdec(substr($c2, 4, 2)))[0];
+      $y1 = Color::getYUVFromRGB(intval(substr($c1, 0, 2), 16), intval(substr($c1, 2, 2), 16), intval(substr($c1, 4, 2), 16))[0];
+      $y2 = Color::getYUVFromRGB(intval(substr($c2, 0, 2), 16), intval(substr($c2, 2, 2), 16), intval(substr($c2, 4, 2), 16))[0];
 
       $err = StandardError::winpct($model->wins, $battles);
       if (!$err) {
@@ -84,8 +84,9 @@ $regression = abs($correlationCoefficient) >= 0.2
   )
   : null;
 
-$minX = $regression ? min(ArrayHelper::getColumn($pointData, 'x')) : null;
-$maxX = $regression ? max(ArrayHelper::getColumn($pointData, 'x')) : null;
+$xList = array_map(fn (array $v): mixed => $v['x'], $pointData);
+$minX = $regression && $xList ? min($xList) : null;
+$maxX = $regression && $xList ? max($xList) : null;
 
 $chartData = [
   'data' => [

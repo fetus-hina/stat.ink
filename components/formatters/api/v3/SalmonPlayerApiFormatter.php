@@ -19,6 +19,7 @@ final class SalmonPlayerApiFormatter
 {
     /**
      * @param SalmonPlayer3[] $models
+     * @return list<array<string, mixed>|null>|null
      */
     public static function allToJson(array $models, bool $fullTranslate = false): ?array
     {
@@ -28,6 +29,9 @@ final class SalmonPlayerApiFormatter
         );
     }
 
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?SalmonPlayer3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {
@@ -43,7 +47,7 @@ final class SalmonPlayerApiFormatter
             'special' => SpecialApiFormatter::toJson($model->special, $fullTranslate),
             'weapons' => array_map(
                 fn (?SalmonPlayerWeapon3 $model): ?array => SalmonWeaponApiFormatter::toJson(
-                    $model->weapon,
+                    $model?->weapon,
                     $fullTranslate,
                 ),
                 array_values($model->salmonPlayerWeapon3s),

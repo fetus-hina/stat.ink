@@ -18,14 +18,14 @@ use function sprintf;
  *
  * @property integer $id
  * @property string $revision
- * @property string $summary
+ * @property string|null $summary
  * @property string $at
  *
  * @property WinikalogVersion[] $winikalogVersions
  */
 class IkalogVersion extends ActiveRecord
 {
-    public static function findOneByRevision($rev)
+    public static function findOneByRevision(string $rev): ?static
     {
         $regex = sprintf('^%s.+', preg_quote($rev, ''));
         return static::find()

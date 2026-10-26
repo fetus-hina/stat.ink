@@ -11,12 +11,14 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\models\Battle2;
 use app\models\Spl2YearMonthForm;
 use app\models\User;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 use function array_map;
@@ -28,9 +30,10 @@ use function usort;
 
 class UserStatReportAction extends BaseAction
 {
-    private $user;
+    private User $user;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         $db = Yii::$app->db;
         $db->createCommand(
@@ -39,13 +42,15 @@ class UserStatReportAction extends BaseAction
                 ->rawSql,
         )->execute();
 
-        $this->user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
-        if (!$this->user) {
+        $user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
+        $this->user = $user;
     }
 
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
         $request = Yii::$app->request;
@@ -64,7 +69,7 @@ class UserStatReportAction extends BaseAction
         return $this->runMonth($form);
     }
 
-    protected function runMonth(Spl2YearMonthForm $form)
+    protected function runMonth(Spl2YearMonthForm $form): string
     {
         $tz = new DateTimeZone(Yii::$app->timeZone);
 
@@ -113,6 +118,9 @@ class UserStatReportAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     private function query(DateTimeImmutable $from, DateTimeImmutable $to): array
     {
         $date = sprintf('(CASE %s END)::date', implode(' ', [

@@ -10,11 +10,18 @@ declare(strict_types=1);
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
+use app\models\Region2;
+use app\models\Splatfest2;
 use app\models\User;
+use app\models\UserStatSplatfest2Form;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var UserStatSplatfest2Form $input
+ * @var Region2 $region
+ * @var Region2[] $regions
+ * @var Splatfest2[] $splatfests
  * @var User $user
  * @var View $this
  */

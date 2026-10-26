@@ -10,17 +10,13 @@ declare(strict_types=1);
 namespace app\actions\api\v2;
 
 use Generator;
-use TypeError;
 use Yii;
 use app\models\DeathReason2;
 use yii\base\Action;
-use yii\db\Connection;
 use yii\web\Response;
 
 use function array_keys;
 use function array_map;
-use function array_values;
-use function assert;
 use function implode;
 use function vsprintf;
 
@@ -39,7 +35,6 @@ final class CauseOfDeathAction extends Action
         }
 
         $response = Yii::$app->response;
-        assert($response instanceof Response);
         $response->format = 'json';
 
         $json = [];
@@ -66,9 +61,6 @@ final class CauseOfDeathAction extends Action
         ];
 
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            throw new TypeError();
-        }
         $typeOrder = vsprintf('(CASE %s ELSE %d END)', [
             implode(' ', array_map(
                 fn (int $index, string $typeKey): string => vsprintf('WHEN %s.%s = %s THEN %d', [
@@ -78,7 +70,7 @@ final class CauseOfDeathAction extends Action
                     $index + 1,
                 ]),
                 array_keys($typeOrderList),
-                array_values($typeOrderList),
+                $typeOrderList,
             )),
             0x7fffffff,
         ]);
@@ -101,6 +93,7 @@ final class CauseOfDeathAction extends Action
 
     /**
      * @param self::FORMAT_DEFAULT|self::FORMAT_REDUCED|self::FORMAT_IKALOG $format
+     * @return array<string, mixed>
      */
     private function toJson(DeathReason2 $model, string $format): array
     {
@@ -115,6 +108,9 @@ final class CauseOfDeathAction extends Action
         return $this->toDefaultJson($model);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function toDefaultJson(DeathReason2 $model): array
     {
         $results = [
@@ -150,6 +146,9 @@ final class CauseOfDeathAction extends Action
         return $results;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function toReducedJson(DeathReason2 $model): array
     {
         return [
@@ -161,6 +160,9 @@ final class CauseOfDeathAction extends Action
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function toIkalogJson(DeathReason2 $model): array
     {
         return [

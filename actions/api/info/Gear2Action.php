@@ -19,14 +19,14 @@ use function usort;
 
 final class Gear2Action extends Action
 {
-    public $type;
+    public ?string $type = null;
 
-    public function getType(): GearType
+    public function getType(): ?GearType
     {
         return GearType::findOne(['key' => (string)$this->type]);
     }
 
-    public function run()
+    public function run(): string
     {
         if (!$type = $this->getType()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
@@ -40,8 +40,8 @@ final class Gear2Action extends Action
             ->andWhere(['type_id' => $type->id])
             ->all();
         usort($gears, fn (Gear2 $a, Gear2 $b): int => strnatcasecmp(
-            $a->translatedName,
-            $b->translatedName,
+            $a->getTranslatedName(),
+            $b->getTranslatedName(),
         ));
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;

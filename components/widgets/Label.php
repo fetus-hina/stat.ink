@@ -9,30 +9,50 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
+use RuntimeException;
 use Yii;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\i18n\Formatter;
 
 use function is_array;
+use function preg_last_error_msg;
 use function preg_replace;
 use function trim;
 
 final class Label extends Widget
 {
+    /**
+     * @var string|array<mixed>|null
+     */
     public $link;
+    /**
+     * @var string|array<mixed>
+     */
     public $format = 'text';
+    /**
+     * @var mixed
+     */
     public $content;
+    /**
+     * @var string|null
+     */
     public $color = 'default';
+    /**
+     * @var array<string, mixed>
+     */
     public $options = [];
-    public $formatter;
+    public Formatter $formatter;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
-        if ($this->formatter === null) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::$app->formatter;
         }
     }
@@ -57,7 +77,7 @@ final class Label extends Widget
                 '/\s+/',
                 ' ',
                 (string)$class . " label label-{$this->color}",
-            ));
+            ) ?? throw new RuntimeException(preg_last_error_msg()));
         }
         $options['class'] = $class;
 

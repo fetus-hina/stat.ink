@@ -23,18 +23,18 @@ use yii\web\View;
  *   special_id: int,
  *   count: int,
  *   cleared: int,
- *   avg_waves: int|float|numeric-string
- *   max_golden: int
- *   total_golden: int
- *   avg_golden: int|float|numeric-string
- *   max_power: int
- *   total_power: int
- *   avg_power: int|float|numeric-string
- *   total_rescues: int
- *   avg_rescues: int|float|numeric-string
- *   total_rescued: int
- *   avg_rescued: int|float|numeric-string
- *   total_defeat_boss: int
+ *   avg_waves: int|float|numeric-string,
+ *   max_golden: int,
+ *   total_golden: int,
+ *   avg_golden: int|float|numeric-string,
+ *   max_power: int,
+ *   total_power: int,
+ *   avg_power: int|float|numeric-string,
+ *   total_rescues: int,
+ *   avg_rescues: int|float|numeric-string,
+ *   total_rescued: int,
+ *   avg_rescued: int|float|numeric-string,
+ *   total_defeat_boss: int,
  *   avg_defeat_boss: int|float|numeric-string
  * }> $specialStats
  */

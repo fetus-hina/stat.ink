@@ -47,6 +47,9 @@ class Freshness2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function toJsonArray(): array
     {
         return Translator::translateToAll('app-freshness2', $this->name);

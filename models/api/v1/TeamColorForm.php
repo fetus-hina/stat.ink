@@ -8,6 +8,7 @@
 namespace app\models\api\v1;
 
 use app\components\helpers\Color;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
 use yii\validators\NumberValidator;
 
@@ -16,7 +17,9 @@ use function is_array;
 
 class TeamColorForm extends Model
 {
+    /** @var mixed */
     public $hue;
+    /** @var mixed */
     public $rgb;
 
     public function rules()
@@ -37,7 +40,7 @@ class TeamColorForm extends Model
         ];
     }
 
-    public function validateRgb($attribute, $params)
+    public function validateRgb(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -59,13 +62,13 @@ class TeamColorForm extends Model
         foreach ($value as $v) {
             $error = null;
             if (!$numberValidator->validate($v, $error)) {
-                $this->addError($attribute, $error);
+                $this->addError($attribute, TypeHelper::string($error));
                 return;
             }
         }
     }
 
-    public function makeHue()
+    public function makeHue(): void
     {
         if ($this->hasErrors() || (string)$this->hue != '') {
             return;

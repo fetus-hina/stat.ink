@@ -11,6 +11,7 @@ namespace app\commands;
 
 use IntlChar;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Ability2;
 use app\models\DeathReason2;
 use app\models\Map2;
@@ -67,52 +68,32 @@ class Api2MarkdownController extends Controller
     {
         // {{{
         $path = Yii::getAlias('@app/doc/api-2/post-battle.md');
+
+        $actionMap = [
+            'ability' => $this->actionAbility(...),
+            'death' => $this->actionDeathReason(...),
+            'stage' => $this->actionStage(...),
+            'weapon' => $this->actionWeapon(...),
+        ];
+
         $markdown = preg_replace_callback(
             '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
-            function (array $match): string {
-                switch ($match['kind']) {
-                    case 'weapon':
-                        ob_start();
-                        $status = $this->actionWeapon();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    case 'stage':
-                        ob_start();
-                        $status = $this->actionStage();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    case 'ability':
-                        ob_start();
-                        $status = $this->actionAbility();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    case 'death':
-                        ob_start();
-                        $status = $this->actionDeathReason();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    default:
-                        $this->stderr('Unknown kind of replace tag: ' . $match['kind'] . "\n");
-                        exit(1);
+            function (array $match) use ($actionMap): string {
+                $kind = $match['kind'];
+                if (!isset($actionMap[$kind])) {
+                    $this->stderr('Unknown kind of replace tag: ' . $kind . "\n");
+                    exit(1);
                 }
+
+                ob_start();
+                $status = $actionMap[$kind]();
+                $repl = TypeHelper::string(ob_get_clean());
+                if ($status !== 0) {
+                    exit($status);
+                }
+                return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
             },
-            file_get_contents($path),
+            TypeHelper::string(file_get_contents($path)),
         );
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
@@ -146,13 +127,13 @@ class Api2MarkdownController extends Controller
 
                 ob_start();
                 $status = $actionMap[$kind]();
-                $repl = ob_get_clean();
+                $repl = TypeHelper::string(ob_get_clean());
                 if ($status !== 0) {
                     exit($status);
                 }
                 return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
             },
-            file_get_contents($path),
+            TypeHelper::string(file_get_contents($path)),
         );
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
@@ -223,7 +204,7 @@ class Api2MarkdownController extends Controller
                 }
             }
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -293,7 +274,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -343,7 +324,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -385,7 +366,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -435,7 +416,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -492,7 +473,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -542,7 +523,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -592,7 +573,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -648,7 +629,7 @@ class Api2MarkdownController extends Controller
                 implode('<br>', $remarks),
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -698,7 +679,7 @@ class Api2MarkdownController extends Controller
                 implode('<br>', $remarks),
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -728,18 +709,23 @@ class Api2MarkdownController extends Controller
                 $stage['splatnet_hint'] ? sprintf('`%s`', $stage['splatnet_hint']) : ' ',
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
 
     // Markdown Table {{{
+
+    /**
+     * @param array<array<string>> $rows
+     * @return array<int, int>
+     */
     private static function calcWidths(array $rows): array
     {
         $widths = [];
         foreach ($rows as $row) {
             foreach (array_values($row) as $i => $column) {
-                $w = static::calcStringWidth($column);
+                $w = self::calcStringWidth($column);
                 $widths[$i] = max($widths[$i] ?? 0, $w);
             }
         }
@@ -749,7 +735,7 @@ class Api2MarkdownController extends Controller
     private static function calcStringWidth(string $text, int $minWidth = 1): int
     {
         // {{{
-        $lines = preg_split('/\x0d\x0a|\x0d|\x0a/s', $text);
+        $lines = TypeHelper::array(preg_split('/\x0d\x0a|\x0d|\x0a/s', $text));
         return array_reduce(
             array_map(
                 fn (string $line): int => self::strwidth($line),
@@ -761,14 +747,17 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
+    /**
+     * @param array<array<string>> $rows
+     */
     private static function createTable(array $rows): string
     {
         // {{{
-        $widths = static::calcWidths($rows);
+        $widths = self::calcWidths($rows);
 
         $result = '';
         foreach (array_values($rows) as $i => $row) {
-            $result .= static::createTableRow($row, $widths) . "\n";
+            $result .= self::createTableRow($row, $widths) . "\n";
             if ($i === 0) {
                 $result .= sprintf("|%s|\n", implode('|', array_map(
                     fn (int $cellWidth): string => str_repeat('-', $cellWidth),
@@ -780,6 +769,10 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
+    /**
+     * @param array<string> $row
+     * @param array<int, int> $widths
+     */
     private static function createTableRow(array $row, array $widths): string
     {
         $outColumns = [];
@@ -798,6 +791,10 @@ class Api2MarkdownController extends Controller
         $size = StringHelper::byteLength($text);
         while ($next < $size) {
             $c = grapheme_extract($text, 1, GRAPHEME_EXTR_MAXCHARS, $current, $next);
+            if ($c === false) {
+                break;
+            }
+
             $v = IntlChar::getIntPropertyValue($c, IntlChar::PROPERTY_EAST_ASIAN_WIDTH);
             if (
                 $v === IntlChar::EA_FULLWIDTH ||

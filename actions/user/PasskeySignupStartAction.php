@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\components\helpers\PasskeyChallengeStore;
 use app\components\helpers\PasskeyResponse;
@@ -17,6 +18,8 @@ use app\models\PasskeyChallenge;
 use app\models\RegisterForm;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use function is_array;
 
 /**
  * Starts a new user registration with a passkey (no password)
@@ -27,7 +30,11 @@ use yii\web\ViewAction as BaseAction;
  */
 final class PasskeySignupStartAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         if (!Yii::$app->user->getIsGuest()) {
             throw new BadRequestHttpException('Already logged in');
@@ -37,7 +44,8 @@ final class PasskeySignupStartAction extends BaseAction
         $resp->format = 'json';
 
         $form = new RegisterForm(['scenario' => RegisterForm::SCENARIO_PASSKEY]);
-        $form->load(Yii::$app->request->post());
+        $params = Yii::$app->request->post();
+        $form->load(is_array($params) ? $params : []);
         if (!$form->validate()) {
             return PasskeyResponse::validationFailure($form);
         }

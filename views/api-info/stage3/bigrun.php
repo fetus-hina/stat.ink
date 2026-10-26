@@ -12,6 +12,7 @@ use app\components\widgets\ApiInfoName;
 use app\components\widgets\Icon;
 use app\models\BigrunMap3;
 use app\models\BigrunMap3Alias;
+use app\models\Language;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
@@ -20,7 +21,7 @@ use yii\web\View;
 /**
  * @var BigrunMap3[] $stages
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TableResponsiveForceAsset::register($this);

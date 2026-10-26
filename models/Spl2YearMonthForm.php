@@ -20,7 +20,13 @@ final class Spl2YearMonthForm extends Model
 {
     private const SPLATOON2_RELEASE_DATE = '2017-07-21';
 
+    /**
+     * @var int|string|null
+     */
     public $year;
+    /**
+     * @var int|string|null
+     */
     public $month;
 
     public ?DateTimeZone $timeZone = null;

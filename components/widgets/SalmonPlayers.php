@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\components\i18n\Formatter;
+use app\models\Salmon2;
 use app\models\SalmonPlayer2;
 use app\models\SalmonPlayerSpecialUse2;
 use yii\base\Widget;
@@ -27,15 +29,19 @@ use function sprintf;
 
 class SalmonPlayers extends Widget
 {
-    public $formatter;
-    public $work;
-    public $players;
+    public \yii\i18n\Formatter $formatter;
+    public Salmon2 $work;
+    /**
+     * @var SalmonPlayer2[]
+     */
+    public array $players = [];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::createObject([
                 'class' => Formatter::class,
                 'nullDisplay' => '-',
@@ -109,7 +115,7 @@ class SalmonPlayers extends Widget
 
     protected function renderBody(): string
     {
-        $data = array_filter([
+        $data = [
             [
                 'label' => Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1]),
                 'format' => 'text',
@@ -167,24 +173,30 @@ class SalmonPlayers extends Widget
                 'attribute' => 'power_egg_collected',
                 'format' => 'integer',
             ],
-        ]);
+        ];
         return Html::tag('tbody', implode('', array_map(
             fn (array $row): string => $this->renderRow($row),
             $data,
         )));
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderRow(array $rowInfo): string
     {
         return Html::tag('tr', implode('', [
             $this->renderRowHeader($rowInfo),
             implode('', array_map(
-                fn (SalmonPlayer2 $player): ?string => $this->renderCellData($rowInfo, $player),
+                fn (SalmonPlayer2 $player): string => $this->renderCellData($rowInfo, $player),
                 $this->players,
             )),
         ]));
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderRowHeader(array $rowInfo): string
     {
         return Html::tag(
@@ -194,6 +206,9 @@ class SalmonPlayers extends Widget
         );
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderCellData(array $rowInfo, SalmonPlayer2 $player): string
     {
         return Html::tag(
@@ -205,7 +220,10 @@ class SalmonPlayers extends Widget
         );
     }
 
-    protected function renderCellValue(array $rowInfo, SalmonPlayer2 $player)
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
+    protected function renderCellValue(array $rowInfo, SalmonPlayer2 $player): mixed
     {
         $value = ArrayHelper::getValue($rowInfo, 'value');
         if ($value === null && isset($rowInfo['attribute'])) {

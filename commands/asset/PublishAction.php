@@ -47,6 +47,9 @@ class PublishAction extends Action
         return $status;
     }
 
+    /**
+     * @return array{string|null, int|null}
+     */
     private function getHostAndPortFromURL(string $url): array
     {
         $parsedUrl = WhatWgUrl::parse($url);

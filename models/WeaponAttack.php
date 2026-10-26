@@ -23,14 +23,14 @@ use function version_compare;
  * @property integer $id
  * @property integer $main_weapon_id
  * @property integer $version_id
- * @property string $damage
+ * @property numeric-string $damage
  *
  * @property SplatoonVersion $version
  * @property Weapon $mainWeapon
  */
 class WeaponAttack extends ActiveRecord
 {
-    public static function findByWeaponAndVersion(Weapon $weapon, SplatoonVersion $version)
+    public static function findByWeaponAndVersion(Weapon $weapon, SplatoonVersion $version): ?static
     {
         // 当該ブキのデータを全部取り寄せる(どうせ大した量ではない)
         $list = static::find()
@@ -39,7 +39,7 @@ class WeaponAttack extends ActiveRecord
             ->all();
 
         // 指定バージョンより先のバージョンは捨てる
-        $list = array_filter($list, fn ($target) => $target->version && version_compare($target->version->tag, $version->tag, '<='));
+        $list = array_filter($list, fn ($target) => version_compare($target->version->tag, $version->tag, '<='));
 
         // 新しい順に並び替える
         usort($list, fn ($a, $b) => version_compare($b->version->tag, $a->version->tag));
@@ -109,12 +109,12 @@ class WeaponAttack extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'main_weapon_id']);
     }
 
-    public function getHitToKill()
+    public function getHitToKill(): float
     {
         return ceil(100 / $this->damage);
     }
 
-    public function getDamageCap()
+    public function getDamageCap(): ?float
     {
         switch ($this->getHitToKill()) {
             case 1:
@@ -128,14 +128,16 @@ class WeaponAttack extends ActiveRecord
             case 5:
                 return 24.9;
         }
+
+        return null;
     }
 
-    public function getVirtualDamage($ratio)
+    public function getVirtualDamage(float|int $ratio): float|int
     {
         return $this->damage * $ratio;
     }
 
-    public function getRealDamage($ratio)
+    public function getRealDamage(float|int $ratio): float|int
     {
         $virtual = $this->getVirtualDamage($ratio);
         $limit = 100 / $this->getHitToKill();

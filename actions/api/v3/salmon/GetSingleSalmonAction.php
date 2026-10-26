@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\salmon;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
@@ -28,7 +29,8 @@ final class GetSingleSalmonAction extends Action
     /**
      * @inheritdoc
      */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();
@@ -77,9 +79,6 @@ final class GetSingleSalmonAction extends Action
         }
 
         $user = $model->user;
-        if (!$user) {
-            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-        }
 
         $isAuthenticated = Yii::$app->user->isGuest
             ? false

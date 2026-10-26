@@ -63,6 +63,9 @@ final class StealthJump3Action extends Action
             : $controller->render('v3/stealth-jump3', $params);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(
         Controller $controller,
         Connection $db,
@@ -119,7 +122,7 @@ final class StealthJump3Action extends Action
             ->orderBy(['{{%season3}}.[[start_at]]' => SORT_DESC])
             ->limit(1)
             ->one($db);
-        return $model?->season ?? null;
+        return $model->season ?? null;
     }
 
     private function getRule(Connection $db, mixed $ruleKey): ?Rule3

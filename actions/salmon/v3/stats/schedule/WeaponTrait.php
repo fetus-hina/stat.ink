@@ -24,15 +24,6 @@ use function vsprintf;
 use const SORT_ASC;
 use const SORT_DESC;
 
-/**
- * @phpstan-type EventStats array{
- *   weapon_id: int,
- *   normal_waves: int,
- *   normal_cleared: int,
- *   xtra_waves: int,
- *   xtra_cleared: int,
- * }
- */
 trait WeaponTrait
 {
     /**

@@ -13,6 +13,9 @@ use app\models\TricolorRole3;
 
 final class TricolorRoleApiFormatter
 {
+    /**
+     * @return ($model is null ? null : array<string, mixed>)
+     */
     public static function toJson(?TricolorRole3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\CcBy;
@@ -18,6 +19,7 @@ use app\models\SalmonEvent3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -26,7 +28,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = Yii::t('app-api-info', 'API Info: Known Occurrences (Splatoon 3)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

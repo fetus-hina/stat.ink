@@ -7,8 +7,11 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
+use app\models\User;
 use yii\web\BadRequestHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use function is_scalar;
@@ -16,11 +19,18 @@ use function sprintf;
 
 class DownloadAction extends BaseAction
 {
-    private $user;
+    private User $user;
 
-    public function run()
+    /**
+     * @return array<string, mixed>|null
+     */
+    #[Override]
+    public function run(): ?array
     {
-        $this->user = Yii::$app->user->getIdentity();
+        if (!$user = Yii::$app->user->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
+        $this->user = $user;
 
         $type = Yii::$app->request->get('type');
         if (is_scalar($type)) {
@@ -42,7 +52,10 @@ class DownloadAction extends BaseAction
         );
     }
 
-    private function runIkaLogCsv()
+    /**
+     * @return array<string, mixed>
+     */
+    private function runIkaLogCsv(): array
     {
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('statink-ikalog.csv', 'text/cvs; charset=Shift_JIS', false, null);
@@ -63,7 +76,10 @@ class DownloadAction extends BaseAction
         ];
     }
 
-    private function runIkaLogJson()
+    /**
+     * @return array<string, mixed>
+     */
+    private function runIkaLogJson(): array
     {
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('statink-ikalog.json', 'application/octet-stream', false, null);
@@ -85,7 +101,7 @@ class DownloadAction extends BaseAction
         ];
     }
 
-    private function runUserJson()
+    private function runUserJson(): null
     {
         if (!$this->user->getIsUserJsonReady()) {
             throw new BadRequestHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
@@ -101,5 +117,7 @@ class DownloadAction extends BaseAction
                 ],
             )
             ->send();
+
+        return null;
     }
 }

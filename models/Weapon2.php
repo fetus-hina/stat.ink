@@ -19,6 +19,7 @@ use function array_filter;
 use function array_map;
 use function array_merge;
 use function array_shift;
+use function array_values;
 use function version_compare;
 
 use const SORT_ASC;
@@ -34,7 +35,8 @@ use const SORT_ASC;
  * @property string $name
  * @property integer $canonical_id
  * @property integer $main_group_id
- * @property integer $splatnet
+ * @property integer|null $splatnet
+ * @property integer $main_power_up_id
  *
  * @property Special2 $special
  * @property Subweapon2 $subweapon
@@ -42,6 +44,7 @@ use const SORT_ASC;
  * @property Weapon2 $mainReference
  * @property WeaponType2 $type
  * @property WeaponAttack2[] $weaponAttacks
+ * @property-read MainPowerUp2 $mainPowerUp
  */
 class Weapon2 extends ActiveRecord
 {
@@ -185,6 +188,9 @@ class Weapon2 extends ActiveRecord
         return $attacks ? array_shift($attacks) : null;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -204,6 +210,9 @@ class Weapon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -244,6 +253,9 @@ class Weapon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -256,9 +268,12 @@ class Weapon2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->andWhere(['key' => [
@@ -271,6 +286,6 @@ class Weapon2 extends ActiveRecord
                 ])
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

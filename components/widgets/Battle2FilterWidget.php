@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\TypeHelper;
+use app\models\Battle2FilterForm;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Special2;
@@ -43,21 +45,21 @@ use const SORT_ASC;
 
 class Battle2FilterWidget extends Widget
 {
-    public $id = 'filter-form';
-    public $route;
-    public $screen_name;
-    public $filter;
+    public string $id = 'filter-form';
+    public ?string $route = null;
+    public ?string $screen_name = null;
+    public Battle2FilterForm $filter;
 
-    public $rule = true;
-    public $map = true;
-    public $weapon = true;
-    public $rank = true;
-    public $result = true;
-    public $connectivity = false;
-    public $term = true;
-    public $filterText = false;
-    public $withTeam = false;
-    public $action = 'search'; // search or summarize
+    public bool $rule = true;
+    public bool $map = true;
+    public bool $weapon = true;
+    public bool $rank = true;
+    public bool $result = true;
+    public bool $connectivity = false;
+    public bool $term = true;
+    public bool $filterText = false;
+    public bool $withTeam = false;
+    public string $action = 'search'; // search or summarize
 
     public function run()
     {
@@ -83,7 +85,7 @@ class Battle2FilterWidget extends Widget
             echo $this->drawFields($form);
             ActiveForm::end();
             echo Html::endTag('div');
-            return ob_get_contents();
+            return TypeHelper::string(ob_get_contents());
         } finally {
             ob_end_clean();
         }
@@ -119,7 +121,7 @@ class Battle2FilterWidget extends Widget
         }
         if ($this->filterText) {
             $ret[] = $this->drawFilter($form);
-            if ($this->withTeam && $this->filter->filterWithPrincipalId) {
+            if ($this->withTeam && $this->filter->getFilterWithPrincipalId()) {
                 $ret[] = $this->drawWithTeam($form);
             }
         }
@@ -249,7 +251,7 @@ class Battle2FilterWidget extends Widget
     protected function drawWeapon(ActiveForm $form): string
     {
         $user = User::findOne(['screen_name' => $this->screen_name]);
-        $weaponIdList = $this->getUsedWeaponIdList($user);
+        $weaponIdList = $this->getUsedWeaponIdList($user) ?? [];
         $list = array_merge(
             $this->createMainWeaponList($weaponIdList),
             $this->createGroupedMainWeaponList($weaponIdList),
@@ -276,6 +278,10 @@ class Battle2FilterWidget extends Widget
         );
     }
 
+    /**
+     * @param int[] $weaponIdList
+     * @return array<string, string|array<string, string>>
+     */
     protected function createMainWeaponList(array $weaponIdList): array
     {
         $ret = [];
@@ -305,7 +311,7 @@ class Battle2FilterWidget extends Widget
                     uasort($weapons, strnatcasecmp(...));
                     $ret[$groupLabel] = count($weapons) > 1
                         ? array_merge(
-                            ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
+                            ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', [$typeName])],
                             $weapons,
                         )
                         : $weapons;
@@ -318,6 +324,10 @@ class Battle2FilterWidget extends Widget
         );
     }
 
+    /**
+     * @param int[] $weaponIdList
+     * @return array<string, string|array<string, string>>
+     */
     protected function createGroupedMainWeaponList(array $weaponIdList): array
     {
         return [
@@ -342,12 +352,16 @@ class Battle2FilterWidget extends Widget
         ];
     }
 
+    /**
+     * @param int[] $weaponIdList
+     * @return array<string, string|array<string, string>>
+     */
     protected function createSubWeaponList(array $weaponIdList): array
     {
         return [
             Yii::t('app', 'Sub Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
-                $list = SubWeapon2::find()
+                $list = Subweapon2::find()
                     ->innerJoinWith('weapons')
                     ->andWhere(['{{weapon2}}.[[id]]' => $weaponIdList])
                     ->asArray()
@@ -361,7 +375,11 @@ class Battle2FilterWidget extends Widget
         ];
     }
 
-    protected function createSpecialWeaponList(array $weaponIdList)
+    /**
+     * @param int[] $weaponIdList
+     * @return array<string, string|array<string, string>>
+     */
+    protected function createSpecialWeaponList(array $weaponIdList): array
     {
         return [
             Yii::t('app', 'Special') => (function () use ($weaponIdList) {
@@ -449,7 +467,7 @@ class Battle2FilterWidget extends Widget
             ->label(false);
     }
 
-    protected function drawTerm(ActiveForm $form)
+    protected function drawTerm(ActiveForm $form): string
     {
         return $this->drawTermMain($form) . $this->drawTermPeriod($form);
     }
@@ -488,13 +506,13 @@ class Battle2FilterWidget extends Widget
                     $result['v' . $version['tag']] = Yii::t(
                         'app',
                         'Version {0}',
-                        Yii::t('app-version2', $version['name']),
+                        [Yii::t('app-version2', $version['name'])],
                     );
                 } elseif ($n > 1) {
                     $result['~v' . $group['tag']] = Yii::t(
                         'app',
                         'Version {0}',
-                        Yii::t('app-version2', $group['name']),
+                        [Yii::t('app-version2', $group['name'])],
                     );
                     usort($group['versions'], fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
                     foreach ($group['versions'] as $i => $version) {
@@ -505,7 +523,7 @@ class Battle2FilterWidget extends Widget
                             Yii::t(
                                 'app',
                                 'Version {0}',
-                                Yii::t('app-version2', $version['name']),
+                                [Yii::t('app-version2', $version['name'])],
                             ),
                         );
                     }

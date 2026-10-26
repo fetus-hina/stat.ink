@@ -17,18 +17,18 @@ use yii\db\ActiveRecord;
  * @property integer $battle_id
  * @property boolean $is_my_team
  * @property boolean $is_me
- * @property integer $weapon_id
- * @property integer $rank_id
- * @property integer $level
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
- * @property integer $point
- * @property integer $my_kill
+ * @property integer|null $weapon_id
+ * @property integer|null $rank_id
+ * @property integer|null $level
+ * @property integer|null $rank_in_team
+ * @property integer|null $kill
+ * @property integer|null $death
+ * @property integer|null $point
+ * @property integer|null $my_kill
  *
  * @property Battle $battle
- * @property Rank $rank
- * @property Weapon $weapon
+ * @property Rank|null $rank
+ * @property Weapon|null $weapon
  */
 class BattlePlayer extends ActiveRecord
 {
@@ -104,7 +104,10 @@ class BattlePlayer extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'team' => $this->is_my_team ? 'my' : 'his',

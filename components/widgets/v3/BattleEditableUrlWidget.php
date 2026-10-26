@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3;
 
-use LogicException;
 use Yii;
 use app\assets\BattleEditAsset;
 use app\components\widgets\Icon;
@@ -97,7 +96,6 @@ final class BattleEditableUrlWidget extends Widget
                                 'id' => $model->uuid,
                             ],
                         ),
-                        default => throw new LogicException(),
                     },
                     'url' => $currentValue,
                 ],

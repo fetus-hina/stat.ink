@@ -136,11 +136,14 @@ final class ResetPasswordApikeyForm extends Model
             return false;
         }
 
-        $user = $this->getUser();
+        if (!$user = $this->getUser()) {
+            return false;
+        }
+
         try {
             Yii::$app->db->transaction(function () use ($user): void {
                 $user->apikey_password_reset = false;
-                if (!$user->changePassword($this->password)) {
+                if (!$user->changePassword(TypeHelper::string($this->password))) {
                     throw new RuntimeException('Failed to change password');
                 }
             });

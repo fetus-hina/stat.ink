@@ -13,6 +13,7 @@ use app\models\SalmonBoss3Alias;
 use app\models\api\v3\postSalmon\BossForm;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
+use Override;
 
 use function array_shift;
 use function in_array;
@@ -24,7 +25,8 @@ final class SalmonBoss3Validator extends Validator
     /**
      * @inheritdoc
      */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -35,7 +37,8 @@ final class SalmonBoss3Validator extends Validator
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         $errors = $this->validateValueImpl($model->$attribute);
         if (!$errors) {
@@ -49,12 +52,14 @@ final class SalmonBoss3Validator extends Validator
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
         $errors = $this->validateValueImpl($value);
         if (!$errors) {
-            return;
+            return null;
         }
 
         return [array_shift($errors), []];

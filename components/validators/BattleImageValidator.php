@@ -7,7 +7,9 @@
 
 namespace app\components\validators;
 
+use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\validators\Validator;
 use yii\web\UploadedFile;
 
@@ -23,10 +25,8 @@ final class BattleImageValidator extends Validator
 {
     public const FILESIZE_LIMIT = 3 * 1024 * 1024;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -37,25 +37,28 @@ final class BattleImageValidator extends Validator
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         if ($this->validateValueImpl($model->$attribute)) {
             return;
         }
 
-        $this->addError($model, $attribute, $this->message);
+        $this->addError($model, $attribute, TypeHelper::string($this->message));
     }
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
         if ($this->validateValueImpl($value)) {
-            return;
+            return null;
         }
 
-        return [$this->message, []];
+        return [TypeHelper::string($this->message), []];
     }
 
     /**

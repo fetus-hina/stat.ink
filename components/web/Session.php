@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use Override;
 use yii\web\DbSession;
 
 use function header;
@@ -14,7 +15,8 @@ use function headers_sent;
 
 final class Session extends DbSession
 {
-    public function open()
+    #[Override]
+    public function open(): void
     {
         if ($this->getIsActive()) {
             return;

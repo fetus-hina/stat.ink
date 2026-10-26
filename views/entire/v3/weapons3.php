@@ -40,7 +40,7 @@ use yii\web\View;
  * @var SplatoonVersion3[] $versions
  * @var SplatoonVersion3|null $version
  * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[] $data
- * @var StatWeapon3XUsageRange $xRange
+ * @var StatWeapon3XUsageRange|null $xRange
  * @var StatWeapon3XUsageRange[] $xRanges
  * @var View $this
  * @var array<int, Lobby3> $lobbies
