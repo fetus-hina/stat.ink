@@ -39,7 +39,12 @@ $canonicalUrl = Url::to(
   true,
 );
 
-$isS3ImgGenAvailable = ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen');
+$s3ImgGenUrl = ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')
+  ? vsprintf('https://s3-img-gen.stats.ink/salmon/%s/%s.jpg', [
+    rawurlencode(Yii::$app->language),
+    rawurlencode($model->uuid),
+  ])
+  : null;
 
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl]);
@@ -52,13 +57,9 @@ if ($user->twitter != '') {
     'content' => sprintf('@%s', $user->twitter),
   ]);
 }
-if ($isS3ImgGenAvailable) {
-  $twitterCardImage = vsprintf('https://s3-img-gen.stats.ink/salmon/%s/%s.jpg', [
-    rawurlencode(Yii::$app->language),
-    rawurlencode($model->uuid),
-  ]);
+if ($s3ImgGenUrl !== null) {
   $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
-  $this->registerMetaTag(['name' => 'twitter:image', 'content' => $twitterCardImage]);
+  $this->registerMetaTag(['name' => 'twitter:image', 'content' => $s3ImgGenUrl]);
 } else {
   $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 }
@@ -120,12 +121,10 @@ $waves = SalmonWave3::find()
   </h1>
   <?= SnsWidget::widget([
     'jsonUrl' => $jsonUrl,
-    'imageUrl' => $isS3ImgGenAvailable
-      ? vsprintf('https://s3-img-gen.stats.ink/salmon/%s/%s.jpg', [
-        rawurlencode(Yii::$app->language),
-        rawurlencode($model->uuid),
-      ])
-      : null,
+    'imageUrl' => $s3ImgGenUrl,
+  ]) . "\n" ?>
+  <?= $this->render('//includes/lazy-images', [
+    'imageUrls' => $s3ImgGenUrl !== null ? [$s3ImgGenUrl] : [],
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">

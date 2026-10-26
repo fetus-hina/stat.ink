@@ -7,13 +7,10 @@
 
 declare(strict_types=1);
 
-use app\assets\BattleImageLazyLoadAsset;
-use app\assets\PhotoSwipeAsset;
 use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 
@@ -41,49 +38,6 @@ if (!$imageUrls && $fallbackImageUrl !== null) {
   $imageUrls[] = $fallbackImageUrl;
 }
 
-if ($imageUrls) {
-  BattleImageLazyLoadAsset::register($this);
-  PhotoSwipeAsset::register($this);
-
-  // Both the uploaded images and the generated images are 16:9 (1280x720 at most).
-  // The real size is set by battle-image-lazy-load.js after the image is loaded.
-  echo Html::tag(
-    'div',
-    implode(
-      '',
-      array_map(
-        fn (string $url): string => Html::tag(
-          'div',
-          Html::a(
-            Html::tag(
-              'span',
-              Html::img($url, [
-                'alt' => '',
-                'decoding' => 'async',
-                'height' => 720,
-                'loading' => 'lazy',
-                'width' => 1280,
-              ]),
-              ['class' => 'battle-image-frame battle-image-loading'],
-            ),
-            $url,
-            [
-              'data' => [
-                'pswp-height' => 720,
-                'pswp-width' => 1280,
-              ],
-            ],
-          ),
-          ['class' => 'col-xs-12 col-md-6 image-container'],
-        ),
-        array_slice($imageUrls, 0, 2),
-      ),
-    ),
-    [
-      'class' => 'row',
-      'data' => [
-        'pswp' => '',
-      ],
-    ],
-  );
-}
+echo $this->render('//includes/lazy-images', [
+  'imageUrls' => array_slice($imageUrls, 0, 2),
+]);
