@@ -14,6 +14,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\Battle3Helper;
 use app\models\Ability3;
 use app\models\Season3;
 use yii\db\Connection;
@@ -45,8 +46,8 @@ trait AverageGPTrait
 
         $threshold = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
             ->setTime(0, 0, 0) // now, 00:00:00 UTC of today
-            ->sub(new DateInterval('P3D')) // 3 days ago
-            ->sub(new DateInterval('PT1S')); // final second of 3 days ago
+            ->sub(new DateInterval(sprintf('P%dD', Battle3Helper::ENTIRE_STATS_RECALC_DAYS))) // N days ago
+            ->sub(new DateInterval('PT1S')); // final second of N days ago
 
         $targetSeasons = Season3::find()
             ->andWhere(['or',
