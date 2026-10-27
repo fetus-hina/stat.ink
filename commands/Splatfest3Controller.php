@@ -11,6 +11,7 @@ namespace app\commands;
 
 use LogicException;
 use Yii;
+use app\components\helpers\Battle3Helper;
 use app\models\Language;
 use app\models\Lobby3;
 use app\models\Rule3;
@@ -80,12 +81,14 @@ final class Splatfest3Controller extends Controller
      */
     private function getUpdateTargetFests(Connection $db, bool $force): array
     {
+        $threshold = $_SERVER['REQUEST_TIME'] - Battle3Helper::ENTIRE_STATS_RECALC_DAYS * 86400;
+
         return Splatfest3::find()
             ->orderBy(['id' => SORT_ASC])
             ->andWhere(['and',
                 $force
                     ? '1 = 1'
-                    : ['>=', 'end_at', gmdate(DATE_ATOM, $_SERVER['REQUEST_TIME'] - 2 * 86400)],
+                    : ['>=', 'end_at', gmdate(DATE_ATOM, $threshold)],
             ])
             ->all($db);
     }

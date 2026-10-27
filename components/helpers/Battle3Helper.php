@@ -25,6 +25,18 @@ use function version_compare;
 final class Battle3Helper
 {
     /**
+     * 全体統計に使用するバトルの、バトル開始から投稿までの最大許容日数
+     */
+    public const ENTIRE_STATS_MAX_DELAY_DAYS = 7;
+
+    /**
+     * 遅延投稿を反映するため、全体統計の集計処理が過去に遡って再集計する日数
+     *
+     * 最大許容日数に余裕を持たせた値
+     */
+    public const ENTIRE_STATS_RECALC_DAYS = self::ENTIRE_STATS_MAX_DELAY_DAYS + 2;
+
+    /**
      * @return string[]
      */
     public static function getRelationsForApiResponse(bool $listed): array

@@ -998,7 +998,7 @@ final class PostBattleForm extends Model
         if (
             !$model->is_automated ||
             !is_int($startAt) ||
-            $startAt < time() - 86400 ||
+            $startAt < time() - Battle3Helper::ENTIRE_STATS_MAX_DELAY_DAYS * 86400 ||
             $startAt > time() ||
             !$model->lobby_id ||
             !$model->rule_id ||
