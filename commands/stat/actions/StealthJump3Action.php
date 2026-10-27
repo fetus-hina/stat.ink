@@ -15,6 +15,7 @@ use DateTimeZone;
 use LogicException;
 use Throwable;
 use Yii;
+use app\components\helpers\Battle3Helper;
 use app\components\helpers\TypeHelper;
 use app\models\Season3;
 use app\models\StatStealthJumpEquipment3;
@@ -31,6 +32,7 @@ use function array_map;
 use function fprintf;
 use function fwrite;
 use function implode;
+use function sprintf;
 use function vsprintf;
 
 use const SORT_ASC;
@@ -166,7 +168,7 @@ final class StealthJump3Action extends Action
         $startDay = new DateTimeImmutable()
             ->setTimezone(new DateTimeZone('Etc/UTC'))
             ->modify('midnight')
-            ->modify('3 days ago');
+            ->modify(sprintf('%d days ago', Battle3Helper::ENTIRE_STATS_RECALC_DAYS));
 
         $endDay = new DateTimeImmutable()
             ->setTimezone(new DateTimeZone('Etc/UTC'))
