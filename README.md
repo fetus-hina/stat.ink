@@ -49,7 +49,7 @@ REQUIREMENTS
     Doesn't work with 8.4 or lower. (Uses statements and constants added in v8.5)
   - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。
     You should build/install with Argon2. Install `php-sodium` if you use remirepo's PHP
-- PostgreSQL 11
+- PostgreSQL 11 or later (recommended: 18)
   - PgSQL 10以下では動作しません（11で追加された機能を利用しています）  
     Doesn't work with 10 or lower. (Uses features added in v11)
 - ImageMagick (`convert`)
@@ -82,9 +82,9 @@ https://stat.ink/ works with:
         - `nodejs`
         - `npm`
 - [PostgreSQL Official Repository](https://www.postgresql.org/download/linux/redhat/)
-    - PostgreSQL 11.x
-      - `postgresql11`
-      - `postgresql11-server`
+    - PostgreSQL 18.x
+      - `postgresql18`
+      - `postgresql18-server`
 - `optipng`
 
 ### MaxMind's Account
