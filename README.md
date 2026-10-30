@@ -52,6 +52,8 @@ REQUIREMENTS
 - PostgreSQL 15 or later (recommended: 18)
   - PgSQL 14以下では動作しません（15で追加された機能を利用しています）  
     Doesn't work with 14 or lower. (Uses features added in v15)
+  - LZ4サポート (`--with-lz4`) が有効化されたPostgreSQLが必要です。PGDGのパッケージや公式Dockerイメージは対応済みです。  
+    You should build/install with LZ4 support (`--with-lz4`). PGDG packages and the official Docker images support it.
 - ImageMagick (`convert`)
 - Node.js (`npm`)
   - Recommended: latest release or latest LTS
