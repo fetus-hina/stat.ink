@@ -52,7 +52,7 @@
     "punycode": "^2.3.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-redux": "^9.3.0",
+    "react-redux": "^9.3.1",
     "sass": "^1.106.1",
     "semver": "^7.8.5",
     "sharp": "^0.35.5",
