@@ -365,11 +365,15 @@ jobs:
           -
             version: '15'
             experimental: false
-            image: 15-alpine
+            image: '15'
           -
-            version: latest
+            version: '18'
             experimental: false
-            image: alpine
+            image: '18'
+          -
+            version: '19rc1'
+            experimental: true
+            image: '19rc1'
     services:
       postgres:
         image: 'postgres:${{ matrix.pgsql.image }}'
