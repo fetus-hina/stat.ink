@@ -363,9 +363,9 @@ jobs:
             experimental: true
         pgsql:
           -
-            version: '11'
+            version: '15'
             experimental: false
-            image: 11-alpine
+            image: 15-alpine
           -
             version: latest
             experimental: false

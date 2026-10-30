@@ -49,9 +49,9 @@ REQUIREMENTS
     Doesn't work with 8.4 or lower. (Uses statements and constants added in v8.5)
   - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。
     You should build/install with Argon2. Install `php-sodium` if you use remirepo's PHP
-- PostgreSQL 11 or later (recommended: 18)
-  - PgSQL 10以下では動作しません（11で追加された機能を利用しています）  
-    Doesn't work with 10 or lower. (Uses features added in v11)
+- PostgreSQL 15 or later (recommended: 18)
+  - PgSQL 14以下では動作しません（15で追加された機能を利用しています）  
+    Doesn't work with 14 or lower. (Uses features added in v15)
 - ImageMagick (`convert`)
 - Node.js (`npm`)
   - Recommended: latest release or latest LTS
