@@ -363,13 +363,17 @@ jobs:
             experimental: true
         pgsql:
           -
-            version: '11'
+            version: '15'
             experimental: false
-            image: 11-alpine
+            image: '15'
           -
-            version: latest
+            version: '18'
             experimental: false
-            image: alpine
+            image: '18'
+          -
+            version: '19rc1'
+            experimental: true
+            image: '19rc1'
     services:
       postgres:
         image: 'postgres:${{ matrix.pgsql.image }}'

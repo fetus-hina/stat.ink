@@ -174,16 +174,14 @@ final class StealthJump3Action extends Action
             ->setTimezone(new DateTimeZone('Etc/UTC'))
             ->modify('today');
 
-        $tsQuery = fn (DateTimeInterface $ts): Expression => new Expression(
-            vsprintf('CAST(%s AS TIMESTAMP(0) WITH TIME ZONE)', [
-                $db->quoteValue($ts->format(DateTimeInterface::ATOM)),
-            ]),
-        );
-
         return Season3::find()
-            ->andWhere(['or',
-                ['@>', 'term', $tsQuery($startDay)],
-                ['@>', 'term', $tsQuery($endDay)],
+            ->andWhere(['&&', 'term',
+                new Expression(
+                    vsprintf("TSTZRANGE(%s, %s, '[]')", [
+                        $db->quoteValue($startDay->format(DateTimeInterface::ATOM)),
+                        $db->quoteValue($endDay->format(DateTimeInterface::ATOM)),
+                    ]),
+                ),
             ])
             ->all($db);
     }
