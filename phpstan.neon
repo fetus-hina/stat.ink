@@ -130,18 +130,7 @@ parameters:
         - actions/api/info/Weapon2Action.php
         - actions/api/info/WeaponAction.php
         - actions/entire/users/Splatoon2.php
-        - actions/entire/users/Splatoon3.php
         - actions/show/v2/UserStatReportAction.php
-        - components/widgets/Battle2FilterWidget.php
-        - models/EntireWeapon2Form.php
-        - views/entire/kd-win2.php
-    -
-      # asArray() queries return arrays, but ActiveQuery types the results by the model
-      identifier: return.type
-      message: '#^Method .+ should return array<int, array<string, mixed>> but returns array<T of array\|yii\\db\\ActiveRecord = array<mixed>\|yii\\db\\ActiveRecord>\.$#'
-      paths:
-        - actions/entire/AgentAction.php
-        - actions/entire/users/Splatoon2.php
     -
       # The grid passes the row models of TModel, which the native type of the closures cannot express
       identifier: argument.type

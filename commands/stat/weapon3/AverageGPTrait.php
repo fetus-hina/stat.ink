@@ -50,21 +50,13 @@ trait AverageGPTrait
             ->sub(new DateInterval('PT1S')); // final second of N days ago
 
         $targetSeasons = Season3::find()
-            ->andWhere(['or',
-                ['@>', 'term',
-                    new Expression(
-                        vsprintf('%s::TIMESTAMP(0) WITH TIME ZONE', [
-                            Yii::$app->db->quoteValue($yesterday->format(DateTimeInterface::ATOM)),
-                        ]),
-                    ),
-                ],
-                ['@>', 'term',
-                    new Expression(
-                        vsprintf('%s::TIMESTAMP(0) WITH TIME ZONE', [
-                            Yii::$app->db->quoteValue($threshold->format(DateTimeInterface::ATOM)),
-                        ]),
-                    ),
-                ],
+            ->andWhere(['&&', 'term',
+                new Expression(
+                    vsprintf("TSTZRANGE(%s, %s, '[]')", [
+                        Yii::$app->db->quoteValue($threshold->format(DateTimeInterface::ATOM)),
+                        Yii::$app->db->quoteValue($yesterday->format(DateTimeInterface::ATOM)),
+                    ]),
+                ),
             ])
             ->all();
 
