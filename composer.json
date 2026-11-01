@@ -68,7 +68,7 @@
     "codeception/specify": "^2.0.0",
     "codeception/verify": "^3.4.0",
     "cotonet/soak-time": "1.1.0",
-    "ergebnis/composer-normalize": "^2.54.0",
+    "ergebnis/composer-normalize": "^2.56.0",
     "jp3cki/coding-standard": "^2.0.0",
     "mspirkov/yii2-phpstan": "~0.15.2",
     "nikic/php-parser": "^4.19.5 || ^5.9.0",
@@ -129,12 +129,12 @@
   },
   "repositories": {
     "private": {
+      "type": "composer",
+      "url": "https://satis.stat.ink",
       "exclude": [
         "statink/yii2-cal-heatmap",
         "statink/yii2-paintball"
-      ],
-      "type": "composer",
-      "url": "https://satis.stat.ink"
+      ]
     },
     "heatmap": {
       "type": "vcs",
