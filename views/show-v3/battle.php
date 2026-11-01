@@ -42,8 +42,7 @@ $canonicalUrl = Url::to(
 );
 
 $isS3ImgGenAvailable = ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen') &&
-  $model->rule &&
-  $model->rule->key !== 'tricolor';
+  $model->rule;
 $s3ImgGenUrl = $isS3ImgGenAvailable
   ? vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
     rawurlencode(Yii::$app->language),
