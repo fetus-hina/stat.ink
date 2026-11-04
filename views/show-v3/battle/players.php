@@ -93,9 +93,9 @@ $filterPlayers = function (array $players, bool $ourTeam, int $team): array {
     ),
     function (BattlePlayer3|BattleTricolorPlayer3 $a, BattlePlayer3|BattleTricolorPlayer3 $b): int {
       return ($a->rank_in_team ?: 5) <=> ($b->rank_in_team ?: 5)
-        ?: ($a->kill ?: -1) <=> ($b->kill ?: -1)
-        ?: ($a->kill_or_assist ?: -1) <=> ($b->kill_or_assist ?: -1)
-        ?: ($a->inked ?: -1) <=> ($b->inked ?: -1)
+        ?: ($b->kill ?: -1) <=> ($a->kill ?: -1)
+        ?: ($b->kill_or_assist ?: -1) <=> ($a->kill_or_assist ?: -1)
+        ?: ($b->inked ?: -1) <=> ($a->inked ?: -1)
         ?: $a->id <=> $b->id;
     },
   );
