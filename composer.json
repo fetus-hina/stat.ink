@@ -179,8 +179,7 @@
     },
     "soak-time-hours": 72,
     "soak-time-whitelist": [
-      "mspirkov/yii2-phpstan",
-      "symfony/mime"
+      "mspirkov/yii2-phpstan"
     ]
   },
   "scripts": {
