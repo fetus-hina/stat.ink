@@ -9,7 +9,7 @@
     "@fortawesome/fontawesome-free": "^7.3.1",
     "@hacceuee/s3-pixel-icons": "^3.2.1",
     "@popperjs/core": "^2.11.8",
-    "@reduxjs/toolkit": "^2.13.0",
+    "@reduxjs/toolkit": "^2.14.0",
     "@types/luxon": "^3.7.6",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
