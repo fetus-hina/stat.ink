@@ -139,7 +139,7 @@ final class DepsController extends Controller
         $sections = [
             '## Security audit / セキュリティ監査',
             '',
-            'Results of `composer audit` / `npm audit --omit=dev`, compared with the lock files before this update.',
+            'Results of `composer audit` / `npm audit`, compared with the lock files before this update.',
             '',
         ];
 
@@ -243,7 +243,7 @@ final class DepsController extends Controller
     private function runNpmAudit(string $dir): ?array
     {
         return $this->runAuditCommand(
-            ['npm', 'audit', '--package-lock-only', '--omit=dev', '--json'],
+            ['npm', 'audit', '--package-lock-only', '--json'],
             $dir,
         );
     }
