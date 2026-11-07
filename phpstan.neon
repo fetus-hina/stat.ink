@@ -147,10 +147,6 @@ parameters:
       message: '#^Call to an undefined method Deployer\\Host\\Host\|Deployer\\Support\\ObjectProxy::set\(\)\.$#'
       path: deploy/deploy.php
     -
-      # Reads the template after __halt_compiler()
-      identifier: argument.invalidConstant
-      path: components/widgets/SalmonStatsHistoryWidget.php
-    -
       # The API reports the errors of the players nested under the attribute
       identifier: argument.type
       message: '#^Parameter \#2 \$error of method yii\\base\\Model::addError\(\) expects string, array<string, array<string>> given\.$#'
