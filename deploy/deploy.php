@@ -98,7 +98,7 @@ before('deploy:vendors', function (): void {
 task('deploy:vendors', function (): void {
     within('{{release_or_current_path}}', function (): void {
         run('{{bin/composer}} {{composer_action}} {{composer_options}} 2>&1');
-        run('{{bin/npm}} clean-install');
+        run('{{bin/npm}} clean-install --include=dev');
     });
 });
 
