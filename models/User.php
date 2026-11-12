@@ -477,7 +477,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     // IdentityInterface
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function findIdentityByAccessToken(#[SensitiveParameter] $token, $type = null)
     {
         return static::findOne(['api_key' => trim((string)$token)]);
     }
@@ -501,11 +501,13 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     // IdentityInterface
-    public function validateAuthKey($authKey)
+    public function validateAuthKey(#[SensitiveParameter] $authKey)
     {
         $authKey = trim((string)$authKey);
 
-        Yii::beginProfile($authKey, __METHOD__);
+        // Do not use the raw auth key as the profiling token, so that it is not logged
+        $profileToken = "user #{$this->id}";
+        Yii::beginProfile($profileToken, __METHOD__);
         $query = UserAuthKey::find()
             ->andWhere([
                 'user_id' => $this->id,
@@ -522,7 +524,7 @@ class User extends ActiveRecord implements IdentityInterface
                 break;
             }
         }
-        Yii::endProfile($authKey, __METHOD__);
+        Yii::endProfile($profileToken, __METHOD__);
 
         return $result;
     }
