@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
+use SensitiveParameter;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -32,7 +33,7 @@ use const PHP_VERSION;
 
 class Password
 {
-    public static function hash(string $password): string
+    public static function hash(#[SensitiveParameter] string $password): string
     {
         $algo = self::currentAlgo();
         return password_hash(
@@ -41,10 +42,8 @@ class Password
         );
     }
 
-    public static function verify(
-        string $password,
-        string $hash,
-    ): bool {
+    public static function verify(#[SensitiveParameter] string $password, string $hash): bool
+    {
         return password_verify(
             self::preprocess($password, self::detectAlgorithm($hash)),
             $hash,
@@ -74,7 +73,7 @@ class Password
         return password_needs_rehash($hash, self::currentAlgo());
     }
 
-    private static function preprocess(string $password, string $algo): string
+    private static function preprocess(#[SensitiveParameter] string $password, string $algo): string
     {
         if ($algo !== PASSWORD_BCRYPT) {
             return $password;
