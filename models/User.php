@@ -11,6 +11,7 @@ use DateTime;
 use DateTimeZone;
 use Override;
 use RuntimeException;
+use SensitiveParameter;
 use Throwable;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
@@ -549,7 +550,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasPassword() || (int)$this->getUserPasskeys()->count() > 1;
     }
 
-    public function validatePassword(mixed $password): bool
+    public function validatePassword(#[SensitiveParameter] mixed $password): bool
     {
         if ($this->password === null) {
             // Spend the same time as a real verification, so as not to reveal
@@ -561,7 +562,7 @@ class User extends ActiveRecord implements IdentityInterface
         return Password::verify((string)$password, $this->password);
     }
 
-    public function rehashPasswordIfNeeded(string $password): bool
+    public function rehashPasswordIfNeeded(#[SensitiveParameter] string $password): bool
     {
         if ($this->password === null || !Password::needsRehash($this->password)) {
             return false;
@@ -570,7 +571,7 @@ class User extends ActiveRecord implements IdentityInterface
         return true;
     }
 
-    public function changePassword(string $newPassword): bool
+    public function changePassword(#[SensitiveParameter] string $newPassword): bool
     {
         $this->password = Password::hash($newPassword);
         if (!$this->save()) {

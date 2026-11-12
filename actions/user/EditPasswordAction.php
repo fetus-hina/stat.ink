@@ -11,6 +11,7 @@ namespace app\actions\user;
 
 use Override;
 use RuntimeException;
+use SensitiveParameter;
 use Throwable;
 use Yii;
 use app\components\helpers\PasskeyReauth;
@@ -73,7 +74,7 @@ class EditPasswordAction extends BaseAction
         ]);
     }
 
-    private function changePassword(User $user, string $newPassword): bool
+    private function changePassword(User $user, #[SensitiveParameter] string $newPassword): bool
     {
         try {
             Yii::$app->db->transaction(function () use ($user, $newPassword): void {
