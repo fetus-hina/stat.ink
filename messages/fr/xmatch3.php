@@ -31,7 +31,7 @@ return [
     'Long' => 'Longue Portée',
     'M' => 'M',
     'Matching Range' => 'Portée (création de match)',
-    'Matchmaking Group for {fromSeason} through {toSeason}' => 'Groupemment de création de Match de {fromSeason} jusqu\'a {toSeason}',
+    'Matchmaking Group for {fromSeason} through {toSeason}' => 'Groupe de matchmaking de {fromSeason} à {toSeason}',
     'Matchmaking Group from {fromSeason}' => 'Groupe de création de match depuis {fromSeason}',
     'Middle' => 'Mi-Distance',
     'S' => 'S',

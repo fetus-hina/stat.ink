@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 return [
     'Anarchy Power' => 'Anarchie Power',
-    'Check with Setup Analyzer' => 'Verifier avec le Setup Analyser',
+    'Check with Setup Analyzer' => 'Vérifier avec le Setup Analyzer',
     'Completed!' => 'Complété !',
     'Correction' => 'Correction',
-    'Correction Value' => 'Valeur de corrrection',
+    'Correction Value' => 'Valeur de correction',
     'Default Order' => 'Ordre par défaut',
     'Highest First' => 'Plus élevés d\'abord',
     'Level (After)' => 'Niveau (après)',
@@ -23,7 +23,7 @@ return [
     'Mode (Icon)' => 'Mode (icône)',
     'Power' => 'Power',
     'Power (After)' => 'Power (après)',
-    'Progress' => 'Progres',
+    'Progress' => 'Progression',
     'Rank-up Battle' => 'Match de rang',
     'Regardless of your time zone setting, it is grouped using UTC.' => 'Quel que soit votre paramètre de fuseau horaire, il est regroupé en UTC.',
     'Series Progress' => 'Progression des Séries',
@@ -38,5 +38,5 @@ return [
     '{name}\'s Battle Stats (Medals)' => 'Stats de match de {name} (Médailles)',
     '{name}\'s Battle Stats (Winning Rate)' => 'Stats de matchs de {name} (par taux de victoires)',
     '{name}\'s X Power' => 'X Power de {name}',
-    '{nFormatted} remaining' => '{nFormatted} restant',
+    '{nFormatted} remaining' => '{nFormatted} restant(s)',
 ];

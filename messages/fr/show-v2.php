@@ -24,7 +24,7 @@ return [
     'Search {date}' => 'Rechercher {date}',
     'Special Battle (Fest)' => 'Match Spécial (festival)',
     'Splatfest Power (Normal)' => 'Power du Splatfest (Normal)',
-    'Splatfest Power (Pro)' => 'Power du Splatfest(Pro)',
+    'Splatfest Power (Pro)' => 'Power du Splatfest (Défi)',
     'Splatfest Region:' => 'Région du festival :',
     'Splatfest Title (After)' => 'Titre de festival (après)',
     'SplatNet Battle #' => 'Match SplatNet #',

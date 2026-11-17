@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -16,11 +16,11 @@ return [
     'Cookie ID (Name)' => 'ID Cookie (Nom)',
     'Cookies' => 'Cookies',
     'descriptions' => 'Descriptions',
-    'Expires' => 'Expiré',
+    'Expires' => 'Expiration',
     'I agree' => 'J\'accepte',
-    'Issued and used by CloudFlare' => 'Émit et utilisé par CloudFlare',
-    'Issued and used by Twitter' => 'Émit et utilisé par Twitter',
-    'Keep your input data while verifying email address' => 'Gardez votre donnée que vous avez entrée pendant qu\'on vérifie l\'adresse email',
+    'Issued and used by CloudFlare' => 'Émis et utilisé par CloudFlare',
+    'Issued and used by Twitter' => 'Émis et utilisé par Twitter',
+    'Keep your input data while verifying email address' => 'Conserver les données saisies pendant la vérification de l\'adresse e-mail',
     'Origin' => 'Origine',
     'Privacy policy' => 'Politique de confidentialité',
     'privacy policy' => 'politique de confidentialité',

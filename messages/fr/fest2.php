@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2021-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2021-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -37,7 +37,7 @@ return [
     'Friend' => 'Ami',
     'Fries' => 'Frites',
     'Front Roll' => 'Par dessus',
-    'Future Tech' => 'Technologie Avancé',
+    'Future Tech' => 'Technologie avancée',
     'Gherk-IN' => 'Miam',
     'Gherk-OUT' => 'Beurk',
     'Grown-Up' => 'Âge Adulte',
@@ -46,7 +46,7 @@ return [
     'Hare' => 'Lièvre',
     'Hello Kitty' => 'Hello Kitty',
     'Hero' => 'Hero',
-    'Inner Wear' => 'Sous-Vêtements Thermique',
+    'Inner Wear' => 'Sous-vêtements thermiques',
     'Invisibility' => 'Invisibilité',
     'Ketchup' => 'Ketchup',
     'Kid' => 'Enfant',
@@ -54,7 +54,7 @@ return [
     'Koshian' => 'Koshian',
     'Lemon' => 'Citron',
     'Leo' => 'Leonardo',
-    'Love' => 'Armour',
+    'Love' => 'Amour',
     'Mayo' => 'Mayonnaise',
     'McNuggets' => 'McNuggets',
     'Mikey' => 'Mikey',
@@ -82,13 +82,13 @@ return [
     'Raph' => 'Raph',
     'Relax' => 'Détente',
     'Retro' => 'Rétro',
-    'Salsa' => 'Salso',
-    'Salty' => 'Sel',
+    'Salsa' => 'Salsa',
+    'Salty' => 'Salé',
     'Save It' => 'À la Fin',
-    'Sci-Fi' => 'Scince-Fiction',
+    'Sci-Fi' => 'Science-fiction',
     'Soccer' => 'Football',
     'Sock' => 'Chaussettes',
-    'Spoon' => 'Couillière',
+    'Spoon' => 'Cuillère',
     'Squid' => 'Calamars',
     'Super Mushroom' => 'Super Champignon',
     'Super Star' => 'Super Star',
@@ -96,15 +96,15 @@ return [
     'Sweet' => 'Sucré',
     'Teleportation' => 'Espace',
     'Time Travel' => 'Temps',
-    'Tortoise' => 'Torture',
+    'Tortoise' => 'Tortue',
     'Treat' => 'Bonbons',
     'Trick' => 'Tours',
-    'Tsubuan' => 'Wisecracker',
+    'Tsubuan' => 'Tsubuan',
     'Tsukkomi' => 'Samourai',
     'Unicorn' => 'Licorne',
     'Vampire' => 'Vampire',
     'Villain' => 'Méchants',
-    'Waffle' => 'Gauffre',
+    'Waffle' => 'Gaufre',
     'Warm' => 'Chaud',
     'Werewolf' => 'Loup-Garou',
     'Wizard' => 'Sorcière',

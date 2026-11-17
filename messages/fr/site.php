@@ -20,5 +20,5 @@ return [
     'Stats: Stages' => 'Stats : Stages',
     'Stats: User Activity' => 'Stats : Activité',
     'Your Battles' => 'Vos matchs',
-    '{siteName} Discord Community' => '{siteName} Discord Community',
+    '{siteName} Discord Community' => 'Communauté Discord de {siteName}',
 ];
