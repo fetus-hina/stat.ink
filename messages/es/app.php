@@ -191,7 +191,7 @@ return [
     'Weapons' => 'Armas',
     'X Power' => 'Poder X',
     'X Power (after)' => 'Poder X (después)',
-    'You must agree to the above to delete this battle.' => 'Debes aceptar lo anterior para eliminar esta batalla.',
+    'You must agree to the above to delete this battle.' => 'Debe aceptar lo anterior para eliminar esta batalla.',
     '{0} etc.' => '{0} etc.',
     '{decimal5_7} Format' => 'Formato {decimal5_7}',
     '{from} - {to}' => '{from} - {to}',

@@ -12,7 +12,7 @@ return [
     'Download Stats' => 'Descargar estadísticas',
     'FAQ' => 'Preguntas frecuentes',
     'Getting Started' => 'Empezando',
-    'Join us' => 'Únete a nosotros',
+    'Join us' => 'Únase a nosotros',
     'K/D vs Win %' => 'K/D vs % de victorias',
     'Open Source Licenses' => 'Licencias de código abierto',
     'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => 'Para cualquier problema o duda sobre el funcionamiento de cada aplicación, consulte el proyecto correspondiente.',
