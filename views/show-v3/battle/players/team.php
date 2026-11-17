@@ -56,7 +56,7 @@ $totalK = $total('kill');
 $totalD = $total('death');
 
 $avgMR = null;
-if ($isXmatch && $useXMatchingRange && count($players) > 0) {
+if ($useXMatchingRange && count($players) > 0) {
   $tmpTotal = array_reduce(
     array_map(
       fn (BattlePlayer3|BattleTricolorPlayer3 $model): ?float => filter_var(
@@ -101,7 +101,7 @@ if ($colorClass) {
     $this->render('team-name', compact('ourTeam', 'role', 'theme')),
     ['colspan' => $isXmatch && !$useXMatchingRange ? '4' : '3'],
   ) . "\n"?>
-<?php if ($isXmatch && $useXMatchingRange) { ?>
+<?php if ($useXMatchingRange) { ?>
   <td class="text-right"><?= $f->asDecimal($avgMR, 2) ?></td>
 <?php } ?>
   <td class="text-right"><?= $f->asInteger($total('inked')) ?></td>

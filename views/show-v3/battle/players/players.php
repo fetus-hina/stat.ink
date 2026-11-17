@@ -39,9 +39,13 @@ $isXmatch = $battle->lobby?->key === 'xmatch';
 $isXMR = false;
 $isTricolor = $battle->rule?->key === 'tricolor';
 
+// Matching Range (MR) based team division:
+//   - X Match: since v11.1.0
+//   - Anarchy Series (Challenge): since v12.0.0 ("same team division as X Match").
+$versionTag = $battle->version->tag ?? '0.0.0';
 if (
-  $isXmatch &&
-  version_compare($battle->version->tag ?? '0.0.0', '11.1.0', '>=')
+  ($isXmatch && version_compare($versionTag, '11.1.0', '>=')) ||
+  ($battle->lobby?->key === 'bankara_challenge' && version_compare($versionTag, '12.0.0', '>='))
 ) {
   $isXMR = true;
 }
@@ -103,18 +107,19 @@ if ($isTricolor) {
         <th class="text-nowrap text-center" style="width:38px"><span class="fa"></span></th>
         <th class="text-nowrap text-center col-name"><?= Html::encode(Yii::t('app', 'Name')) ?></th>
         <th class="text-nowrap text-center col-weapon"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
-<?php if ($isXmatch) { ?>
-        <th class="text-nowrap text-center col-x">
 <?php if ($isXMR) { ?>
+        <th class="text-nowrap text-center col-x">
           <?= Html::tag(
             'span',
-            Icon::s3LobbyX() . Html::encode(' MR'),
+            (Icon::s3Lobby($battle->lobby) ?? '') . Html::encode(' MR'),
             [
               'class' => 'auto-tooltip',
               'title' => Yii::t('app-xmatch3', 'Matching Range'),
             ],
           ) . "\n" ?>
-<?php } else { ?>
+        </th>
+<?php } elseif ($isXmatch) { ?>
+        <th class="text-nowrap text-center col-x">
           <?= Html::tag(
             'span',
             Html::encode('X'),
@@ -123,7 +128,7 @@ if ($isTricolor) {
               'title' => Yii::t('app-xmatch3', 'X: Match making group'),
             ],
           ) . "\n" ?>
-<?php } ?>
+        </th>
 <?php } ?>
         <th class="text-nowrap text-center col-inked"><?= Html::encode(Yii::t('app-results', 'Inked')) ?></th>
         <th class="text-nowrap text-center col-kill"><?= implode(' ', [
