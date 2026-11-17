@@ -53,7 +53,7 @@ return [
     'Occurrence %' => 'Fréquence %',
     'Official Thresholds' => 'Limite officiel',
     'Pay Grade' => 'Évaluation',
-    'People You Played With' => 'Les joueurs avec qui tu as joué avec',
+    'People You Played With' => 'Joueurs avec qui vous avez joué',
     'Per-Rotation Stats' => 'Stat par rotation',
     'Personal' => 'Personnel',
     'Played' => 'Joué',

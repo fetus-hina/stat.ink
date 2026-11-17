@@ -164,7 +164,7 @@ return [
     'Verify with your passkey and disable password' => 'Vérifier avec votre clé d\'accès et désactiver le mot de passe',
     'We\'ll send an email when you log in to the website or change your password.' => 'Nous allons envoyer un email quand vous vous connecterez ou que vous changerez votre mot de passe.',
     'Webhook URL' => 'URL du webhook',
-    'You' => 'Toi',
+    'You' => 'Vous',
     'You can\'t use an IDN (Internationalized Domain Names) email address' => 'Vous ne pouvez pas utiliser une adresse email IDN (Nom de domaine internationalisé)',
     'You cannot use the same {attribute} as your current one.' => 'Vous ne pouvez pas utiliser le même {attribute} que l\'actuel.',
     'You can set a password again from your profile page after verifying with your passkey.' => 'Vous pourrez de nouveau définir un mot de passe depuis votre page de profil après vérification avec votre clé d\'accès.',

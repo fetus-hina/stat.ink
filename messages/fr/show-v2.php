@@ -15,7 +15,7 @@ return [
     'Fest Power (Normal)' => 'Fest Power (Normal)',
     'Fest Power (Pro)' => 'Fest Power (Défi)',
     'Guessed:' => 'Deviné :',
-    'Guess the region' => 'Devine la région.',
+    'Guess the region' => 'Devinez la région',
     'k+a/sp' => 'k+a/sp',
     'K/min' => 'K/min',
     'Room' => 'Salon',
