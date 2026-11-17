@@ -67,6 +67,12 @@ UserStatReportAsset::register($this);
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9 mb-3">
       <?= Html::tag('h2', Html::encode($monthText)) . "\n" ?>
+      <?= $this->render('year-month/switch-report', [
+        'form' => $form,
+        'label' => Yii::t('app-user-mini-info', 'Monthly Report'),
+        'route' => 'show-v3/stats-monthly-report',
+        'user' => $user,
+      ]) . "\n" ?>
       <?= $this->render('year-month/pager', [
         'form' => $form,
         'registerLinkTags' => true,

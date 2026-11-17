@@ -17,6 +17,7 @@ use app\actions\show\v3\stats\CorrectionBadgeAction;
 use app\actions\show\v3\stats\DailyReportAction;
 use app\actions\show\v3\stats\MapRuleAction;
 use app\actions\show\v3\stats\MedalAction;
+use app\actions\show\v3\stats\MonthlyReportAction;
 use app\actions\show\v3\stats\SeasonXPowerAction;
 use app\actions\show\v3\stats\WeaponsAction;
 use app\actions\show\v3\stats\WinRateAction;
@@ -71,6 +72,7 @@ final class ShowV3Controller extends Controller
             'stats-daily-report' => DailyReportAction::class,
             'stats-map-rule' => MapRuleAction::class,
             'stats-medal' => MedalAction::class,
+            'stats-monthly-report' => MonthlyReportAction::class,
             'stats-weapons' => WeaponsAction::class,
             'stats-win-rate' => WinRateAction::class,
             'stats-season-x-power' => SeasonXPowerAction::class,
