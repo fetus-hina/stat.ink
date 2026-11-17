@@ -14,6 +14,6 @@ return [
     'Recent Use %' => 'Recent gebruik %',
     'Scheduled' => 'Gepland',
     'Session History' => 'Geschiedenis',
-    'Weapons\' icon were created by {0}.' => 'De wapeniconen zijn gemaakt door {0}.',
+    'Weapons\' icon were created by {0}.' => 'De wapenpictogrammen zijn gemaakt door {0}.',
     'Weapon Trends' => 'Wapentrends',
 ];
