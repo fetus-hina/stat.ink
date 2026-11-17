@@ -30,7 +30,7 @@ return [
     'k+a' => 'k+a',
     'K.O.' => 'Palizón',
     'K/D' => 'K/D',
-    'Kill / Death' => 'Asesinatos / Muertes',
+    'Kill / Death' => 'Asesinatos / muertes',
     'Kill or Assist' => 'Asesinato o asistencia',
     'Kill Rate' => 'Tasa de asesinatos',
     'Kill Ratio' => 'Proporción de asesinatos',

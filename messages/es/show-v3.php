@@ -15,7 +15,7 @@ return [
     'Correction Value' => 'Valor de corrección',
     'Default Order' => 'Orden predeterminado',
     'Highest First' => 'Mayor primero',
-    'Level (After)' => 'Nivel (Después)',
+    'Level (After)' => 'Nivel (después)',
     'Lobby (Icon)' => 'Vestíbulo (icono)',
     'Mains' => 'Principales',
     'Medal' => 'Galardón',
