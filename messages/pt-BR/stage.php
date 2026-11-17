@@ -15,5 +15,5 @@ return [
     'Scheduled' => 'Agendado',
     'Session History' => 'Histórico da sessão',
     'Weapons\' icon were created by {0}.' => 'Os ícones das armas foram criados por {0}.',
-    'Weapon Trends' => 'Tendências de Arma',
+    'Weapon Trends' => 'Tendências de arma',
 ];
