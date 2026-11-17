@@ -102,7 +102,7 @@ return [
     'Login' => 'Entrar',
     'Main Weapon' => 'Arma Principal',
     'Many' => 'Vários',
-    'MMMM y' => 'MMMM a',
+    'MMMM y' => 'MMMM \'de\' y',
     'Mode' => 'Modo',
     'My team\'s splatfest power' => 'Poder de Splatfest do meu time',
     'Name' => 'Nome',

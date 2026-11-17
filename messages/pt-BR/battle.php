@@ -77,7 +77,7 @@ return [
     'Win streak (Bad guys)' => 'Sequência de vitórias (time inimigo)',
     'Win streak (Good guys)' => 'Sequência de vitórias (seu time)',
     'X Power (After the battle)' => 'Poder X (após a partida)',
-    'You can delete this battle.' => 'Você não pode apagar essa partida.',
+    'You can delete this battle.' => 'Você pode apagar esta partida.',
     '{name}\'s Battle Report' => 'Relatório de Partida do(a) {name}',
     '{name}\'s Battle Stats (by Mode and Stage)' => 'Estatísticas de partida do(a) {name} (por Modo e Mapa)',
     '{name}\'s Battle Stats (by Weapon)' => 'Estatísticas de partida do(a) {name} (por Arma)',

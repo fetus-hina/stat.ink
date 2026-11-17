@@ -177,5 +177,5 @@ return [
     'Your password is currently disabled. You can set a new password after verifying with your passkey.' => 'Sua senha está desativada no momento. Você pode definir uma nova senha após verificar com sua chave de acesso.',
     'Your profile icon has been updated.' => 'Seu ícone de perfil foi atualizado',
     '{0}×{1} or less resolution' => '{0}×{1} ou menor resolução',
-    '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute} deve ser pelo menos 15 caracteres alfanuméricos ou underlines',
+    '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute} deve ter no máximo 15 caracteres alfanuméricos ou sublinhados.',
 ];

@@ -73,7 +73,7 @@ return [
     'Team total Power Eggs' => 'Total de Ovas da Equipe',
     'Team total Power Eggs per Wave' => 'Total de Ovas da Equipe por Onda',
     'These statistics are based only on the results of games that have been cleared.' => 'Estas estatísticas são baseadas apenas nos resultados das partidas concluídas com sucesso.',
-    'This/Last Rotation' => '   Rotação mais recente',
+    'This/Last Rotation' => 'Rotação atual/anterior',
     'Time' => 'Tempo',
     'Time is up' => 'O tempo acabou',
     'Total Golden Eggs' => 'Total de Ovos de Ouro',
