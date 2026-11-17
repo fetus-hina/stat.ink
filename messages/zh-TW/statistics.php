@@ -14,6 +14,8 @@ return [
     'Bin Width' => '組距',
     'IQR' => '四分位距',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '最大值={max} 最小值={min} 平均值={avg} 中位數={median} 眾數={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => '最大值={max} 最小值={min} 平均值={avg} 中位數={median} 眾數={mode} 標準差={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => '最大值={max} 最小值={min} 平均值={avg} 中位數={median} 標準差={stddev}',
     'max={max} min={min} median={median}' => '最大值={max} 最小值={min} 中位數={median}',
     'max={max} min={min} median={median} stddev={stddev}' => '最大值={max} 最小值={min} 中位數={median} 標準差={stddev}',
     'Maximum' => '最大值',

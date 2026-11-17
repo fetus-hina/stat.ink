@@ -14,6 +14,8 @@ return [
     'Bin Width' => 'Ancho de clase',
     'IQR' => 'RIC',
     'max={max} min={min} average={avg} median={median} mode={mode}' => 'máx.={max} mín.={min} media={avg} mediana={median} moda={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => 'máx.={max} mín.={min} media={avg} mediana={median} moda={mode} desv. est.={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => 'máx.={max} mín.={min} media={avg} mediana={median} desv. est.={stddev}',
     'max={max} min={min} median={median}' => 'máx.={max} mín.={min} mediana={median}',
     'max={max} min={min} median={median} stddev={stddev}' => 'máx.={max} mín.={min} mediana={median} desv. est.={stddev}',
     'Maximum' => 'Máximo',

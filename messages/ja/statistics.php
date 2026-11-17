@@ -14,6 +14,8 @@ return [
     'Bin Width' => '階級の幅',
     'IQR' => '四分位範囲',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 最頻値={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 最頻値={mode} 標準偏差={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 標準偏差={stddev}',
     'max={max} min={min} median={median}' => '最大={max} 最小={min} 中央値={median}',
     'max={max} min={min} median={median} stddev={stddev}' => '最大={max} 最小={min} 中央値={median} 標準偏差={stddev}',
     'Maximum' => '最大',

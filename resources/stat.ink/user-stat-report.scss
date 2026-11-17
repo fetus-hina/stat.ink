@@ -1,6 +1,10 @@
-/*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2026 AIZAWA Hina | MIT License */
 
 .row-date {
   background-color: #444 !important;
   color: #ddd !important;
+}
+
+.row-date a {
+  color: inherit;
 }

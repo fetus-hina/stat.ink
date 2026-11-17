@@ -14,6 +14,8 @@ return [
     'Bin Width' => '계급 폭',
     'IQR' => '사분위 범위',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '최대={max} 최소={min} 평균={avg} 중앙값={median} 최빈값={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => '최대={max} 최소={min} 평균={avg} 중앙값={median} 최빈값={mode} 표준편차={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => '최대={max} 최소={min} 평균={avg} 중앙값={median} 표준편차={stddev}',
     'max={max} min={min} median={median}' => '최대={max} 최소={min} 중앙값={median}',
     'max={max} min={min} median={median} stddev={stddev}' => '최대={max} 최소={min} 중앙값={median} 표준편차={stddev}',
     'Maximum' => '최대',

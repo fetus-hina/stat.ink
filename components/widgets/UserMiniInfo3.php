@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\actions\show\v3\stats\RuleTrendAction;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\v3\userMiniInfo\PerLobby;
 use app\components\widgets\v3\userMiniInfo\Total;
@@ -242,11 +243,18 @@ final class UserMiniInfo3 extends Widget
         $user = $this->user;
         $links = [
             Yii::t('app-user-mini-info', 'Stats (Win %)') => ['show-v3/stats-win-rate', 'screen_name' => $user->screen_name],
+            Yii::t('app-user-mini-info', 'Stats (by Mode)') => [
+                'show-v3/stats-rule-trend',
+                'screen_name' => $user->screen_name,
+                'rule' => RuleTrendAction::DEFAULT_RULE,
+            ],
             Yii::t('app-user-mini-info', 'Stats (by Mode and Stage)') => ['show-v3/stats-map-rule', 'screen_name' => $user->screen_name],
             Yii::t('app-user-mini-info', 'Stats (by Weapon)') => ['show-v3/stats-weapons', 'screen_name' => $user->screen_name],
             Yii::t('app-user-mini-info', 'Stats (X Power)') => ['show-v3/stats-season-x-power', 'screen_name' => $user->screen_name],
             Yii::t('app-user-mini-info', 'Stats (Medals)') => ['show-v3/stats-medal', 'screen_name' => $user->screen_name],
             Yii::t('app', 'Badge Progress') => ['show-v3/stats-badge', 'screen_name' => $user->screen_name],
+            Yii::t('app-user-mini-info', 'Daily Report') => ['show-v3/stats-daily-report', 'screen_name' => $user->screen_name],
+            Yii::t('app-user-mini-info', 'Monthly Report') => ['show-v3/stats-monthly-report', 'screen_name' => $user->screen_name],
         ];
 
         return Html::tag(

@@ -18,6 +18,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property string $short_name
  * @property integer $rank
  * @property integer $group_id
  *
@@ -37,10 +38,11 @@ class Lobby3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name', 'rank', 'group_id'], 'required'],
+            [['key', 'name', 'short_name', 'rank', 'group_id'], 'required'],
             [['rank', 'group_id'], 'default', 'value' => null],
             [['rank', 'group_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
+            [['short_name'], 'string'],
             [['key'], 'unique'],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => LobbyGroup3::class, 'targetAttribute' => ['group_id' => 'id']],
         ];
@@ -52,6 +54,7 @@ class Lobby3 extends ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+            'short_name' => 'Short Name',
             'rank' => 'Rank',
             'group_id' => 'Group ID',
         ];
