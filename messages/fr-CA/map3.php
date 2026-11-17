@@ -11,7 +11,7 @@ return [
     'Academy' => '',
     'Airport' => '',
     'Alley' => '',
-    'Any Stage' => '',
+    'Any Stage' => 'Toutes les cartes',
     'Arena' => '',
     'B&D' => '',
     'Barnacle & Dime' => '',

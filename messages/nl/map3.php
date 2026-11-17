@@ -11,7 +11,7 @@ return [
     'Academy' => 'Campus',
     'Airport' => 'Airport',
     'Alley' => 'Viaduct',
-    'Any Stage' => '',
+    'Any Stage' => 'Alle levels',
     'Arena' => 'Vechtfuik',
     'B&D' => 'Winkelcentrum',
     'Barnacle & Dime' => 'Winkelcentrum Poon & Zeehaan',

@@ -11,7 +11,7 @@ return [
     'Academy' => 'Institut',
     'Airport' => 'Terminal',
     'Alley' => 'Banlieue',
-    'Any Stage' => 'Tous les Stages',
+    'Any Stage' => 'Tous les stages',
     'Arena' => 'Colisée',
     'B&D' => 'Halles',
     'Barnacle & Dime' => 'Halles de Port-merlu',

@@ -11,7 +11,7 @@ return [
     'Academy' => 'Instituto',
     'Airport' => 'Aeropuerto',
     'Alley' => 'Callejones',
-    'Any Stage' => '',
+    'Any Stage' => 'Cualquier escenario',
     'Arena' => 'Coliseo',
     'B&D' => 'Centro Comercial',
     'Barnacle & Dime' => 'Centro Comercial Fletán',

@@ -11,7 +11,7 @@ return [
     'Academy' => 'Campus',
     'Airport' => 'Aeroporto',
     'Alley' => 'Sobborgo',
-    'Any Stage' => '',
+    'Any Stage' => 'Qualsiasi scenario',
     'Arena' => 'Ossoscosso',
     'B&D' => 'Empolporio',
     'Barnacle & Dime' => 'Empolporio',
