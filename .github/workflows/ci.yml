@@ -150,7 +150,7 @@ jobs:
           node-version: '${{ env.NODE_VERSION }}'
       -
         name: 'Run `eslint` (neostandard)'
-        run: 'npx eslint "resources/**/*.[ej]s"'
+        run: 'npx eslint "resources/**/*.{es,js,ts,tsx}"'
   cssStyleCheck:
     name: 'CSS Coding Style'
     runs-on: ubuntu-24.04

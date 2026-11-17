@@ -11,9 +11,9 @@ export default function CounterDisplay (props: CounterDisplayProps) {
   const strValue = value !== null ? String(value) : '-'.repeat(digit);
   const padding = (strValue.length < digit)
     ? (
-      <span className={classes.padding} aria-hidden='true'>
-        {'!'.repeat(digit - strValue.length)}
-      </span>
+        <span className={classes.padding} aria-hidden='true'>
+          {'!'.repeat(digit - strValue.length)}
+        </span>
       )
     : null;
 

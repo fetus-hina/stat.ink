@@ -228,7 +228,7 @@ phpstan: vendor deploy/vendor $(SIMPLE_CONFIG_TARGETS) config/cookie-secret.php 
 
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
-	npx eslint 'resources/**/*.[ej]s'
+	npx eslint 'resources/**/*.{es,js,ts,tsx}'
 
 check-style-css: node_modules
 	npx stylelint "resources/**/*.scss" "resources/**/*.css"
@@ -236,7 +236,7 @@ check-style-css: node_modules
 fix-style: vendor node_modules
 	npx updates -u --minor bootstrap,bootswatch
 	vendor/bin/phpcbf -p
-	npx eslint --fix 'resources/**/*.[ej]s'
+	npx eslint --fix 'resources/**/*.{es,js,ts,tsx}'
 
 clean: clean-resource
 	rm -rf \
