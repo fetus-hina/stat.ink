@@ -18,7 +18,7 @@ return [
     'Stats (by Stage)' => 'Stats (par stage)',
     'Stats (by Weapon)' => 'Stats (par arme)',
     'Stats (Cause of Death)' => 'Stats (causes de mort)',
-    'Stats (Medals)' => 'Stats (Médailles)',
+    'Stats (Medals)' => 'Stats (médailles)',
     'Stats (Ranked Battle)' => 'Stats (Match pro)',
     'Stats (Splatfest)' => 'Stats (festival)',
     'Stats (Turf War)' => 'Stats (Guerre de territoire)',
@@ -28,6 +28,6 @@ return [
     'Stats ({rule})' => 'Stats ({rule})',
     'Total Inked' => 'Encrage total',
     '{point, plural, other{#p}}' => '{point, plural, other{#p}}',
-    '{rule}: Current' => '{rule} : Actuel',
-    '{rule}: Peak' => '{rule} : Max',
+    '{rule}: Current' => '{rule} : actuel',
+    '{rule}: Peak' => '{rule} : max',
 ];

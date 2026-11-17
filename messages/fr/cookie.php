@@ -13,7 +13,7 @@ return [
     '(Twitter)' => '(Twitter)',
     'A token used for the auto login feature' => 'Un cookie utilisé pour la connexion auto',
     'A token used to avoid CSRF vulnerability' => 'Un cookie utilisé pour éviter la vulnérabilité CSRF',
-    'Cookie ID (Name)' => 'ID Cookie (Nom)',
+    'Cookie ID (Name)' => 'ID cookie (nom)',
     'Cookies' => 'Cookies',
     'descriptions' => 'Descriptions',
     'Expires' => 'Expiration',

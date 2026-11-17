@@ -13,7 +13,7 @@ return [
     'more...' => 'plus...',
     'Recent Use %' => '% D\'utilisation récente',
     'Scheduled' => 'Programmé',
-    'Session History' => 'Historique de Session',
+    'Session History' => 'Historique de session',
     'Weapons\' icon were created by {0}.' => 'Les icônes des armes ont été créées par {0}.',
     'Weapon Trends' => 'Tendances d\'armes',
 ];

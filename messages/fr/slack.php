@@ -12,6 +12,6 @@ return [
     'unknown mode' => 'mode inconnu',
     'unknown stage' => 'stage inconnu',
     'won' => 'gagner',
-    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name} : Vient de {winlose} un match de {rule} sur {stage}. <{url}|Détails>',
-    '{name}: Just {winlose} {rule} at {stage}. {url}' => '{name} : Vient de {winlose} un match de {rule} sur {stage}. {url}',
+    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name} : vient de {winlose} un match de {rule} sur {stage}. <{url}|Détails>',
+    '{name}: Just {winlose} {rule} at {stage}. {url}' => '{name} : vient de {winlose} un match de {rule} sur {stage}. {url}',
 ];

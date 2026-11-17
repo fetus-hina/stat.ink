@@ -68,7 +68,7 @@ return [
     'Salmon Run' => 'Salmon Run',
     'Scales' => 'Écailles',
     'Stats' => 'Statistiques',
-    'Stats (Bosses)' => 'Statistiques (Boss)',
+    'Stats (Bosses)' => 'Statistiques (boss)',
     'Supplied Weapons' => 'Armes fournies',
     'Team Total' => 'Total équipe',
     'This statistics does not include {eggstra} or {private}.' => 'Ces statistiques ne prennent pas en compte {eggstra} ni {private}.',
