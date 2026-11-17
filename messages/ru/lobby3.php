@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -14,10 +14,17 @@ return [
     'Any Lobby' => '',
     'Challenge' => 'Бой-событие',
     'Except Private' => '',
+    'Fest Open' => 'Фест открытый',
+    'Fest Pro' => 'Фест профи',
+    'Open' => 'Открытый',
+    'Private' => 'Частный',
     'Private Battle' => 'Частный бой',
+    'Regular' => 'Салаги',
     'Regular Battle' => 'Бой салаг',
+    'Series' => 'Серия',
     'Splatfest' => 'Сплатфест-бой',
     'Splatfest (Open)' => 'Сплатфест-бой (открытый)',
     'Splatfest (Pro)' => 'Сплатфест-бой (профи)',
+    'X' => 'X',
     'X Battle' => 'Бой X',
 ];

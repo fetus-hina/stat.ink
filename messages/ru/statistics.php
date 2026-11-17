@@ -14,6 +14,8 @@ return [
     'Bin Width' => 'Ширина интервала',
     'IQR' => 'МКР',
     'max={max} min={min} average={avg} median={median} mode={mode}' => 'макс.={max} мин.={min} среднее={avg} медиана={median} мода={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => 'макс.={max} мин.={min} среднее={avg} медиана={median} мода={mode} ст. откл.={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => 'макс.={max} мин.={min} среднее={avg} медиана={median} ст. откл.={stddev}',
     'max={max} min={min} median={median}' => 'макс.={max} мин.={min} медиана={median}',
     'max={max} min={min} median={median} stddev={stddev}' => 'макс.={max} мин.={min} медиана={median} ст. откл.={stddev}',
     'Maximum' => 'Максимум',

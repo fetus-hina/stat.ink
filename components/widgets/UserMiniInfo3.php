@@ -247,6 +247,7 @@ final class UserMiniInfo3 extends Widget
             Yii::t('app-user-mini-info', 'Stats (X Power)') => ['show-v3/stats-season-x-power', 'screen_name' => $user->screen_name],
             Yii::t('app-user-mini-info', 'Stats (Medals)') => ['show-v3/stats-medal', 'screen_name' => $user->screen_name],
             Yii::t('app', 'Badge Progress') => ['show-v3/stats-badge', 'screen_name' => $user->screen_name],
+            Yii::t('app-user-mini-info', 'Daily Report') => ['show-v3/stats-daily-report', 'screen_name' => $user->screen_name],
         ];
 
         return Html::tag(

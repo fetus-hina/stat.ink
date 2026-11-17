@@ -14,6 +14,8 @@ return [
     'Bin Width' => 'Klassebreedte',
     'IQR' => 'IKA',
     'max={max} min={min} average={avg} median={median} mode={mode}' => 'max={max} min={min} gemiddelde={avg} mediaan={median} modus={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => 'max={max} min={min} gemiddelde={avg} mediaan={median} modus={mode} std.afw.={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => 'max={max} min={min} gemiddelde={avg} mediaan={median} std.afw.={stddev}',
     'max={max} min={min} median={median}' => 'max={max} min={min} mediaan={median}',
     'max={max} min={min} median={median} stddev={stddev}' => 'max={max} min={min} mediaan={median} std.afw.={stddev}',
     'Maximum' => 'Maximum',

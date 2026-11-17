@@ -14,6 +14,8 @@ return [
     'Bin Width' => 'Largura das caixas',
     'IQR' => 'IQR',
     'max={max} min={min} average={avg} median={median} mode={mode}' => 'máx={max} mín={min} média={avg} mediana={median} moda={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => 'máx={max} mín={min} média={avg} mediana={median} moda={mode} desvio padrão={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => 'máx={max} mín={min} média={avg} mediana={median} desvio padrão={stddev}',
     'max={max} min={min} median={median}' => 'máx={max} mín={min} mediana={median}',
     'max={max} min={min} median={median} stddev={stddev}' => 'máx={max} mín={min} mediana={median} desvio padrão={stddev}',
     'Maximum' => 'Máximo',

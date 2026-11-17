@@ -14,6 +14,7 @@ use app\actions\show\v3\DeleteBattleAction;
 use app\actions\show\v3\UserAction;
 use app\actions\show\v3\stats\BadgeAction;
 use app\actions\show\v3\stats\CorrectionBadgeAction;
+use app\actions\show\v3\stats\DailyReportAction;
 use app\actions\show\v3\stats\MapRuleAction;
 use app\actions\show\v3\stats\MedalAction;
 use app\actions\show\v3\stats\SeasonXPowerAction;
@@ -67,6 +68,7 @@ final class ShowV3Controller extends Controller
             'delete-battle' => DeleteBattleAction::class,
             'stats-badge' => BadgeAction::class,
             'stats-correction-badge' => CorrectionBadgeAction::class,
+            'stats-daily-report' => DailyReportAction::class,
             'stats-map-rule' => MapRuleAction::class,
             'stats-medal' => MedalAction::class,
             'stats-weapons' => WeaponsAction::class,
