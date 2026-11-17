@@ -28,7 +28,7 @@ return [
     'Japanese' => 'Japanisch',
     'Links' => 'Links',
     'Logout' => 'Abmelden',
-    'Nintendo Switch Online app' => 'Nintendo Switch Online-App',
+    'Nintendo Switch Online app' => 'Nintendo-Switch-Online-App',
     'North America' => 'Nordamerika',
     'Official Twitter' => 'Offizieller Twitter-Account',
     'Powered by' => 'Powered by',

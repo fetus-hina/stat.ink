@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    '(3rd party defined)' => 'Drittanbieter definiert',
+    '(3rd party defined)' => '(von Drittanbietern definiert)',
     '(Session)' => '(Sitzung)',
     '(Twitter)' => '(Twitter)',
     'A token used for the auto login feature' => 'Ein Token, der für die automatische Anmeldung verwendet wird',

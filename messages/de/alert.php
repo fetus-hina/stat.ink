@@ -21,6 +21,6 @@ return [
     'We are blocking IP addresses that mainly belong to data centers.' => 'Wir blockieren IP-Adressen, die überwiegend zu Rechenzentren gehören.',
     'We do not intend to restrict posting battles through the API. If your posts are blocked, please contact the administrator.' => 'Wir haben nicht die Absicht, das Hochladen von Kämpfen über die API einzuschränken. Wenn deine Uploads blockiert werden, kontaktiere bitte den Administrator.',
     'We have received reports that updating authentication credentials for s3s and s3si.ts is not possible, and these apps are currently unavailable.' => 'Uns wurde gemeldet, dass die Anmeldedaten für s3s und s3si.ts nicht aktualisiert werden können; diese Apps sind derzeit nicht nutzbar.',
-    'We won\'t implement automatic importing to {appName} for security reasons.' => 'Aus Sicherheitsgründen werden wir keine automatische Importierung nach {appName} implementieren.',
-    'You can import automatically from SplatNet, use these apps: (USE AT YOUR OWN RISK)' => 'Du kannst deine Daten aus SplatNet mit folgenden Apps automatisch importieren (VERWENDEN AUF EIGENE GEFAHR)',
+    'We won\'t implement automatic importing to {appName} for security reasons.' => 'Aus Sicherheitsgründen werden wir keinen automatischen Import in {appName} implementieren.',
+    'You can import automatically from SplatNet, use these apps: (USE AT YOUR OWN RISK)' => 'Du kannst deine Daten aus SplatNet mit folgenden Apps automatisch importieren (NUTZUNG AUF EIGENE GEFAHR):',
 ];
