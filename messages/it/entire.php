@@ -71,7 +71,7 @@ return [
     'Schema' => 'Schema',
     'Significant?' => 'Significativo?',
     'Special Uses' => 'Utilizzi dell\'arma speciale',
-    'Splatfest Stats' => 'Statistiche del Festival',
+    'Splatfest Stats' => 'Statistiche del festival',
     'Stack' => 'Impila',
     'Stealth Jump Equipment Rate' => 'Tasso di equipaggiamento di Salto al buio',
     'Systematic error of win %' => 'Errore sistematico della % di vittorie',

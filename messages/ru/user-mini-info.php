@@ -19,7 +19,7 @@ return [
     'Stats (by Weapon)' => 'Статистика (по оружию)',
     'Stats (Cause of Death)' => 'Статистика (причины смерти)',
     'Stats (Medals)' => 'Статистика (медали)',
-    'Stats (Ranked Battle)' => 'Статистика (Бой элиты)',
+    'Stats (Ranked Battle)' => 'Статистика (бой элиты)',
     'Stats (Splatfest)' => 'Статистика (Сплатфест)',
     'Stats (Turf War)' => 'Статистика (Бой за район)',
     'Stats (vs. Weapon)' => 'Статистика (против оружия)',

@@ -103,7 +103,7 @@ return [
     'PNG/JPEG file up to {0}' => 'File PNG/JPEG fino a {0}',
     'Profile and Settings' => 'Profilo e impostazioni',
     'Regenerate your API token' => 'Rigenera il token API',
-    'Region (used for Splatfest)' => 'Regione (usata per i Festival)',
+    'Region (used for Splatfest)' => 'Regione (usata per i festival)',
     'Register' => 'Registrati',
     'Register with a passkey instead' => 'Registrati invece con una passkey',
     'Register with a password instead' => 'Registrati invece con una password',
