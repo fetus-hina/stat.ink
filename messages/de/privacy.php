@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -26,7 +26,7 @@ return [
     'SAKURA internet inc. is our sponsor.' => 'SAKURA internet inc. ist unser Sponsor.',
     'Server Location' => 'Serverstandort',
     'SNS' => 'SNS',
-    'The address of the web site that linked here ("referrer" or "referer")' => 'Die Adresse der Website, die hier verlinkt wurde ("referrer" oder "referer")',
+    'The address of the web site that linked here ("referrer" or "referer")' => 'Die Adresse der Website, die hierher verlinkt hat ("referrer" oder "referer")',
     'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => 'Die Parteien stimmen hiermit zu, dem Bezirksgericht Osaka oder dem Amtsgericht Hirakata die ausschließliche Zuständigkeit zu übertragen.',
     'They never have access to your private data.' => 'Sie haben niemals Zugriff auf Ihre privaten Daten.',
     'This behavior was started on 27 Oct 2015.' => 'Dieses Verhalten begann am 27. Oktober 2015.',
