@@ -99,7 +99,7 @@ return [
     'You must agree to the above to delete this job.' => 'Você tem que concordar com o que está acima para deletar essa partida.',
     '{name}\'s Salmon Log' => 'Log de partidas de {name}',
     '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 ovo} other{# ovos}} em {battle, plural, =1{1 partida} other{# partidas}}',
-    '{number, plural, =1{1 kill} other{# kills}}' => '{number, plural, =1{1 kill} other{# kills}}',
+    '{number, plural, =1{1 kill} other{# kills}}' => '{number, plural, =1{1 eliminação} other{# eliminações}}',
     '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 vez} other{# vezes}} em {battle, plural, =1{1 partida} other{# partidas}}',
     '{weapon}' => '{weapon}',
     '✓' => '✓',

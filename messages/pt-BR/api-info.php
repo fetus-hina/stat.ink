@@ -27,7 +27,7 @@ return [
     'Launch' => 'Lançamento',
     'Rare Weapon' => 'Arma Rara',
     'Released' => 'Lançado',
-    'Reskin of' => 'Reskin de',
+    'Reskin of' => 'Variante de',
     'SplatNet' => 'SplatNet',
     'SplatNet 2' => 'SplatNet 2',
     'Uniform' => 'Uniforme',
