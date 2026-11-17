@@ -36,5 +36,5 @@ return [
     'Middle' => 'Mi-distance',
     'S' => 'S',
     'Short' => 'Courte portée',
-    'X: Match making group' => 'X: groupe de création de match',
+    'X: Match making group' => 'X : groupe de création de match',
 ];

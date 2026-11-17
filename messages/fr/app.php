@@ -141,7 +141,7 @@ return [
     'Season' => 'Saison',
     'Seconds' => 'Secondes',
     'Simplified List' => 'Liste simplifiée',
-    'Source: {source}' => 'Source: {source}',
+    'Source: {source}' => 'Source : {source}',
     'Special' => 'Arme spéciale',
     'Special (Icon)' => 'Spécial (icône)',
     'Special:' => 'Spécial :',

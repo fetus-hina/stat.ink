@@ -113,7 +113,7 @@ return [
     'Reset to default icon' => 'Réinitialiser vers l\'icône par défaut',
     'Reset your password' => 'Réinitialiser le mot de passe',
     'Salmon Run CSV' => 'Salmon run CSV',
-    'Salmon Run JSON (gzipped)' => 'Salmon Run JSON (compressé) ',
+    'Salmon Run JSON (gzipped)' => 'Salmon Run JSON (compressé)',
     'Schema information' => 'Informations sur le schéma',
     'Screen Name (Login Name)' => 'Pseudo',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => 'Un e-mail a été envoyé. Veuillez vérifier votre boîte de réception et récupérer le code de vérification.',
