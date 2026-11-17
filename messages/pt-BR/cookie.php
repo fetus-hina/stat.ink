@@ -18,8 +18,8 @@ return [
     'descriptions' => 'descrições',
     'Expires' => 'Expira',
     'I agree' => 'Eu concordo',
-    'Issued and used by CloudFlare' => 'Expedido e usado pelo CloudFlare',
-    'Issued and used by Twitter' => 'Expedido e usado pelo Twitter',
+    'Issued and used by CloudFlare' => 'Emitido e usado pelo CloudFlare',
+    'Issued and used by Twitter' => 'Emitido e usado pelo Twitter',
     'Keep your input data while verifying email address' => 'Mantém seus dados inseridos enquanto verifica seu endereço de e-mail',
     'Origin' => 'Origem',
     'Privacy policy' => 'Política de Privacidade',
@@ -31,6 +31,6 @@ return [
     'Their privacy policy' => 'Política de privacidade deles',
     'Track your login status' => 'Rastreia seu status de login',
     'Visit their {description} and/or {privacy} for more details' => 'Visite a {description} deles e/ou {privacy} para mais detalhes',
-    'We use cookies to ensure you get the best experience on our website.' => 'Nós usamos cookies para garantir que você tenha a melor experiência no nosso site.',
+    'We use cookies to ensure you get the best experience on our website.' => 'Nós usamos cookies para garantir que você tenha a melhor experiência no nosso site.',
     'What to use' => 'O que usar',
 ];

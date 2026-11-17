@@ -16,7 +16,7 @@ return [
     'Stats (by Mode)' => 'Estatísticas (por Modo)',
     'Stats (by Mode and Stage)' => 'Estatísticas (por Modo e Mapa)',
     'Stats (by Stage)' => 'Estatísticas (por Mapa)',
-    'Stats (by Weapon)' => 'Estatísticas ( por Arma)',
+    'Stats (by Weapon)' => 'Estatísticas (por Arma)',
     'Stats (Cause of Death)' => 'Estatísticas (Causa da Morte)',
     'Stats (Medals)' => 'Estatísticas (Medalhas)',
     'Stats (Ranked Battle)' => 'Estatísticas (Partidas Competitivas)',

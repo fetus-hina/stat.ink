@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,7 +32,7 @@ return [
     'Fam' => 'Família',
     'Fantasy' => 'Fantasia',
     'Film' => 'Filme',
-    'Flight' => 'Voar',
+    'Flight' => 'Voo',
     'Fork' => 'Garfo',
     'Friend' => 'Amigo',
     'Fries' => 'Batata Frita',
@@ -46,7 +46,7 @@ return [
     'Hare' => 'Lebre',
     'Hello Kitty' => '',
     'Hero' => 'Herói',
-    'Inner Wear' => 'Roupa Interna',
+    'Inner Wear' => 'Roupas Íntimas',
     'Invisibility' => 'Invisibilidade',
     'Ketchup' => '',
     'Kid' => 'Crianças',
@@ -70,7 +70,7 @@ return [
     'No Lemon' => 'Sem Limão',
     'No Pineapple' => 'Sem Abacaxi',
     'Octopus' => 'Polvo',
-    'Order' => 'Odem',
+    'Order' => 'Ordem',
     'Outer Wear' => 'Roupas Externas',
     'Pa League' => '',
     'Pancake' => 'Panqueca',

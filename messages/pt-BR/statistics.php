@@ -28,7 +28,7 @@ return [
     'Samples' => 'Amostras',
     'Standard Deviation' => 'Desvio Padrão',
     'Std Dev' => 'Desvio Padrão',
-    'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => 'A largura das caixas de histograma é automaticamente ajustada pelo algoritmo baseado em regra do Scott.',
+    'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => 'A largura das caixas do histograma é ajustada automaticamente por um algoritmo baseado na regra de Scott.',
     'Top {percentile}%' => 'Top {percentile}%',
     '{percentile} Percentile' => 'Percentil {percentile}',
 ];

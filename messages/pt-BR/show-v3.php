@@ -31,7 +31,7 @@ return [
     'Sp' => 'Esp',
     'Subs' => 'Secundárias',
     'Sub Weapon (Icon)' => 'Arma Secundária (Ícone)',
-    'The correction value specified by the user is applied.' => 'O valor de correção especificado pelo usuário foi aplicado.',
+    'The correction value specified by the user is applied.' => 'O valor de correção especificado pelo usuário é aplicado.',
     'Weapon (Icon)' => 'Arma (Ícone)',
     'You can register (estimated) unsent values here to correct the values displayed.' => 'Você pode cadastrar valores (estimados) não enviados aqui para corrigir os valores mostrados.',
     '{name}\'s Badge Progress' => 'Progresso das Insígnias do(a) {name}',

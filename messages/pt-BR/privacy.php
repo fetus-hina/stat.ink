@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -14,7 +14,7 @@ return [
     'Address' => 'Endereço',
     'AIZAWA Hina (相沢 陽菜)' => '',
     'Author' => 'Autor',
-    'Handle Name' => 'Nome de Usuátio',
+    'Handle Name' => 'Nome de Usuário',
     'If there is an investigation being conducted by the police or other authority, your information will be released.' => 'Se houver uma investigação sendo conduzida pela polícia ou qualquer outra autoridade, suas informações serão divulgadas.',
     'IP address' => 'Endereço IP',
     'Law' => 'Lei',
@@ -26,15 +26,15 @@ return [
     'SAKURA internet inc. is our sponsor.' => 'SAKURA internet inc. é nosso patrocinador.',
     'Server Location' => 'Localização do Servidor',
     'SNS' => 'Redes Sociais',
-    'The address of the web site that linked here ("referrer" or "referer")' => 'O endereço do website linkado aqui ("referenciado" ou "referenciador")',
-    'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => 'As partes consentem por meio desta jurisdição exclusiva do Corte do Distrito de Osaka ou a Corte Sumária de Hirakata.',
-    'They never have access to your private data.' => 'Eles nunca têm acesso aos seus dados privados',
-    'This behavior was started on 27 Oct 2015.' => 'Esse comportamento iniciou no dia 27 Out. 2015.',
+    'The address of the web site that linked here ("referrer" or "referer")' => 'O endereço do site que trouxe você até aqui ("referrer" ou "referer")',
+    'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => 'As partes, por meio deste, consentem e atribuem jurisdição exclusiva ao Tribunal Distrital de Osaka ou ao Tribunal Sumário de Hirakata.',
+    'They never have access to your private data.' => 'Eles nunca têm acesso aos seus dados privados.',
+    'This behavior was started on 27 Oct 2015.' => 'Esse comportamento teve início em 27 de outubro de 2015.',
     'This is done automatically and the data will not be deleted even if the the battle is deleted.' => 'Isso é feito automaticamente e os dados não serão deletados mesmo se a partida for apagada.',
     'This website ({0}) collects the following data:' => 'Esse site ({0}) coleta os seguintes dados:',
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => 'Esse site usa cookies para manter sua sessão ou salvar suas configurações (ex. fuso horário / língua).',
-    'We are governed by Japanese law.' => 'Nós somos governados pela lei Japonesa',
-    'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => 'Nós não revelamos seus dados coletados, como seu enderço IP. No entanto, dados estatísticos serão revelados.',
+    'We are governed by Japanese law.' => 'Nós somos regidos pela lei japonesa.',
+    'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => 'Nós não revelamos seus dados coletados, como seu endereço IP. No entanto, dados estatísticos serão revelados.',
     'Your OS, browser name, and version that you are using ("user agent")' => 'Seu Sistema Operacional, nome do navegador, e versão que você está usando ("agente de usuário")',
-    'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => 'Seus dados enviados (estatísticas de batalha, imagens, e histórico de modificações com a equipe de desenvolvimento do IkaLog.',
+    'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => 'Seus dados enviados (estatísticas de partida, imagens e histórico de modificações) serão compartilhados com a equipe de desenvolvimento do IkaLog.',
 ];
