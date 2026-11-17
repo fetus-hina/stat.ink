@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -20,7 +20,7 @@ return [
     '{0} King' => 'Maestro {0}',
     '{1} Champion' => 'Experta {1}',
     '{1} Defender' => 'Guerrera {1}',
-    '{1} Fangirl' => 'Novata  {1}',
+    '{1} Fangirl' => 'Novata {1}',
     '{1} Fiend' => 'Fanática {1}',
     '{1} Queen' => 'Maestra {1}',
 ];

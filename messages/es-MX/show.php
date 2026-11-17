@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Ability Effect' => 'Efecto de la potenciad',
+    'Ability Effect' => '',
     'Bad guys are in control' => 'Tus rivales están en control',
     'Bad guys winning' => '',
     'combos' => '',
@@ -22,13 +22,13 @@ return [
     'Enable noise reduction (count)' => '',
     'Enable noise reduction (position of the objective)' => '',
     'Enemy Weapon' => '',
-    'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => 'Excluidos: Combate privado y Combate en equipo (cuando la fila S o S+)',
+    'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => '',
     'Good guys are in control' => '',
     'Good guys winning' => '',
     'Group by main weapon' => '',
     'Group by reskins' => '',
     'Group by weapon type' => '',
-    'Low ink' => 'Sin tinta',
+    'Low ink' => '',
     'Moving Avg. ({0} Battles)' => '',
     'My Team Score' => '',
     'My Team Splatfest Power' => '',

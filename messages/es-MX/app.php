@@ -88,7 +88,7 @@ return [
     'Inkling' => 'inkling',
     'Internal ID' => '',
     'Keep doing it.' => '',
-    'Language' => 'Lengua',
+    'Language' => '',
     'Last {n} Battles' => '',
     'League Power' => '',
     'Legend' => '',

@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Automatic (Recommended)' => 'Automático (Recomienda)',
+    'Automatic (Recommended)' => 'Automático (recomendado)',
     'Manually' => 'Manualmente',
-    'There are two ways. "Automatic" or "manually."' => 'Hay dos formas. "Automático" o "manualmente."',
+    'There are two ways. "Automatic" or "manually."' => 'Hay dos formas: «automática» o «manual».',
 ];

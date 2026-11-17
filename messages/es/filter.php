@@ -8,8 +8,8 @@
 declare(strict_types=1);
 
 return [
-    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
-    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Para:</span>{input}</div>',
+    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Desde:</span>{input}</div>',
+    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Hasta:</span>{input}</div>',
     'Advanced Options' => 'Opciones avanzadas',
     'Ally / Enemy' => 'Aliado / Rival',
     'Any Result' => 'Cualquier resultado',
@@ -35,7 +35,7 @@ return [
     'Played With' => 'Jugó con',
     'Played With (Side)' => 'Jugó con (Bando)',
     'Previous Period' => 'Período anterior',
-    'Specify Period' => 'Especificar periodo de',
+    'Specify Period' => 'Especificar periodo',
     'Target Player\'s Team' => 'Equipo del jugador objetivo',
     'This Month (UTC)' => 'Este mes (UTC)',
     'Today' => 'Hoy',

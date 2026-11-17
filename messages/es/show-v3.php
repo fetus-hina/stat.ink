@@ -35,8 +35,8 @@ return [
     'Weapon (Icon)' => 'Arma (icono)',
     'You can register (estimated) unsent values here to correct the values displayed.' => 'Puede registrar aquí valores (estimados) no enviados para corregir los valores mostrados.',
     '{name}\'s Badge Progress' => 'Progreso de chapas de {name}',
-    '{name}\'s Battle Stats (Medals)' => 'Estadística de Batalla de {name} (Galardones)',
-    '{name}\'s Battle Stats (Winning Rate)' => 'Estadística de Batalla de {name} (% de victorias)',
+    '{name}\'s Battle Stats (Medals)' => 'Estadísticas de batalla de {name} (galardones)',
+    '{name}\'s Battle Stats (Winning Rate)' => 'Estadísticas de batalla de {name} (% de victorias)',
     '{name}\'s X Power' => 'Poder X de {name}',
     '{nFormatted} remaining' => 'Quedan {nFormatted}',
 ];
