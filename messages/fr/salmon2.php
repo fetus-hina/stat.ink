@@ -86,7 +86,7 @@ return [
     'Ttl. Golden (Wave)' => 'Tot. Dorés (Vague)',
     'Ttl. Pts.' => 'Tot. Pts.',
     'Ttl. Pwr. E.' => 'Tot. Pwr. E.',
-    'Ttl. Pwr. E. (Wave)' => 'Tot. Pwr. E. (',
+    'Ttl. Pwr. E. (Wave)' => 'Tot. Pwr. E. (vague)',
     'Ttl. Rescued' => 'Tot. Sauvetages',
     'URL related to this job' => 'URL liée à cette mission',
     'URL related to this work' => 'URL lié à ce job',

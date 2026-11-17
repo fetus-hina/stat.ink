@@ -22,7 +22,7 @@ return [
     'Another account' => 'Autre compte',
     'Are you sure you want to regenerate your API token?' => 'Êtes-vous sûr de vouloir regénerer votre jeton d\'API ?',
     'Auto (cookie)' => 'Auto (cookie)',
-    'Auto (Identicon)' => 'Au (Identicon)',
+    'Auto (Identicon)' => 'Auto (Identicon)',
     'Black out' => 'Assombrir/retirer',
     'Black out except private battle' => 'Assombrir/retirer sauf pour les matchs privés',
     'Black out except private battle and teammate on league battle (4 players)' => 'Assombrir/retirer sauf pour les matchs privés et coequipiers en ligue (4 Joueurs)',
@@ -177,5 +177,5 @@ return [
     'Your password is currently disabled. You can set a new password after verifying with your passkey.' => 'Votre mot de passe est actuellement désactivé. Vous pouvez définir un nouveau mot de passe après vérification avec votre clé d\'accès.',
     'Your profile icon has been updated.' => 'Votre photo de profil a été modifiée',
     '{0}×{1} or less resolution' => '{0}×{1} ou moins de résolution',
-    '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute}',
+    '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute} ne doit pas dépasser 15 caractères alphanumériques ou tirets bas.',
 ];

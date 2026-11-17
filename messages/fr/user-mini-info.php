@@ -23,7 +23,7 @@ return [
     'Stats (Splatfest)' => 'Stats (festival)',
     'Stats (Turf War)' => 'Stats (Guerre de territoire)',
     'Stats (vs. Weapon)' => 'Stats (contre. Arme)',
-    'Stats (Win %)' => 'Stats',
+    'Stats (Win %)' => 'Stats (% de victoires)',
     'Stats (X Power)' => 'Stats (X Power)',
     'Stats ({rule})' => 'Stats ({rule})',
     'Total Inked' => 'Encrage total',

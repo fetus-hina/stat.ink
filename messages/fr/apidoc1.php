@@ -92,5 +92,5 @@ return [
     'Weapons that were not used will not be output.' => 'Les arrmes qui ne sont pas utilisé ne seront pas affichées',
     'Weapon Type' => 'Catégorie d\'arme',
     'Weapon type (category) information' => 'Information sur la catégorie d\'arme',
-    'When test=validate' => 'Quand test=validé',
+    'When test=validate' => 'Quand test=validate',
 ];
