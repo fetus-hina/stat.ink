@@ -178,10 +178,7 @@
       }
     },
     "soak-time-hours": 72,
-    "soak-time-whitelist": [
-      "mspirkov/yii2-phpstan",
-      "symfony/yaml"
-    ]
+    "soak-time-whitelist": []
   },
   "scripts": {
     "post-install-cmd": [
