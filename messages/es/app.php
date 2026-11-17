@@ -198,6 +198,6 @@ return [
     '{n,plural,=1{battle} other{battles}}' => '{n,plural,=1{batalla} other{batallas}}',
     '{name}\'s Battles' => 'Batallas de {name}',
     '{name}\'s Splat Log' => 'Registro de batallas de {name}',
-    '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} veces',
+    '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} {n, plural, =1{vez} other{veces}}',
     '{theme} Theme' => 'Tema {theme}',
 ];

@@ -57,7 +57,7 @@ return [
     'Win' => 'Victoria',
     'Win %' => '% de victorias',
     'Wins' => 'Victorias',
-    'Won' => 'Vencido',
-    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
-    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
+    'Won' => 'Ganado',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 muerte} other{# muertes}} en {battle, plural, =1{1 batalla} other{# batallas}}',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 asesinato} other{# asesinatos}} en {battle, plural, =1{1 batalla} other{# batallas}}',
 ];
