@@ -25,7 +25,7 @@ return [
     'Defeat (Exempted)' => 'Sconfitta (esentata)',
     'Draw' => 'Pareggio',
     'Inked' => 'Superficie inchiostrata',
-    'Inked/min' => 'Sup. colorata/min',
+    'Inked/min' => 'Sup. inchiostrata/min',
     'k' => 'k',
     'k+a' => 'k+a',
     'K.O.' => 'KO',
