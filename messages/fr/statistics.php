@@ -14,6 +14,8 @@ return [
     'Bin Width' => 'Largeur des classes',
     'IQR' => 'EIQ',
     'max={max} min={min} average={avg} median={median} mode={mode}' => 'max={max} min={min} moyenne={avg} médiane={median} mode={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => 'max={max} min={min} moyenne={avg} médiane={median} mode={mode} écart type={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => 'max={max} min={min} moyenne={avg} médiane={median} écart type={stddev}',
     'max={max} min={min} median={median}' => 'max={max} min={min} médiane={median}',
     'max={max} min={min} median={median} stddev={stddev}' => 'max={max} min={min} médiane={median} écart type={stddev}',
     'Maximum' => 'Maximum',

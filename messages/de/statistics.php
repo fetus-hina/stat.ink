@@ -14,6 +14,8 @@ return [
     'Bin Width' => 'Klassenbreite',
     'IQR' => 'IQR',
     'max={max} min={min} average={avg} median={median} mode={mode}' => 'Max.={max} Min.={min} Durchschnitt={avg} Median={median} Modalwert={mode}',
+    'max={max} min={min} average={avg} median={median} mode={mode} stddev={stddev}' => 'Max.={max} Min.={min} Durchschnitt={avg} Median={median} Modalwert={mode} Std.-Abw.={stddev}',
+    'max={max} min={min} average={avg} median={median} stddev={stddev}' => 'Max.={max} Min.={min} Durchschnitt={avg} Median={median} Std.-Abw.={stddev}',
     'max={max} min={min} median={median}' => 'Max.={max} Min.={min} Median={median}',
     'max={max} min={min} median={median} stddev={stddev}' => 'Max.={max} Min.={min} Median={median} Std.-Abw.={stddev}',
     'Maximum' => 'Maximum',
