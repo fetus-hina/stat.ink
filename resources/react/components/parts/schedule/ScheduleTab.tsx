@@ -57,64 +57,64 @@ function label (mode: ScheduleMode, props: LabelProps) {
     <>
       {mode.game && gameIcons && gameIcons[mode.game] && gameIcons[mode.game].icon
         ? (
-          <>
-            <img
-              alt={gameIcons[mode.game].name}
-              className={classes.modeIcon}
-              src={gameIcons[mode.game].icon ?? undefined}
-              title={gameIcons[mode.game].name}
-            />
-            {' '}
-          </>
+            <>
+              <img
+                alt={gameIcons[mode.game].name}
+                className={classes.modeIcon}
+                src={gameIcons[mode.game].icon ?? undefined}
+                title={gameIcons[mode.game].name}
+              />
+              {' '}
+            </>
           )
         : null}
       {mode.image
         ? (
-          <>
-            <img
-              alt=''
-              className={classes.modeIcon}
-              src={mode.image}
-              title={mode.name}
-            />
-            {' '}
-          </>
+            <>
+              <img
+                alt=''
+                className={classes.modeIcon}
+                src={mode.image}
+                title={mode.name}
+              />
+              {' '}
+            </>
           )
         : null}
       {current?.rule?.icon
         ? (
-          <>
-            <img
-              alt={current.rule.name}
-              className={classes.modeIcon}
-              src={current.rule.icon}
-              title={current.rule.name}
-            />
-            {' '}
-          </>
+            <>
+              <img
+                alt={current.rule.name}
+                className={classes.modeIcon}
+                src={current.rule.icon}
+                title={current.rule.name}
+              />
+              {' '}
+            </>
           )
         : null}
       {current?.king?.image
         ? (
-          <>
-            <img
-              alt={current.king.name}
-              className={classes.modeIcon}
-              src={current.king.image}
-              title={current.king.name}
-            />
-            {' '}
-          </>
+            <>
+              <img
+                alt={current.king.name}
+                className={classes.modeIcon}
+                src={current.king.image}
+                title={current.king.name}
+              />
+              {' '}
+            </>
           )
         : null}
       {current?.weapons && item.showOpen
         ? (
-          <>
-            <span className='text-warning' title={translations ? translations.salmon_open : 'Open!'}>
-              <span className='fas fa-certificate' />
-            </span>
-            {' '}
-          </>
+            <>
+              <span className='text-warning' title={translations ? translations.salmon_open : 'Open!'}>
+                <span className='fas fa-certificate' />
+              </span>
+              {' '}
+            </>
           )
         : null}
       {isSelected ? mode.name : null}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9971eeb88d26cc5bfedd6a908c23a993",
+    "content-hash": "49599cb70736ba519061f1e89709bddc",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -674,16 +674,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.13.2",
+            "version": "2.13.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "adee536f95101929f262b8c59e8a61472f347d58"
+                "reference": "6d3cd8285a97eaa352956a4ada92fa03ecce1c4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/adee536f95101929f262b8c59e8a61472f347d58",
-                "reference": "adee536f95101929f262b8c59e8a61472f347d58",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/6d3cd8285a97eaa352956a4ada92fa03ecce1c4e",
+                "reference": "6d3cd8285a97eaa352956a4ada92fa03ecce1c4e",
                 "shasum": ""
             },
             "require": {
@@ -773,7 +773,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.13.2"
+                "source": "https://github.com/guzzle/psr7/tree/2.13.3"
             },
             "funding": [
                 {
@@ -789,21 +789,21 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-17T23:49:46+00:00",
-            "published-time": "2026-10-17T23:51:00+00:00"
+            "time": "2026-11-12T15:57:42+00:00",
+            "published-time": "2026-11-12T15:58:42+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.4.2",
+            "version": "v1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "d4b03a96c1ed0cc9da025018ca4a3e805c56c276"
+                "reference": "1a667c348758a38aa7ab82d596bdc11e2da63002"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/d4b03a96c1ed0cc9da025018ca4a3e805c56c276",
-                "reference": "d4b03a96c1ed0cc9da025018ca4a3e805c56c276",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/1a667c348758a38aa7ab82d596bdc11e2da63002",
+                "reference": "1a667c348758a38aa7ab82d596bdc11e2da63002",
                 "shasum": ""
             },
             "require": {
@@ -840,10 +840,10 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.4.2"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.4.3"
             },
-            "time": "2026-10-20T18:03:06+00:00",
-            "published-time": "2026-10-20T18:04:09+00:00"
+            "time": "2026-11-13T19:40:21+00:00",
+            "published-time": "2026-11-13T19:46:05+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
@@ -1199,28 +1199,28 @@
         },
         {
             "name": "laminas/laminas-escaper",
-            "version": "2.18.0",
+            "version": "2.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-escaper.git",
-                "reference": "06f211dfffff18d91844c1f55250d5d13c007e18"
+                "reference": "766b8583bbf64be9d3330e7a075197f54c46f642"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/06f211dfffff18d91844c1f55250d5d13c007e18",
-                "reference": "06f211dfffff18d91844c1f55250d5d13c007e18",
+                "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/766b8583bbf64be9d3330e7a075197f54c46f642",
+                "reference": "766b8583bbf64be9d3330e7a075197f54c46f642",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
                 "ext-mbstring": "*",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "conflict": {
                 "zendframework/zend-escaper": "*"
             },
             "require-dev": {
-                "infection/infection": "^0.31.0",
+                "infection/infection": "^0.32.0",
                 "laminas/laminas-coding-standard": "~3.1.0",
                 "phpunit/phpunit": "^11.5.42",
                 "psalm/plugin-phpunit": "^0.19.5",
@@ -1252,25 +1252,25 @@
             },
             "funding": [
                 {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
+                    "url": "https://crowdfunding.linuxfoundation.org/initiatives/laminas-project",
+                    "type": "custom"
                 }
             ],
-            "time": "2025-10-14T18:31:13+00:00",
-            "published-time": "2025-10-14T19:13:23+00:00"
+            "time": "2026-11-10T12:33:38+00:00",
+            "published-time": "2026-11-10T12:34:26+00:00"
         },
         {
             "name": "laminas/laminas-feed",
-            "version": "2.26.3",
+            "version": "2.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-feed.git",
-                "reference": "86ce3b1ea7c5010413cb24c8d58530b084e8f901"
+                "reference": "7c6fd1a3a15a008ada1bf1fa32802e3b875cffba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/86ce3b1ea7c5010413cb24c8d58530b084e8f901",
-                "reference": "86ce3b1ea7c5010413cb24c8d58530b084e8f901",
+                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/7c6fd1a3a15a008ada1bf1fa32802e3b875cffba",
+                "reference": "7c6fd1a3a15a008ada1bf1fa32802e3b875cffba",
                 "shasum": ""
             },
             "require": {
@@ -1279,24 +1279,26 @@
                 "ext-libxml": "*",
                 "laminas/laminas-escaper": "^2.9",
                 "laminas/laminas-stdlib": "^3.6",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "conflict": {
                 "laminas/laminas-servicemanager": "<3.3",
                 "zendframework/zend-feed": "*"
             },
             "require-dev": {
-                "laminas/laminas-cache": "^2.13.2 || ^3.12",
-                "laminas/laminas-cache-storage-adapter-memory": "^1.1.0 || ^2.3",
+                "boundwize/structarmed": "^0.21.0",
+                "laminas/internal-tooling": "^1.0",
+                "laminas/laminas-cache": "^2.13.2 || ^3.14",
+                "laminas/laminas-cache-storage-adapter-memory": "^1.1.0 || ^2.4",
                 "laminas/laminas-coding-standard": "~2.5.0",
-                "laminas/laminas-db": "^2.18",
-                "laminas/laminas-http": "^2.19",
-                "laminas/laminas-servicemanager": "^3.22.1",
-                "laminas/laminas-validator": "^2.46",
-                "phpunit/phpunit": "^10.5.5",
-                "psalm/plugin-phpunit": "^0.19.0",
+                "laminas/laminas-db": "^2.20",
+                "laminas/laminas-http": "^2.23",
+                "laminas/laminas-servicemanager": "^3.24.0",
+                "laminas/laminas-validator": "^2.65",
+                "phpunit/phpunit": "^10.5.63",
+                "psalm/plugin-phpunit": "^0.22.0",
                 "psr/http-message": "^2.0",
-                "vimeo/psalm": "^5.18.0"
+                "vimeo/psalm": "^6.15.1"
             },
             "suggest": {
                 "laminas/laminas-cache": "Laminas\\Cache component, for optionally caching feeds between requests",
@@ -1338,35 +1340,35 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-10-03T12:45:16+00:00",
-            "published-time": "2026-10-03T12:45:56+00:00"
+            "time": "2026-11-09T22:16:11+00:00",
+            "published-time": "2026-11-09T22:16:50+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
-            "version": "3.21.0",
+            "version": "3.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-stdlib.git",
-                "reference": "b1c81514cfe158aadf724c42b34d3d0a8164c096"
+                "reference": "1053fe6ecbcf6f0352e687eda749ee16ace5cc8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/b1c81514cfe158aadf724c42b34d3d0a8164c096",
-                "reference": "b1c81514cfe158aadf724c42b34d3d0a8164c096",
+                "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/1053fe6ecbcf6f0352e687eda749ee16ace5cc8b",
+                "reference": "1053fe6ecbcf6f0352e687eda749ee16ace5cc8b",
                 "shasum": ""
             },
             "require": {
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "conflict": {
                 "zendframework/zend-stdlib": "*"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "^3.1.0",
-                "phpbench/phpbench": "^1.4.1",
-                "phpunit/phpunit": "^11.5.42",
-                "psalm/plugin-phpunit": "^0.19.5",
-                "vimeo/psalm": "^6.13.1"
+                "phpbench/phpbench": "^1.7.0",
+                "phpunit/phpunit": "^11.5.57",
+                "psalm/plugin-phpunit": "^0.19.7",
+                "vimeo/psalm": "^6.20.10"
             },
             "type": "library",
             "autoload": {
@@ -1394,12 +1396,12 @@
             },
             "funding": [
                 {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
+                    "url": "https://crowdfunding.linuxfoundation.org/initiatives/laminas-project",
+                    "type": "custom"
                 }
             ],
-            "time": "2025-10-11T18:13:12+00:00",
-            "published-time": "2025-10-11T18:14:19+00:00"
+            "time": "2026-11-09T22:51:17+00:00",
+            "published-time": "2026-11-09T22:52:04+00:00"
         },
         {
             "name": "lbuchs/webauthn",
@@ -1955,16 +1957,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "13.0.1",
+            "version": "13.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "b92dab46aa56e25e377db48d9c7cca1fcbc34d10"
+                "reference": "4d61037818be3043834887c5cc22f3c1279d414e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/b92dab46aa56e25e377db48d9c7cca1fcbc34d10",
-                "reference": "b92dab46aa56e25e377db48d9c7cca1fcbc34d10",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/4d61037818be3043834887c5cc22f3c1279d414e",
+                "reference": "4d61037818be3043834887c5cc22f3c1279d414e",
                 "shasum": ""
             },
             "require": {
@@ -2029,10 +2031,10 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/13.0.1"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/13.0.2"
             },
-            "time": "2026-10-21T01:41:03+00:00",
-            "published-time": "2026-10-21T01:41:07+00:00"
+            "time": "2026-11-10T18:18:28+00:00",
+            "published-time": "2026-11-10T18:18:34+00:00"
         },
         {
             "name": "psr/container",
@@ -5107,51 +5109,51 @@
         },
         {
             "name": "ergebnis/composer-normalize",
-            "version": "2.56.0",
+            "version": "2.57.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/composer-normalize.git",
-                "reference": "36df55b10d751ebdece4f22b7b74f5f6f72b3248"
+                "reference": "fe0f69429cf61be9099155d5a63a2816016d5446"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/36df55b10d751ebdece4f22b7b74f5f6f72b3248",
-                "reference": "36df55b10d751ebdece4f22b7b74f5f6f72b3248",
+                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/fe0f69429cf61be9099155d5a63a2816016d5446",
+                "reference": "fe0f69429cf61be9099155d5a63a2816016d5446",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^2.0.0",
                 "composer-runtime-api": "^2.0.0",
+                "ergebnis/differ": "^1.0.0",
                 "ergebnis/json": "^1.4.0",
                 "ergebnis/json-normalizer": "^4.12.0",
                 "ergebnis/json-printer": "^3.7.0",
                 "ext-json": "*",
                 "justinrainbow/json-schema": "^5.2.12 || ^6.0.0",
-                "localheinz/diff": "^1.3.0",
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "require-dev": {
                 "composer/composer": "^2.11.0",
-                "ergebnis/license": "^2.8.0",
+                "ergebnis/license": "^2.9.0",
                 "ergebnis/php-cs-fixer-config": "^6.64.1",
-                "ergebnis/phpstan-rules": "^2.14.2",
+                "ergebnis/phpstan-rules": "^2.17.0",
                 "ergebnis/phpunit-slow-test-detector": "^2.27.0",
-                "ergebnis/rector-rules": "^1.18.5",
+                "ergebnis/rector-rules": "^1.19.0",
                 "fakerphp/faker": "^1.24.1",
                 "phpstan/extension-installer": "^1.4.3",
                 "phpstan/phpstan": "^2.1.55",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
                 "phpstan/phpstan-phpunit": "^2.1.1",
-                "phpstan/phpstan-strict-rules": "^2.1.0",
+                "phpstan/phpstan-strict-rules": "^2.1.1",
                 "phpunit/phpunit": "^9.6.33",
                 "rector/rector": "^2.7.0",
-                "symfony/filesystem": "^5.4.41"
+                "symfony/filesystem": "^5.4.56 || ^6.4.50 || ^7.4.23 || ^8.1.11"
             },
             "type": "composer-plugin",
             "extra": {
                 "class": "Ergebnis\\Composer\\Normalize\\NormalizePlugin",
                 "branch-alias": {
-                    "dev-main": "2.56-dev"
+                    "dev-main": "2.57-dev"
                 },
                 "plugin-optional": true,
                 "composer-normalize": {
@@ -5188,8 +5190,85 @@
                 "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/composer-normalize"
             },
-            "time": "2026-10-29T15:47:39+00:00",
-            "published-time": "2026-10-29T15:47:48+00:00"
+            "time": "2026-11-12T21:04:16+00:00",
+            "published-time": "2026-11-12T21:04:22+00:00"
+        },
+        {
+            "name": "ergebnis/differ",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/differ.git",
+                "reference": "fa4c635d54dfeba2af4383cc5648d044f4898f73"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/differ/zipball/fa4c635d54dfeba2af4383cc5648d044f4898f73",
+                "reference": "fa4c635d54dfeba2af4383cc5648d044f4898f73",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.56.1",
+                "ergebnis/data-provider": "^3.7.1",
+                "ergebnis/license": "^2.9.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.1",
+                "ergebnis/phpstan-rules": "^2.17.1",
+                "ergebnis/phpunit-slow-test-detector": "^2.27.0",
+                "ergebnis/rector-rules": "^1.19.0",
+                "fakerphp/faker": "^1.24.1",
+                "infection/infection": "~0.26.6",
+                "phpbench/phpbench": "^1.2.14",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^2.2.16",
+                "phpstan/phpstan-deprecation-rules": "^2.0.5",
+                "phpstan/phpstan-phpunit": "^2.1.1",
+                "phpstan/phpstan-strict-rules": "^2.1.1",
+                "phpunit/phpunit": "^9.6.38",
+                "rector/rector": "^2.7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0-dev"
+                },
+                "composer-normalize": {
+                    "indent-size": 2,
+                    "indent-style": "space"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Differ\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com",
+                    "homepage": "https://localheinz.com"
+                }
+            ],
+            "description": "Provides a composer package with a differ for creating a unified diff of two strings.",
+            "homepage": "https://github.com/ergebnis/differ",
+            "keywords": [
+                "diff",
+                "differ",
+                "unified-diff"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/differ/issues",
+                "security": "https://github.com/ergebnis/differ/blob/main/.github/SECURITY.md",
+                "source": "https://github.com/ergebnis/differ"
+            },
+            "time": "2026-11-12T17:53:55+00:00",
+            "published-time": "2026-11-12T17:54:01+00:00"
         },
         {
             "name": "ergebnis/json",
@@ -5350,42 +5429,42 @@
         },
         {
             "name": "ergebnis/json-pointer",
-            "version": "3.9.0",
+            "version": "3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/json-pointer.git",
-                "reference": "414a90039cdf458eeb71297315a2be6de195697a"
+                "reference": "58b61ce2d66e928b8d9feafb9eeff89d0523e748"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-pointer/zipball/414a90039cdf458eeb71297315a2be6de195697a",
-                "reference": "414a90039cdf458eeb71297315a2be6de195697a",
+                "url": "https://api.github.com/repos/ergebnis/json-pointer/zipball/58b61ce2d66e928b8d9feafb9eeff89d0523e748",
+                "reference": "58b61ce2d66e928b8d9feafb9eeff89d0523e748",
                 "shasum": ""
             },
             "require": {
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "require-dev": {
-                "ergebnis/data-provider": "^3.6.0",
-                "ergebnis/license": "^2.7.0",
-                "ergebnis/php-cs-fixer-config": "^6.63.3",
-                "ergebnis/phpstan-rules": "^2.13.1",
-                "ergebnis/phpunit-slow-test-detector": "^2.25.0",
-                "ergebnis/rector-rules": "^1.18.3",
+                "ergebnis/data-provider": "^3.7.1",
+                "ergebnis/license": "^2.9.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.1",
+                "ergebnis/phpstan-rules": "^2.17.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.27.0",
+                "ergebnis/rector-rules": "^1.19.0",
                 "fakerphp/faker": "^1.24.1",
                 "infection/infection": "~0.26.6",
                 "phpstan/extension-installer": "^1.4.3",
                 "phpstan/phpstan": "^2.2.14",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
-                "phpstan/phpstan-phpunit": "^2.0.18",
-                "phpstan/phpstan-strict-rules": "^2.0.12",
+                "phpstan/phpstan-phpunit": "^2.1.1",
+                "phpstan/phpstan-strict-rules": "^2.1.1",
                 "phpunit/phpunit": "^9.6.34",
-                "rector/rector": "^2.6.7"
+                "rector/rector": "^2.7.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.9-dev"
+                    "dev-main": "3.10-dev"
                 },
                 "composer-normalize": {
                     "indent-size": 2,
@@ -5420,8 +5499,8 @@
                 "security": "https://github.com/ergebnis/json-pointer/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/json-pointer"
             },
-            "time": "2026-09-24T19:42:34+00:00",
-            "published-time": "2026-09-24T19:42:46+00:00"
+            "time": "2026-11-11T12:52:52+00:00",
+            "published-time": "2026-11-11T12:53:02+00:00"
         },
         {
             "name": "ergebnis/json-printer",
@@ -5677,62 +5756,6 @@
             },
             "time": "2026-10-24T08:53:34+00:00",
             "published-time": "2026-10-24T08:53:38+00:00"
-        },
-        {
-            "name": "localheinz/diff",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/localheinz/diff.git",
-                "reference": "33bd840935970cda6691c23fc7d94ae764c0734c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/localheinz/diff/zipball/33bd840935970cda6691c23fc7d94ae764c0734c",
-                "reference": "33bd840935970cda6691c23fc7d94ae764c0734c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.5.0 || ^8.5.23",
-                "symfony/process": "^4.2 || ^5"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de"
-                },
-                {
-                    "name": "Kore Nordmann",
-                    "email": "mail@kore-nordmann.de"
-                }
-            ],
-            "description": "Fork of sebastian/diff for use with ergebnis/composer-normalize",
-            "homepage": "https://github.com/localheinz/diff",
-            "keywords": [
-                "diff",
-                "udiff",
-                "unidiff",
-                "unified diff"
-            ],
-            "support": {
-                "issues": "https://github.com/localheinz/diff/issues",
-                "source": "https://github.com/localheinz/diff/tree/1.3.0"
-            },
-            "time": "2025-08-30T09:44:18+00:00",
-            "published-time": "2025-08-30T09:45:38+00:00"
         },
         {
             "name": "marc-mabe/php-enum",
@@ -6852,16 +6875,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.38",
+            "version": "9.6.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8b5f757e8e92071bfdbfa93943f94f84c4e31007"
+                "reference": "133394556c813b61aa3481a87bef8419d8ec95c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8b5f757e8e92071bfdbfa93943f94f84c4e31007",
-                "reference": "8b5f757e8e92071bfdbfa93943f94f84c4e31007",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/133394556c813b61aa3481a87bef8419d8ec95c0",
+                "reference": "133394556c813b61aa3481a87bef8419d8ec95c0",
                 "shasum": ""
             },
             "require": {
@@ -6935,7 +6958,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.38"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.39"
             },
             "funding": [
                 {
@@ -6943,8 +6966,8 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-10-05T05:44:26+00:00",
-            "published-time": "2026-10-05T05:45:23+00:00"
+            "time": "2026-11-13T11:05:34+00:00",
+            "published-time": "2026-11-13T11:06:33+00:00"
         },
         {
             "name": "psy/psysh",

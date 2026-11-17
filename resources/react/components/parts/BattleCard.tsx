@@ -53,52 +53,52 @@ export default function BattleCard (props: BattleCardProps) {
           >
             {battle.thumbnail
               ? (
-                <picture
-                  className={[
-                    classes.thumbnail,
-                    thumbnailLoaded ? classes.thumbnailLoaded : null
-                  ].filter(v => v !== null).join(' ')}
-                >
-                  <source
-                    type='image/avif'
-                    sizes={THUMBNAIL_SIZES}
-                    srcSet={buildThumbnailSrcSet(battle.thumbnail, 'avif')}
-                  />
-                  <source
-                    type='image/webp'
-                    sizes={THUMBNAIL_SIZES}
-                    srcSet={buildThumbnailSrcSet(battle.thumbnail, 'webp')}
-                  />
-                  <img
-                    alt=''
-                    decoding='async'
-                    sizes={THUMBNAIL_SIZES}
-                    srcSet={buildThumbnailSrcSet(battle.thumbnail, 'jpg')}
-                    onLoad={() => setThumbnailLoaded(true)}
-                  />
-                </picture>
+                  <picture
+                    className={[
+                      classes.thumbnail,
+                      thumbnailLoaded ? classes.thumbnailLoaded : null
+                    ].filter(v => v !== null).join(' ')}
+                  >
+                    <source
+                      type='image/avif'
+                      sizes={THUMBNAIL_SIZES}
+                      srcSet={buildThumbnailSrcSet(battle.thumbnail, 'avif')}
+                    />
+                    <source
+                      type='image/webp'
+                      sizes={THUMBNAIL_SIZES}
+                      srcSet={buildThumbnailSrcSet(battle.thumbnail, 'webp')}
+                    />
+                    <img
+                      alt=''
+                      decoding='async'
+                      sizes={THUMBNAIL_SIZES}
+                      srcSet={buildThumbnailSrcSet(battle.thumbnail, 'jpg')}
+                      onLoad={() => setThumbnailLoaded(true)}
+                    />
+                  </picture>
                 )
               : null}
             {((battle.mode && battle.mode.icon) || (battle.rule && battle.rule.icon))
               ? (
-                <div className={classes.modeIcons}>
-                  {battle.mode && battle.mode.icon
-                    ? <img
-                        alt={battle.mode.name}
-                        height={24}
-                        src={battle.mode.icon}
-                        title={battle.mode.name}
-                      />
-                    : null}
-                  {battle.rule && battle.rule.icon
-                    ? <img
-                        alt={battle.rule.name}
-                        height={24}
-                        src={battle.rule.icon}
-                        title={battle.rule.name}
-                      />
-                    : null}
-                </div>
+                  <div className={classes.modeIcons}>
+                    {battle.mode && battle.mode.icon
+                      ? <img
+                          alt={battle.mode.name}
+                          height={24}
+                          src={battle.mode.icon}
+                          title={battle.mode.name}
+                        />
+                      : null}
+                    {battle.rule && battle.rule.icon
+                      ? <img
+                          alt={battle.rule.name}
+                          height={24}
+                          src={battle.rule.icon}
+                          title={battle.rule.name}
+                        />
+                      : null}
+                  </div>
                 )
               : null}
             <div className={classes.time}>

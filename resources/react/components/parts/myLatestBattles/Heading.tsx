@@ -18,7 +18,7 @@ export default function Heading () {
   }
 
   if (!template || !user) {
-    return <h2>{'Battles'}</h2>;
+    return <h2>Battles</h2>;
   }
 
   const linkHTML = `<a href="${esc(user.url)}">${esc(user.name)}</a>`;
