@@ -73,17 +73,15 @@ if ($player->is_me) {
       ['class' => 'h-100 d-flex flex-row flex-column'],
     ),
   ) . "\n" ?>
-<?php if ($isXmatch) { ?>
 <?php if ($useXMatchingRange) { ?>
   <td class="text-right"><?=
     $f->asDecimal($player->weapon?->mainweapon?->matching_range, 1)
   ?></td>
-<?php } else { ?>
+<?php } elseif ($isXmatch) { ?>
   <?= $this->render('player/cell-x-matching-group', [
     'group' => $weaponMatchingGroup[$player->weapon->key ?? 'unknown'] ?? null,
     'weapon' => $player->weapon,
   ]) . "\n" ?>
-<?php } ?>
 <?php } ?>
   <td class="text-right"><?= $f->asInteger($player->inked) ?></td>
   <td class="text-right"><?php
