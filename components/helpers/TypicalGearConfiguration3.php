@@ -13,6 +13,7 @@ use Generator;
 use LogicException;
 
 use function array_diff;
+use function array_fill_keys;
 use function array_filter;
 use function array_keys;
 use function array_map;
@@ -216,10 +217,7 @@ final class TypicalGearConfiguration3
      */
     private static function allocateSecondaries(array $residuals, int $slots): array
     {
-        $counts = [];
-        foreach ($residuals as $key => $_) {
-            $counts[$key] = 0;
-        }
+        $counts = array_fill_keys(array_keys($residuals), 0);
 
         for ($n = 0; $n < $slots; ++$n) {
             $selected = null;
