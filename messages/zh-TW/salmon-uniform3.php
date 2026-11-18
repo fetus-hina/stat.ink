@@ -18,7 +18,7 @@ return [
     'Green Slopsuit' => '打工連身工作服 綠色',
     'Heavy-Duty Slopsuit' => '打工連身工作服 重裝',
     'Iridescent Slopsuit' => '打工連身工作服 稜鏡',
-    'Junior Slopsuit' => '',
+    'Junior Slopsuit' => '打工連身工作服 新葉',
     'Koi Slopsuit' => '打工連身工作服 錦鯉',
     'Lime Gloopsuit' => '打工防水衣 萊姆綠',
     'Orange Gloopsuit' => '打工防水衣 橘色',

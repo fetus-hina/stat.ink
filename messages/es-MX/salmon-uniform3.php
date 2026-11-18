@@ -18,7 +18,7 @@ return [
     'Green Slopsuit' => 'Uniforme de trabajo verde',
     'Heavy-Duty Slopsuit' => 'Uniforme de trabajo resistente',
     'Iridescent Slopsuit' => 'Uniforme de trabajo prisma',
-    'Junior Slopsuit' => '',
+    'Junior Slopsuit' => 'Uniforme de trabajo básico',
     'Koi Slopsuit' => 'Uniforme de trabajo kois',
     'Lime Gloopsuit' => 'Overol de trabajo cítrico',
     'Orange Gloopsuit' => 'Overol de trabajo naranja',

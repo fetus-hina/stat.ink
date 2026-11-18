@@ -18,7 +18,7 @@ return [
     'Green Slopsuit' => 'Mono de trabajo verde',
     'Heavy-Duty Slopsuit' => 'Mono de trabajo resistente',
     'Iridescent Slopsuit' => 'Mono de trabajo prisma',
-    'Junior Slopsuit' => '',
+    'Junior Slopsuit' => 'Mono de trabajo novato',
     'Koi Slopsuit' => 'Mono de trabajo carpas',
     'Lime Gloopsuit' => 'Vadeador lima',
     'Orange Gloopsuit' => 'Vadeador naranja',

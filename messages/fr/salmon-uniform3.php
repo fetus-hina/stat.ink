@@ -18,7 +18,7 @@ return [
     'Green Slopsuit' => 'Salopette verte',
     'Heavy-Duty Slopsuit' => 'Combinaison robuste',
     'Iridescent Slopsuit' => 'Salopette irisée',
-    'Junior Slopsuit' => '',
+    'Junior Slopsuit' => 'Combinaison junior',
     'Koi Slopsuit' => 'Combi carpe koï',
     'Lime Gloopsuit' => 'Salopette limette',
     'Orange Gloopsuit' => 'Combi caoutchouc orange',
