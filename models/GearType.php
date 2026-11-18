@@ -75,17 +75,17 @@ class GearType extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return ActiveQuery<Gear>
      */
-    public function getGears()
+    public function getGears(): ActiveQuery
     {
         return $this->hasMany(Gear::class, ['type_id' => 'id']);
     }
 
     /**
-     * @return ActiveQuery
+     * @return ActiveQuery<Gear2>
      */
-    public function getGear2s()
+    public function getGear2s(): ActiveQuery
     {
         return $this->hasMany(Gear2::class, ['type_id' => 'id']);
     }
