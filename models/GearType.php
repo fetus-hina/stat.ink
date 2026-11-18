@@ -25,6 +25,7 @@ use const SORT_ASC;
  * @property string $key
  * @property string $name
  *
+ * @property Ability3[] $ability3s
  * @property Gear[] $gears
  * @property Gear2[] $gear2s
  */
@@ -66,17 +67,25 @@ class GearType extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return ActiveQuery<Ability3>
      */
-    public function getGears()
+    public function getAbility3s(): ActiveQuery
+    {
+        return $this->hasMany(Ability3::class, ['gear_type_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery<Gear>
+     */
+    public function getGears(): ActiveQuery
     {
         return $this->hasMany(Gear::class, ['type_id' => 'id']);
     }
 
     /**
-     * @return ActiveQuery
+     * @return ActiveQuery<Gear2>
      */
-    public function getGear2s()
+    public function getGear2s(): ActiveQuery
     {
         return $this->hasMany(Gear2::class, ['type_id' => 'id']);
     }

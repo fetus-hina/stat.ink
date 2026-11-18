@@ -10,13 +10,16 @@ declare(strict_types=1);
 use app\assets\ColorSchemeAsset;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Dialog;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Ability3;
 use app\models\Rule3;
 use app\models\Season3;
+use app\models\Special3;
 use app\models\StatAbility3XUsage;
 use app\models\StatWeapon3XUsageRange;
+use app\models\Subweapon3;
 use app\models\Weapon3;
 use jp3cki\yii2\jqueryColor\JqueryColorAsset;
 use yii\helpers\ArrayHelper;
@@ -34,6 +37,7 @@ use yii\web\View;
  * @var array<int, Rule3> $rules
  * @var array<int, Season3> $seasons
  * @var array<int, StatAbility3XUsage> $data
+ * @var array<int, list<array{error: float, config: array<string, array{primary: string, secondaries: list<string>}>, sendouInkUrl: string|null}>> $typicalGears
  * @var callable(Rule3): string $ruleUrl
  * @var callable(Season3): string $seasonUrl
  * @var callable(StatWeapon3XUsageRange): string $xRangeUrl
@@ -47,8 +51,21 @@ OgpHelper::default($this, title: $title);
 ColorSchemeAsset::register($this);
 JqueryColorAsset::register($this);
 
-$this->registerCss('.vmiddle{vertical-align:middle!important}');
+$this->registerCss(implode('', [
+  '.vmiddle{vertical-align:middle!important}',
+  '.typical-gear-trigger{cursor:pointer}',
+  '.table.typical-gear-premise>tbody>tr>td,.table.typical-gear-premise>tbody>tr>th{border-top:0}',
+  '.typical-gear-premise th{white-space:nowrap;width:1%}',
+  '.typical-gear-candidate .gear-block{background:#333;border-radius:5px;line-height:1;padding:0 2px}',
+  '.typical-gear-candidate .main-ability{font-size:3em;vertical-align:baseline;width:auto}',
+  '.typical-gear-candidate .sub-ability{font-size:1.75em;vertical-align:baseline;width:auto}',
+  '@media(max-width:767px){',
+  '.typical-gear-candidate .main-ability{font-size:2em}',
+  '.typical-gear-candidate .sub-ability{font-size:1.25em}',
+  '}',
+]));
 $maxValue = 0.0;
+$typicalGearDialogId = 'typical-gear-dialog';
 
 ?>
 <div class="container">
@@ -97,6 +114,11 @@ $maxValue = 0.0;
       ) . "\n" ?>
       <?= Html::encode(Yii::t('app-entire', 'The abilities valid only for the primary means the rate of mounting.')) . "\n" ?>
     </p>
+    <p class="mb-1">
+      <?= Html::encode(
+        Yii::t('app-entire', 'Click or tap the weapon icons at the left end of each row to show example gear setups.'),
+      ) . "\n" ?>
+    </p>
   </div>
 
   <div class="table-responsive table-responsive-force mb-3">
@@ -116,12 +138,34 @@ $maxValue = 0.0;
     }
 ?>
 <?php $rowData = $data[$weapon->id] ?? [] ?>
+<?php $candidates = $typicalGears[$weapon->id] ?? [] ?>
         <?= Html::beginTag('tr', ['data-key' => $weapon->key]) . "\n" ?>
-          <th scope="row" class="text-nowrap vmiddle">
+          <?= Html::beginTag('th', [
+            'class' => array_filter([
+              'text-nowrap',
+              'vmiddle',
+              $candidates ? 'typical-gear-trigger' : null,
+            ]),
+            'data' => $candidates
+              ? [
+                'candidates' => $candidates,
+                'icon' => Icon::s3Weapon($weapon),
+                'special' => $weapon->special?->key,
+                'sub' => $weapon->subweapon?->key,
+                'weapon' => Yii::t('app-weapon3', $weapon->name),
+                'title' => Yii::t('app-entire', 'Example Gear Setups for {weapon}', [
+                  'weapon' => Yii::t('app-weapon3', $weapon->name),
+                ]),
+              ]
+              : [],
+            'role' => $candidates ? 'button' : null,
+            'scope' => 'row',
+            'tabindex' => $candidates ? '0' : null,
+          ]) . "\n" ?>
             <?= Icon::s3Weapon($weapon, size: '1.2em') . "\n" ?>
             <?= Icon::s3Subweapon($weapon->subweapon, size: '0.8em') . "\n" ?>
             <?= Icon::s3Special($weapon->special, size: '0.8em') . "\n" ?>
-          </th>
+          <?= Html::endTag('th') . "\n" ?>
           <td class="text-right small vmiddle text-muted">
             <?= Yii::$app->formatter->asInteger($rowData['players'] ?? 0) . "\n" ?>
           </td>
@@ -148,6 +192,188 @@ $maxValue = 0.0;
     </table>
   </div>
 </div>
+<?= Dialog::widget([
+  'body' => implode('', [
+    Html::tag(
+      'table',
+      Html::tag('tbody', implode('', [
+        Html::tag('tr', implode('', [
+          Html::tag('th', Html::encode(Yii::t('app', 'Mode')), ['scope' => 'row']),
+          Html::tag('td', implode(' ', [
+            Icon::s3Rule($rule) ?? '',
+            Html::encode(Yii::t('app-rule3', $rule->name)),
+          ])),
+        ])),
+        Html::tag('tr', implode('', [
+          Html::tag('th', Html::encode(Yii::t('app', 'Weapon')), ['scope' => 'row']),
+          Html::tag('td', '', ['class' => 'typical-gear-premise-weapon']),
+        ])),
+        Html::tag('tr', implode('', [
+          Html::tag('th', Html::encode(Yii::t('app', 'Sub Weapon')), ['scope' => 'row']),
+          Html::tag('td', '', ['class' => 'typical-gear-premise-sub']),
+        ])),
+        Html::tag('tr', implode('', [
+          Html::tag('th', Html::encode(Yii::t('app', 'Special')), ['scope' => 'row']),
+          Html::tag('td', '', ['class' => 'typical-gear-premise-special']),
+        ])),
+      ])),
+      ['class' => 'table table-condensed typical-gear-premise mb-0'],
+    ),
+    Html::tag('div', '', ['class' => 'typical-gear-candidates']),
+  ]),
+  'footer' => Dialog::FOOTER_CLOSE,
+  'id' => $typicalGearDialogId,
+  'title' => '',
+]) . "\n" ?>
+<?php
+$maxCandidates = max([0, ...array_map(count(...), $typicalGears)]);
+$this->registerJs(vsprintf('(%s)(%s);', [
+  <<<'JS'
+    function (options) {
+      const $dialog = $(options.dialog);
+      const $container = $('.typical-gear-candidates', $dialog);
+      const icon = function (key) {
+        return $('<span class="typical-gear-ability">')
+          .attr('title', options.abilityNames[key] || '')
+          .append($.parseHTML(options.abilityIcons[key] || ''));
+      };
+      const destroyTooltips = function () {
+        $('.typical-gear-ability', $container).tooltip('destroy');
+      };
+
+      const renderGear = function (gear) {
+        return $('<span class="d-inline-block gear-block">').append(
+          $('<span class="main-ability">').append(icon(gear.primary)),
+          $('<span class="sub-ability">').append(gear.secondaries.map(icon))
+        );
+      };
+
+      const renderCandidate = function (candidate, index) {
+        const config = candidate.config;
+        const $candidate = $('<div class="typical-gear-candidate">')
+          .append(
+            $('<h5 class="mt-0 mb-1">').text(options.labels[index] || ''),
+            $('<div>').append(
+              renderGear(config.headgear),
+              ' ',
+              renderGear(config.clothing),
+              ' ',
+              renderGear(config.shoes)
+            )
+          );
+
+        if (candidate.sendouInkUrl) {
+          $candidate.append(
+            $('<div class="mt-1 text-right">').append(
+              $('<a class="btn btn-default btn-xs">')
+                .attr({
+                  href: candidate.sendouInkUrl,
+                  rel: 'nofollow noreferrer',
+                  target: '_blank'
+                })
+                .append($.parseHTML(options.analyzerLabel))
+            )
+          );
+        }
+
+        return $candidate;
+      };
+
+      const fillPremise = function (selector, iconHtml, name) {
+        $(selector, $dialog)
+          .empty()
+          .append(
+            $.parseHTML(iconHtml || ''),
+            document.createTextNode(' ' + (name || '-'))
+          );
+      };
+
+      const open = function ($trigger) {
+        // On touch devices, tapping the trigger also shows the tooltips of the icons in it,
+        // and they would remain above the dialog
+        $('.auto-tooltip', $trigger).tooltip('hide');
+
+        const sub = options.subweapons[$trigger.data('sub')] || {};
+        const special = options.specials[$trigger.data('special')] || {};
+        fillPremise('.typical-gear-premise-weapon', $trigger.attr('data-icon'), String($trigger.data('weapon')));
+        fillPremise('.typical-gear-premise-sub', sub.icon, sub.name);
+        fillPremise('.typical-gear-premise-special', special.icon, special.name);
+
+        $('.modal-title', $dialog)
+          .empty()
+          .append(
+            $.parseHTML(String($trigger.attr('data-icon') || '')),
+            document.createTextNode(' ' + String($trigger.data('title')))
+          );
+        destroyTooltips();
+        $container
+          .empty()
+          .append(
+            $trigger.data('candidates').flatMap(function (candidate, index) {
+              return [$('<hr>'), renderCandidate(candidate, index)];
+            })
+          );
+        $('.typical-gear-ability', $container).tooltip({ container: 'body' });
+        $dialog.modal('show');
+      };
+
+      // Tooltips are attached to the body, so they may remain after the dialog is closed
+      $dialog.on('hide.bs.modal', function () {
+        $('.typical-gear-ability', $container).tooltip('hide');
+      });
+
+      $(document)
+        .on('click', '.typical-gear-trigger', function () {
+          open($(this));
+        })
+        .on('keydown', '.typical-gear-trigger', function (ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            open($(this));
+          }
+        });
+    }
+  JS,
+  json_encode(
+    [
+      'abilityIcons' => array_combine(
+        array_map(fn (Ability3 $ability): string => $ability->key, $abilities),
+        array_map(fn (Ability3 $ability): string => Icon::s3Ability($ability) ?? '', $abilities),
+      ),
+      'abilityNames' => array_combine(
+        array_map(fn (Ability3 $ability): string => $ability->key, $abilities),
+        array_map(fn (Ability3 $ability): string => Yii::t('app-ability3', $ability->name), $abilities),
+      ),
+      'analyzerLabel' => implode(' ', [
+        Icon::popup(),
+        Html::encode(Yii::t('app-show-v3', 'Check with Setup Analyzer')),
+      ]),
+      'dialog' => '#' . $typicalGearDialogId,
+      'specials' => (object)ArrayHelper::map(
+        array_filter(array_map(fn (Weapon3 $weapon): ?Special3 => $weapon->special, $weapons)),
+        'key',
+        fn (Special3 $special): array => [
+          'icon' => Icon::s3Special($special) ?? '',
+          'name' => Yii::t('app-special3', $special->name),
+        ],
+      ),
+      'subweapons' => (object)ArrayHelper::map(
+        array_filter(array_map(fn (Weapon3 $weapon): ?Subweapon3 => $weapon->subweapon, $weapons)),
+        'key',
+        fn (Subweapon3 $sub): array => [
+          'icon' => Icon::s3Subweapon($sub) ?? '',
+          'name' => Yii::t('app-subweapon3', $sub->name),
+        ],
+      ),
+      'labels' => array_map(
+        fn (int $n): string => Yii::t('app-entire', 'Example Gear Setup {number}', ['number' => $n]),
+        $maxCandidates > 0 ? range(1, $maxCandidates) : [],
+      ),
+    ],
+    JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE,
+  ),
+]));
+?>
 <?php
 if ($maxValue > 0.0) {
   $this->registerJs(<<<JS

@@ -11,7 +11,9 @@ namespace app\actions\entire\v3;
 
 use Yii;
 use app\components\helpers\Season3Helper;
+use app\components\helpers\SendouInk;
 use app\components\helpers\TypeHelper;
+use app\components\helpers\TypicalGearConfiguration3;
 use app\models\Ability3;
 use app\models\Rule3;
 use app\models\Season3;
@@ -30,11 +32,16 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
+use function array_map;
 use function array_pop;
 use function vsprintf;
 
 use const SORT_ASC;
 
+/**
+ * @phpstan-import-type TypicalGearCandidate3 from TypicalGearConfiguration3
+ * @phpstan-import-type TypicalGearConfig3 from TypicalGearConfiguration3
+ */
 final class Ability3Action extends Action
 {
     private const PARAM_SEASON_ID = Season3Helper::DEFAULT_SEASON_PARAM_NAME;
@@ -93,14 +100,23 @@ final class Ability3Action extends Action
             ]);
         }
 
+        $abilities = $this->getAbilities($db);
+        $data = $this->getData($db, $season, $rule, $xRange);
+        $weapons = $this->getWeapons($db, $season);
+
         return [
-            'abilities' => $this->getAbilities($db),
-            'data' => $this->getData($db, $season, $rule, $xRange),
+            'abilities' => $abilities,
+            'typicalGears' => $this->addSetupAnalyzerUrls(
+                $this->getTypicalGearCandidates($abilities, $data),
+                $weapons,
+                $abilities,
+            ),
+            'data' => $data,
             'rule' => $rule,
             'rules' => $this->getRules($db),
             'season' => $season,
             'seasons' => Season3Helper::getSeasons(),
-            'weapons' => $this->getWeapons($db, $season),
+            'weapons' => $weapons,
             'xRange' => $xRange,
             'xRanges' => $this->getXPowerRanges($db, $season),
 
@@ -163,6 +179,75 @@ final class Ability3Action extends Action
                 ->all($db),
             'weapon_id',
         );
+    }
+
+    /**
+     * @param Ability3[] $abilities
+     * @param array<int, StatAbility3XUsage> $data
+     * @return array<int, list<TypicalGearCandidate3>>
+     */
+    private function getTypicalGearCandidates(array $abilities, array $data): array
+    {
+        $gearTypes = [];
+        foreach ($abilities as $ability) {
+            $gearTypes[$ability->key] = $ability->gearType?->key;
+        }
+
+        $inputs = [];
+        foreach ($data as $weaponId => $row) {
+            $averages = [];
+            foreach ($abilities as $ability) {
+                $averages[$ability->key] = TypeHelper::floatOrNull(
+                    $row->getAttribute("{$ability->key}_avg"),
+                ) ?? 0.0;
+            }
+
+            $inputs[$weaponId] = $averages;
+        }
+
+        // The calculation is a bit heavy, so cache the results keyed by the inputs themselves
+        return Yii::$app->cache->getOrSet(
+            [__METHOD__, TypicalGearConfiguration3::VERSION, $gearTypes, $inputs],
+            fn (): array => array_map(
+                fn (array $averages): array => TypicalGearConfiguration3::build($gearTypes, $averages),
+                $inputs,
+            ),
+            86400,
+        );
+    }
+
+    /**
+     * @param array<int, list<TypicalGearCandidate3>> $candidates
+     * @param Weapon3[] $weapons
+     * @param Ability3[] $abilities
+     * @return array<int, list<array{error: float, config: TypicalGearConfig3, sendouInkUrl: string|null}>>
+     */
+    private function addSetupAnalyzerUrls(array $candidates, array $weapons, array $abilities): array
+    {
+        $codes = [];
+        foreach ($abilities as $ability) {
+            $codes[$ability->key] = $ability->sendouink;
+        }
+
+        $weaponsById = [];
+        foreach ($weapons as $weapon) {
+            $weaponsById[$weapon->id] = $weapon;
+        }
+
+        $results = [];
+        foreach ($candidates as $weaponId => $list) {
+            $weapon = $weaponsById[$weaponId] ?? null;
+            $results[$weaponId] = array_map(
+                fn (array $candidate): array => [
+                    'error' => $candidate['error'],
+                    'config' => $candidate['config'],
+                    'sendouInkUrl' => SendouInk::getBuildUrl3FromConfig($weapon, $candidate['config'], $codes),
+                ],
+                $list,
+            );
+        }
+
+        return $results;
     }
 
     /**
@@ -238,8 +323,9 @@ final class Ability3Action extends Action
         return Weapon3::find()
             ->with([
                 'mainweapon',
-                'subweapon',
                 'special',
+                'subweapon',
+                'weapon3Aliases',
             ])
             ->innerJoinWith(
                 [
@@ -266,6 +352,7 @@ final class Ability3Action extends Action
     private function getAbilities(Connection $db): array
     {
         return Ability3::find()
+            ->with(['gearType'])
             ->orderBy(['rank' => SORT_ASC])
             ->cache(86400)
             ->all($db);

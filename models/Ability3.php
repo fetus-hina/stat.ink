@@ -21,7 +21,9 @@ use yii\db\ActiveRecord;
  * @property integer $rank
  * @property boolean $primary_only
  * @property string $sendouink
+ * @property integer|null $gear_type_id
  *
+ * @property GearType|null $gearType
  * @property GearConfiguration3[] $gearConfiguration3s
  * @property GearConfigurationSecondary3[] $gearConfigurationSecondary3s
  */
@@ -36,14 +38,15 @@ class Ability3 extends ActiveRecord
     {
         return [
             [['key', 'name', 'rank', 'primary_only', 'sendouink'], 'required'],
-            [['rank'], 'default', 'value' => null],
-            [['rank'], 'integer'],
+            [['rank', 'gear_type_id'], 'default', 'value' => null],
+            [['rank', 'gear_type_id'], 'integer'],
             [['primary_only'], 'boolean'],
             [['key', 'name'], 'string', 'max' => 32],
             [['sendouink'], 'string', 'max' => 3],
             [['key'], 'unique'],
             [['rank'], 'unique'],
             [['sendouink'], 'unique'],
+            [['gear_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => GearType::class, 'targetAttribute' => ['gear_type_id' => 'id']],
         ];
     }
 
@@ -56,7 +59,16 @@ class Ability3 extends ActiveRecord
             'rank' => 'Rank',
             'primary_only' => 'Primary Only',
             'sendouink' => 'Sendouink',
+            'gear_type_id' => 'Gear Type ID',
         ];
+    }
+
+    /**
+     * @return ActiveQuery<GearType>
+     */
+    public function getGearType(): ActiveQuery
+    {
+        return $this->hasOne(GearType::class, ['id' => 'gear_type_id']);
     }
 
     public function getGearConfiguration3s(): ActiveQuery

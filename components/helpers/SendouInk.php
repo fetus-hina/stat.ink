@@ -26,6 +26,9 @@ use function vsprintf;
 
 use const FILTER_VALIDATE_INT;
 
+/**
+ * @phpstan-import-type TypicalGearConfig3 from TypicalGearConfiguration3
+ */
 final class SendouInk
 {
     private const UNKNOWN_KEY = 'U';
@@ -49,6 +52,41 @@ final class SendouInk
             return null;
         }
 
+        return self::makeAnalyzerUrl($weaponId, $abilities);
+    }
+
+    /**
+     * @param TypicalGearConfig3 $config
+     * @param array<string, string> $codes Ability key => sendou.ink's ability key
+     */
+    public static function getBuildUrl3FromConfig(?Weapon3 $weapon, array $config, array $codes): ?string
+    {
+        if (!$weapon) {
+            return null;
+        }
+
+        $weaponId = self::getWeaponId3($weapon); // may returns 0 (for "bold", it's valid)
+        if ($weaponId === null) {
+            return null;
+        }
+
+        $abilities = [];
+        foreach ([$config['headgear'], $config['clothing'], $config['shoes']] as $gear) {
+            $abilities[] = $codes[$gear['primary']] ?? self::UNKNOWN_KEY;
+            for ($i = 0; $i < 3; ++$i) {
+                $key = $gear['secondaries'][$i] ?? null;
+                $abilities[] = $key === null ? self::UNKNOWN_KEY : ($codes[$key] ?? self::UNKNOWN_KEY);
+            }
+        }
+
+        return self::makeAnalyzerUrl($weaponId, $abilities);
+    }
+
+    /**
+     * @param string[] $abilities
+     */
+    private static function makeAnalyzerUrl(int $weaponId, array $abilities): string
+    {
         return vsprintf('https://sendou.ink/analyzer?%s', [
             http_build_query([
                 'weapon' => $weaponId,
