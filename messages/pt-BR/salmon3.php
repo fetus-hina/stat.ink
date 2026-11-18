@@ -44,7 +44,7 @@ return [
     'Max.' => 'Máx.',
     'Max. Hazard Level (cleared)' => 'Nível de perigo máx. (concluído)',
     'MAX Hazard Level Cleared' => 'Nível de perigo MÁX concluído',
-    'Normal Job' => 'Partida Normal',
+    'Normal Job' => 'Partida normal',
     'Normal Waves' => 'Ondas normais',
     'Not Defeated' => 'Não derrotado',
     'Note that this data is too small data size to speak of occurrence rates.' => 'Note que estes dados são insuficientes para ter informações sobre as taxas de ocorrências.',
