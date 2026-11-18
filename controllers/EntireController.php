@@ -36,6 +36,7 @@ use app\actions\entire\v3\Event3Action;
 use app\actions\entire\v3\InkColor3Action;
 use app\actions\entire\v3\KDWin3Action;
 use app\actions\entire\v3\Knockout3Action;
+use app\actions\entire\v3\MatchingRange3Action;
 use app\actions\entire\v3\SpecialUse3Action;
 use app\actions\entire\v3\SpecialUse3PerSpecialAction;
 use app\actions\entire\v3\Splatfest3Action;
@@ -84,6 +85,7 @@ final class EntireController extends Controller
             'knockout' => KnockoutAction::class,
             'knockout2' => Knockout2Action::class,
             'knockout3' => Knockout3Action::class,
+            'matching-range3' => MatchingRange3Action::class,
             'salmon-clear' => SalmonClearAction::class,
             'salmon3-bigrun' => BigrunAction::class,
             'salmon3-eggstra-work' => EggstraWorkAction::class,

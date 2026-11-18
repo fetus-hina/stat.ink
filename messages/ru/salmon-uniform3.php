@@ -18,7 +18,7 @@ return [
     'Green Slopsuit' => 'Зеленый комбинезон',
     'Heavy-Duty Slopsuit' => 'Ударный комбинезон',
     'Iridescent Slopsuit' => 'Радужный комбинезон',
-    'Junior Slopsuit' => '',
+    'Junior Slopsuit' => 'Комбинезон-У',
     'Koi Slopsuit' => 'Комбинезон с кои',
     'Lime Gloopsuit' => 'Гидрокомплект «Лайм»',
     'Orange Gloopsuit' => 'Гидрокомплект «Оранж»',

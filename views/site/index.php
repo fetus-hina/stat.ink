@@ -145,6 +145,10 @@ OgpHelper::default($this, Url::to(['site/index'], true));
           ['entire/xpower-distrib3'],
         ),
         Html::a(
+          Icon::s3LobbyX() . ' ' . Html::encode(Yii::t('app-xmatch3', 'Matching Range')),
+          ['entire/matching-range3'],
+        ),
+        Html::a(
           Icon::s3AbilityStealthJump() . ' ' . Html::encode(Yii::t('app-entire', 'Stealth Jump Equipment Rate')),
           ['entire/stealth-jump3'],
         ),

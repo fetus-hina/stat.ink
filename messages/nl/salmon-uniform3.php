@@ -18,7 +18,7 @@ return [
     'Green Slopsuit' => 'Groen werkkloffie',
     'Heavy-Duty Slopsuit' => 'Overwerkkloffie',
     'Iridescent Slopsuit' => 'Parelmoerwerkkloffie',
-    'Junior Slopsuit' => '',
+    'Junior Slopsuit' => 'Junior-werkkloffie',
     'Koi Slopsuit' => 'Koi-werkkloffie',
     'Lime Gloopsuit' => 'Limoenploeterkloffie',
     'Orange Gloopsuit' => 'Oranje ploeterkloffie',

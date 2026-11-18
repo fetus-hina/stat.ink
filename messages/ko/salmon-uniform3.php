@@ -18,7 +18,7 @@ return [
     'Green Slopsuit' => '그린 작업복',
     'Heavy-Duty Slopsuit' => '블로커 작업복',
     'Iridescent Slopsuit' => '프리즘 작업복',
-    'Junior Slopsuit' => '',
+    'Junior Slopsuit' => '새싹 작업복',
     'Koi Slopsuit' => '비단잉어 작업복',
     'Lime Gloopsuit' => '라임 아르바이트 웨이더',
     'Orange Gloopsuit' => '오렌지 아르바이트 웨이더',

@@ -18,7 +18,7 @@ return [
     'Green Slopsuit' => 'Grüne Arbeitsklamotten',
     'Heavy-Duty Slopsuit' => 'Schwerstarbeitsklamotten',
     'Iridescent Slopsuit' => 'Schiller-Arbeitsklamotten',
-    'Junior Slopsuit' => '',
+    'Junior Slopsuit' => 'Junior-Arbeitsklamotten',
     'Koi Slopsuit' => 'Koi-Klamotten',
     'Lime Gloopsuit' => 'Limetten-Wattwater',
     'Orange Gloopsuit' => 'Orange Wattwater',
