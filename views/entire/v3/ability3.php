@@ -16,8 +16,10 @@ use app\components\widgets\SnsWidget;
 use app\models\Ability3;
 use app\models\Rule3;
 use app\models\Season3;
+use app\models\Special3;
 use app\models\StatAbility3XUsage;
 use app\models\StatWeapon3XUsageRange;
+use app\models\Subweapon3;
 use app\models\Weapon3;
 use jp3cki\yii2\jqueryColor\JqueryColorAsset;
 use yii\helpers\ArrayHelper;
@@ -52,6 +54,8 @@ JqueryColorAsset::register($this);
 $this->registerCss(implode('', [
   '.vmiddle{vertical-align:middle!important}',
   '.typical-gear-trigger{cursor:pointer}',
+  '.table.typical-gear-premise>tbody>tr>td,.table.typical-gear-premise>tbody>tr>th{border-top:0}',
+  '.typical-gear-premise th{white-space:nowrap;width:1%}',
   '.typical-gear-candidate .gear-block{background:#333;border-radius:5px;line-height:1;padding:0 2px}',
   '.typical-gear-candidate .main-ability{font-size:3em;vertical-align:baseline;width:auto}',
   '.typical-gear-candidate .sub-ability{font-size:1.75em;vertical-align:baseline;width:auto}',
@@ -146,6 +150,9 @@ $typicalGearDialogId = 'typical-gear-dialog';
               ? [
                 'candidates' => $candidates,
                 'icon' => Icon::s3Weapon($weapon),
+                'special' => $weapon->special?->key,
+                'sub' => $weapon->subweapon?->key,
+                'weapon' => Yii::t('app-weapon3', $weapon->name),
                 'title' => Yii::t('app-entire', 'Example Gear Setups for {weapon}', [
                   'weapon' => Yii::t('app-weapon3', $weapon->name),
                 ]),
@@ -186,7 +193,34 @@ $typicalGearDialogId = 'typical-gear-dialog';
   </div>
 </div>
 <?= Dialog::widget([
-  'body' => Html::tag('div', '', ['class' => 'typical-gear-candidates']),
+  'body' => implode('', [
+    Html::tag(
+      'table',
+      Html::tag('tbody', implode('', [
+        Html::tag('tr', implode('', [
+          Html::tag('th', Html::encode(Yii::t('app', 'Mode')), ['scope' => 'row']),
+          Html::tag('td', implode(' ', [
+            Icon::s3Rule($rule) ?? '',
+            Html::encode(Yii::t('app-rule3', $rule->name)),
+          ])),
+        ])),
+        Html::tag('tr', implode('', [
+          Html::tag('th', Html::encode(Yii::t('app', 'Weapon')), ['scope' => 'row']),
+          Html::tag('td', '', ['class' => 'typical-gear-premise-weapon']),
+        ])),
+        Html::tag('tr', implode('', [
+          Html::tag('th', Html::encode(Yii::t('app', 'Sub Weapon')), ['scope' => 'row']),
+          Html::tag('td', '', ['class' => 'typical-gear-premise-sub']),
+        ])),
+        Html::tag('tr', implode('', [
+          Html::tag('th', Html::encode(Yii::t('app', 'Special')), ['scope' => 'row']),
+          Html::tag('td', '', ['class' => 'typical-gear-premise-special']),
+        ])),
+      ])),
+      ['class' => 'table table-condensed typical-gear-premise mb-0'],
+    ),
+    Html::tag('div', '', ['class' => 'typical-gear-candidates']),
+  ]),
   'footer' => Dialog::FOOTER_CLOSE,
   'id' => $typicalGearDialogId,
   'title' => '',
@@ -243,7 +277,22 @@ $this->registerJs(vsprintf('(%s)(%s);', [
           );
       };
 
+      const fillPremise = function (selector, iconHtml, name) {
+        $(selector, $dialog)
+          .empty()
+          .append(
+            $.parseHTML(iconHtml || ''),
+            document.createTextNode(' ' + (name || '-'))
+          );
+      };
+
       const open = function ($trigger) {
+        const sub = options.subweapons[$trigger.data('sub')] || {};
+        const special = options.specials[$trigger.data('special')] || {};
+        fillPremise('.typical-gear-premise-weapon', $trigger.attr('data-icon'), String($trigger.data('weapon')));
+        fillPremise('.typical-gear-premise-sub', sub.icon, sub.name);
+        fillPremise('.typical-gear-premise-special', special.icon, special.name);
+
         $('.modal-title', $dialog)
           .empty()
           .append(
@@ -255,8 +304,7 @@ $this->registerJs(vsprintf('(%s)(%s);', [
           .empty()
           .append(
             $trigger.data('candidates').flatMap(function (candidate, index) {
-              const $candidate = renderCandidate(candidate, index);
-              return index > 0 ? [$('<hr>'), $candidate] : [$candidate];
+              return [$('<hr>'), renderCandidate(candidate, index)];
             })
           );
         $('.typical-gear-ability', $container).tooltip({ container: 'body' });
@@ -295,6 +343,22 @@ $this->registerJs(vsprintf('(%s)(%s);', [
         Html::encode(Yii::t('app-show-v3', 'Check with Setup Analyzer')),
       ]),
       'dialog' => '#' . $typicalGearDialogId,
+      'specials' => (object)ArrayHelper::map(
+        array_filter(array_map(fn (Weapon3 $weapon): ?Special3 => $weapon->special, $weapons)),
+        'key',
+        fn (Special3 $special): array => [
+          'icon' => Icon::s3Special($special) ?? '',
+          'name' => Yii::t('app-special3', $special->name),
+        ],
+      ),
+      'subweapons' => (object)ArrayHelper::map(
+        array_filter(array_map(fn (Weapon3 $weapon): ?Subweapon3 => $weapon->subweapon, $weapons)),
+        'key',
+        fn (Subweapon3 $sub): array => [
+          'icon' => Icon::s3Subweapon($sub) ?? '',
+          'name' => Yii::t('app-subweapon3', $sub->name),
+        ],
+      ),
       'labels' => array_map(
         fn (int $n): string => Yii::t('app-entire', 'Example Gear Setup {number}', ['number' => $n]),
         $maxCandidates > 0 ? range(1, $maxCandidates) : [],
