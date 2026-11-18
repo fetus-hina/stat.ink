@@ -18,6 +18,7 @@ return [
     'Green Slopsuit' => '',
     'Heavy-Duty Slopsuit' => '',
     'Iridescent Slopsuit' => '',
+    'Junior Slopsuit' => '',
     'Koi Slopsuit' => '',
     'Lime Gloopsuit' => '',
     'Orange Gloopsuit' => '',

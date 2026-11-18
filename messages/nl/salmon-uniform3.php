@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -18,6 +18,7 @@ return [
     'Green Slopsuit' => 'Groen werkkloffie',
     'Heavy-Duty Slopsuit' => 'Overwerkkloffie',
     'Iridescent Slopsuit' => 'Parelmoerwerkkloffie',
+    'Junior Slopsuit' => '',
     'Koi Slopsuit' => 'Koi-werkkloffie',
     'Lime Gloopsuit' => 'Limoenploeterkloffie',
     'Orange Gloopsuit' => 'Oranje ploeterkloffie',
