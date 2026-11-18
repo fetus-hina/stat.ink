@@ -38,6 +38,7 @@ use function array_values;
 use function fprintf;
 use function fwrite;
 use function implode;
+use function max;
 use function min;
 use function sprintf;
 use function strtotime;
@@ -106,7 +107,7 @@ final class MatchingRange3Action extends Action
             );
 
             $seasonIds = array_values(ArrayHelper::getColumn($seasons, 'id'));
-            $this->createTmpTable($db, $seasonIds, $minReleases);
+            $this->createTmpTable($db, $seasons, $minReleases);
 
             $now = new Now();
             foreach ($this->getTargetTables() as $tableName => $selectFactory) {
@@ -205,11 +206,20 @@ final class MatchingRange3Action extends Action
     /**
      * Creates a temporary table which has one row per battle
      *
-     * @param int[] $seasonIds
+     * @param non-empty-array<Season3> $seasons
      * @param non-empty-array<string, int> $minReleases
      */
-    private function createTmpTable(Connection $db, array $seasonIds, array $minReleases): void
+    private function createTmpTable(Connection $db, array $seasons, array $minReleases): void
     {
+        // Lower bound of start_at to narrow the range scanned by the index
+        $minStartAt = max(
+            min($minReleases),
+            min(array_map(
+                fn (Season3 $season): int => TypeHelper::int(strtotime($season->start_at)),
+                $seasons,
+            )),
+        );
+
         $ts = fn (int $t): string => $db->quoteValue(
             new DateTimeImmutable()
                 ->setTimezone(new DateTimeZone('Etc/UTC'))
@@ -245,7 +255,10 @@ final class MatchingRange3Action extends Action
                 {{%%battle3}}.[[rule_id]],
                 {{%%result3}}.[[is_win]]
               FROM {{%%battle3}}
-              INNER JOIN {{%%season3}} ON {{%%battle3}}.[[start_at]] <@ {{%%season3}}.[[term]]
+              -- Do not use "start_at <@ term" here; it makes the row estimates far too small
+              INNER JOIN {{%%season3}}
+                ON {{%%battle3}}.[[start_at]] >= {{%%season3}}.[[start_at]]
+                AND {{%%battle3}}.[[start_at]] < {{%%season3}}.[[end_at]]
               INNER JOIN {{%%lobby3}} ON {{%%battle3}}.[[lobby_id]] = {{%%lobby3}}.[[id]]
               INNER JOIN {{%%rule3}} ON {{%%battle3}}.[[rule_id]] = {{%%rule3}}.[[id]]
               INNER JOIN {{%%rule_group3}} ON {{%%rule3}}.[[group_id]] = {{%%rule_group3}}.[[id]]
@@ -265,7 +278,12 @@ final class MatchingRange3Action extends Action
             ),
             team AS (
               SELECT
-                {{%%battle_player3}}.[[battle_id]],
+                target_battle.[[id]] AS [[battle_id]],
+                target_battle.[[season_id]],
+                target_battle.[[lobby_id]],
+                target_battle.[[x_power_class]],
+                target_battle.[[rule_id]],
+                target_battle.[[is_win]],
                 {{%%battle_player3}}.[[is_our_team]],
                 ROUND(AVG({{%%mainweapon3}}.[[matching_range]]), 3) AS [[mr]],
                 MAX({{%%mainweapon3}}.[[matching_range]]) - MIN({{%%mainweapon3}}.[[matching_range]]) AS [[spread]]
@@ -273,31 +291,44 @@ final class MatchingRange3Action extends Action
               INNER JOIN {{%%battle_player3}} ON target_battle.[[id]] = {{%%battle_player3}}.[[battle_id]]
               LEFT JOIN {{%%weapon3}} ON {{%%battle_player3}}.[[weapon_id]] = {{%%weapon3}}.[[id]]
               LEFT JOIN {{%%mainweapon3}} ON {{%%weapon3}}.[[mainweapon_id]] = {{%%mainweapon3}}.[[id]]
-              GROUP BY {{%%battle_player3}}.[[battle_id]], {{%%battle_player3}}.[[is_our_team]]
+              GROUP BY
+                target_battle.[[id]],
+                target_battle.[[season_id]],
+                target_battle.[[lobby_id]],
+                target_battle.[[x_power_class]],
+                target_battle.[[rule_id]],
+                target_battle.[[is_win]],
+                {{%%battle_player3}}.[[is_our_team]]
               HAVING COUNT(*) = 4
                 AND COUNT({{%%mainweapon3}}.[[matching_range]]) = 4
             )
+            -- Combine both teams by aggregation instead of joining the CTEs;
+            -- the planner tends to choose nested loops for the join because of underestimated rows.
             SELECT
-              target_battle.[[season_id]],
-              target_battle.[[lobby_id]],
-              target_battle.[[x_power_class]],
-              target_battle.[[rule_id]],
-              target_battle.[[is_win]],
-              our_team.[[mr]] AS [[our_mr]],
-              their_team.[[mr]] AS [[their_mr]],
-              our_team.[[spread]] AS [[our_spread]],
-              their_team.[[spread]] AS [[their_spread]]
-            FROM target_battle
-            INNER JOIN team our_team
-              ON target_battle.[[id]] = our_team.[[battle_id]] AND our_team.[[is_our_team]] = TRUE
-            INNER JOIN team their_team
-              ON target_battle.[[id]] = their_team.[[battle_id]] AND their_team.[[is_our_team]] = FALSE
+              team.[[season_id]],
+              team.[[lobby_id]],
+              team.[[x_power_class]],
+              team.[[rule_id]],
+              team.[[is_win]],
+              MAX(team.[[mr]]) FILTER (WHERE team.[[is_our_team]]) AS [[our_mr]],
+              MAX(team.[[mr]]) FILTER (WHERE NOT team.[[is_our_team]]) AS [[their_mr]],
+              MAX(team.[[spread]]) FILTER (WHERE team.[[is_our_team]]) AS [[our_spread]],
+              MAX(team.[[spread]]) FILTER (WHERE NOT team.[[is_our_team]]) AS [[their_spread]]
+            FROM team
+            GROUP BY
+              team.[[battle_id]],
+              team.[[season_id]],
+              team.[[lobby_id]],
+              team.[[x_power_class]],
+              team.[[rule_id]],
+              team.[[is_win]]
+            HAVING COUNT(*) = 2
             SQL,
             [
                 $db->quoteTableName(self::TMP_TABLE_NAME),
                 self::X_POWER_THRESHOLD,
-                $ts(min($minReleases)),
-                implode(', ', array_map(fn (int $id): string => (string)$id, $seasonIds)),
+                $ts($minStartAt),
+                implode(', ', array_map(fn (Season3 $season): string => (string)$season->id, $seasons)),
                 implode(' OR ', $lobbyConds),
             ],
         );
