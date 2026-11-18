@@ -22,7 +22,7 @@ return [
     'Enable noise reduction (count)' => 'Подавлять шум (счёт)',
     'Enable noise reduction (position of the objective)' => 'Подавлять шум (положение цели)',
     'Enemy Weapon' => 'Оружие соперника',
-    'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => 'Исключено: частные бои и командные бои (при S или S+)',
+    'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => 'Исключено: частные бои и командные бои (при разряде S или S+)',
     'Good guys are in control' => 'Контроль у вашей команды',
     'Good guys winning' => 'Ваша команда впереди',
     'Group by main weapon' => 'Группировать по основному оружию',

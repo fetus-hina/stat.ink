@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -11,8 +11,8 @@ return [
     'now' => 'agora',
     '{delta} d' => '{delta} dia(s)',
     '{delta} h' => '{delta} h',
-    '{delta} m' => '{delta} min(s)',
+    '{delta} m' => '{delta} min',
     '{delta} mo' => '{delta} mês(es)',
-    '{delta} s' => '{delta} seg(s)',
+    '{delta} s' => '{delta} s',
     '{delta} yr' => '{delta} ano(s)',
 ];

@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Golden E.' => 'Ovos de Ouro',
+    'Golden E.' => 'Ovos de ouro',
     'Points' => 'Pontos',
     'Power E.' => 'Ovas',
     'Rescued' => 'Resgatado',

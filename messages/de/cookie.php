@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    '(3rd party defined)' => 'Drittanbieter definiert',
+    '(3rd party defined)' => '(von Drittanbietern definiert)',
     '(Session)' => '(Sitzung)',
     '(Twitter)' => '(Twitter)',
     'A token used for the auto login feature' => 'Ein Token, der für die automatische Anmeldung verwendet wird',
@@ -20,7 +20,7 @@ return [
     'I agree' => 'Ich stimme zu',
     'Issued and used by CloudFlare' => 'Ausgestellt und verwendet von CloudFlare',
     'Issued and used by Twitter' => 'Ausgestellt und verwendet von Twitter',
-    'Keep your input data while verifying email address' => 'Behält Ihre Eingabedaten bei der Überprüfung der E-Mail-Adresse bei',
+    'Keep your input data while verifying email address' => 'Behält deine Eingaben während der Überprüfung der E-Mail-Adresse bei',
     'Origin' => 'Ursprung',
     'Privacy policy' => 'Datenschutzrichtlinie',
     'privacy policy' => 'Datenschutzrichtlinie',
@@ -29,8 +29,8 @@ return [
     'Saving the specified or automatically detected time zone setting' => 'Speichern der festgelegten oder automatisch erkannten Zeitzonen-Einstellung',
     'Saving the specified or default theme (color scheme) setting' => 'Speichern der selbst festgelegten oder voreingestellten Design-Einstellung (Farbschema)',
     'Their privacy policy' => 'Ihre Datenschutzrichtlinie',
-    'Track your login status' => 'Status Ihres Anmeldestatus verfolgen',
+    'Track your login status' => 'Deinen Anmeldestatus verfolgen',
     'Visit their {description} and/or {privacy} for more details' => 'Überprüfe ihre {description} und/oder {privacy} für weitere Details',
-    'We use cookies to ensure you get the best experience on our website.' => 'Wir verwenden Cookies, um sicherzustellen, dass Sie die beste Erfahrung auf unserer Website erhalten.',
+    'We use cookies to ensure you get the best experience on our website.' => 'Wir verwenden Cookies, um sicherzustellen, dass du die bestmögliche Nutzung unserer Website erhältst.',
     'What to use' => 'Verwendungszweck',
 ];

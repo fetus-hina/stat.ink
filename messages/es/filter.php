@@ -8,10 +8,10 @@
 declare(strict_types=1);
 
 return [
-    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
-    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Para:</span>{input}</div>',
+    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Desde:</span>{input}</div>',
+    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Hasta:</span>{input}</div>',
     'Advanced Options' => 'Opciones avanzadas',
-    'Ally / Enemy' => 'Aliado / Rival',
+    'Ally / Enemy' => 'Aliado / rival',
     'Any Result' => 'Cualquier resultado',
     'As an ally' => 'Como aliado',
     'As an enemy' => 'Como rival',
@@ -33,14 +33,14 @@ return [
     'Period From' => 'Periodo desde',
     'Period To' => 'Periodo hasta',
     'Played With' => 'Jugó con',
-    'Played With (Side)' => 'Jugó con (Bando)',
+    'Played With (Side)' => 'Jugó con (bando)',
     'Previous Period' => 'Período anterior',
-    'Specify Period' => 'Especificar periodo de',
+    'Specify Period' => 'Especificar periodo',
     'Target Player\'s Team' => 'Equipo del jugador objetivo',
     'This Month (UTC)' => 'Este mes (UTC)',
     'Today' => 'Hoy',
     'Unknown Result' => 'Resultado desconocido',
     'Victory or Defeat' => 'Victoria o derrota',
-    'Won / Lost' => 'Ganado / Perdido',
+    'Won / Lost' => 'Ganado / perdido',
     'Yesterday' => 'Ayer',
 ];

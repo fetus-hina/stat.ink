@@ -26,7 +26,7 @@ return [
     'Stats (Win %)' => 'Statistiche (% vittorie)',
     'Stats (X Power)' => 'Statistiche (Potere X)',
     'Stats ({rule})' => 'Statistiche ({rule})',
-    'Total Inked' => 'Totale area colorata',
+    'Total Inked' => 'Totale superficie inchiostrata',
     '{point, plural, other{#p}}' => '{point, plural, other{#p}}',
     '{rule}: Current' => '{rule}: attuale',
     '{rule}: Peak' => '{rule}: massimo',

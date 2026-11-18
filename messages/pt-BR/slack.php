@@ -12,6 +12,6 @@ return [
     'unknown mode' => 'modo desconhecido',
     'unknown stage' => 'mapa desconhecido',
     'won' => 'ganhou',
-    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: Acabou de {winlose} uma partida de {rule} no {stage}. <{url}|Detalhes>',
-    '{name}: Just {winlose} {rule} at {stage}. {url}' => '{name}: Acabou de {winlose} uma partida de {rule} no {stage}. {url}',
+    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: {winlose} uma partida de {rule} em {stage} agora há pouco. <{url}|Detalhes>',
+    '{name}: Just {winlose} {rule} at {stage}. {url}' => '{name}: {winlose} uma partida de {rule} em {stage} agora há pouco. {url}',
 ];

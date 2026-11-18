@@ -85,7 +85,7 @@ return [
     'This data is basically not informative.' => 'Diese Daten sind grundsätzlich nicht aussagekräftig.',
     'This data was totaled after normalization to 5 minute intervals for each battle.' => 'Diese Daten wurden nach Normalisierung jedes Kampfes auf 5 Minuten ausgewertet.',
     'This is a wild guess based on past results and {siteName} posts.' => 'Dies ist eine grobe Vermutung auf Basis früherer Ergebnisse und der Daten auf {siteName}.',
-    'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.' => 'Diese Website bietet Unterstützung für Farbenblindheit. Aktiviere dazu „Farbenblind-Unterstützung“ im Menü „Benutzername/Gast“ der Navigationsleiste.',
+    'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.' => 'Diese Website bietet Unterstützung für Farbenblindheit. Aktiviere dazu „Unterstützung bei Farbenblindheit“ im Menü „Benutzername/Gast“ der Navigationsleiste.',
     'Use %' => 'Nutzungsrate',
     'Use % and Win %' => 'Nutzungsrate und Siegquote',
     'User Agents in last 24 hours' => 'User-Agents der letzten 24 Stunden',

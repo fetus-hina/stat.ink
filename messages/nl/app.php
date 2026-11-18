@@ -178,7 +178,7 @@ return [
     'Total' => 'Totaal',
     'Trends' => 'Trends',
     'Try to secure the Ultra Signal' => 'Probeer het Ultrasignaal te bemachtigen',
-    'Ultra Signals' => 'Ultrasignaal',
+    'Ultra Signals' => 'Ultrasignalen',
     'Unknown' => 'Onbekend',
     'Update' => 'Bijwerken',
     'URL related to this battle' => 'URL gerelateerd aan dit gevecht',

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'Daily Report' => 'Dagrapport',
-    'Favorite Weapon' => 'Favoriete wapen',
+    'Favorite Weapon' => 'Favoriet wapen',
     'Monthly Report' => 'Maandrapport',
     'Rank: Current' => 'Rang: huidig',
     'Rank: Peak' => 'Rang: hoogste',

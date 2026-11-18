@@ -12,7 +12,7 @@ return [
     'Favorite Weapon' => 'Lieblingswaffe',
     'Monthly Report' => 'Monatsbericht',
     'Rank: Current' => 'Rang: Aktuell',
-    'Rank: Peak' => 'Rang: Höchster',
+    'Rank: Peak' => 'Rang: Höchstwert',
     'Stats (by Mode)' => 'Statistik (nach Kampfart)',
     'Stats (by Mode and Stage)' => 'Statistik (nach Kampfart und Arena)',
     'Stats (by Stage)' => 'Statistik (nach Arena)',
@@ -29,5 +29,5 @@ return [
     'Total Inked' => 'Insgesamt eingefärbt',
     '{point, plural, other{#p}}' => '{point, plural, other{# P.}}',
     '{rule}: Current' => '{rule}: Aktuell',
-    '{rule}: Peak' => '{rule}: Höchster',
+    '{rule}: Peak' => '{rule}: Höchstwert',
 ];
