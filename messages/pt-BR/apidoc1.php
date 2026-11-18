@@ -27,7 +27,7 @@ return [
     'Delete information' => 'Informações de exclusão',
     'Deleted' => 'Apagado',
     'Deleted ID' => 'ID apagado',
-    'Do more action but not to be deleted.' => 'Executa outras ações, mas não é apagado.',
+    'Do more action but not to be deleted.' => 'Verifica o processamento sem apagar nada de fato.',
     'English name (EU)' => 'Nome em inglês (EU)',
     'English name (NA)' => 'Nome em inglês (NA)',
     'Error identifier' => 'Identificador de erro',

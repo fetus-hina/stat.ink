@@ -27,7 +27,7 @@ return [
     'Delete information' => 'Informations de suppression',
     'Deleted' => 'Supprimé',
     'Deleted ID' => 'Identifiant supprimé',
-    'Do more action but not to be deleted.' => 'Une autre action a été effectuée, mais rien n\'a été supprimé.',
+    'Do more action but not to be deleted.' => 'Vérifie le traitement sans rien supprimer réellement.',
     'English name (EU)' => 'Nom anglais (Europe)',
     'English name (NA)' => 'Nom anglais (Amérique du Nord)',
     'Error identifier' => 'Identifiant d\'erreur',
