@@ -289,6 +289,10 @@ $this->registerJs(vsprintf('(%s)(%s);', [
       };
 
       const open = function ($trigger) {
+        // On touch devices, tapping the trigger also shows the tooltips of the icons in it,
+        // and they would remain above the dialog
+        $('.auto-tooltip', $trigger).tooltip('hide');
+
         const sub = options.subweapons[$trigger.data('sub')] || {};
         const special = options.specials[$trigger.data('special')] || {};
         fillPremise('.typical-gear-premise-weapon', $trigger.attr('data-icon'), String($trigger.data('weapon')));
