@@ -25,6 +25,7 @@ use const SORT_ASC;
  * @property string $key
  * @property string $name
  *
+ * @property Ability3[] $ability3s
  * @property Gear[] $gears
  * @property Gear2[] $gear2s
  */
@@ -63,6 +64,14 @@ class GearType extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
         ];
+    }
+
+    /**
+     * @return ActiveQuery<Ability3>
+     */
+    public function getAbility3s(): ActiveQuery
+    {
+        return $this->hasMany(Ability3::class, ['gear_type_id' => 'id']);
     }
 
     /**
