@@ -25,7 +25,7 @@ return [
     'Special Battle (Fest)' => '',
     'Splatfest Power (Normal)' => '',
     'Splatfest Power (Pro)' => '',
-    'Splatfest Region:' => 'Regione del Festival:',
+    'Splatfest Region:' => 'Regione del festival:',
     'Splatfest Title (After)' => 'Titolo festival (dopo)',
     'SplatNet Battle #' => 'Battaglia SplatNet n.',
     'Team Icon' => 'Icona della squadra',

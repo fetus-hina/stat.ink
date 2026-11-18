@@ -36,5 +36,5 @@ return [
     'Middle' => 'Medio alcance',
     'S' => 'S',
     'Short' => 'Corto alcance',
-    'X: Match making group' => 'X: Grupo de emparejamiento',
+    'X: Match making group' => 'X: grupo de emparejamiento',
 ];

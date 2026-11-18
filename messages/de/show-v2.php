@@ -19,7 +19,7 @@ return [
     'k+a/sp' => 'k+a/sp',
     'K/min' => 'K/Min.',
     'Room' => 'Raum',
-    'Room info (Private)' => 'Rauminfo (Privat)',
+    'Room info (Private)' => 'Rauminfo (privat)',
     'S/min' => 'S/Min.',
     'Search {date}' => '{date} suchen',
     'Special Battle (Fest)' => '',

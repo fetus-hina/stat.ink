@@ -1,42 +1,42 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Academy' => '海女',
-    'Airport' => '',
+    'Academy' => '美術大學',
+    'Airport' => '機場',
     'Alley' => '鰻鯰區',
     'Any Stage' => '所有場地',
-    'Arena' => '',
+    'Arena' => '鬥技場',
     'B&D' => '購物公園',
     'Barnacle & Dime' => '塔拉波特購物公園',
     'Bay' => '落難船',
     'Bluefin Depot' => '蔥鮪魚煤礦場',
     'Bonerattle Arena' => '鮭魚心臟鬥技場',
-    'Bowl' => '',
+    'Bowl' => '大巨蛋',
     'Bridge' => '跨海大橋',
     'Brinewater Springs' => '臭魚乾溫泉',
     'Capital' => '經濟特區',
     'Cargo' => '海運中心',
     'Crableg Capital' => '高腳經濟特區',
-    'Depot' => '礦場',
+    'Depot' => '煤礦場',
     'Eeltail Alley' => '鰻鯰區',
     'Flounder Heights' => '比目魚住宅區',
     'Gone Fission Hydroplant' => '麥年海洋發電所',
     'Gorge' => '大峽谷',
     'Grand Splatlands Bowl' => '蠻頹大巨蛋',
-    'Grounds' => '鮭霸',
+    'Grounds' => '鮭壩',
     'Hagglefish Market' => '煙管魚市場',
     'Hammerhead Bridge' => '真鯖跨海大橋',
     'Heights' => '住宅區',
-    'Hub' => '',
+    'Hub' => '轉運站',
     'Humpback Pump Track' => '昆布賽道',
-    'Hydroplant' => '發電場',
+    'Hydroplant' => '發電所',
     'Inkblot Art Academy' => '海女美術大學',
     'Jammin\' Salmon Junction' => '生筋子系統交流道遺址',
     'Junction' => '交流道',
@@ -54,9 +54,9 @@ return [
     'Multiple Sites' => '各地同時發生',
     'Museum' => '美術館',
     'Museum d\'Alfonsino' => '金眼鯛美術館',
-    'Resort' => '鬼頭刀',
+    'Resort' => '度假區',
     'Robo ROM-en' => '貝見亭',
-    'ROM-en' => '',
+    'ROM-en' => '貝見亭',
     'Ruins' => '遺跡',
     'Salmonid Smokeyard' => '時不知鮭煙燻工房',
     'Scorch Gorge' => '溫泉花大峽谷',
@@ -75,5 +75,5 @@ return [
     'Undertow Spillway' => '竹蟶疏洪道',
     'Urchin Underpass' => '十路通高架橋下',
     'Wahoo World' => '醋飯海洋世界',
-    'World' => '遊樂園',
+    'World' => '海洋世界',
 ];

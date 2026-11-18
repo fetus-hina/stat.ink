@@ -26,7 +26,7 @@ return [
     'Q<sub>1/4</sub>' => 'Q<sub>1/4</sub>',
     'Q<sub>3/4</sub>' => 'Q<sub>3/4</sub>',
     'Samples' => 'Muestras',
-    'Standard Deviation' => 'Desviación Estándar',
+    'Standard Deviation' => 'Desviación estándar',
     'Std Dev' => 'Desv. est.',
     'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => 'El ancho de las clases del histograma se ajusta automáticamente mediante un algoritmo basado en la regla de Scott.',
     'Top {percentile}%' => '{percentile}% superior',

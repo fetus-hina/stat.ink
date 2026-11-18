@@ -28,7 +28,7 @@ return [
     'Samples' => 'Échantillons',
     'Standard Deviation' => 'Écart type',
     'Std Dev' => 'Écart type',
-    'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => 'La largeur des cases de l\'histogramme est automatiquement ajustée par l\'algorithme basé sur des règles de Scott.',
+    'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => 'La largeur des classes de l\'histogramme est ajustée automatiquement selon la règle de Scott.',
     'Top {percentile}%' => 'Top {percentile}%',
     '{percentile} Percentile' => '{percentile}e centile',
 ];

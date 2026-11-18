@@ -71,7 +71,7 @@ return [
     'Stats (Bosses)' => 'Statistiche (Gran Salmonoidi)',
     'Supplied Weapons' => 'Armi fornite',
     'Team Total' => 'Totale squadra',
-    'This statistics does not include {eggstra} or {private}.' => 'Queste statistiche non includono {eggstra} o {private}.',
+    'This statistics does not include {eggstra} or {private}.' => 'Queste statistiche non includono {eggstra} né {private}.',
     'Time is up' => 'Tempo scaduto!',
     'Title Reached' => 'Titolo raggiunto',
     'Water Level and Events' => 'Livello dell\'acqua ed eventi',

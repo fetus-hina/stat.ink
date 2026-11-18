@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     '(never)' => '(noch nie)',
-    'Are you sure you want to delete this passkey?' => 'Möchten Sie diesen Passkey wirklich löschen?',
+    'Are you sure you want to delete this passkey?' => 'Möchtest du diesen Passkey wirklich löschen?',
     'Back' => 'Zurück',
     'Created At' => 'Erstellt am',
     'Delete' => 'Löschen',
@@ -27,12 +27,12 @@ return [
     'optional' => 'optional',
     'Passkey ({date})' => 'Passkey ({date})',
     'Passkeys' => 'Passkeys',
-    'Passkeys let you sign in without a password using your device\'s screen lock, a security key, or a cloud-synced credential.' => 'Mit Passkeys können Sie sich ohne Passwort anmelden – per Bildschirmsperre Ihres Geräts, Sicherheitsschlüssel oder einem in der Cloud synchronisierten Zugangsschlüssel.',
+    'Passkeys let you sign in without a password using your device\'s screen lock, a security key, or a cloud-synced credential.' => 'Mit Passkeys kannst du dich ohne Passwort anmelden – per Bildschirmsperre deines Geräts, Sicherheitsschlüssel oder einem in der Cloud synchronisierten Zugangsschlüssel.',
     'Register' => 'Registrieren',
     'Registered Passkeys' => 'Registrierte Passkeys',
     'Register New Passkey' => 'Neuen Passkey registrieren',
     'Transports' => 'Übertragung',
-    'Your browser does not support passkeys.' => 'Ihr Browser unterstützt keine Passkeys.',
+    'Your browser does not support passkeys.' => 'Dein Browser unterstützt keine Passkeys.',
     '{n, plural, =0{No passkeys registered.} one{# passkey registered.} other{# passkeys registered.}}' => '{n, plural, =0{Keine Passkeys registriert.} one{# Passkey registriert.} other{# Passkeys registriert.}}',
     '{n, plural, =0{No passkeys registered} one{# passkey registered} other{# passkeys registered}}' => '{n, plural, =0{Keine Passkeys registriert} one{# Passkey registriert} other{# Passkeys registriert}}',
 ];

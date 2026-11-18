@@ -155,7 +155,7 @@ return [
     'Update Your Icon' => 'Profilbild aktualisieren',
     'Update Your Password' => 'Passwort aktualisieren',
     'Update Your Profile' => 'Profil aktualisieren',
-    'Update Your Screen Name' => 'Anmeldename ändern',
+    'Update Your Screen Name' => 'Benutzernamen ändern',
     'Upload icon' => 'Profilbild hochladen',
     'Upload new image' => 'Neues Bild hochladen',
     'User Name' => 'Benutzername',

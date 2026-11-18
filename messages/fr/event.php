@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -13,7 +13,7 @@ return [
     'Final Splatfest' => 'Final Splatfest',
     'Hydra Splatling' => 'Exteinteur',
     'Neo Sploosh-o-matic' => 'Marqueur léger néo',
-    'Octobrush Nouveau' => 'épinceau brosse nuancé',
+    'Octobrush Nouveau' => 'Épinceau brosse nuancé',
     'Rapid Blaster Pro Deco' => 'Turboblaster pro chic',
     'Sheldon\'s Picks Vol.1' => 'Sélection de Cartouche volume 1',
     'Sheldon\'s Picks Vol.2' => 'Sélection de Cartouche volume 2',

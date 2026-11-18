@@ -29,7 +29,7 @@ return [
     'Last Month (UTC)' => 'Прошлый месяц (UTC)',
     'Last {n} Periods' => 'Последние ротации: {n}',
     'Not Draws' => 'Кроме ничьих',
-    'Not Winning' => 'Без побед',
+    'Not Winning' => 'Кроме побед',
     'Period From' => 'Период с',
     'Period To' => 'Период по',
     'Played With' => 'Играл с',

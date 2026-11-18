@@ -12,6 +12,6 @@ return [
     'unknown mode' => 'onbekende vechtstijl',
     'unknown stage' => 'onbekend level',
     'won' => 'gewonnen',
-    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: Heeft zojuist {rule} in {stage} {winlose}. <{url}|Details>',
-    '{name}: Just {winlose} {rule} at {stage}. {url}' => '{name}: Heeft zojuist {rule} in {stage} {winlose}. {url}',
+    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: heeft zojuist {rule} in {stage} {winlose}. <{url}|Details>',
+    '{name}: Just {winlose} {rule} at {stage}. {url}' => '{name}: heeft zojuist {rule} in {stage} {winlose}. {url}',
 ];

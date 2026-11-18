@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -10,7 +10,7 @@ declare(strict_types=1);
 return [
     'Academy' => 'Instituto Coralino',
     'Ancho-V Games' => 'Estudios Esturión',
-    'Any Stage' => 'Cualquier Escenarios',
+    'Any Stage' => 'Cualquier escenario',
     'Arena' => 'Estadio Ajolote',
     'Arowana Mall' => 'Plazuela del Calamar',
     'A Swiftly Tilting Balance' => 'Calleja del Equilibrio',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -10,7 +10,7 @@ declare(strict_types=1);
 return [
     'Ancho-V' => 'Tentatec Studio',
     'Ancho-V Games' => 'Tentatec Studio',
-    'Any Stage' => 'Tout Stage',
+    'Any Stage' => 'Tout stage',
     'Arowana Mall' => 'Centre Arowana',
     'Blackbelly Skatepark' => 'Skatepark Mako',
     'Bluefin Depot' => 'Mine Marine',

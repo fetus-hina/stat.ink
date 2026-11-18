@@ -30,7 +30,7 @@ return [
     'Logout' => 'Uitloggen',
     'Nintendo Switch Online app' => 'Nintendo Switch Online-app',
     'North America' => 'Noord-Amerika',
-    'Official Twitter' => 'Officiële Twitter',
+    'Official Twitter' => 'Officieel Twitter-account',
     'Powered by' => 'Mogelijk gemaakt door',
     'Served by' => 'Geleverd door',
     'Source Code' => 'Broncode',

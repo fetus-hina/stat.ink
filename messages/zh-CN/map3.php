@@ -1,15 +1,15 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Academy' => '海女美大',
-    'Airport' => '旗鱼机场',
+    'Academy' => '美术大学',
+    'Airport' => '机场',
     'Alley' => '鳗鲶区',
     'Any Stage' => '所有场地',
     'Arena' => '斗技场',
@@ -45,7 +45,7 @@ return [
     'MakoMart' => '座头购物中心',
     'Manta' => '玛利亚号',
     'Manta Maria' => '鬼蝠鲼玛利亚号',
-    'Market' => '烟管鱼市场',
+    'Market' => '市场',
     'Marlin Airport' => '旗鱼机场',
     'Marooner\'s Bay' => '漂浮落难船',
     'Mart' => '购物中心',
@@ -57,23 +57,23 @@ return [
     'Resort' => '度假区',
     'Robo ROM-en' => '贝见亭',
     'ROM-en' => '贝见亭',
-    'Ruins' => '鱼露遗迹',
+    'Ruins' => '遗迹',
     'Salmonid Smokeyard' => '时不知鲑烟熏工房',
     'Scorch Gorge' => '温泉花大峡谷',
     'Shipshape Cargo Co.' => '大比目鱼海运中心',
     'Shipyard' => '造船厂',
-    'Smokeyard' => '工房',
+    'Smokeyard' => '烟熏工房',
     'Sockeye Station' => '新卷堡',
     'Spawning Grounds' => '鲑坝',
     'Spillway' => '疏洪道',
     'Springs' => '温泉',
     'Station' => '新卷堡',
     'Sturgeon Shipyard' => '鲟鱼造船厂',
-    'Track' => '昆布赛道',
+    'Track' => '赛道',
     'Um\'ami Ruins' => '鱼露遗迹',
     'Underpass' => '高架下',
     'Undertow Spillway' => '竹蛏疏洪道',
     'Urchin Underpass' => '十路通高架桥下',
     'Wahoo World' => '醋饭海洋世界',
-    'World' => '游乐园',
+    'World' => '海洋世界',
 ];

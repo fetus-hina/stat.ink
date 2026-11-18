@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     '(never)' => '(nog niet)',
-    'Are you sure you want to delete this passkey?' => 'Weet u zeker dat u deze toegangssleutel wilt verwijderen?',
+    'Are you sure you want to delete this passkey?' => 'Weet je zeker dat je deze toegangssleutel wilt verwijderen?',
     'Back' => 'Terug',
     'Created At' => 'Aangemaakt op',
     'Delete' => 'Verwijderen',
@@ -27,12 +27,12 @@ return [
     'optional' => 'optioneel',
     'Passkey ({date})' => 'Toegangssleutel ({date})',
     'Passkeys' => 'Toegangssleutels',
-    'Passkeys let you sign in without a password using your device\'s screen lock, a security key, or a cloud-synced credential.' => 'Met toegangssleutels kunt u zonder wachtwoord inloggen via de schermvergrendeling van uw apparaat, een beveiligingssleutel of een met de cloud gesynchroniseerde inlogsleutel.',
+    'Passkeys let you sign in without a password using your device\'s screen lock, a security key, or a cloud-synced credential.' => 'Met toegangssleutels kun je zonder wachtwoord inloggen via de schermvergrendeling van je apparaat, een beveiligingssleutel of een met de cloud gesynchroniseerde inlogsleutel.',
     'Register' => 'Registreren',
     'Registered Passkeys' => 'Geregistreerde toegangssleutels',
     'Register New Passkey' => 'Nieuwe toegangssleutel registreren',
     'Transports' => 'Verbindingen',
-    'Your browser does not support passkeys.' => 'Uw browser ondersteunt geen toegangssleutels.',
+    'Your browser does not support passkeys.' => 'Je browser ondersteunt geen toegangssleutels.',
     '{n, plural, =0{No passkeys registered.} one{# passkey registered.} other{# passkeys registered.}}' => '{n, plural, =0{Geen toegangssleutels geregistreerd.} one{# toegangssleutel geregistreerd.} other{# toegangssleutels geregistreerd.}}',
     '{n, plural, =0{No passkeys registered} one{# passkey registered} other{# passkeys registered}}' => '{n, plural, =0{Geen toegangssleutels} one{# toegangssleutel geregistreerd} other{# toegangssleutels geregistreerd}}',
 ];

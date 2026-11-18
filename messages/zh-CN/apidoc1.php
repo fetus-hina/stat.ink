@@ -27,7 +27,7 @@ return [
     'Delete information' => '删除信息',
     'Deleted' => '已经删除',
     'Deleted ID' => '已经删除的ID',
-    'Do more action but not to be deleted.' => '进行除删除以外的更多操作',
+    'Do more action but not to be deleted.' => '验证处理过程，但不实际删除。',
     'English name (EU)' => '英文（欧洲）名字',
     'English name (NA)' => '英文（北美）名字',
     'Error identifier' => '错误区别符',

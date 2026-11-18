@@ -10,7 +10,7 @@ declare(strict_types=1);
 return [
     'Appearances' => 'Verschijningen',
     'Appeared' => 'Verschenen',
-    'Average Defeated' => 'Gemiddeld aantal verslagen',
+    'Average Defeated' => 'Gemiddeld aantal verslagen bazen',
     'BIG Big Run' => 'Mega-Big Run',
     'Big Run' => 'Big Run',
     'Boss' => 'Baas',

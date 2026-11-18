@@ -12,7 +12,7 @@ return [
     '{delta} d' => '{delta} g',
     '{delta} h' => '{delta} h',
     '{delta} m' => '{delta} min',
-    '{delta} mo' => '{delta} mesi',
+    '{delta} mo' => '{delta, plural, =1{# mese} other{# mesi}}',
     '{delta} s' => '{delta} s',
     '{delta} yr' => '{delta} a',
 ];
