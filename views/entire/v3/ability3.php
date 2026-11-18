@@ -249,24 +249,10 @@ $this->registerJs(vsprintf('(%s)(%s);', [
       };
 
       const renderCandidate = function (candidate, index) {
-        const $header = $('<div class="d-flex justify-content-between align-items-center mb-1">')
-          .append($('<h5 class="m-0">').text(options.labels[index] || ''));
-        if (candidate.sendouInkUrl) {
-          $header.append(
-            $('<a class="btn btn-default btn-xs">')
-              .attr({
-                href: candidate.sendouInkUrl,
-                rel: 'nofollow noreferrer',
-                target: '_blank'
-              })
-              .append($.parseHTML(options.analyzerLabel))
-          );
-        }
-
         const config = candidate.config;
-        return $('<div class="typical-gear-candidate">')
+        const $candidate = $('<div class="typical-gear-candidate">')
           .append(
-            $header,
+            $('<h5 class="mt-0 mb-1">').text(options.labels[index] || ''),
             $('<div>').append(
               renderGear(config.headgear),
               ' ',
@@ -275,6 +261,22 @@ $this->registerJs(vsprintf('(%s)(%s);', [
               renderGear(config.shoes)
             )
           );
+
+        if (candidate.sendouInkUrl) {
+          $candidate.append(
+            $('<div class="mt-1 text-right">').append(
+              $('<a class="btn btn-default btn-xs">')
+                .attr({
+                  href: candidate.sendouInkUrl,
+                  rel: 'nofollow noreferrer',
+                  target: '_blank'
+                })
+                .append($.parseHTML(options.analyzerLabel))
+            )
+          );
+        }
+
+        return $candidate;
       };
 
       const fillPremise = function (selector, iconHtml, name) {
