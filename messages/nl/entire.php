@@ -45,6 +45,7 @@ return [
     'Estimated Error' => 'Geschatte fout',
     'Estimated Vote %' => 'Geschat stem%',
     'Example Gear Setups for {weapon}' => 'Uitrustingsvoorbeelden voor {weapon}',
+    'Example Gear Setup {number}' => 'Uitrustingsvoorbeeld {number}',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '',
     'Favorite Weapons of This Site Member' => 'Favoriete wapens van dit lid',
     'For the actual distribution, see the charts for each mode.' => 'Zie de grafieken per vechtstijl voor de werkelijke verdeling.',

@@ -45,6 +45,7 @@ return [
     'Estimated Error' => 'Geschätzter Fehler',
     'Estimated Vote %' => 'Geschätzter Stimmenanteil (%)',
     'Example Gear Setups for {weapon}' => 'Ausrüstungsbeispiele für {weapon}',
+    'Example Gear Setup {number}' => 'Ausrüstungsbeispiel {number}',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '',
     'Favorite Weapons of This Site Member' => 'Lieblingswaffen der Mitglieder dieser Seite',
     'For the actual distribution, see the charts for each mode.' => 'Die tatsächliche Verteilung findest du in den Diagrammen der einzelnen Kampfarten.',

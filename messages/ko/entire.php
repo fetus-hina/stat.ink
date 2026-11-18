@@ -45,6 +45,7 @@ return [
     'Estimated Error' => '추정 오차',
     'Estimated Vote %' => '추정 투표율',
     'Example Gear Setups for {weapon}' => '{weapon}의 기어 구성 예',
+    'Example Gear Setup {number}' => '기어 구성 예 {number}',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '',
     'Favorite Weapons of This Site Member' => '이 사이트 유저들이 자주 사용하는 무기',
     'For the actual distribution, see the charts for each mode.' => '실제 분포는 각 룰의 그래프를 참조해 주세요.',

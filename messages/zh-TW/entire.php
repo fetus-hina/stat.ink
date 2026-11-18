@@ -45,6 +45,7 @@ return [
     'Estimated Error' => '預估誤差',
     'Estimated Vote %' => '預估投票率',
     'Example Gear Setups for {weapon}' => '{weapon}的配裝範例',
+    'Example Gear Setup {number}' => '配裝範例{number}',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '排除上傳者，私人比賽的所有玩家，上傳者的隊友(小組對戰或是祭典比賽)',
     'Favorite Weapons of This Site Member' => '該站用戶最喜愛的武器',
     'For the actual distribution, see the charts for each mode.' => '實際分佈請參閱各規則的圖表。',

@@ -35,7 +35,7 @@ use yii\web\View;
  * @var array<int, Rule3> $rules
  * @var array<int, Season3> $seasons
  * @var array<int, StatAbility3XUsage> $data
- * @var array<int, list<array{error: float, config: array<string, array{primary: string, secondaries: list<string>}>}>> $typicalGears
+ * @var array<int, list<array{error: float, config: array<string, array{primary: string, secondaries: list<string>}>, sendouInkUrl: string|null}>> $typicalGears
  * @var callable(Rule3): string $ruleUrl
  * @var callable(Season3): string $seasonUrl
  * @var callable(StatWeapon3XUsageRange): string $xRangeUrl
@@ -52,6 +52,13 @@ JqueryColorAsset::register($this);
 $this->registerCss(implode('', [
   '.vmiddle{vertical-align:middle!important}',
   '.typical-gear-trigger{cursor:pointer}',
+  '.typical-gear-candidate .gear-block{background:#333;border-radius:5px;line-height:1;padding:0 2px}',
+  '.typical-gear-candidate .main-ability{font-size:3em;vertical-align:baseline;width:auto}',
+  '.typical-gear-candidate .sub-ability{font-size:1.75em;vertical-align:baseline;width:auto}',
+  '@media(max-width:767px){',
+  '.typical-gear-candidate .main-ability{font-size:2em}',
+  '.typical-gear-candidate .sub-ability{font-size:1.25em}',
+  '}',
 ]));
 $maxValue = 0.0;
 $typicalGearDialogId = 'typical-gear-dialog';
@@ -174,16 +181,63 @@ $typicalGearDialogId = 'typical-gear-dialog';
   </div>
 </div>
 <?= Dialog::widget([
-  'body' => Html::tag('pre', '', ['class' => 'typical-gear-dump mb-0']),
+  'body' => Html::tag('div', '', ['class' => 'typical-gear-candidates']),
   'footer' => Dialog::FOOTER_CLOSE,
   'id' => $typicalGearDialogId,
   'title' => '',
 ]) . "\n" ?>
 <?php
+$maxCandidates = max([0, ...array_map(count(...), $typicalGears)]);
 $this->registerJs(vsprintf('(%s)(%s);', [
   <<<'JS'
-    function (dialogSelector) {
-      const $dialog = $(dialogSelector);
+    function (options) {
+      const $dialog = $(options.dialog);
+      const $container = $('.typical-gear-candidates', $dialog);
+      const icon = function (key) {
+        return $('<span class="typical-gear-ability">')
+          .attr('title', options.abilityNames[key] || '')
+          .append($.parseHTML(options.abilityIcons[key] || ''));
+      };
+      const destroyTooltips = function () {
+        $('.typical-gear-ability', $container).tooltip('destroy');
+      };
+
+      const renderGear = function (gear) {
+        return $('<span class="d-inline-block gear-block">').append(
+          $('<span class="main-ability">').append(icon(gear.primary)),
+          $('<span class="sub-ability">').append(gear.secondaries.map(icon))
+        );
+      };
+
+      const renderCandidate = function (candidate, index) {
+        const $header = $('<div class="d-flex justify-content-between align-items-center mb-1">')
+          .append($('<h5 class="m-0">').text(options.labels[index] || ''));
+        if (candidate.sendouInkUrl) {
+          $header.append(
+            $('<a class="btn btn-default btn-xs">')
+              .attr({
+                href: candidate.sendouInkUrl,
+                rel: 'nofollow noreferrer',
+                target: '_blank'
+              })
+              .append($.parseHTML(options.analyzerLabel))
+          );
+        }
+
+        const config = candidate.config;
+        return $('<div class="typical-gear-candidate">')
+          .append(
+            $header,
+            $('<div>').append(
+              renderGear(config.headgear),
+              ' ',
+              renderGear(config.clothing),
+              ' ',
+              renderGear(config.shoes)
+            )
+          );
+      };
+
       const open = function ($trigger) {
         $('.modal-title', $dialog)
           .empty()
@@ -191,9 +245,23 @@ $this->registerJs(vsprintf('(%s)(%s);', [
             $.parseHTML(String($trigger.attr('data-icon') || '')),
             document.createTextNode(' ' + String($trigger.data('title')))
           );
-        $('.typical-gear-dump', $dialog).text(JSON.stringify($trigger.data('candidates'), null, 2));
+        destroyTooltips();
+        $container
+          .empty()
+          .append(
+            $trigger.data('candidates').flatMap(function (candidate, index) {
+              const $candidate = renderCandidate(candidate, index);
+              return index > 0 ? [$('<hr>'), $candidate] : [$candidate];
+            })
+          );
+        $('.typical-gear-ability', $container).tooltip({ container: 'body' });
         $dialog.modal('show');
       };
+
+      // Tooltips are attached to the body, so they may remain after the dialog is closed
+      $dialog.on('hide.bs.modal', function () {
+        $('.typical-gear-ability', $container).tooltip('hide');
+      });
 
       $(document)
         .on('click', '.typical-gear-trigger', function () {
@@ -207,7 +275,28 @@ $this->registerJs(vsprintf('(%s)(%s);', [
         });
     }
   JS,
-  json_encode('#' . $typicalGearDialogId, JSON_THROW_ON_ERROR),
+  json_encode(
+    [
+      'abilityIcons' => array_combine(
+        array_map(fn (Ability3 $ability): string => $ability->key, $abilities),
+        array_map(fn (Ability3 $ability): string => Icon::s3Ability($ability) ?? '', $abilities),
+      ),
+      'abilityNames' => array_combine(
+        array_map(fn (Ability3 $ability): string => $ability->key, $abilities),
+        array_map(fn (Ability3 $ability): string => Yii::t('app-ability3', $ability->name), $abilities),
+      ),
+      'analyzerLabel' => implode(' ', [
+        Icon::popup(),
+        Html::encode(Yii::t('app-show-v3', 'Check with Setup Analyzer')),
+      ]),
+      'dialog' => '#' . $typicalGearDialogId,
+      'labels' => array_map(
+        fn (int $n): string => Yii::t('app-entire', 'Example Gear Setup {number}', ['number' => $n]),
+        $maxCandidates > 0 ? range(1, $maxCandidates) : [],
+      ),
+    ],
+    JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE,
+  ),
 ]));
 ?>
 <?php

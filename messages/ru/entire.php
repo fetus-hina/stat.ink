@@ -45,6 +45,7 @@ return [
     'Estimated Error' => 'Оценка погрешности',
     'Estimated Vote %' => 'Расчётная доля голосов',
     'Example Gear Setups for {weapon}' => 'Примеры снаряжения: {weapon}',
+    'Example Gear Setup {number}' => 'Пример снаряжения {number}',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => 'Исключено: отправитель, все игроки (частный бой), союзники отправителя (командный бой или Сплатфест-бой)',
     'Favorite Weapons of This Site Member' => 'Любимое оружие участников этого сайта',
     'For the actual distribution, see the charts for each mode.' => 'Фактическое распределение см. на графиках для каждого режима.',
