@@ -35,7 +35,7 @@ use yii\web\View;
  * @var array<int, Rule3> $rules
  * @var array<int, Season3> $seasons
  * @var array<int, StatAbility3XUsage> $data
- * @var array<int, array<string, array{primary: string, secondaries: list<string>}>|null> $configs
+ * @var array<int, list<array{error: float, config: array<string, array{primary: string, secondaries: list<string>}>}>> $typicalGears
  * @var callable(Rule3): string $ruleUrl
  * @var callable(Season3): string $seasonUrl
  * @var callable(StatWeapon3XUsageRange): string $xRangeUrl
@@ -122,23 +122,23 @@ $typicalGearDialogId = 'typical-gear-dialog';
     }
 ?>
 <?php $rowData = $data[$weapon->id] ?? [] ?>
-<?php $config = $configs[$weapon->id] ?? null ?>
+<?php $candidates = $typicalGears[$weapon->id] ?? [] ?>
         <?= Html::beginTag('tr', ['data-key' => $weapon->key]) . "\n" ?>
           <?= Html::beginTag('th', [
             'class' => array_filter([
               'text-nowrap',
               'vmiddle',
-              $config ? 'typical-gear-trigger' : null,
+              $candidates ? 'typical-gear-trigger' : null,
             ]),
-            'data' => $config
+            'data' => $candidates
               ? [
-                'config' => $config,
+                'candidates' => $candidates,
                 'title' => Yii::t('app-weapon3', $weapon->name),
               ]
               : [],
-            'role' => $config ? 'button' : null,
+            'role' => $candidates ? 'button' : null,
             'scope' => 'row',
-            'tabindex' => $config ? '0' : null,
+            'tabindex' => $candidates ? '0' : null,
           ]) . "\n" ?>
             <?= Icon::s3Weapon($weapon, size: '1.2em') . "\n" ?>
             <?= Icon::s3Subweapon($weapon->subweapon, size: '0.8em') . "\n" ?>
@@ -183,7 +183,7 @@ $this->registerJs(vsprintf('(%s)(%s);', [
       const $dialog = $(dialogSelector);
       const open = function ($trigger) {
         $('.modal-title', $dialog).text(String($trigger.data('title')));
-        $('.typical-gear-dump', $dialog).text(JSON.stringify($trigger.data('config'), null, 2));
+        $('.typical-gear-dump', $dialog).text(JSON.stringify($trigger.data('candidates'), null, 2));
         $dialog.modal('show');
       };
 

@@ -17,6 +17,8 @@ use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_merge;
+use function array_pop;
+use function array_splice;
 use function array_sum;
 use function array_values;
 use function count;
@@ -25,18 +27,33 @@ use function min;
 use function usort;
 
 /**
- * Builds a typical gear configuration of Splatoon 3 from the average GPs.
+ * Builds typical gear configurations of Splatoon 3 from the average GPs.
  *
  * The averages are the values of stat_ability3_x_usage, that is, the primary ability is
  * counted as 10 and the secondary is counted as 3.
+ *
+ * The configurations are ranked by the squared error between their GPs and the averages.
+ * The primary-only abilities are also counted, as 10 if mounted and 0 otherwise, so whether
+ * to mount them is decided in the same way as the other abilities. Since the averages sum up
+ * to 57 GP (3 primaries and 9 secondaries) in total, they are used as they are.
+ *
+ * The candidates differ in the primaries. For each set of the primaries, only the best
+ * secondaries are taken.
  *
  * Note: The doubled secondaries by Ability Doubler are not taken into account.
  *
  * @phpstan-type TypicalGear3 array{primary: string, secondaries: list<string>}
  * @phpstan-type TypicalGearConfig3 array{headgear: TypicalGear3, clothing: TypicalGear3, shoes: TypicalGear3}
+ * @phpstan-type TypicalGearCandidate3 array{error: float, config: TypicalGearConfig3}
  */
 final class TypicalGearConfiguration3
 {
+    /**
+     * Version of the calculation. Increment this when the results change for the same inputs,
+     * so that the cached results are invalidated.
+     */
+    public const int VERSION = 1;
+
     public const string HEADGEAR = 'headgear';
     public const string CLOTHING = 'clothing';
     public const string SHOES = 'shoes';
@@ -56,49 +73,225 @@ final class TypicalGearConfiguration3
      * @param array<string, string|null> $abilities Ability keys in rank order.
      *   The value is the gear type key for the primary-only abilities, null otherwise.
      * @param array<string, float> $averages Ability key => average GP
-     * @param float $primaryOnlyThreshold Minimum mounting rate to adopt a primary-only ability
-     * @return TypicalGearConfig3|null
+     * @param int $limit Maximum number of the candidates
+     * @param float $primaryOnlyMinRate Minimum mounting rate for a primary-only ability to be
+     *   considered (to limit the search space)
+     * @return list<TypicalGearCandidate3> Candidates in ascending order of the error
      */
     public static function build(
         array $abilities,
         array $averages,
-        float $primaryOnlyThreshold = 0.5,
-    ): ?array {
-        $primaries = self::selectPrimaryOnlyAbilities($abilities, $averages, $primaryOnlyThreshold);
-
+        int $limit = 3,
+        float $primaryOnlyMinRate = 0.2,
+    ): array {
         $regulars = [];
+        $primaryOnlys = [];
         foreach ($abilities as $key => $gearType) {
+            $average = max(0.0, (float)($averages[$key] ?? 0.0));
             if ($gearType === null) {
-                $regulars[$key] = max(0.0, $averages[$key] ?? 0.0);
+                $regulars[$key] = $average;
+            } else {
+                $primaryOnlys[$key] = ['gearType' => $gearType, 'average' => $average];
             }
         }
 
-        $total = array_sum($regulars);
-        if ($total <= self::EPSILON) {
-            return null;
+        if ($limit < 1 || array_sum($regulars) <= self::EPSILON) {
+            return [];
         }
 
-        // Normalize the averages to the GPs that the regular abilities can actually take
-        $freeGearTypes = array_values(array_diff(self::GEAR_TYPES, array_keys($primaries)));
-        $secondarySlots = self::SECONDARY_SLOTS * count(self::GEAR_TYPES);
-        $budget = self::PRIMARY_GP * count($freeGearTypes) + self::SECONDARY_GP * $secondarySlots;
-        $targets = array_map(fn (float $v): float => $v * $budget / $total, $regulars);
+        // The error of the primary-only abilities when none of them are mounted
+        $baseError = array_sum(
+            array_map(fn (array $info): float => $info['average'] ** 2, $primaryOnlys),
+        );
 
-        [$primaryKeys, $secondaryCounts] = self::allocate($targets, count($freeGearTypes), $secondarySlots);
-        foreach ($freeGearTypes as $i => $gearType) {
-            $primaries[$gearType] = $primaryKeys[$i];
+        $regularKeys = array_keys($regulars);
+        $best = [];
+        foreach (self::primaryOnlyPatterns($primaryOnlys, $primaryOnlyMinRate) as $pattern) {
+            $patternError = $baseError;
+            foreach ($pattern as $key) {
+                $average = $primaryOnlys[$key]['average'];
+                $patternError += ($average - self::PRIMARY_GP) ** 2 - $average ** 2;
+            }
+
+            // The pattern error is a lower bound of the total error
+            if (!self::isCandidateAcceptable($best, $limit, $patternError)) {
+                continue;
+            }
+
+            $freeGearTypes = array_values(array_diff(self::GEAR_TYPES, array_keys($pattern)));
+            foreach (self::combinations(count($regularKeys), count($freeGearTypes)) as $indices) {
+                $residuals = $regulars;
+                foreach ($indices as $i) {
+                    $residuals[$regularKeys[$i]] -= self::PRIMARY_GP;
+                }
+
+                [$secondaries, $regularError] = self::allocateSecondaries(
+                    $residuals,
+                    self::SECONDARY_SLOTS * count(self::GEAR_TYPES),
+                );
+
+                $error = $patternError + $regularError;
+                if (!self::isCandidateAcceptable($best, $limit, $error)) {
+                    continue;
+                }
+
+                $regularPrimaries = array_map(fn (int $i): string => $regularKeys[$i], $indices);
+
+                // Stable sort: ties keep the rank order
+                usort(
+                    $regularPrimaries,
+                    fn (string $a, string $b): int => $regulars[$b] <=> $regulars[$a],
+                );
+
+                $primaries = $pattern;
+                foreach ($freeGearTypes as $i => $gearType) {
+                    $primaries[$gearType] = $regularPrimaries[$i];
+                }
+
+                self::insertCandidate($best, $limit, [
+                    'error' => $error,
+                    'primaries' => $primaries,
+                    'secondaries' => $secondaries,
+                ]);
+            }
         }
 
+        $rankOrder = array_keys($abilities);
+        return array_map(
+            fn (array $candidate): array => [
+                'error' => $candidate['error'],
+                'config' => self::makeConfig(
+                    $candidate['primaries'],
+                    $candidate['secondaries'],
+                    $rankOrder,
+                ),
+            ],
+            $best,
+        );
+    }
+
+    /**
+     * Yields the patterns of the primary-only abilities: none or one of them for each gear type.
+     *
+     * @param array<string, array{gearType: string, average: float}> $primaryOnlys
+     * @return Generator<array<string, string>> Gear type => ability key
+     */
+    private static function primaryOnlyPatterns(array $primaryOnlys, float $minRate): Generator
+    {
+        $options = [];
+        foreach (self::GEAR_TYPES as $gearType) {
+            $options[$gearType] = [null];
+        }
+
+        foreach ($primaryOnlys as $key => $info) {
+            if (
+                isset($options[$info['gearType']]) &&
+                $info['average'] / self::PRIMARY_GP + self::EPSILON >= $minRate
+            ) {
+                $options[$info['gearType']][] = $key;
+            }
+        }
+
+        $patterns = [[]];
+        foreach ($options as $gearType => $keys) {
+            $next = [];
+            foreach ($patterns as $pattern) {
+                foreach ($keys as $key) {
+                    $next[] = $key === null ? $pattern : array_merge($pattern, [$gearType => $key]);
+                }
+            }
+            $patterns = $next;
+        }
+
+        yield from $patterns;
+    }
+
+    /**
+     * Allocates the secondaries greedily to the largest residual,
+     * which minimizes the sum of the squared residuals.
+     *
+     * @param array<string, float> $residuals Ability key => residual GP, in rank order
+     * @return array{array<string, int>, float} The numbers of the secondaries in rank order,
+     *   and the sum of the squared residuals
+     */
+    private static function allocateSecondaries(array $residuals, int $slots): array
+    {
+        $counts = [];
+        foreach ($residuals as $key => $_) {
+            $counts[$key] = 0;
+        }
+
+        for ($n = 0; $n < $slots; ++$n) {
+            $selected = null;
+            $selectedValue = 0.0;
+            foreach ($residuals as $key => $value) {
+                if ($selected === null || $value > $selectedValue + self::EPSILON) {
+                    $selected = $key;
+                    $selectedValue = $value;
+                }
+            }
+
+            if ($selected === null) {
+                throw new LogicException();
+            }
+
+            $residuals[$selected] -= self::SECONDARY_GP;
+            ++$counts[$selected];
+        }
+
+        $error = 0.0;
+        foreach ($residuals as $value) {
+            $error += $value * $value;
+        }
+
+        return [$counts, $error];
+    }
+
+    /**
+     * @param list<array{error: float, primaries: array<string, string>, secondaries: array<string, int>}> $best
+     */
+    private static function isCandidateAcceptable(array $best, int $limit, float $error): bool
+    {
+        return count($best) < $limit || $error < $best[count($best) - 1]['error'] - self::EPSILON;
+    }
+
+    /**
+     * Inserts the candidate keeping the list sorted. Ties keep the order of the insertion.
+     *
+     * @param list<array{error: float, primaries: array<string, string>, secondaries: array<string, int>}> $best
+     * @param array{error: float, primaries: array<string, string>, secondaries: array<string, int>} $candidate
+     * @param-out list<array{error: float, primaries: array<string, string>, secondaries: array<string, int>}> $best
+     */
+    private static function insertCandidate(array &$best, int $limit, array $candidate): void
+    {
+        $pos = count($best);
+        foreach ($best as $i => $item) {
+            if ($candidate['error'] < $item['error'] - self::EPSILON) {
+                $pos = $i;
+                break;
+            }
+        }
+
+        array_splice($best, $pos, 0, [$candidate]);
+        if (count($best) > $limit) {
+            array_pop($best);
+        }
+    }
+
+    /**
+     * @param array<string, string> $primaries Gear type => ability key
+     * @param array<string, int> $secondaryCounts Ability key => number of the secondaries, in rank order
+     * @param list<string> $rankOrder
+     * @return TypicalGearConfig3
+     */
+    private static function makeConfig(array $primaries, array $secondaryCounts, array $rankOrder): array
+    {
         $orderedPrimaries = [];
         foreach (self::GEAR_TYPES as $gearType) {
             $orderedPrimaries[$gearType] = $primaries[$gearType] ?? throw new LogicException();
         }
 
-        $secondaries = self::placeSecondaries(
-            $orderedPrimaries,
-            $secondaryCounts,
-            array_keys($abilities),
-        );
+        $secondaries = self::placeSecondaries($orderedPrimaries, $secondaryCounts, $rankOrder);
 
         return [
             self::HEADGEAR => [
@@ -117,111 +310,34 @@ final class TypicalGearConfiguration3
     }
 
     /**
-     * Adopts the most mounted primary-only ability for each gear type
-     * if its mounting rate reaches the threshold.
+     * Returns non-decreasing index lists (combinations with repetition).
      *
-     * @param array<string, string|null> $abilities
-     * @param array<string, float> $averages
-     * @return array<string, string> Gear type => ability key
+     * @return list<list<int>>
      */
-    private static function selectPrimaryOnlyAbilities(
-        array $abilities,
-        array $averages,
-        float $threshold,
-    ): array {
+    private static function combinations(int $n, int $k): array
+    {
+        static $cache = [];
+
+        return $cache["{$n}:{$k}"] ??= self::combinationsImpl($n, $k, 0);
+    }
+
+    /**
+     * @return list<list<int>>
+     */
+    private static function combinationsImpl(int $n, int $k, int $start): array
+    {
+        if ($k === 0) {
+            return [[]];
+        }
+
         $results = [];
-        $bestRates = [];
-        foreach ($abilities as $key => $gearType) {
-            if ($gearType === null) {
-                continue;
-            }
-
-            $rate = ($averages[$key] ?? 0.0) / self::PRIMARY_GP;
-            if ($rate + self::EPSILON < $threshold) {
-                continue;
-            }
-
-            if (!isset($bestRates[$gearType]) || $rate > $bestRates[$gearType] + self::EPSILON) {
-                $results[$gearType] = $key;
-                $bestRates[$gearType] = $rate;
+        for ($i = $start; $i < $n; ++$i) {
+            foreach (self::combinationsImpl($n, $k - 1, $i) as $rest) {
+                $results[] = [$i, ...$rest];
             }
         }
 
         return $results;
-    }
-
-    /**
-     * Allocates the primaries and the secondaries to minimize the squared error from the targets.
-     *
-     * All combinations of the primaries are tried. For a fixed set of primaries, allocating the
-     * secondaries greedily to the largest residual is optimal.
-     *
-     * @param array<string, float> $targets Ability key => target GP, in rank order
-     * @return array{list<string>, array<string, int>} Primary keys in descending order of
-     *   the target, and the numbers of the secondaries in rank order
-     */
-    private static function allocate(array $targets, int $primarySlots, int $secondarySlots): array
-    {
-        $keys = array_keys($targets);
-        $bestError = null;
-        $bestPrimaries = [];
-        $bestSecondaries = [];
-        foreach (self::combinations(count($keys), $primarySlots) as $indices) {
-            $primaries = array_map(fn (int $i): string => $keys[$i], $indices);
-
-            $residuals = $targets;
-            foreach ($primaries as $key) {
-                $residuals[$key] -= self::PRIMARY_GP;
-            }
-
-            $secondaries = array_map(fn (): int => 0, $targets);
-            for ($n = 0; $n < $secondarySlots; ++$n) {
-                $selected = null;
-                foreach ($residuals as $key => $value) {
-                    if ($selected === null || $value > $residuals[$selected] + self::EPSILON) {
-                        $selected = $key;
-                    }
-                }
-
-                if ($selected === null) {
-                    throw new LogicException();
-                }
-
-                $residuals[$selected] -= self::SECONDARY_GP;
-                ++$secondaries[$selected];
-            }
-
-            $error = array_sum(array_map(fn (float $v): float => $v * $v, $residuals));
-            if ($bestError === null || $error < $bestError - self::EPSILON) {
-                $bestError = $error;
-                $bestPrimaries = $primaries;
-                $bestSecondaries = $secondaries;
-            }
-        }
-
-        // Stable sort: ties keep the rank order
-        usort($bestPrimaries, fn (string $a, string $b): int => $targets[$b] <=> $targets[$a]);
-
-        return [$bestPrimaries, $bestSecondaries];
-    }
-
-    /**
-     * Yields non-decreasing index lists (combinations with repetition).
-     *
-     * @return Generator<list<int>>
-     */
-    private static function combinations(int $n, int $k, int $start = 0): Generator
-    {
-        if ($k === 0) {
-            yield [];
-            return;
-        }
-
-        for ($i = $start; $i < $n; ++$i) {
-            foreach (self::combinations($n, $k - 1, $i) as $rest) {
-                yield array_merge([$i], $rest);
-            }
-        }
     }
 
     /**

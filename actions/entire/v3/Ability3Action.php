@@ -31,13 +31,14 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
+use function array_map;
 use function array_pop;
 use function vsprintf;
 
 use const SORT_ASC;
 
 /**
- * @phpstan-import-type TypicalGearConfig3 from TypicalGearConfiguration3
+ * @phpstan-import-type TypicalGearCandidate3 from TypicalGearConfiguration3
  */
 final class Ability3Action extends Action
 {
@@ -102,7 +103,7 @@ final class Ability3Action extends Action
 
         return [
             'abilities' => $abilities,
-            'configs' => $this->getTypicalGearConfigs($abilities, $data),
+            'typicalGears' => $this->getTypicalGearCandidates($abilities, $data),
             'data' => $data,
             'rule' => $rule,
             'rules' => $this->getRules($db),
@@ -176,16 +177,16 @@ final class Ability3Action extends Action
     /**
      * @param Ability3[] $abilities
      * @param array<int, StatAbility3XUsage> $data
-     * @return array<int, TypicalGearConfig3|null>
+     * @return array<int, list<TypicalGearCandidate3>>
      */
-    private function getTypicalGearConfigs(array $abilities, array $data): array
+    private function getTypicalGearCandidates(array $abilities, array $data): array
     {
         $gearTypes = [];
         foreach ($abilities as $ability) {
             $gearTypes[$ability->key] = $ability->gearType?->key;
         }
 
-        $results = [];
+        $inputs = [];
         foreach ($data as $weaponId => $row) {
             $averages = [];
             foreach ($abilities as $ability) {
@@ -194,10 +195,18 @@ final class Ability3Action extends Action
                 ) ?? 0.0;
             }
 
-            $results[$weaponId] = TypicalGearConfiguration3::build($gearTypes, $averages);
+            $inputs[$weaponId] = $averages;
         }
 
-        return $results;
+        // The calculation is a bit heavy, so cache the results keyed by the inputs themselves
+        return Yii::$app->cache->getOrSet(
+            [__METHOD__, TypicalGearConfiguration3::VERSION, $gearTypes, $inputs],
+            fn (): array => array_map(
+                fn (array $averages): array => TypicalGearConfiguration3::build($gearTypes, $averages),
+                $inputs,
+            ),
+            86400,
+        );
     }
 
     /**
