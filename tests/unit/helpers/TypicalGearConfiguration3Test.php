@@ -137,6 +137,36 @@ class TypicalGearConfiguration3Test extends Unit
         );
     }
 
+    public function testSecondariesAreOrderedByTotalGp(): void
+    {
+        // quick_super_jump (22 GP) = 1 primary + 4 secondaries. The 4th secondary overflows to
+        // the shoes, and is placed before ink_recovery_up (6 GP) which precedes it in rank order.
+        $candidates = TypicalGearConfiguration3::build(self::ABILITIES, [
+            'quick_super_jump' => 22.0,
+            'ink_saver_main' => 10.0,
+            'swim_speed_up' => 10.0,
+            'ink_resistance_up' => 9.0,
+            'ink_recovery_up' => 6.0,
+        ]);
+        $this->assertSame(
+            [
+                'headgear' => [
+                    'primary' => 'quick_super_jump',
+                    'secondaries' => ['quick_super_jump', 'quick_super_jump', 'quick_super_jump'],
+                ],
+                'clothing' => [
+                    'primary' => 'ink_saver_main',
+                    'secondaries' => ['ink_resistance_up', 'ink_resistance_up', 'ink_resistance_up'],
+                ],
+                'shoes' => [
+                    'primary' => 'swim_speed_up',
+                    'secondaries' => ['quick_super_jump', 'ink_recovery_up', 'ink_recovery_up'],
+                ],
+            ],
+            ($candidates[0] ?? null)['config'] ?? null,
+        );
+    }
+
     public function testPrimaryOnlyAbilityAdoption(): void
     {
         // The most mounted one in the gear type is adopted

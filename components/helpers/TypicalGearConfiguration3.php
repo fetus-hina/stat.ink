@@ -52,7 +52,7 @@ final class TypicalGearConfiguration3
      * Version of the calculation. Increment this when the results change for the same inputs,
      * so that the cached results are invalidated.
      */
-    public const int VERSION = 1;
+    public const int VERSION = 2;
 
     public const string HEADGEAR = 'headgear';
     public const string CLOTHING = 'clothing';
@@ -349,6 +349,12 @@ final class TypicalGearConfiguration3
      *    If no gear can take them all, they are split, starting with the gear with
      *    the most free slots.
      *
+     * In each gear, the secondaries are ordered as follows:
+     *
+     * 1. The same ability as the primary
+     * 2. Descending order of the total GP in the whole configuration
+     * 3. Rank order
+     *
      * @param array<string, string> $primaries Gear type => ability key
      * @param array<string, int> $counts Ability key => number of the secondaries, in rank order
      * @param list<string> $rankOrder
@@ -356,6 +362,17 @@ final class TypicalGearConfiguration3
      */
     private static function placeSecondaries(array $primaries, array $counts, array $rankOrder): array
     {
+        // Ordered by the total GP (stable sort: ties keep the rank order)
+        $totals = [];
+        foreach ($rankOrder as $key) {
+            $totals[$key] = self::SECONDARY_GP * ($counts[$key] ?? 0);
+        }
+        foreach ($primaries as $key) {
+            $totals[$key] = ($totals[$key] ?? 0) + self::PRIMARY_GP;
+        }
+        $displayOrder = $rankOrder;
+        usort($displayOrder, fn (string $a, string $b): int => $totals[$b] <=> $totals[$a]);
+
         $free = array_map(fn (): int => self::SECONDARY_SLOTS, $primaries);
         $placed = array_map(fn (): array => [], $primaries);
 
@@ -388,7 +405,7 @@ final class TypicalGearConfiguration3
             $list = [];
             $orderedKeys = array_merge(
                 [$primaryKey],
-                array_values(array_filter($rankOrder, fn (string $k): bool => $k !== $primaryKey)),
+                array_values(array_filter($displayOrder, fn (string $k): bool => $k !== $primaryKey)),
             );
             foreach ($orderedKeys as $key) {
                 for ($i = 0; $i < ($placed[$gearType][$key] ?? 0); ++$i) {
