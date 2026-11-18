@@ -31,6 +31,9 @@ use function usort;
  * counted as 10 and the secondary is counted as 3.
  *
  * Note: The doubled secondaries by Ability Doubler are not taken into account.
+ *
+ * @phpstan-type TypicalGear3 array{primary: string, secondaries: list<string>}
+ * @phpstan-type TypicalGearConfig3 array{headgear: TypicalGear3, clothing: TypicalGear3, shoes: TypicalGear3}
  */
 final class TypicalGearConfiguration3
 {
@@ -54,11 +57,7 @@ final class TypicalGearConfiguration3
      *   The value is the gear type key for the primary-only abilities, null otherwise.
      * @param array<string, float> $averages Ability key => average GP
      * @param float $primaryOnlyThreshold Minimum mounting rate to adopt a primary-only ability
-     * @return array{
-     *   headgear: array{primary: string, secondaries: list<string>},
-     *   clothing: array{primary: string, secondaries: list<string>},
-     *   shoes: array{primary: string, secondaries: list<string>},
-     * }|null
+     * @return TypicalGearConfig3|null
      */
     public static function build(
         array $abilities,

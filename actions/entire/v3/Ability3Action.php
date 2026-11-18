@@ -12,6 +12,7 @@ namespace app\actions\entire\v3;
 use Yii;
 use app\components\helpers\Season3Helper;
 use app\components\helpers\TypeHelper;
+use app\components\helpers\TypicalGearConfiguration3;
 use app\models\Ability3;
 use app\models\Rule3;
 use app\models\Season3;
@@ -35,6 +36,9 @@ use function vsprintf;
 
 use const SORT_ASC;
 
+/**
+ * @phpstan-import-type TypicalGearConfig3 from TypicalGearConfiguration3
+ */
 final class Ability3Action extends Action
 {
     private const PARAM_SEASON_ID = Season3Helper::DEFAULT_SEASON_PARAM_NAME;
@@ -93,9 +97,13 @@ final class Ability3Action extends Action
             ]);
         }
 
+        $abilities = $this->getAbilities($db);
+        $data = $this->getData($db, $season, $rule, $xRange);
+
         return [
-            'abilities' => $this->getAbilities($db),
-            'data' => $this->getData($db, $season, $rule, $xRange),
+            'abilities' => $abilities,
+            'configs' => $this->getTypicalGearConfigs($abilities, $data),
+            'data' => $data,
             'rule' => $rule,
             'rules' => $this->getRules($db),
             'season' => $season,
@@ -163,6 +171,33 @@ final class Ability3Action extends Action
                 ->all($db),
             'weapon_id',
         );
+    }
+
+    /**
+     * @param Ability3[] $abilities
+     * @param array<int, StatAbility3XUsage> $data
+     * @return array<int, TypicalGearConfig3|null>
+     */
+    private function getTypicalGearConfigs(array $abilities, array $data): array
+    {
+        $gearTypes = [];
+        foreach ($abilities as $ability) {
+            $gearTypes[$ability->key] = $ability->gearType?->key;
+        }
+
+        $results = [];
+        foreach ($data as $weaponId => $row) {
+            $averages = [];
+            foreach ($abilities as $ability) {
+                $averages[$ability->key] = TypeHelper::floatOrNull(
+                    $row->getAttribute("{$ability->key}_avg"),
+                ) ?? 0.0;
+            }
+
+            $results[$weaponId] = TypicalGearConfiguration3::build($gearTypes, $averages);
+        }
+
+        return $results;
     }
 
     /**
@@ -266,6 +301,7 @@ final class Ability3Action extends Action
     private function getAbilities(Connection $db): array
     {
         return Ability3::find()
+            ->with(['gearType'])
             ->orderBy(['rank' => SORT_ASC])
             ->cache(86400)
             ->all($db);

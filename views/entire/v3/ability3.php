@@ -10,6 +10,7 @@ declare(strict_types=1);
 use app\assets\ColorSchemeAsset;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Dialog;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Ability3;
@@ -34,6 +35,7 @@ use yii\web\View;
  * @var array<int, Rule3> $rules
  * @var array<int, Season3> $seasons
  * @var array<int, StatAbility3XUsage> $data
+ * @var array<int, array<string, array{primary: string, secondaries: list<string>}>|null> $configs
  * @var callable(Rule3): string $ruleUrl
  * @var callable(Season3): string $seasonUrl
  * @var callable(StatWeapon3XUsageRange): string $xRangeUrl
@@ -47,8 +49,12 @@ OgpHelper::default($this, title: $title);
 ColorSchemeAsset::register($this);
 JqueryColorAsset::register($this);
 
-$this->registerCss('.vmiddle{vertical-align:middle!important}');
+$this->registerCss(implode('', [
+  '.vmiddle{vertical-align:middle!important}',
+  '.typical-gear-trigger{cursor:pointer}',
+]));
 $maxValue = 0.0;
+$typicalGearDialogId = 'typical-gear-dialog';
 
 ?>
 <div class="container">
@@ -116,12 +122,28 @@ $maxValue = 0.0;
     }
 ?>
 <?php $rowData = $data[$weapon->id] ?? [] ?>
+<?php $config = $configs[$weapon->id] ?? null ?>
         <?= Html::beginTag('tr', ['data-key' => $weapon->key]) . "\n" ?>
-          <th scope="row" class="text-nowrap vmiddle">
+          <?= Html::beginTag('th', [
+            'class' => array_filter([
+              'text-nowrap',
+              'vmiddle',
+              $config ? 'typical-gear-trigger' : null,
+            ]),
+            'data' => $config
+              ? [
+                'config' => $config,
+                'title' => Yii::t('app-weapon3', $weapon->name),
+              ]
+              : [],
+            'role' => $config ? 'button' : null,
+            'scope' => 'row',
+            'tabindex' => $config ? '0' : null,
+          ]) . "\n" ?>
             <?= Icon::s3Weapon($weapon, size: '1.2em') . "\n" ?>
             <?= Icon::s3Subweapon($weapon->subweapon, size: '0.8em') . "\n" ?>
             <?= Icon::s3Special($weapon->special, size: '0.8em') . "\n" ?>
-          </th>
+          <?= Html::endTag('th') . "\n" ?>
           <td class="text-right small vmiddle text-muted">
             <?= Yii::$app->formatter->asInteger($rowData['players'] ?? 0) . "\n" ?>
           </td>
@@ -148,6 +170,38 @@ $maxValue = 0.0;
     </table>
   </div>
 </div>
+<?= Dialog::widget([
+  'body' => Html::tag('pre', '', ['class' => 'typical-gear-dump mb-0']),
+  'footer' => Dialog::FOOTER_CLOSE,
+  'id' => $typicalGearDialogId,
+  'title' => '',
+]) . "\n" ?>
+<?php
+$this->registerJs(vsprintf('(%s)(%s);', [
+  <<<'JS'
+    function (dialogSelector) {
+      const $dialog = $(dialogSelector);
+      const open = function ($trigger) {
+        $('.modal-title', $dialog).text(String($trigger.data('title')));
+        $('.typical-gear-dump', $dialog).text(JSON.stringify($trigger.data('config'), null, 2));
+        $dialog.modal('show');
+      };
+
+      $(document)
+        .on('click', '.typical-gear-trigger', function () {
+          open($(this));
+        })
+        .on('keydown', '.typical-gear-trigger', function (ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            open($(this));
+          }
+        });
+    }
+  JS,
+  json_encode('#' . $typicalGearDialogId, JSON_THROW_ON_ERROR),
+]));
+?>
 <?php
 if ($maxValue > 0.0) {
   $this->registerJs(<<<JS
