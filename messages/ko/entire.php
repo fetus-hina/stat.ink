@@ -26,6 +26,7 @@ return [
     'Battles:' => '배틀:',
     'Battles and Users' => '배틀과 유저',
     'Challenge Power Distribution' => '이벤트 파워 분포',
+    'Click or tap the weapon icons at the left end of each row to show example gear setups.' => '각 행 왼쪽 끝의 무기 아이콘을 클릭/탭하면 기어 구성 예를 표시합니다.',
     'Color 1' => '색깔 1',
     'Color 2' => '색깔 2',
     'Compare Number Of Uses' => '사용률 비교',

@@ -26,6 +26,7 @@ return [
     'Battles:' => 'Kämpfe:',
     'Battles and Users' => 'Kämpfe und Benutzer',
     'Challenge Power Distribution' => 'Event-Power-Verteilung',
+    'Click or tap the weapon icons at the left end of each row to show example gear setups.' => 'Klicke oder tippe auf die Waffensymbole ganz links in jeder Zeile, um Ausrüstungsbeispiele anzuzeigen.',
     'Color 1' => 'Farbe 1',
     'Color 2' => 'Farbe 2',
     'Compare Number Of Uses' => 'Nutzungszahlen vergleichen',

@@ -110,6 +110,11 @@ $typicalGearDialogId = 'typical-gear-dialog';
       ) . "\n" ?>
       <?= Html::encode(Yii::t('app-entire', 'The abilities valid only for the primary means the rate of mounting.')) . "\n" ?>
     </p>
+    <p class="mb-1">
+      <?= Html::encode(
+        Yii::t('app-entire', 'Click or tap the weapon icons at the left end of each row to show example gear setups.'),
+      ) . "\n" ?>
+    </p>
   </div>
 
   <div class="table-responsive table-responsive-force mb-3">

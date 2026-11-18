@@ -26,6 +26,7 @@ return [
     'Battles:' => 'Бои:',
     'Battles and Users' => 'Бои и пользователи',
     'Challenge Power Distribution' => 'Распределение силы события',
+    'Click or tap the weapon icons at the left end of each row to show example gear setups.' => 'Нажмите на значок оружия в начале строки, чтобы увидеть примеры снаряжения.',
     'Color 1' => 'Цвет 1',
     'Color 2' => 'Цвет 2',
     'Compare Number Of Uses' => 'Сравнение частоты использования',

@@ -26,6 +26,7 @@ return [
     'Battles:' => 'Gevechten:',
     'Battles and Users' => 'Gevechten en gebruikers',
     'Challenge Power Distribution' => 'Verdeling van eventkracht',
+    'Click or tap the weapon icons at the left end of each row to show example gear setups.' => 'Klik of tik op de wapenpictogrammen links in elke rij om uitrustingsvoorbeelden te bekijken.',
     'Color 1' => 'Kleur 1',
     'Color 2' => 'Kleur 2',
     'Compare Number Of Uses' => 'Aantal keer gebruikt vergelijken',

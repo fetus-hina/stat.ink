@@ -26,6 +26,7 @@ return [
     'Battles:' => '对战：',
     'Battles and Users' => '对战与用户',
     'Challenge Power Distribution' => '活动战力分布',
+    'Click or tap the weapon icons at the left end of each row to show example gear setups.' => '点击各行最左侧的武器图标，即可查看配装示例。',
     'Color 1' => '色彩 1',
     'Color 2' => '色彩 2',
     'Compare Number Of Uses' => '比较使用数',

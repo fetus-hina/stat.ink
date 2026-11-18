@@ -26,6 +26,7 @@ return [
     'Battles:' => '',
     'Battles and Users' => '',
     'Challenge Power Distribution' => '',
+    'Click or tap the weapon icons at the left end of each row to show example gear setups.' => '',
     'Color 1' => 'Colour 1',
     'Color 2' => 'Colour 2',
     'Compare Number Of Uses' => '',

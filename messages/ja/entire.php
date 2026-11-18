@@ -26,6 +26,7 @@ return [
     'Battles:' => 'バトル:',
     'Battles and Users' => 'バトルとユーザ',
     'Challenge Power Distribution' => 'イベントパワー分布',
+    'Click or tap the weapon icons at the left end of each row to show example gear setups.' => '各行の左端のブキアイコンをクリック/タップすると、構成例を表示します。',
     'Color 1' => '色 1',
     'Color 2' => '色 2',
     'Compare Number Of Uses' => '使用率の比較',

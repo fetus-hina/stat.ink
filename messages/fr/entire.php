@@ -26,6 +26,7 @@ return [
     'Battles:' => 'Matchs :',
     'Battles and Users' => 'Matchs et utilisateurs',
     'Challenge Power Distribution' => 'Distribution du Challenge Power',
+    'Click or tap the weapon icons at the left end of each row to show example gear setups.' => 'Cliquez ou appuyez sur les icônes d\'arme à gauche de chaque ligne pour afficher des exemples d\'équipement.',
     'Color 1' => 'Couleur 1',
     'Color 2' => 'Couleur 2',
     'Compare Number Of Uses' => 'Comparer le nombre d\'utilisation',
