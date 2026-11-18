@@ -10,8 +10,8 @@ declare(strict_types=1);
 return [
     'A+' => 'A+',
     'A-' => 'A-',
-    'A Long' => 'A : Longue portée',
-    'A Short' => 'A : Courte portée',
+    'A Long' => 'A Longue portée',
+    'A Short' => 'A Courte portée',
     'B' => 'B',
     'C' => 'C',
     'C+' => 'C+',
