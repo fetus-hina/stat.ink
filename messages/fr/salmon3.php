@@ -19,7 +19,7 @@ return [
     'Boss Salmonids' => 'Salmonoboss',
     'Clear Bonus' => 'Récompense',
     'Contribution' => 'Contribution',
-    'Defeat %' => '% d\'échecs',
+    'Defeat %' => '% vaincus',
     'Defeated' => 'Vaincus',
     'Defeated (others)' => 'Vaincus par d\'autres',
     'Defeated by {user}' => 'Vaincus par {user}',

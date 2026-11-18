@@ -19,7 +19,7 @@ return [
     'Boss Salmonids' => 'Salmonídeos chefes',
     'Clear Bonus' => 'Bônus por conclusão',
     'Contribution' => 'Contribuição',
-    'Defeat %' => '% de chefes derrotados',
+    'Defeat %' => '% derrotados',
     'Defeated' => 'Derrotado',
     'Defeated (others)' => 'Derrotado (outros)',
     'Defeated by {user}' => 'Derrotado por {user}',
