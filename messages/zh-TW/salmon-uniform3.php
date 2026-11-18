@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -18,6 +18,7 @@ return [
     'Green Slopsuit' => '打工連身工作服 綠色',
     'Heavy-Duty Slopsuit' => '打工連身工作服 重裝',
     'Iridescent Slopsuit' => '打工連身工作服 稜鏡',
+    'Junior Slopsuit' => '',
     'Koi Slopsuit' => '打工連身工作服 錦鯉',
     'Lime Gloopsuit' => '打工防水衣 萊姆綠',
     'Orange Gloopsuit' => '打工防水衣 橘色',
