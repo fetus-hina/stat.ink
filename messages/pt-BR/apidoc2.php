@@ -124,7 +124,7 @@ return [
     'Note: this value may not be in SplatNet JSON.' => 'Nota: esse valor talvez não esteja em JSON da Splatnet.',
     'Nothing send (Disabled duplicate detection)' => 'Não enviar nada (desativa a detecção de duplicatas)',
     'Number of battles' => 'Número de partidas',
-    'Number of cleared waves. 3 if cleared, 0 if failed in wave 1.' => 'Número de ondas concluídas. 3 se concluído, 0 se fracassou na onda 1.',
+    'Number of cleared waves. 3 if cleared, 0 if failed in wave 1.' => 'Número de ondas concluídas. 3 se a partida for concluída, 0 se fracassou na onda 1.',
     'Number of kills the boss salmonid' => 'Número de salmonídeos chefes eliminados',
     'Number of times rescued by other players' => 'Número de vezes que foi resgatado(a) por outros jogadores',
     'Number of times rescued other players' => 'Número de vezes que resgatou outros jogadores',
