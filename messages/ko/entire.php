@@ -44,6 +44,7 @@ return [
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => '오차 바: 95% 신뢰 구간 (추정) 및 99% 신뢰 구간 (추정)',
     'Estimated Error' => '추정 오차',
     'Estimated Vote %' => '추정 투표율',
+    'Example Gear Setups for {weapon}' => '{weapon}의 기어 구성 예',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '',
     'Favorite Weapons of This Site Member' => '이 사이트 유저들이 자주 사용하는 무기',
     'For the actual distribution, see the charts for each mode.' => '실제 분포는 각 룰의 그래프를 참조해 주세요.',

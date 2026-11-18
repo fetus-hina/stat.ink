@@ -133,7 +133,10 @@ $typicalGearDialogId = 'typical-gear-dialog';
             'data' => $candidates
               ? [
                 'candidates' => $candidates,
-                'title' => Yii::t('app-weapon3', $weapon->name),
+                'icon' => Icon::s3Weapon($weapon),
+                'title' => Yii::t('app-entire', 'Example Gear Setups for {weapon}', [
+                  'weapon' => Yii::t('app-weapon3', $weapon->name),
+                ]),
               ]
               : [],
             'role' => $candidates ? 'button' : null,
@@ -182,7 +185,12 @@ $this->registerJs(vsprintf('(%s)(%s);', [
     function (dialogSelector) {
       const $dialog = $(dialogSelector);
       const open = function ($trigger) {
-        $('.modal-title', $dialog).text(String($trigger.data('title')));
+        $('.modal-title', $dialog)
+          .empty()
+          .append(
+            $.parseHTML(String($trigger.attr('data-icon') || '')),
+            document.createTextNode(' ' + String($trigger.data('title')))
+          );
         $('.typical-gear-dump', $dialog).text(JSON.stringify($trigger.data('candidates'), null, 2));
         $dialog.modal('show');
       };

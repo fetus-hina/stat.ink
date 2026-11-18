@@ -44,6 +44,7 @@ return [
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => 'Barras de error: intervalo de confianza del 95 % (estimado) e intervalo de confianza del 99 % (estimado)',
     'Estimated Error' => 'Error estimado',
     'Estimated Vote %' => '% de votos estimado',
+    'Example Gear Setups for {weapon}' => 'Ejemplos de equipamiento para {weapon}',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => 'Excluidos: quien sube la batalla, todos los jugadores (combates privados), compañeros de quien sube la batalla (combates en equipo o combates temáticos)',
     'Favorite Weapons of This Site Member' => 'Armas favoritas de los miembros de este sitio',
     'For the actual distribution, see the charts for each mode.' => 'Para ver la distribución real, consulte los gráficos de cada modo.',

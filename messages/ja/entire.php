@@ -44,6 +44,7 @@ return [
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => 'エラーバー: 95%信頼区間（推定）と99%信頼区間（推定）',
     'Estimated Error' => '推定誤差',
     'Estimated Vote %' => '推定投票率',
+    'Example Gear Setups for {weapon}' => '{weapon}の構成例',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '集計除外: プライベートマッチと、投稿ユーザ、タッグマッチ・フェスマッチ時の投稿者のチームメンバー',
     'Favorite Weapons of This Site Member' => 'このサイトの登録者がよく使うブキ',
     'For the actual distribution, see the charts for each mode.' => '実際の分布は各ルールのグラフを参照してください。',

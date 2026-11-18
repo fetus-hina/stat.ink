@@ -44,6 +44,7 @@ return [
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => '误差线：95%置信区间（估计）和99%置信区间（估计）',
     'Estimated Error' => '估计误差',
     'Estimated Vote %' => '估算投票率',
+    'Example Gear Setups for {weapon}' => '{weapon}的配装示例',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '排除上传者，私人比赛的所有玩家，上传者的队友（小组对战或是祭典比赛）',
     'Favorite Weapons of This Site Member' => '该站用户最喜爱的武器',
     'For the actual distribution, see the charts for each mode.' => '实际分布请参见各规则的图表。',
