@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace app\actions\entire\v3;
 
 use Yii;
-use app\commands\stat\actions\MatchingRange3Action as MatchingRange3StatAction;
+use app\components\helpers\MatchingRange3Helper;
 use app\components\helpers\Season3Helper;
 use app\components\helpers\TypeHelper;
 use app\models\Lobby3;
@@ -30,6 +30,8 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 use function array_keys;
+use function array_map;
+use function in_array;
 use function is_string;
 use function ksort;
 use function vsprintf;
@@ -67,13 +69,6 @@ final class MatchingRange3Action extends Action
      */
     private function doRun(Controller $controller, Connection $db): Response|array
     {
-        $seasons = $this->getSeasons($db);
-        $season = Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID);
-        if (!$season) {
-            $season = $seasons[0] ?? throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-            return $controller->redirect(['entire/matching-range3', self::PARAM_SEASON_ID => $season->id]);
-        }
-
         $rules = $this->getRules($db);
         $ruleKey = Yii::$app->request->get(self::PARAM_RULE_ID);
         $rule = null;
@@ -82,6 +77,21 @@ final class MatchingRange3Action extends Action
                 ArrayHelper::index($rules, 'key'),
                 $ruleKey,
             ) ?? throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+        }
+
+        $seasons = $this->getSeasons($db);
+        $season = Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID);
+        if (!$season) {
+            $season = $seasons[0] ?? throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            return $controller->redirect(['entire/matching-range3',
+                self::PARAM_SEASON_ID => $season->id,
+                self::PARAM_RULE_ID => $rule?->key,
+            ]);
+        }
+
+        // Seasons without data are not selectable in the season selector
+        if (!in_array($season->id, array_map(fn (Season3 $v): int => $v->id, $seasons), true)) {
+            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
         $series = $this->getSeries($db);
@@ -153,7 +163,7 @@ final class MatchingRange3Action extends Action
             fn (Lobby3 $v): Lobby3 => $v,
         );
 
-        $threshold = Yii::$app->formatter->asInteger(MatchingRange3StatAction::X_POWER_THRESHOLD);
+        $threshold = Yii::$app->formatter->asInteger(MatchingRange3Helper::X_POWER_THRESHOLD);
         $xName = Yii::t('app-lobby3', 'X Battle');
         $list = [];
         if ($x = $lobbies['xmatch'] ?? null) {
@@ -163,7 +173,7 @@ final class MatchingRange3Action extends Action
                 'color' => 'window.colorScheme._accent.sky',
             ];
             $list[] = [
-                'key' => self::seriesKey($x->id, MatchingRange3StatAction::X_POWER_THRESHOLD),
+                'key' => self::seriesKey($x->id, MatchingRange3Helper::X_POWER_THRESHOLD),
                 'label' => vsprintf('%s (≥ %s)', [$xName, $threshold]),
                 'color' => 'window.colorScheme._accent.blue',
             ];

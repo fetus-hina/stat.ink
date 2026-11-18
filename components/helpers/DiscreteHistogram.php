@@ -29,10 +29,10 @@ final class DiscreteHistogram
     private const PRECISION = 6;
 
     /**
-     * @param iterable<array{float, int}> $rows list of [value, count]
+     * @param array<array{float, int}> $rows list of [value, count]
      * @return array{n: int, mean: float, stddev: float|null}|null
      */
-    public static function summarize(iterable $rows): ?array
+    public static function summarize(array $rows): ?array
     {
         $n = 0;
         $sum = 0.0;

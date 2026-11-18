@@ -15,6 +15,7 @@ use DateTimeZone;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle3Helper;
+use app\components\helpers\MatchingRange3Helper;
 use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\models\Season3;
@@ -52,19 +53,6 @@ use const STDERR;
  */
 final class MatchingRange3Action extends Action
 {
-    /**
-     * The first version that uses the MR-based team division for each lobby
-     */
-    private const MIN_VERSIONS = [
-        'xmatch' => '11.1.0',
-        'bankara_challenge' => '12.0.0',
-    ];
-
-    /**
-     * Battles in X Battle are classified by the uploader's X Power with this threshold
-     */
-    public const X_POWER_THRESHOLD = 2000;
-
     private const TMP_TABLE_NAME = '{{tmp_matching_range_battle3}}';
 
     public function run(): int
@@ -146,7 +134,7 @@ final class MatchingRange3Action extends Action
     {
         $versions = ArrayHelper::map(
             SplatoonVersion3::find()
-                ->andWhere(['tag' => array_values(self::MIN_VERSIONS)])
+                ->andWhere(['tag' => array_values(MatchingRange3Helper::MIN_VERSIONS)])
                 ->all($db),
             'tag',
             fn (SplatoonVersion3 $v): int => TypeHelper::int(strtotime($v->release_at)),
@@ -155,7 +143,7 @@ final class MatchingRange3Action extends Action
         return array_filter(
             array_map(
                 fn (string $tag): ?int => $versions[$tag] ?? null,
-                self::MIN_VERSIONS,
+                MatchingRange3Helper::MIN_VERSIONS,
             ),
             fn (?int $v): bool => $v !== null,
         );
@@ -326,7 +314,7 @@ final class MatchingRange3Action extends Action
             SQL,
             [
                 $db->quoteTableName(self::TMP_TABLE_NAME),
-                self::X_POWER_THRESHOLD,
+                MatchingRange3Helper::X_POWER_THRESHOLD,
                 $ts($minStartAt),
                 implode(', ', array_map(fn (Season3 $season): string => (string)$season->id, $seasons)),
                 implode(' OR ', $lobbyConds),

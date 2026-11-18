@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\MatchingRange3Helper;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
@@ -138,13 +139,13 @@ $sections = [
         Icon::s3LobbyX() . ' ' . Html::encode(
           vsprintf('%s (%s)', [
             Yii::t('app-lobby3', 'X Battle'),
-            Yii::t('app-entire', 'v{version} or later', ['version' => '11.1.0']),
+            Yii::t('app-entire', 'v{version} or later', ['version' => MatchingRange3Helper::MIN_VERSIONS['xmatch']]),
           ]),
         ),
         Icon::s3LobbyBankara() . ' ' . Html::encode(
           vsprintf('%s (%s)', [
             Yii::t('app-lobby3', 'Anarchy Battle (Series)'),
-            Yii::t('app-entire', 'v{version} or later', ['version' => '12.0.0']),
+            Yii::t('app-entire', 'v{version} or later', ['version' => MatchingRange3Helper::MIN_VERSIONS['bankara_challenge']]),
           ]),
         ),
       ]),
