@@ -24,7 +24,7 @@ return [
     'Stats (Turf War)' => 'Statistiche (Mischia mollusca)',
     'Stats (vs. Weapon)' => 'Statistiche (contro arma)',
     'Stats (Win %)' => 'Statistiche (% vittorie)',
-    'Stats (X Power)' => 'Statistiche (Potere X)',
+    'Stats (X Power)' => 'Statistiche (energia X)',
     'Stats ({rule})' => 'Statistiche ({rule})',
     'Total Inked' => 'Totale superficie inchiostrata',
     '{point, plural, other{#p}}' => '{point, plural, other{#p}}',
