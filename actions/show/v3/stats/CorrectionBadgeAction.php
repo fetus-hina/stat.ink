@@ -60,7 +60,7 @@ final class CorrectionBadgeAction extends Action
                 if (
                     is_int($v) &&
                     $v !== 0 &&
-                    preg_match('/^(?:rule|special|salmon)-/', (string)$k)
+                    preg_match('/^(?:rule|series|special|salmon)-/', (string)$k)
                 ) {
                     $newData[$k] = $v;
                 }
