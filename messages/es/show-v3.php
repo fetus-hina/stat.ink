@@ -36,10 +36,10 @@ return [
     'The correction value specified by the user is applied.' => 'Se aplica el valor de corrección especificado por el usuario.',
     'Weapon (Icon)' => 'Arma (icono)',
     'You can register (estimated) unsent values here to correct the values displayed.' => 'Puede registrar aquí valores (estimados) no enviados para corregir los valores mostrados.',
-    '{lobby} (X Power {xPower} or higher)' => '{lobby} (Poder X de {xPower} o más)',
+    '{lobby} (X Power {xPower} or higher)' => '{lobby} (Energía X de {xPower} o más)',
     '{name}\'s Badge Progress' => 'Progreso de chapas de {name}',
     '{name}\'s Battle Stats (Medals)' => 'Estadísticas de batalla de {name} (galardones)',
     '{name}\'s Battle Stats (Winning Rate)' => 'Estadísticas de batalla de {name} (% de victorias)',
-    '{name}\'s X Power' => 'Poder X de {name}',
+    '{name}\'s X Power' => 'Energía X de {name}',
     '{nFormatted} remaining' => 'Quedan {nFormatted}',
 ];

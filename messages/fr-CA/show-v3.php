@@ -36,10 +36,10 @@ return [
     'The correction value specified by the user is applied.' => '',
     'Weapon (Icon)' => '',
     'You can register (estimated) unsent values here to correct the values displayed.' => '',
-    '{lobby} (X Power {xPower} or higher)' => '',
+    '{lobby} (X Power {xPower} or higher)' => '{lobby} (Force X de {xPower} ou plus)',
     '{name}\'s Badge Progress' => '',
     '{name}\'s Battle Stats (Medals)' => '',
     '{name}\'s Battle Stats (Winning Rate)' => '',
-    '{name}\'s X Power' => '',
+    '{name}\'s X Power' => 'Force X de {name}',
     '{nFormatted} remaining' => '',
 ];

@@ -120,7 +120,7 @@ return [
     'Win % of the higher-MR team' => '% vittorie della squadra con MR più alta',
     'Win % of the wider-spread team' => '% vittorie della squadra con ampiezza maggiore',
     'Winning Percentage based on K/D' => 'Percentuale di vittorie in base al K/D',
-    'X Battle is classified by the X Power of the battle uploader.' => 'Le Partite X sono classificate in base al Potere X di chi ha caricato la battaglia.',
+    'X Battle is classified by the X Power of the battle uploader.' => 'Le Partite X sono classificate in base all\'energia X di chi ha caricato la battaglia.',
     'XP' => 'XP',
     'v{version} or later' => 'v{version} o successive',
     '{pct_point} percentage point' => '{pct_point} punti percentuali',

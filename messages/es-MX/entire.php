@@ -120,7 +120,7 @@ return [
     'Win % of the higher-MR team' => '',
     'Win % of the wider-spread team' => '',
     'Winning Percentage based on K/D' => '',
-    'X Battle is classified by the X Power of the battle uploader.' => '',
+    'X Battle is classified by the X Power of the battle uploader.' => 'Los Combates X se clasifican según la fuerza X de quien subió la batalla.',
     'XP' => '',
     'v{version} or later' => '',
     '{pct_point} percentage point' => '',

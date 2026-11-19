@@ -76,7 +76,7 @@ return [
     'Winning Percentage' => 'Porcentaje de victorias',
     'Win streak (Bad guys)' => 'Racha de victorias (equipo rival)',
     'Win streak (Good guys)' => 'Racha de victorias (tu equipo)',
-    'X Power (After the battle)' => 'Poder X (después de la batalla)',
+    'X Power (After the battle)' => 'Energía X (después de la batalla)',
     'You can delete this battle.' => 'Puede eliminar esta batalla.',
     '{name}\'s Battle Report' => 'Informe de batalla de {name}',
     '{name}\'s Battle Stats (by Mode and Stage)' => 'Estadísticas de batalla de {name} (por estilo y escenario)',
