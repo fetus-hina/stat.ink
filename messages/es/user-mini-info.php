@@ -24,7 +24,7 @@ return [
     'Stats (Turf War)' => 'Estadísticas (Territorial)',
     'Stats (vs. Weapon)' => 'Estadísticas (vs. armas enemigas)',
     'Stats (Win %)' => 'Estadísticas (% de victorias)',
-    'Stats (X Power)' => 'Estadísticas (Poder X)',
+    'Stats (X Power)' => 'Estadísticas (energía X)',
     'Stats ({rule})' => 'Estadísticas ({rule})',
     'Total Inked' => 'Superficie pintada total',
     '{point, plural, other{#p}}' => '{point, plural, other{# p}}',

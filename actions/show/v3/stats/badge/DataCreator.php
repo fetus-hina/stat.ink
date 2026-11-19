@@ -21,6 +21,7 @@ use app\models\UserBadge3Adjust;
 use app\models\UserBadge3BossSalmonid;
 use app\models\UserBadge3KingSalmonid;
 use app\models\UserBadge3Rule;
+use app\models\UserBadge3SeriesWin;
 use app\models\UserBadge3Special;
 use app\models\UserBadge3Tricolor;
 use yii\db\Connection;
@@ -47,6 +48,7 @@ trait DataCreator
                 'badgeBosses' => $this->getBadgeBosses($db, $user),
                 'badgeKings' => $this->getBadgeKings($db, $user),
                 'badgeRules' => $this->getBadgeRules($db, $user),
+                'badgeSeriesWins' => $this->getBadgeSeriesWins($db, $user),
                 'badgeSpecials' => $this->getBadgeSpecials($db, $user),
                 'badgeTricolor' => $this->getBadgeTricolor($db, $user),
                 'bosses' => $this->getBosses($db),
@@ -135,6 +137,21 @@ trait DataCreator
                 ->all($db),
             'rule.key',
             fn (UserBadge3Rule $v): UserBadge3Rule => $v,
+        );
+    }
+
+    /**
+     * @return array<string, UserBadge3SeriesWin>
+     */
+    private function getBadgeSeriesWins(Connection $db, User $user): array
+    {
+        return ArrayHelper::map(
+            UserBadge3SeriesWin::find()
+                ->with(['lobby'])
+                ->andWhere(['user_id' => $user->id])
+                ->all($db),
+            'lobby.key',
+            fn (UserBadge3SeriesWin $v): UserBadge3SeriesWin => $v,
         );
     }
 

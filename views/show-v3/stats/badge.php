@@ -21,6 +21,7 @@ use app\models\User;
 use app\models\UserBadge3BossSalmonid;
 use app\models\UserBadge3KingSalmonid;
 use app\models\UserBadge3Rule;
+use app\models\UserBadge3SeriesWin;
 use app\models\UserBadge3Special;
 use app\models\UserBadge3Tricolor;
 use yii\helpers\Html;
@@ -39,6 +40,7 @@ use yii\web\View;
  * @var array<string, UserBadge3BossSalmonid> $badgeBosses
  * @var array<string, UserBadge3KingSalmonid> $badgeKings
  * @var array<string, UserBadge3Rule> $badgeRules
+ * @var array<string, UserBadge3SeriesWin> $badgeSeriesWins
  * @var array<string, UserBadge3Special> $badgeSpecials
  * @var array<string, UserBadge3Tricolor> $badgeTricolor
  * @var array<string, int> $badgeAdjust
@@ -78,6 +80,10 @@ if ($user->twitter != '') {
 <?php } else { ?>
         <?= Html::encode(
           Yii::t('app', 'If there are any unsubmitted data, they have not been included in this tally.'),
+        ) . "\n" ?>
+        <br>
+        <?= Html::encode(
+          Yii::t('app-show-v3', 'Series wins are counted only from battles that include the series progress.'),
         ) . "\n" ?>
 <?php if ($badgeAdjust) { ?>
         <br>
@@ -168,6 +174,12 @@ if ($user->twitter != '') {
             'order',
             'roles',
             'rules',
+          )) . "\n" ?>
+          <?= $this->render('badge/table/series', compact(
+            'badgeAdjust',
+            'badgeSeriesWins',
+            'isEditing',
+            'order',
           )) . "\n" ?>
           <?= $this->render('badge/table/specials', compact(
             'badgeAdjust',

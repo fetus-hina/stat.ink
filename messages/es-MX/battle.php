@@ -76,7 +76,7 @@ return [
     'Winning Percentage' => '',
     'Win streak (Bad guys)' => '',
     'Win streak (Good guys)' => '',
-    'X Power (After the battle)' => '',
+    'X Power (After the battle)' => 'Fuerza X (después de la batalla)',
     'You can delete this battle.' => '',
     '{name}\'s Battle Report' => '',
     '{name}\'s Battle Stats (by Mode and Stage)' => '',

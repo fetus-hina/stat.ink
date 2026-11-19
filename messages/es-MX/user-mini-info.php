@@ -24,7 +24,7 @@ return [
     'Stats (Turf War)' => '',
     'Stats (vs. Weapon)' => '',
     'Stats (Win %)' => '',
-    'Stats (X Power)' => '',
+    'Stats (X Power)' => 'Estadísticas (fuerza X)',
     'Stats ({rule})' => '',
     'Total Inked' => '',
     '{point, plural, other{#p}}' => '',
