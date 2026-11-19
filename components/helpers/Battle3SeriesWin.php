@@ -36,9 +36,9 @@ final class Battle3SeriesWin
     public const int XMATCH_MIN_X_POWER = 2000;
 
     /**
-     * The first game version which counts the X Battle badges
+     * The first game version which counts the series win badges
      */
-    public const string XMATCH_MIN_VERSION = '6.0.0';
+    public const string MIN_VERSION = '6.0.0';
 
     /**
      * Returns a condition (for `andWhere()`) that matches the final battles of the
@@ -78,6 +78,7 @@ final class Battle3SeriesWin
             self::lobbyCondition(self::LOBBY_BANKARA_CHALLENGE),
             self::winCondition(),
             ['{{%battle3}}.[[challenge_win]]' => self::BANKARA_CHALLENGE_WINS],
+            self::versionCondition(),
         ];
     }
 
@@ -93,15 +94,24 @@ final class Battle3SeriesWin
             self::winCondition(),
             ['{{%battle3}}.[[challenge_win]]' => self::XMATCH_WINS],
             ['>=', '{{%battle3}}.[[x_power_before]]', self::XMATCH_MIN_X_POWER],
-            ['{{%battle3}}.[[version_id]]' => new Query()
+            self::versionCondition(),
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    private static function versionCondition(): array
+    {
+        return [
+            '{{%battle3}}.[[version_id]]' => new Query()
                 ->select(['id'])
                 ->from('{{%splatoon_version3}}')
                 ->andWhere(['>=', 'release_at', new Query()
                     ->select(['release_at'])
                     ->from('{{%splatoon_version3}}')
-                    ->andWhere(['tag' => self::XMATCH_MIN_VERSION]),
+                    ->andWhere(['tag' => self::MIN_VERSION]),
                 ]),
-            ],
         ];
     }
 

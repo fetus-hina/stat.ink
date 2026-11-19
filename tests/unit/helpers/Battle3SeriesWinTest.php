@@ -26,6 +26,27 @@ final class Battle3SeriesWinTest extends Unit
         $this->assertStringNotContainsString("'bankara_challenge'", $sql);
     }
 
+    /**
+     * @dataProvider provideLobbies
+     */
+    public function testMinVersionRequired(string $lobby): void
+    {
+        $sql = self::buildSql(Battle3SeriesWin::condition([$lobby]));
+
+        $this->assertStringContainsString("'" . Battle3SeriesWin::MIN_VERSION . "'", $sql);
+    }
+
+    /**
+     * @return array<string, array{string}>
+     */
+    public function provideLobbies(): array
+    {
+        return [
+            'Anarchy Battle (Series)' => [Battle3SeriesWin::LOBBY_BANKARA_CHALLENGE],
+            'X Battle' => [Battle3SeriesWin::LOBBY_XMATCH],
+        ];
+    }
+
     public function testEmptyLobbiesMatchNothing(): void
     {
         $total = (int)new Query()->from('{{%battle3}}')->count();
