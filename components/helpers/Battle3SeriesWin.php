@@ -52,6 +52,11 @@ final class Battle3SeriesWin
     public static function condition(
         array $lobbies = [self::LOBBY_BANKARA_CHALLENGE, self::LOBBY_XMATCH],
     ): array {
+        if (!$lobbies) {
+            // An empty "or" condition is ignored by Yii and matches everything
+            return ['and', '1 <> 1'];
+        }
+
         $conditions = ['or'];
         foreach ($lobbies as $lobby) {
             $conditions[] = match ($lobby) {

@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace app\components\helpers\userStatsV3;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use LogicException;
 use Yii;
 use app\components\helpers\Battle3SeriesWin;
-use app\components\helpers\db\Now;
 use app\models\User;
 use app\models\UserBadge3Rule;
 use app\models\UserBadge3SeriesWin;
@@ -21,6 +21,7 @@ use app\models\UserBadge3Special;
 use app\models\UserBadge3Tricolor;
 use yii\db\Connection;
 use yii\db\Exception as DbException;
+use yii\db\Expression;
 use yii\db\Query;
 
 use function array_map;
@@ -179,7 +180,7 @@ trait BadgeProgressTrait
         DateTimeImmutable $now,
     ): bool {
         UserBadge3SeriesWin::deleteAll(['user_id' => $user->id]);
-        $timestamp = new Now();
+        $timestamp = new Expression($db->quoteValue($now->format(DateTimeInterface::ATOM)));
         $sql = vsprintf('INSERT INTO %s (%s) %s', [
             $db->quoteTableName(UserBadge3SeriesWin::tableName()),
             implode(', ', array_map(

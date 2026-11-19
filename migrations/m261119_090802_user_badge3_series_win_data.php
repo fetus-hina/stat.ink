@@ -8,7 +8,6 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
-use app\components\helpers\Battle3SeriesWin;
 use app\components\helpers\db\Now;
 use yii\db\Query;
 
@@ -33,7 +32,7 @@ final class m261119_090802_user_badge3_series_win_data extends Migration
                     ])
                     ->from('{{%battle3}}')
                     ->andWhere(['{{%battle3}}.[[is_deleted]]' => false])
-                    ->andWhere(Battle3SeriesWin::condition())
+                    ->andWhere($this->seriesWinCondition())
                     ->groupBy([
                         '{{%battle3}}.[[user_id]]',
                         '{{%battle3}}.[[lobby_id]]',
@@ -44,6 +43,51 @@ final class m261119_090802_user_badge3_series_win_data extends Migration
         );
 
         return true;
+    }
+
+    /**
+     * The same conditions as app\components\helpers\Battle3SeriesWin::condition() at the time of writing.
+     * They are copied here so that this migration does not depend on future changes of the helper.
+     *
+     * @return array<mixed>
+     */
+    private function seriesWinCondition(): array
+    {
+        $lobby = fn (string $key): array => [
+            '{{%battle3}}.[[lobby_id]]' => new Query()
+                ->select(['id'])
+                ->from('{{%lobby3}}')
+                ->andWhere(['key' => $key]),
+        ];
+        $win = [
+            '{{%battle3}}.[[result_id]]' => new Query()
+                ->select(['id'])
+                ->from('{{%result3}}')
+                ->andWhere(['key' => 'win']),
+        ];
+
+        return ['or',
+            ['and',
+                $lobby('bankara_challenge'),
+                $win,
+                ['{{%battle3}}.[[challenge_win]]' => 5],
+            ],
+            ['and',
+                $lobby('xmatch'),
+                $win,
+                ['{{%battle3}}.[[challenge_win]]' => 3],
+                ['>=', '{{%battle3}}.[[x_power_before]]', 2000],
+                ['{{%battle3}}.[[version_id]]' => new Query()
+                    ->select(['id'])
+                    ->from('{{%splatoon_version3}}')
+                    ->andWhere(['>=', 'release_at', new Query()
+                        ->select(['release_at'])
+                        ->from('{{%splatoon_version3}}')
+                        ->andWhere(['tag' => '6.0.0']),
+                    ]),
+                ],
+            ],
+        ];
     }
 
     /**
