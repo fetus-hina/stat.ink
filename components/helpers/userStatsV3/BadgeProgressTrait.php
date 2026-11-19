@@ -12,14 +12,19 @@ namespace app\components\helpers\userStatsV3;
 use DateTimeImmutable;
 use LogicException;
 use Yii;
+use app\components\helpers\Battle3SeriesWin;
+use app\components\helpers\db\Now;
 use app\models\User;
 use app\models\UserBadge3Rule;
+use app\models\UserBadge3SeriesWin;
 use app\models\UserBadge3Special;
 use app\models\UserBadge3Tricolor;
 use yii\db\Connection;
 use yii\db\Exception as DbException;
 use yii\db\Query;
 
+use function array_map;
+use function implode;
 use function vsprintf;
 
 trait BadgeProgressTrait
@@ -32,7 +37,8 @@ trait BadgeProgressTrait
         try {
             return self::updateBadgeProgressRules($db, $user, $now) &&
                 self::updateBadgeProgressSpecials($db, $user, $now) &&
-                self::updateBadgeProgressTricolor($db, $user, $now);
+                self::updateBadgeProgressTricolor($db, $user, $now) &&
+                self::updateBadgeProgressSeriesWin($db, $user, $now);
         } catch (DbException $e) {
             Yii::error(
                 vsprintf('Catch %s, message=%s', [
@@ -158,6 +164,45 @@ trait BadgeProgressTrait
                 ->groupBy([
                     '{{%battle3}}.[[user_id]]',
                     '{{%battle3}}.[[our_team_role_id]]',
+                ])
+                ->createCommand($db)
+                ->rawSql,
+        ]);
+        $db->createCommand($sql)->execute();
+
+        return true;
+    }
+
+    private static function updateBadgeProgressSeriesWin(
+        Connection $db,
+        User $user,
+        DateTimeImmutable $now,
+    ): bool {
+        UserBadge3SeriesWin::deleteAll(['user_id' => $user->id]);
+        $timestamp = new Now();
+        $sql = vsprintf('INSERT INTO %s (%s) %s', [
+            $db->quoteTableName(UserBadge3SeriesWin::tableName()),
+            implode(', ', array_map(
+                $db->quoteColumnName(...),
+                ['user_id', 'lobby_id', 'count', 'created_at', 'updated_at'],
+            )),
+            new Query()
+                ->select([
+                    'user_id' => '{{%battle3}}.[[user_id]]',
+                    'lobby_id' => '{{%battle3}}.[[lobby_id]]',
+                    'count' => 'COUNT(*)',
+                    'created_at' => $timestamp,
+                    'updated_at' => $timestamp,
+                ])
+                ->from('{{%battle3}}')
+                ->andWhere([
+                    '{{%battle3}}.[[is_deleted]]' => false,
+                    '{{%battle3}}.[[user_id]]' => $user->id,
+                ])
+                ->andWhere(Battle3SeriesWin::condition())
+                ->groupBy([
+                    '{{%battle3}}.[[user_id]]',
+                    '{{%battle3}}.[[lobby_id]]',
                 ])
                 ->createCommand($db)
                 ->rawSql,
