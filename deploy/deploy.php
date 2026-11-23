@@ -111,8 +111,15 @@ task('deploy:build', function (): void {
     });
 });
 
+after('deploy:symlink', 'deploy:install-systemd-units');
 after('deploy:symlink', 'deploy:restart-queue-runner');
 after('deploy:symlink', 'deploy:reload-php-fpm');
+
+task('deploy:install-systemd-units', function (): void {
+    within('{{current_path}}/bin', function (): void {
+        run('sudo ./install-systemd-units.sh');
+    });
+});
 
 task('deploy:restart-queue-runner', function (): void {
     within('{{current_path}}/bin', function (): void {
