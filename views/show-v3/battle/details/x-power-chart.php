@@ -11,6 +11,7 @@ use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
+use app\components\helpers\StepChartHelper;
 use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\Season3;
@@ -108,7 +109,10 @@ return [
             'borderWidth' => 2,
             'fill' => false,
             'label' => Yii::t('app', 'X Power'),
-            'pointRadius' => 0,
+            // Keep the previous value until it changes, and mark the changed points
+            'pointHoverRadius' => 4,
+            'pointRadius' => StepChartHelper::pointRadiiOnChange($xPowerList, 3),
+            'stepped' => 'before',
             'type' => 'line',
             'data' => array_map(
               fn (int $x, ?float $y) => compact('x', 'y'),
@@ -123,12 +127,26 @@ return [
           'duration' => 0,
         ],
         'aspectRatio' => 16 / 9,
+        'interaction' => [
+          'axis' => 'x',
+          'intersect' => false,
+          'mode' => 'nearest',
+        ],
+        'locale' => Yii::$app->language,
         'plugins' => [
           'legend' => [
             'display' => false,
           ],
           'tooltip' => [
-            'enabled' => false,
+            'callbacks' => [
+              // The x value is the relative position of the battle, so it is not shown
+              'title' => new JsExpression('() => ""'),
+              'label' => new JsExpression(
+                '(ctx) => ctx.dataset.label + ": " + ctx.parsed.y.toLocaleString(' .
+                  'ctx.chart.options.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 })',
+              ),
+            ],
+            'filter' => new JsExpression('(item) => item.parsed.y !== null'),
           ],
         ],
         'scales' => [

@@ -11,6 +11,7 @@ use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
+use app\components\helpers\StepChartHelper;
 use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\Season3;
@@ -82,6 +83,20 @@ return [
     JqueryEasyChartjsAsset::register($this);
     RatioAsset::register($this);
 
+    // For visibility, values smaller than 0.1 are considered invalid.
+    // The Series Power can theoretically take values of 0.0 or negative values.
+    // Taking 0.0 is about as likely as obtaining a value around 4000.
+    // It's hard to imagine such people continuing to play until they get 0.0,
+    // and the probability that they are stat.ink users is even lower.
+    // If someone like that appears, it will be necessary to devise a method such as
+    // determining the threshold based on surrounding values.
+    //
+    // https://github.com/fetus-hina/stat.ink/issues/1665
+    $yList = array_map(
+      fn (?float $y): ?float => (float)$y < 0.1 ? null : (float)$y,
+      $powerList,
+    );
+
     $configJson = Json::encode([
       'data' => [
         'labels' => [
@@ -94,24 +109,15 @@ return [
             'borderWidth' => 2,
             'fill' => false,
             'label' => Yii::t('app-show-v3', 'Series Weapon Power'),
-            'pointRadius' => 0,
+            // Keep the previous value until it changes, and mark the changed points
+            'pointHoverRadius' => 4,
+            'pointRadius' => StepChartHelper::pointRadiiOnChange($yList, 3),
+            'stepped' => 'before',
             'type' => 'line',
             'data' => array_map(
-              fn (int $x, ?float $y) => [
-                'x' => $x,
-                // For visibility, values smaller than 0.1 are considered invalid.
-                // The Series Power can theoretically take values of 0.0 or negative values.
-                // Taking 0.0 is about as likely as obtaining a value around 4000.
-                // It's hard to imagine such people continuing to play until they get 0.0,
-                // and the probability that they are stat.ink users is even lower.
-                // If someone like that appears, it will be necessary to devise a method such as
-                // determining the threshold based on surrounding values.
-                //
-                // https://github.com/fetus-hina/stat.ink/issues/1665
-                'y' => (float)$y < 0.1 ? null : (float)$y,
-              ],
-              range(-1 * count($powerList) + 1, 0),
-              $powerList,
+              fn (int $x, ?float $y) => compact('x', 'y'),
+              range(-1 * count($yList) + 1, 0),
+              $yList,
             ),
           ],
         ],
@@ -121,12 +127,26 @@ return [
           'duration' => 0,
         ],
         'aspectRatio' => 16 / 9,
+        'interaction' => [
+          'axis' => 'x',
+          'intersect' => false,
+          'mode' => 'nearest',
+        ],
+        'locale' => Yii::$app->language,
         'plugins' => [
           'legend' => [
             'display' => false,
           ],
           'tooltip' => [
-            'enabled' => false,
+            'callbacks' => [
+              // The x value is the relative position of the battle, so it is not shown
+              'title' => new JsExpression('() => ""'),
+              'label' => new JsExpression(
+                '(ctx) => ctx.dataset.label + ": " + ctx.parsed.y.toLocaleString(' .
+                  'ctx.chart.options.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 })',
+              ),
+            ],
+            'filter' => new JsExpression('(item) => item.parsed.y !== null'),
           ],
         ],
         'scales' => [
