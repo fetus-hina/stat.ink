@@ -313,7 +313,7 @@ class SplapiController extends Controller
         if ($curl->error) {
             throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
         }
-        return Json::decode($curl->rawResponse, false);
+        return Json::decode(TypeHelper::string($curl->rawResponse), false);
     }
 
     /**

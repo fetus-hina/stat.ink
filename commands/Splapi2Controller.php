@@ -11,6 +11,7 @@ use Curl\Curl;
 use Exception;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Map2;
 use app\models\Rule2;
 use app\models\Schedule2;
@@ -129,6 +130,6 @@ class Splapi2Controller extends Controller
         if ($curl->error) {
             throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
         }
-        return Json::decode($curl->rawResponse, false);
+        return Json::decode(TypeHelper::string($curl->rawResponse), false);
     }
 }
