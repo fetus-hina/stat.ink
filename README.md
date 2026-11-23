@@ -177,7 +177,12 @@ Recommend: [Setup with Vagrant](https://github.com/statink/devenv-vagrant)
 
 Another way: [How to setup a development environment](https://github.com/fetus-hina/stat.ink/wiki/How-to-setup-a-development-environment)
 
-Note: Docker way is abandoned.
+Note: A `Dockerfile` (Rocky Linux 10, PHP 8.5, H2O, PostgreSQL 18) is available, but it is not actively supported.
+
+```sh
+podman build -t statink . # or "docker build"
+podman run --rm -p 8080:80 statink
+```
 
 ### UPDATE ###
 
