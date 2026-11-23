@@ -302,7 +302,9 @@ class UserStat2 extends ActiveRecord
         $excludeNonGachi = [
             "WHEN {{rule2}}.[[key]] NOT IN ('area', 'yagura', 'hoko', 'asari') THEN 0",
         ];
-        $timestamp = fn (string $column): string => sprintf('EXTRACT(EPOCH FROM %s)', $column);
+        // EXTRACT returns NUMERIC (e.g. "340.000000") since PostgreSQL 14, which fails the
+        // integer validation. The columns are TIMESTAMP(0), so the cast loses nothing.
+        $timestamp = fn (string $column): string => sprintf('EXTRACT(EPOCH FROM %s)::BIGINT', $column);
         $gachiRankPeak = function (string $ruleKey) use ($excludePrivate): string {
             // {{{
             $db = $this->getDb();
