@@ -11,6 +11,7 @@ use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
+use app\components\helpers\StepChartHelper;
 use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\Season3;
@@ -108,7 +109,10 @@ return [
             'borderWidth' => 2,
             'fill' => false,
             'label' => Yii::t('app', 'X Power'),
-            'pointRadius' => 0,
+            // Keep the previous value until it changes, and mark the changed points
+            'pointHoverRadius' => StepChartHelper::pointRadiiOnChange($xPowerList, 3),
+            'pointRadius' => StepChartHelper::pointRadiiOnChange($xPowerList, 3),
+            'stepped' => 'before',
             'type' => 'line',
             'data' => array_map(
               fn (int $x, ?float $y) => compact('x', 'y'),
