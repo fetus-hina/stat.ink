@@ -110,7 +110,7 @@ return [
             'fill' => false,
             'label' => Yii::t('app-show-v3', 'Series Weapon Power'),
             // Keep the previous value until it changes, and mark the changed points
-            'pointHoverRadius' => StepChartHelper::pointRadiiOnChange($yList, 3),
+            'pointHoverRadius' => 4,
             'pointRadius' => StepChartHelper::pointRadiiOnChange($yList, 3),
             'stepped' => 'before',
             'type' => 'line',
@@ -127,12 +127,26 @@ return [
           'duration' => 0,
         ],
         'aspectRatio' => 16 / 9,
+        'interaction' => [
+          'axis' => 'x',
+          'intersect' => false,
+          'mode' => 'nearest',
+        ],
+        'locale' => Yii::$app->language,
         'plugins' => [
           'legend' => [
             'display' => false,
           ],
           'tooltip' => [
-            'enabled' => false,
+            'callbacks' => [
+              // The x value is the relative position of the battle, so it is not shown
+              'title' => new JsExpression('() => ""'),
+              'label' => new JsExpression(
+                '(ctx) => ctx.dataset.label + ": " + ctx.parsed.y.toLocaleString(' .
+                  'ctx.chart.options.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 })',
+              ),
+            ],
+            'filter' => new JsExpression('(item) => item.parsed.y !== null'),
           ],
         ],
         'scales' => [
