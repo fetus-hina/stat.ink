@@ -62,10 +62,14 @@ final class SalmonExportJson3Job extends BaseObject implements RetryableJobInter
 
     /**
      * @inheritdoc
+     *
+     * A job reserved longer than this is released and retried, e.g. when the worker
+     * is restarted on deployment. The export saves its progress every 200 jobs,
+     * so a retried job continues from where it stopped.
      */
     public function getTtr()
     {
-        return 365 * 86400;
+        return 3600;
     }
 
     /**
