@@ -119,8 +119,10 @@ parameters:
       path: models/query/AcceptLanguageQuery.php
     -
       # config/git-revision.php is generated at deployment and may be absent
+      # (the error is reported only when the file exists)
       identifier: nullCoalesce.offset
       path: views/layouts/footer.php
+      reportUnmatched: false
     -
       # asArray() queries return arrays, but ActiveQuery types the results by the model
       identifier: argument.type

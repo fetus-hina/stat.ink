@@ -18,6 +18,7 @@ use app\commands\splatoon3Ink\UpdateEventSchedule;
 use app\commands\splatoon3Ink\UpdateSalmonSchedule;
 use app\commands\splatoon3Ink\UpdateSchedule;
 use app\commands\splatoon3Ink\UpdateSplatfestSchedule;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\splatoon3ink\ScheduleParser;
 use app\models\TranslateSourceMessage;
 use yii\console\Controller;
@@ -127,7 +128,7 @@ final class Splatoon3InkController extends Controller
                         "Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}",
                     );
                 }
-                return Json::decode($curl->rawResponse, true);
+                return Json::decode(TypeHelper::string($curl->rawResponse), true);
             },
             duration: 1800, // 30 min
         );
