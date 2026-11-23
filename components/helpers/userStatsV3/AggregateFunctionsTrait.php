@@ -82,9 +82,16 @@ trait AggregateFunctionsTrait
         ]);
     }
 
+    /**
+     * Returns the UNIX time of the column as BIGINT.
+     *
+     * EXTRACT returns NUMERIC (e.g. "340.000000") since PostgreSQL 14, which fails
+     * the integer validation of the aggregated columns. The columns are TIMESTAMP(0),
+     * so the cast loses nothing.
+     */
     protected static function statsTimestamp(string $column): string
     {
-        return sprintf('EXTRACT(EPOCH FROM %s)', $column);
+        return sprintf('EXTRACT(EPOCH FROM %s)::BIGINT', $column);
     }
 
     /**

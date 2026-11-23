@@ -76,6 +76,33 @@ jobs:
       -
         name: 'Run PHPCS'
         run: 'php vendor/bin/phpcs -p'
+  phpStan:
+    name: 'PHPStan'
+    runs-on: ubuntu-24.04
+    needs:
+      - ciDoesNotSkip
+      - phpSyntaxCheck
+      - setupComposer
+    if: "!contains(github.event.head_commit.message, '[no php]')"
+    steps:
+      -
+        uses: actions/checkout@v7
+      -
+        uses: actions/cache@v6
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: "composer-${{ hashFiles('composer.lock') }}"
+      -
+        name: 'Set PHP environment (PHP ${{ env.UTILITY_PHP_VERSION }})'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ env.UTILITY_PHP_VERSION }}'
+          extensions: :php-psr
+      -
+        name: 'Run PHPStan'
+        run: 'make phpstan'
   phpComposerStyle:
     name: 'Check composer.json normalized'
     runs-on: ubuntu-24.04

@@ -15,6 +15,7 @@ use Exception;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Map2;
 use app\models\Rule2;
 use app\models\SalmonMap2;
@@ -346,7 +347,7 @@ class Splatoon2InkController extends Controller
         if ($curl->error) {
             throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
         }
-        return Json::decode($curl->rawResponse, false);
+        return Json::decode(TypeHelper::string($curl->rawResponse), false);
     }
 
     private function dateTimeFromTimestamp(int $timestamp): DateTimeImmutable
