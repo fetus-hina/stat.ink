@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'Anarchy Power' => '蛮颓战力',
-    'Check with Setup Analyzer' => '使用设置分析器检查',
+    'Check with Setup Analyzer' => '使用配装分析器检查',
     'Completed!' => '完成！',
     'Correction' => '更正',
     'Correction Value' => '更正值',
