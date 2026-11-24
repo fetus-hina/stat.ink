@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f4015335017f2174c08b5ae8594cd02",
+    "content-hash": "6c4551a7bfe4e4d1b5e855b72f8acc23",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -401,29 +401,29 @@
         },
         {
             "name": "geoip2/geoip2",
-            "version": "v3.4.0",
+            "version": "v3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/GeoIP2-php.git",
-                "reference": "257a350e5e0cae57ac95417f32bb0aba285b2c0d"
+                "reference": "9d3d3b47fd84f4d1b06f8f2527c1c20aa8e0ed57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/GeoIP2-php/zipball/257a350e5e0cae57ac95417f32bb0aba285b2c0d",
-                "reference": "257a350e5e0cae57ac95417f32bb0aba285b2c0d",
+                "url": "https://api.github.com/repos/maxmind/GeoIP2-php/zipball/9d3d3b47fd84f4d1b06f8f2527c1c20aa8e0ed57",
+                "reference": "9d3d3b47fd84f4d1b06f8f2527c1c20aa8e0ed57",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "maxmind-db/reader": "^1.13.0",
-                "maxmind/web-service-common": "~0.11",
+                "maxmind-db/reader": "^1.15.0",
+                "maxmind/web-service-common": "~0.12",
                 "php": ">=8.1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "3.*",
-                "phpstan/phpstan": "*",
+                "friendsofphp/php-cs-fixer": "^3.95",
+                "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "^10.0",
-                "squizlabs/php_codesniffer": "4.*"
+                "squizlabs/php_codesniffer": "^4.0"
             },
             "type": "library",
             "autoload": {
@@ -453,29 +453,29 @@
             ],
             "support": {
                 "issues": "https://github.com/maxmind/GeoIP2-php/issues",
-                "source": "https://github.com/maxmind/GeoIP2-php/tree/v3.4.0"
+                "source": "https://github.com/maxmind/GeoIP2-php/tree/v3.5.0"
             },
-            "time": "2026-07-16T22:11:20+00:00",
-            "published-time": "2026-07-16T22:11:27+00:00"
+            "time": "2026-11-17T23:29:09+00:00",
+            "published-time": "2026-11-17T23:29:17+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.16.1",
+            "version": "7.16.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "81755d989b3007ca7f88a069857553cd08e7dc2e"
+                "reference": "b0605f32e77a13cf98bc5e75b1d71877b6814e17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/81755d989b3007ca7f88a069857553cd08e7dc2e",
-                "reference": "81755d989b3007ca7f88a069857553cd08e7dc2e",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b0605f32e77a13cf98bc5e75b1d71877b6814e17",
+                "reference": "b0605f32e77a13cf98bc5e75b1d71877b6814e17",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^2.6",
-                "guzzlehttp/psr7": "^2.13.2",
+                "guzzlehttp/promises": "^2.6.1",
+                "guzzlehttp/psr7": "^2.13.5",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0",
                 "symfony/deprecation-contracts": "^2.5 || ^3.0",
@@ -568,7 +568,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.16.1"
+                "source": "https://github.com/guzzle/guzzle/tree/7.16.5"
             },
             "funding": [
                 {
@@ -584,21 +584,21 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-25T21:35:21+00:00",
-            "published-time": "2026-10-25T21:37:23+00:00"
+            "time": "2026-11-20T22:56:33+00:00",
+            "published-time": "2026-11-20T22:57:55+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "3d88c829bd5f13d13847b39067dbf09a60af2154"
+                "reference": "a1b6aceb39165acd5c421239e6abfa1b83dbe224"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/3d88c829bd5f13d13847b39067dbf09a60af2154",
-                "reference": "3d88c829bd5f13d13847b39067dbf09a60af2154",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/a1b6aceb39165acd5c421239e6abfa1b83dbe224",
+                "reference": "a1b6aceb39165acd5c421239e6abfa1b83dbe224",
                 "shasum": ""
             },
             "require": {
@@ -653,7 +653,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/2.6.0"
+                "source": "https://github.com/guzzle/promises/tree/2.6.1"
             },
             "funding": [
                 {
@@ -669,21 +669,21 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-18T12:46:59+00:00",
-            "published-time": "2026-10-18T12:47:39+00:00"
+            "time": "2026-11-20T00:03:12+00:00",
+            "published-time": "2026-11-20T00:04:27+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.13.3",
+            "version": "2.13.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "6d3cd8285a97eaa352956a4ada92fa03ecce1c4e"
+                "reference": "5aa00c5418afbe3f435910af0e98cb03d659c49d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/6d3cd8285a97eaa352956a4ada92fa03ecce1c4e",
-                "reference": "6d3cd8285a97eaa352956a4ada92fa03ecce1c4e",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/5aa00c5418afbe3f435910af0e98cb03d659c49d",
+                "reference": "5aa00c5418afbe3f435910af0e98cb03d659c49d",
                 "shasum": ""
             },
             "require": {
@@ -773,7 +773,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.13.3"
+                "source": "https://github.com/guzzle/psr7/tree/2.13.5"
             },
             "funding": [
                 {
@@ -789,8 +789,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-12T15:57:42+00:00",
-            "published-time": "2026-11-12T15:58:42+00:00"
+            "time": "2026-11-19T20:34:53+00:00",
+            "published-time": "2026-11-19T20:36:04+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
@@ -1769,27 +1769,27 @@
         },
         {
             "name": "maxmind-db/reader",
-            "version": "v1.14.0",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/MaxMind-DB-Reader-php.git",
-                "reference": "f3c92f68b3bec42a9aa780368399e03dc6b91e89"
+                "reference": "135915ad1ce99520fccfebb8f4ce53cf848dcc78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/f3c92f68b3bec42a9aa780368399e03dc6b91e89",
-                "reference": "f3c92f68b3bec42a9aa780368399e03dc6b91e89",
+                "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/135915ad1ce99520fccfebb8f4ce53cf848dcc78",
+                "reference": "135915ad1ce99520fccfebb8f4ce53cf848dcc78",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2"
             },
             "conflict": {
-                "ext-maxminddb": "<1.14.0 || >=2.0.0"
+                "ext-maxminddb": "<1.15.0 || >=2.0.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "3.*",
-                "phpstan/phpstan": "*",
+                "phpstan/phpstan": "^1.12 || ^2.2",
                 "phpunit/phpunit": ">=8.0.0,<10.0.0",
                 "squizlabs/php_codesniffer": "4.*",
                 "symfony/polyfill-php80": "^1.33"
@@ -1828,23 +1828,23 @@
             ],
             "support": {
                 "issues": "https://github.com/maxmind/MaxMind-DB-Reader-php/issues",
-                "source": "https://github.com/maxmind/MaxMind-DB-Reader-php/tree/v1.14.0"
+                "source": "https://github.com/maxmind/MaxMind-DB-Reader-php/tree/v1.15.0"
             },
-            "time": "2026-09-10T22:02:38+00:00",
-            "published-time": "2026-09-10T22:02:45+00:00"
+            "time": "2026-11-17T21:46:48+00:00",
+            "published-time": "2026-11-17T21:46:54+00:00"
         },
         {
             "name": "maxmind/web-service-common",
-            "version": "v0.11.1",
+            "version": "v0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/web-service-common-php.git",
-                "reference": "c309236b5a5555b96cf560089ec3cead12d845d2"
+                "reference": "4d981ad2322068477cedf48d0464105fb32c6124"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/c309236b5a5555b96cf560089ec3cead12d845d2",
-                "reference": "c309236b5a5555b96cf560089ec3cead12d845d2",
+                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/4d981ad2322068477cedf48d0464105fb32c6124",
+                "reference": "4d981ad2322068477cedf48d0464105fb32c6124",
                 "shasum": ""
             },
             "require": {
@@ -1854,10 +1854,11 @@
                 "php": ">=8.1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "3.*",
-                "phpstan/phpstan": "*",
+                "friendsofphp/php-cs-fixer": "^3.95",
+                "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "^10.0",
-                "squizlabs/php_codesniffer": "4.*"
+                "squizlabs/php_codesniffer": "^4.0",
+                "symfony/process": "^6.4 || ^7.0 || ^8.0"
             },
             "type": "library",
             "autoload": {
@@ -1880,23 +1881,23 @@
             "homepage": "https://github.com/maxmind/web-service-common-php",
             "support": {
                 "issues": "https://github.com/maxmind/web-service-common-php/issues",
-                "source": "https://github.com/maxmind/web-service-common-php/tree/v0.11.1"
+                "source": "https://github.com/maxmind/web-service-common-php/tree/v0.12.0"
             },
-            "time": "2026-01-13T17:56:03+00:00",
-            "published-time": "2026-01-13T17:57:30+00:00"
+            "time": "2026-11-17T22:59:02+00:00",
+            "published-time": "2026-11-17T23:14:41+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54"
+                "reference": "ceed38ba49d98b85808edfc4f04750ff61eb9739"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54",
-                "reference": "5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/ceed38ba49d98b85808edfc4f04750ff61eb9739",
+                "reference": "ceed38ba49d98b85808edfc4f04750ff61eb9739",
                 "shasum": ""
             },
             "require": {
@@ -1952,21 +1953,21 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2026-11-06T20:31:19+00:00",
-            "published-time": "2026-11-06T20:39:39+00:00"
+            "time": "2026-11-18T13:55:22+00:00",
+            "published-time": "2026-11-18T13:55:46+00:00"
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "13.0.2",
+            "version": "13.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "4d61037818be3043834887c5cc22f3c1279d414e"
+                "reference": "f6d59542d9d5285976869cd4e166438292c243e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/4d61037818be3043834887c5cc22f3c1279d414e",
-                "reference": "4d61037818be3043834887c5cc22f3c1279d414e",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/f6d59542d9d5285976869cd4e166438292c243e5",
+                "reference": "f6d59542d9d5285976869cd4e166438292c243e5",
                 "shasum": ""
             },
             "require": {
@@ -2031,10 +2032,10 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/13.0.2"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/13.1.0"
             },
-            "time": "2026-11-10T18:18:28+00:00",
-            "published-time": "2026-11-10T18:18:34+00:00"
+            "time": "2026-11-17T17:08:18+00:00",
+            "published-time": "2026-11-17T17:08:24+00:00"
         },
         {
             "name": "psr/container",
@@ -4196,26 +4197,27 @@
     "packages-dev": [
         {
             "name": "behat/gherkin",
-            "version": "v4.18.0",
+            "version": "v4.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Gherkin.git",
-                "reference": "496248b29d9d7848311a263c2d17c1860e4c7b6c"
+                "reference": "dc765f07d85be8d97a5782bc845f51c3055c115f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Gherkin/zipball/496248b29d9d7848311a263c2d17c1860e4c7b6c",
-                "reference": "496248b29d9d7848311a263c2d17c1860e4c7b6c",
+                "url": "https://api.github.com/repos/Behat/Gherkin/zipball/dc765f07d85be8d97a5782bc845f51c3055c115f",
+                "reference": "dc765f07d85be8d97a5782bc845f51c3055c115f",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.2",
-                "php": ">=8.1 <8.6"
+                "php": ">=8.1 <8.7"
             },
             "require-dev": {
-                "cucumber/gherkin-monorepo": "dev-gherkin-v42.0.1",
+                "cucumber/gherkin-monorepo": "dev-gherkin-v43.0.0",
+                "cweagans/composer-patches": "^2.0",
                 "friendsofphp/php-cs-fixer": "^3.77",
-                "mikey179/vfsstream": "^1.6",
+                "mikey179/vfsstream": "1.6.12",
                 "phpstan/extension-installer": "^1",
                 "phpstan/phpstan": "2.2.14",
                 "phpstan/phpstan-deprecation-rules": "^2.0",
@@ -4260,7 +4262,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Behat/Gherkin/issues",
-                "source": "https://github.com/Behat/Gherkin/tree/v4.18.0"
+                "source": "https://github.com/Behat/Gherkin/tree/v4.19.0"
             },
             "funding": [
                 {
@@ -4276,8 +4278,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-25T21:26:10+00:00",
-            "published-time": "2026-09-25T21:28:06+00:00"
+            "time": "2026-11-20T10:20:57+00:00",
+            "published-time": "2026-11-20T10:21:40+00:00"
         },
         {
             "name": "codeception/codeception",
@@ -5093,16 +5095,16 @@
         },
         {
             "name": "ergebnis/composer-normalize",
-            "version": "2.57.0",
+            "version": "2.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/composer-normalize.git",
-                "reference": "fe0f69429cf61be9099155d5a63a2816016d5446"
+                "reference": "74ed2dad07f772e686a7f3498f2a507190640ee5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/fe0f69429cf61be9099155d5a63a2816016d5446",
-                "reference": "fe0f69429cf61be9099155d5a63a2816016d5446",
+                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/74ed2dad07f772e686a7f3498f2a507190640ee5",
+                "reference": "74ed2dad07f772e686a7f3498f2a507190640ee5",
                 "shasum": ""
             },
             "require": {
@@ -5119,15 +5121,15 @@
             "require-dev": {
                 "composer/composer": "^2.11.0",
                 "ergebnis/license": "^2.9.0",
-                "ergebnis/php-cs-fixer-config": "^6.64.1",
-                "ergebnis/phpstan-rules": "^2.17.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.3",
+                "ergebnis/phpstan-rules": "^2.17.1",
                 "ergebnis/phpunit-slow-test-detector": "^2.27.0",
                 "ergebnis/rector-rules": "^1.19.0",
                 "fakerphp/faker": "^1.24.1",
                 "phpstan/extension-installer": "^1.4.3",
                 "phpstan/phpstan": "^2.1.55",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
-                "phpstan/phpstan-phpunit": "^2.1.1",
+                "phpstan/phpstan-phpunit": "^2.1.2",
                 "phpstan/phpstan-strict-rules": "^2.1.1",
                 "phpunit/phpunit": "^9.6.33",
                 "rector/rector": "^2.7.0",
@@ -5137,7 +5139,7 @@
             "extra": {
                 "class": "Ergebnis\\Composer\\Normalize\\NormalizePlugin",
                 "branch-alias": {
-                    "dev-main": "2.57-dev"
+                    "dev-main": "2.58-dev"
                 },
                 "plugin-optional": true,
                 "composer-normalize": {
@@ -5174,8 +5176,8 @@
                 "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/composer-normalize"
             },
-            "time": "2026-11-12T21:04:16+00:00",
-            "published-time": "2026-11-12T21:04:22+00:00"
+            "time": "2026-11-19T13:10:46+00:00",
+            "published-time": "2026-11-19T13:10:52+00:00"
         },
         {
             "name": "ergebnis/differ",
@@ -5256,16 +5258,16 @@
         },
         {
             "name": "ergebnis/json",
-            "version": "1.7.0",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/json.git",
-                "reference": "829ce8b25c5e452249492c824f1d227777709403"
+                "reference": "36bcd6b05dc05176064c0f7813d955fd3313cb47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json/zipball/829ce8b25c5e452249492c824f1d227777709403",
-                "reference": "829ce8b25c5e452249492c824f1d227777709403",
+                "url": "https://api.github.com/repos/ergebnis/json/zipball/36bcd6b05dc05176064c0f7813d955fd3313cb47",
+                "reference": "36bcd6b05dc05176064c0f7813d955fd3313cb47",
                 "shasum": ""
             },
             "require": {
@@ -5273,26 +5275,26 @@
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "require-dev": {
-                "ergebnis/data-provider": "^3.6.0",
-                "ergebnis/license": "^2.7.0",
-                "ergebnis/php-cs-fixer-config": "^6.63.3",
-                "ergebnis/phpstan-rules": "^2.13.1",
-                "ergebnis/phpunit-slow-test-detector": "^2.25.0",
-                "ergebnis/rector-rules": "^1.18.4",
+                "ergebnis/data-provider": "^3.7.1",
+                "ergebnis/license": "^2.9.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.3",
+                "ergebnis/phpstan-rules": "^2.17.1",
+                "ergebnis/phpunit-slow-test-detector": "^2.27.0",
+                "ergebnis/rector-rules": "^1.19.0",
                 "fakerphp/faker": "^1.24.1",
                 "infection/infection": "~0.26.6",
                 "phpstan/extension-installer": "^1.4.3",
                 "phpstan/phpstan": "^2.2.14",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
-                "phpstan/phpstan-phpunit": "^2.0.18",
-                "phpstan/phpstan-strict-rules": "^2.0.12",
+                "phpstan/phpstan-phpunit": "^2.1.2",
+                "phpstan/phpstan-strict-rules": "^2.1.1",
                 "phpunit/phpunit": "^9.6.24",
-                "rector/rector": "^2.6.7"
+                "rector/rector": "^2.7.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.7-dev"
+                    "dev-main": "1.8-dev"
                 },
                 "composer-normalize": {
                     "indent-size": 2,
@@ -5325,21 +5327,21 @@
                 "security": "https://github.com/ergebnis/json/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/json"
             },
-            "time": "2026-09-24T19:42:16+00:00",
-            "published-time": "2026-09-24T19:42:28+00:00"
+            "time": "2026-11-19T13:14:02+00:00",
+            "published-time": "2026-11-19T13:14:08+00:00"
         },
         {
             "name": "ergebnis/json-normalizer",
-            "version": "4.12.0",
+            "version": "4.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/json-normalizer.git",
-                "reference": "b1a23409760cbac5b4deef9284c4e5e4a9c9165b"
+                "reference": "edf69bb6451940f80756a29218600ccce5a42d80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-normalizer/zipball/b1a23409760cbac5b4deef9284c4e5e4a9c9165b",
-                "reference": "b1a23409760cbac5b4deef9284c4e5e4a9c9165b",
+                "url": "https://api.github.com/repos/ergebnis/json-normalizer/zipball/edf69bb6451940f80756a29218600ccce5a42d80",
+                "reference": "edf69bb6451940f80756a29218600ccce5a42d80",
                 "shasum": ""
             },
             "require": {
@@ -5352,19 +5354,19 @@
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "require-dev": {
-                "composer/semver": "^3.4.4",
+                "composer/semver": "^3.6.0",
                 "ergebnis/data-provider": "^3.7.1",
-                "ergebnis/license": "^2.8.0",
-                "ergebnis/php-cs-fixer-config": "^6.64.1",
+                "ergebnis/license": "^2.9.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.3",
                 "ergebnis/phpunit-slow-test-detector": "^2.27.0",
-                "ergebnis/rector-rules": "^1.18.5",
+                "ergebnis/rector-rules": "^1.19.0",
                 "fakerphp/faker": "^1.24.1",
                 "infection/infection": "~0.26.6",
                 "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.2.15",
+                "phpstan/phpstan": "^2.3.2",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
-                "phpstan/phpstan-phpunit": "^2.1.1",
-                "phpstan/phpstan-strict-rules": "^2.1.0",
+                "phpstan/phpstan-phpunit": "^2.1.2",
+                "phpstan/phpstan-strict-rules": "^2.1.1",
                 "phpunit/phpunit": "^9.6.19",
                 "rector/rector": "^2.7.0"
             },
@@ -5374,7 +5376,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "4.12-dev"
+                    "dev-main": "4.13-dev"
                 },
                 "composer-normalize": {
                     "indent-size": 2,
@@ -5408,21 +5410,21 @@
                 "security": "https://github.com/ergebnis/json-normalizer/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/json-normalizer"
             },
-            "time": "2026-10-29T15:38:49+00:00",
-            "published-time": "2026-10-29T15:38:58+00:00"
+            "time": "2026-11-19T13:14:26+00:00",
+            "published-time": "2026-11-19T13:14:32+00:00"
         },
         {
             "name": "ergebnis/json-pointer",
-            "version": "3.10.0",
+            "version": "3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/json-pointer.git",
-                "reference": "58b61ce2d66e928b8d9feafb9eeff89d0523e748"
+                "reference": "b660a1c3b12eb18a718e64b388d7a42b39f67abf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-pointer/zipball/58b61ce2d66e928b8d9feafb9eeff89d0523e748",
-                "reference": "58b61ce2d66e928b8d9feafb9eeff89d0523e748",
+                "url": "https://api.github.com/repos/ergebnis/json-pointer/zipball/b660a1c3b12eb18a718e64b388d7a42b39f67abf",
+                "reference": "b660a1c3b12eb18a718e64b388d7a42b39f67abf",
                 "shasum": ""
             },
             "require": {
@@ -5431,8 +5433,8 @@
             "require-dev": {
                 "ergebnis/data-provider": "^3.7.1",
                 "ergebnis/license": "^2.9.0",
-                "ergebnis/php-cs-fixer-config": "^6.64.1",
-                "ergebnis/phpstan-rules": "^2.17.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.3",
+                "ergebnis/phpstan-rules": "^2.17.1",
                 "ergebnis/phpunit-slow-test-detector": "^2.27.0",
                 "ergebnis/rector-rules": "^1.19.0",
                 "fakerphp/faker": "^1.24.1",
@@ -5440,7 +5442,7 @@
                 "phpstan/extension-installer": "^1.4.3",
                 "phpstan/phpstan": "^2.2.14",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
-                "phpstan/phpstan-phpunit": "^2.1.1",
+                "phpstan/phpstan-phpunit": "^2.1.2",
                 "phpstan/phpstan-strict-rules": "^2.1.1",
                 "phpunit/phpunit": "^9.6.34",
                 "rector/rector": "^2.7.0"
@@ -5448,7 +5450,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.10-dev"
+                    "dev-main": "3.11-dev"
                 },
                 "composer-normalize": {
                     "indent-size": 2,
@@ -5483,21 +5485,21 @@
                 "security": "https://github.com/ergebnis/json-pointer/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/json-pointer"
             },
-            "time": "2026-11-11T12:52:52+00:00",
-            "published-time": "2026-11-11T12:53:02+00:00"
+            "time": "2026-11-19T13:14:51+00:00",
+            "published-time": "2026-11-19T13:14:57+00:00"
         },
         {
             "name": "ergebnis/json-printer",
-            "version": "3.9.1",
+            "version": "3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/json-printer.git",
-                "reference": "a9bbf3816ca39382d6fb4b4ad58018e5ea4f3cb4"
+                "reference": "f1d191df7d6f3fd7a7a92b4bb83e9f1aab33637b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-printer/zipball/a9bbf3816ca39382d6fb4b4ad58018e5ea4f3cb4",
-                "reference": "a9bbf3816ca39382d6fb4b4ad58018e5ea4f3cb4",
+                "url": "https://api.github.com/repos/ergebnis/json-printer/zipball/f1d191df7d6f3fd7a7a92b4bb83e9f1aab33637b",
+                "reference": "f1d191df7d6f3fd7a7a92b4bb83e9f1aab33637b",
                 "shasum": ""
             },
             "require": {
@@ -5505,26 +5507,26 @@
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "require-dev": {
-                "ergebnis/data-provider": "^3.7.0",
-                "ergebnis/license": "^2.8.0",
-                "ergebnis/php-cs-fixer-config": "^6.64.1",
-                "ergebnis/phpunit-slow-test-detector": "^2.26.0",
-                "ergebnis/rector-rules": "^1.18.5",
+                "ergebnis/data-provider": "^3.7.1",
+                "ergebnis/license": "^2.9.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.3",
+                "ergebnis/phpunit-slow-test-detector": "^2.27.0",
+                "ergebnis/rector-rules": "^1.19.0",
                 "fakerphp/faker": "^1.24.0",
                 "infection/infection": "~0.26.6",
                 "phpbench/phpbench": "^1.2.14",
                 "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.2.16",
+                "phpstan/phpstan": "^2.3.4",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
-                "phpstan/phpstan-phpunit": "^2.1.1",
-                "phpstan/phpstan-strict-rules": "^2.1.0",
+                "phpstan/phpstan-phpunit": "^2.1.2",
+                "phpstan/phpstan-strict-rules": "^2.1.1",
                 "phpunit/phpunit": "^9.6.21",
                 "rector/rector": "^2.7.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.9-dev"
+                    "dev-main": "3.10-dev"
                 },
                 "composer-normalize": {
                     "indent-size": 2,
@@ -5559,21 +5561,21 @@
                 "security": "https://github.com/ergebnis/json-printer/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/json-printer"
             },
-            "time": "2026-10-21T19:02:11+00:00",
-            "published-time": "2026-10-21T19:02:23+00:00"
+            "time": "2026-11-19T13:15:15+00:00",
+            "published-time": "2026-11-19T13:15:22+00:00"
         },
         {
             "name": "ergebnis/json-schema-validator",
-            "version": "4.6.0",
+            "version": "4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/json-schema-validator.git",
-                "reference": "228bf86d963c06c863a3143c9d8531bb3ef72fbe"
+                "reference": "5beb71cd57c24865dfea8695936b85c5ef83da1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/json-schema-validator/zipball/228bf86d963c06c863a3143c9d8531bb3ef72fbe",
-                "reference": "228bf86d963c06c863a3143c9d8531bb3ef72fbe",
+                "url": "https://api.github.com/repos/ergebnis/json-schema-validator/zipball/5beb71cd57c24865dfea8695936b85c5ef83da1e",
+                "reference": "5beb71cd57c24865dfea8695936b85c5ef83da1e",
                 "shasum": ""
             },
             "require": {
@@ -5584,25 +5586,25 @@
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "require-dev": {
-                "ergebnis/data-provider": "^3.6.0",
-                "ergebnis/license": "^2.7.0",
-                "ergebnis/php-cs-fixer-config": "^6.63.3",
-                "ergebnis/phpunit-slow-test-detector": "^2.25.0",
-                "ergebnis/rector-rules": "^1.18.4",
+                "ergebnis/data-provider": "^3.7.1",
+                "ergebnis/license": "^2.9.0",
+                "ergebnis/php-cs-fixer-config": "^6.64.3",
+                "ergebnis/phpunit-slow-test-detector": "^2.27.0",
+                "ergebnis/rector-rules": "^1.19.0",
                 "fakerphp/faker": "^1.24.0",
                 "infection/infection": "~0.26.6",
                 "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.2.15",
+                "phpstan/phpstan": "^2.3.6",
                 "phpstan/phpstan-deprecation-rules": "^2.0.5",
-                "phpstan/phpstan-phpunit": "^2.0.18",
-                "phpstan/phpstan-strict-rules": "^2.0.12",
+                "phpstan/phpstan-phpunit": "^2.1.2",
+                "phpstan/phpstan-strict-rules": "^2.1.1",
                 "phpunit/phpunit": "^9.6.20",
-                "rector/rector": "^2.6.7"
+                "rector/rector": "^2.8.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "4.6-dev"
+                    "dev-main": "4.7-dev"
                 },
                 "composer-normalize": {
                     "indent-size": 2,
@@ -5637,8 +5639,8 @@
                 "security": "https://github.com/ergebnis/json-schema-validator/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/json-schema-validator"
             },
-            "time": "2026-09-24T19:42:52+00:00",
-            "published-time": "2026-09-24T19:43:04+00:00"
+            "time": "2026-11-19T13:15:40+00:00",
+            "published-time": "2026-11-19T13:15:46+00:00"
         },
         {
             "name": "jp3cki/coding-standard",
@@ -6470,11 +6472,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.3.6",
+            "version": "2.3.7",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/00cedebb76cc82c1592414fa4f616cefdccda16f",
-                "reference": "00cedebb76cc82c1592414fa4f616cefdccda16f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/90c91c2498849ab8cc4e873864bbf1cb2bf6ea12",
+                "reference": "90c91c2498849ab8cc4e873864bbf1cb2bf6ea12",
                 "shasum": ""
             },
             "require": {
@@ -6530,8 +6532,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-15T19:58:26+00:00",
-            "published-time": "2026-11-15T19:58:39+00:00"
+            "time": "2026-11-19T10:31:11+00:00",
+            "published-time": "2026-11-19T10:31:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

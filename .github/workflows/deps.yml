@@ -35,7 +35,7 @@ jobs:
       -
         name: 'Install dependencies'
         run: |
-          composer install --prefer-dist
+          make vendor
           npm clean-install
       -
         name: 'Basic setup the app'
