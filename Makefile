@@ -575,7 +575,7 @@ config/debug-ips.php:
 	@echo '];' >> $@
 
 config/deepl.php:
-	echo Creating $@
+	@echo Creating $@
 	@echo '<?php' > $@
 	@echo '' >> $@
 	@echo 'declare(strict_types=1);' >> $@
