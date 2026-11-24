@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'Anarchy Power' => 'バンカラパワー',
-    'Check with Setup Analyzer' => 'セットアップアナライザで確認',
+    'Check with Setup Analyzer' => 'ギア構成分析で確認',
     'Completed!' => '完了!',
     'Correction' => '補正',
     'Correction Value' => '補正値',

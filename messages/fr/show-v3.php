@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'Anarchy Power' => 'Anarchie Power',
-    'Check with Setup Analyzer' => 'Vérifier avec le Setup Analyzer',
+    'Check with Setup Analyzer' => 'Vérifier avec l\'Analyseur de Sets',
     'Completed!' => 'Complété !',
     'Correction' => 'Correction',
     'Correction Value' => 'Valeur de correction',

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'Anarchy Power' => '蠻頹戰力',
-    'Check with Setup Analyzer' => '使用設定分析器來檢查',
+    'Check with Setup Analyzer' => '使用配裝分析器來檢查',
     'Completed!' => '完成!',
     'Correction' => '更正',
     'Correction Value' => '更正內容',
