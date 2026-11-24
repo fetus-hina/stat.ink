@@ -59,12 +59,12 @@ echo Html::tag(
 
 echo Html::tag(
   'td',
-  Yii::$app->formatter->asDecimal($data['min'] ?? null, 1),
+  Yii::$app->formatter->asPower($data['min'] ?? null),
   ['class' => 'text-center'],
 );
 
 echo Html::tag(
   'td',
-  Yii::$app->formatter->asDecimal($data['max'] ?? null, 1),
+  Yii::$app->formatter->asPower($data['max'] ?? null),
   ['class' => 'text-center'],
 );

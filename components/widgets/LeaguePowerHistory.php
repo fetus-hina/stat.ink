@@ -94,7 +94,7 @@ class LeaguePowerHistory extends Widget
                         ? Html::a(
                             Html::encode(vsprintf('%s: %s', [
                                 Yii::t('app', 'Highest (current period)'),
-                                Yii::$app->formatter->asDecimal($max[0], 1),
+                                Yii::$app->formatter->asPower($max[0]),
                             ])),
                             $max[1],
                         )
@@ -103,7 +103,7 @@ class LeaguePowerHistory extends Widget
                         ? Html::a(
                             Html::encode(vsprintf('%s: %s', [
                                 Yii::t('app', 'Highest (this teammates)'),
-                                Yii::$app->formatter->asDecimal($maxEver[0], 1),
+                                Yii::$app->formatter->asPower($maxEver[0]),
                             ])),
                             $maxEver[1],
                         )

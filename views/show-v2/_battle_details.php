@@ -166,7 +166,7 @@ use yii\widgets\DetailView;
                     if ($xPower !== null) {
                         return vsprintf('%s (%s)', [
                             Yii::t('app-rank2', $rank->name ?? ''),
-                            Yii::$app->formatter->asDecimal($xPower, 1),
+                            Yii::$app->formatter->asPower($xPower),
                         ]);
                     }
                     break;
@@ -337,7 +337,7 @@ use yii\widgets\DetailView;
         if ($model->league_point < 1) {
           return null;
         }
-        return Yii::$app->formatter->asDecimal($model->league_point, 1);
+        return Yii::$app->formatter->asPower($model->league_point);
       },
       // }}}
     ],
@@ -359,7 +359,7 @@ use yii\widgets\DetailView;
           return null;
         }
 
-        return Yii::$app->formatter->asInteger($model->estimate_x_power);
+        return Yii::$app->formatter->asPower($model->estimate_x_power, 0);
       },
       // }}}
     ],
@@ -372,12 +372,12 @@ use yii\widgets\DetailView;
             return null;
           }
 
-          return Yii::$app->formatter->asDecimal($model->x_power_after, 1);
+          return Yii::$app->formatter->asPower($model->x_power_after);
         }
 
         return implode(' → ', [
-          Yii::$app->formatter->asDecimal($model->x_power, 1),
-          Yii::$app->formatter->asDecimal($model->x_power_after, 1),
+          Yii::$app->formatter->asPower($model->x_power),
+          Yii::$app->formatter->asPower($model->x_power_after),
         ]);
       },
       // }}}

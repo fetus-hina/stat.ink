@@ -68,13 +68,13 @@ $fmt = Yii::$app->formatter;
             ],
           ) . "\n" ?>
         </td>
-        <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->average, 1)) ?></td>
+        <td class="text-center fw-bold"><?= Html::encode($fmt->asPower($abstract->average)) ?></td>
         <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->stddev, 1)) ?></td>
-        <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p25, 1)) ?></td>
-        <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p50, 1)) ?></td>
-        <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p75, 1)) ?></td>
-        <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p80, 1)) ?></td>
-        <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p95, 1)) ?></td>
+        <td class="text-center"><?= Html::encode($fmt->asPower($abstract->p25)) ?></td>
+        <td class="text-center fw-bold"><?= Html::encode($fmt->asPower($abstract->p50)) ?></td>
+        <td class="text-center"><?= Html::encode($fmt->asPower($abstract->p75)) ?></td>
+        <td class="text-center fw-bold"><?= Html::encode($fmt->asPower($abstract->p80)) ?></td>
+        <td class="text-center fw-bold"><?= Html::encode($fmt->asPower($abstract->p95)) ?></td>
         <td class="text-center text-muted"><?= Html::encode($fmt->asInteger($abstract->histogram_width)) ?></td>
       </tr>
     </tbody>
