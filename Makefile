@@ -202,7 +202,9 @@ resource: $(RESOURCE_TARGETS) react $(ADDITIONAL_LICENSES)
 react: node_modules $(REACT_SOURCES)
 	npx webpack-cli
 
-vendor: composer.lock composer.phar
+# The post-install script runs ./yii, which needs the simple configs.
+# They are order-only so that editing them does not re-run "composer install".
+vendor: composer.lock composer.phar | $(SIMPLE_CONFIG_TARGETS)
 	php composer.phar install --prefer-dist
 	@touch vendor
 
@@ -573,7 +575,7 @@ config/debug-ips.php:
 	@echo '];' >> $@
 
 config/deepl.php:
-	echo Creating $@
+	@echo Creating $@
 	@echo '<?php' > $@
 	@echo '' >> $@
 	@echo 'declare(strict_types=1);' >> $@

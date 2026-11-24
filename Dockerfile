@@ -65,7 +65,6 @@ USER statink
 WORKDIR /home/statink/stat.ink
 RUN make clean && \
     make init && \
-    ./yii license/extract --interactive=0 && \
     rm -rf ~/.cache ~/.npm
 
 USER postgres
