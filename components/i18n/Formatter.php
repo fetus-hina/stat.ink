@@ -8,6 +8,7 @@
 namespace app\components\i18n;
 
 use DateTime;
+use NumberFormatter;
 use RuntimeException;
 use Yii;
 use app\components\widgets\TimestampColumnWidget;
@@ -17,11 +18,13 @@ use function gmdate;
 use function http_build_query;
 use function implode;
 use function is_int;
+use function is_numeric;
 use function is_string;
 use function pow;
 use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
+use function round;
 use function sprintf;
 use function str_starts_with;
 use function strtoupper;
@@ -108,6 +111,35 @@ class Formatter extends \yii\i18n\Formatter
         return is_int($value)
             ? $this->asInteger($value)
             : $this->asDecimal($value, $decimal);
+    }
+
+    /**
+     * Formats a "power" value (X Power, Splatfest Power, Anarchy Power, etc.)
+     *
+     * Thousand separators are never inserted (e.g. "1234.5"), while the decimal sign follows the locale
+     * (e.g. "1234,5" in French).
+     * The value is truncated, not rounded (e.g. 1234.56 => "1234.5").
+     */
+    public function asPower(mixed $value, int $decimals = 1): string
+    {
+        if ($value === null) {
+            return $this->nullDisplay ?? '';
+        }
+
+        if (is_numeric($value)) {
+            // Cast to float to avoid Yii's string fallback path, which ignores the options below,
+            // and drop the floating-point error so that 2000.2999999999997 is not truncated to 2000.2
+            $value = round((float)$value, $decimals + 6);
+        }
+
+        return $this->asDecimal(
+            $value,
+            $decimals,
+            [
+                NumberFormatter::GROUPING_USED => 0,
+                NumberFormatter::ROUNDING_MODE => NumberFormatter::ROUND_DOWN,
+            ],
+        );
     }
 
     /**
