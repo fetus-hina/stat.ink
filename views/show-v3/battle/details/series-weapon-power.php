@@ -35,7 +35,7 @@ return [
       return trim(
         implode(' ', [
           $weaponIcon,
-          $f->asDecimal($before, 1),
+          $f->asPower($before),
         ]),
       );
     }
@@ -43,9 +43,9 @@ return [
     return trim(
       implode(' ', [
         $weaponIcon,
-        $f->asDecimal($before, 1),
+        $f->asPower($before),
         Icon::arrowRight(),
-        $f->asDecimal($after, 1),
+        $f->asPower($after),
       ]),
     );
   },

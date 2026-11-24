@@ -41,8 +41,8 @@ foreach ($xRanges as $model) {
           Html::encode(Yii::t('app-entire', 'XP')),
           $range
             ? Yii::t('app', '{from} - {to}', [
-              'from' => $range[0] ? Yii::$app->formatter->asDecimal($range[0], 0) : '',
-              'to' => $range[1] ? Yii::$app->formatter->asDecimal($range[1], 0) : '',
+              'from' => $range[0] ? Yii::$app->formatter->asPower($range[0], 0) : '',
+              'to' => $range[1] ? Yii::$app->formatter->asPower($range[1], 0) : '',
             ])
               |> trim(...)
               |> Html::encode(...)

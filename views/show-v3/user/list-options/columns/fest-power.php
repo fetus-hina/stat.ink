@@ -21,19 +21,19 @@ return [
   'value' => fn (Battle3 $model): ?string => match (true) {
     $model->fest_power !== null && $model->fest_power >= 0.1 => vsprintf('%s %s', [
       Icon::s3LobbySplatfest(),
-      $f->asDecimal((float)$model->fest_power, 1),
+      $f->asPower((float)$model->fest_power),
     ]),
     $model->bankara_power_after !== null && $model->bankara_power_after >= 0.1 => vsprintf('%s %s', [
       Icon::s3LobbyBankara(),
-      $f->asDecimal((float)$model->bankara_power_after, 1),
+      $f->asPower((float)$model->bankara_power_after),
     ]),
     $model->series_weapon_power_after !== null && $model->series_weapon_power_after >= 0.1 => vsprintf('%s %s', [
       Icon::s3Weapon($model->weapon, alt: Yii::t('app-show-v3', 'Series Weapon Power')),
-      $f->asDecimal((float)$model->series_weapon_power_after, 1),
+      $f->asPower((float)$model->series_weapon_power_after),
     ]),
     $model->event_power !== null && $model->event_power >= 0.1 => vsprintf('%s %s', [
       Icon::s3LobbyEvent(),
-      $f->asDecimal((float)$model->event_power, 1),
+      $f->asPower((float)$model->event_power),
     ]),
     default => null,
   },

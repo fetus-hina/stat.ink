@@ -30,13 +30,13 @@ return [
         abs((float)$before - (float)$after) < 0.1 ||
         $after === null
     ) {
-        return $f->asDecimal($before, 1);
+        return $f->asPower($before);
     }
 
     return implode(' ', [
-      $f->asDecimal($before, 1),
+      $f->asPower($before),
       Icon::arrowRight(),
-      $f->asDecimal($after, 1),
+      $f->asPower($after),
     ]);
   },
 ];

@@ -163,7 +163,7 @@ final class MatchingRange3Action extends Action
             fn (Lobby3 $v): Lobby3 => $v,
         );
 
-        $threshold = Yii::$app->formatter->asInteger(MatchingRange3Helper::X_POWER_THRESHOLD);
+        $threshold = Yii::$app->formatter->asPower(MatchingRange3Helper::X_POWER_THRESHOLD, 0);
         $xName = Yii::t('app-lobby3', 'X Battle');
         $list = [];
         if ($x = $lobbies['xmatch'] ?? null) {

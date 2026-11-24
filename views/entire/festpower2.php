@@ -206,27 +206,27 @@ $chartData = [
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-statistics', 'Average')) ?></th>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$avgAll, 1) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$avgNormal, 1) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$avgMistake, 1) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((float)$avgAll) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((float)$avgNormal) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((float)$avgMistake) ?></td>
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Yii::t('app-statistics', 'Q<sub>1/4</sub>') ?></th>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q1All) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q1Normal) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q1Mistake) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$q1All, 0) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$q1Normal, 0) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$q1Mistake, 0) ?></td>
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-statistics', 'Median')) ?></th>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianAll) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianNormal) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianMistake) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$medianAll, 0) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$medianNormal, 0) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$medianMistake, 0) ?></td>
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Yii::t('app-statistics', 'Q<sub>3/4</sub>') ?></th>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q3All) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q3Normal) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q3Mistake) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$q3All, 0) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$q3Normal, 0) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asPower((int)$q3Mistake, 0) ?></td>
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-statistics', 'Std Dev')) ?></th>

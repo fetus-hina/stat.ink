@@ -127,7 +127,7 @@ $label = fn($text) => Html::tag(
     <?= $label(Yii::t('app-show-v2', 'Fest Power (Normal)')) . "\n" ?>
     <div class="user-number"><?= ($summary->fest_power_v4_normal)
       ? Yii::t('app-show-v2', '~{estPower}', [
-        'estPower' => $f->asInteger(round($summary->fest_power_v4_normal / 10) * 10),
+        'estPower' => $f->asPower(round($summary->fest_power_v4_normal / 10) * 10, 0),
       ])
       : '-'
     ?></div>
@@ -135,7 +135,7 @@ $label = fn($text) => Html::tag(
   <div class="col-xs-4 col-md-2 mb-3">
     <?= $label(Yii::t('app-show-v2', 'Fest Power (Pro)')) . "\n" ?>
     <div class="user-number"><?= ($summary->fest_power_v4_pro)
-      ? $f->asInteger($summary->fest_power_v4_pro)
+      ? $f->asPower($summary->fest_power_v4_pro, 0)
       : '-'
     ?></div>
   </div>
@@ -157,7 +157,7 @@ $label = fn($text) => Html::tag(
   <div class="col-xs-4 col-md-2 mb-3">
     <?= $label(Yii::t('app', 'Fest Power')) . "\n" ?>
     <div class="user-number"><?= ($summary->fest_power_v1)
-      ? $f->asInteger($summary->fest_power_v1)
+      ? $f->asPower($summary->fest_power_v1, 0)
       : '-'
     ?></div>
   </div>
