@@ -660,7 +660,7 @@ class UserMiniInfo2 extends Widget
                     'div',
                     $model->{$rule['attributeX']} > 0
                             ? Html::tag('small', Html::encode(
-                                Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1),
+                                Yii::$app->formatter->asPower($model->{$rule['attributeX']}),
                             ))
                             : '&#8203;',
                     ['class' => 'col-3 col-xs-3 nobr'],
@@ -784,7 +784,7 @@ class UserMiniInfo2 extends Widget
                     'div',
                     $model->{$rule['attributeX']} > 0
                             ? Html::tag('small', Html::encode(
-                                Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1),
+                                Yii::$app->formatter->asPower($model->{$rule['attributeX']}),
                             ))
                             : '&#8203;',
                     ['class' => 'col-3 col-xs-3 nobr'],

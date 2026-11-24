@@ -629,7 +629,7 @@ if ($user->twitter != '') {
             'value' => function ($model): ?string {
               $rank = $model->rank;
               if ($rank && $rank->key === 'x' && $model->x_power !== null) {
-                return Yii::$app->formatter->asDecimal($model->x_power, 1);
+                return Yii::$app->formatter->asPower($model->x_power);
               }
 
               return null;
@@ -664,7 +664,7 @@ if ($user->twitter != '') {
             'value' => function ($model): ?string {
               $rank = $model->rankAfter;
               if ($rank && $rank->key === 'x' && $model->x_power_after !== null) {
-                return Yii::$app->formatter->asDecimal($model->x_power_after, 1);
+                return Yii::$app->formatter->asPower($model->x_power_after);
               }
 
               return null;

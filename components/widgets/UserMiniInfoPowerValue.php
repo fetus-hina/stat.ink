@@ -29,19 +29,7 @@ final class UserMiniInfoPowerValue extends Widget
             return Html::encode(Yii::t('app', 'N/A'));
         }
 
-        $fmt = Yii::$app->formatter;
-        $thousandSeparator = $fmt->thousandSeparator;
-
-        try {
-            $fmt->thousandSeparator = '';
-
-            $text = $fmt->asDecimal(
-                value: (float)$value,
-                decimals: 1,
-            );
-        } finally {
-            $fmt->thousandSeparator = $thousandSeparator;
-        }
+        $text = Yii::$app->formatter->asPower($value);
 
         if ($value < 100.0) {
             return Html::tag(
