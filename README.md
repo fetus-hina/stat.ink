@@ -178,10 +178,11 @@ Recommend: [Setup with Vagrant](https://github.com/statink/devenv-vagrant)
 Another way: [How to setup a development environment](https://github.com/fetus-hina/stat.ink/wiki/How-to-setup-a-development-environment)
 
 Note: A `Dockerfile` (Rocky Linux 10, PHP 8.5, H2O, PostgreSQL 18) is available, but it is not actively supported.
+The image runs in the development mode (with the debug module), so publish the port on the loopback only.
 
 ```sh
 podman build -t statink . # or "docker build"
-podman run --rm -p 8080:80 statink
+podman run --rm -p 127.0.0.1:8080:80 statink
 ```
 
 ### UPDATE ###

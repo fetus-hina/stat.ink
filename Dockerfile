@@ -51,6 +51,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-JP3CKI && \
         postgresql18-server \
         supervisor \
         unzip \
+        which \
             && \
     dnf clean all && \
     for cmd in node npm npx; do ln -s "/usr/bin/${cmd}-24" "/usr/local/bin/${cmd}"; done && \
