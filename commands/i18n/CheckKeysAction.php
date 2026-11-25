@@ -16,6 +16,7 @@ use RecursiveIteratorIterator;
 use SplFileInfo;
 use Yii;
 use app\components\i18n\IcuMessageChecker;
+use app\components\i18n\TranslationArgumentCollector;
 use app\components\i18n\TranslationCallExtractor;
 use app\components\i18n\TranslationKeyChecker;
 use yii\base\Action;
@@ -55,6 +56,9 @@ use const STDOUT;
  *    overlooked.
  * 2. Every translation is a valid ICU message and keeps the placeholders of its
  *    source message. Machine translations (`messages/_deepl`) are not checked.
+ *    A translation may also use params that are not in the source message, if
+ *    all the callers pass them (e.g., a raw number for the plural form of a
+ *    formatted value).
  */
 final class CheckKeysAction extends Action
 {
@@ -86,22 +90,6 @@ final class CheckKeysAction extends Action
             '{1} Fangirl',
             '{1} Fiend',
             '{1} Queen',
-        ],
-    ];
-
-    /**
-     * Arguments the callers pass in addition to those in the source message
-     *
-     * Keyed by the catalog file name; applied to all languages.
-     */
-    private const ICU_EXTRA_ARGUMENTS = [
-        // views/entire/weapons2.php, views/entire/v3/weapons3/summary.php; "n" is for the plural form
-        'entire.php' => [
-            '{pct_point} percentage points' => ['n'],
-        ],
-        // views/show-v3/stats/badge/table/includes/row.php; "n" is for the plural form
-        'show-v3.php' => [
-            '{nFormatted} remaining' => ['n'],
         ],
     ];
 
@@ -147,12 +135,31 @@ final class CheckKeysAction extends Action
             $dynamicCount,
         );
 
-        $icuIssueCount = $this->checkIcuMessages($root);
+        $icuIssueCount = $this->checkIcuMessages($root, $this->collectArguments($calls));
 
         return $missing || $icuIssueCount > 0 ? ExitCode::DATAERR : ExitCode::OK;
     }
 
-    private function checkIcuMessages(string $root): int
+    /**
+     * @param list<array{category: string, message: string, arguments: list<string>|null, ...}> $calls
+     * @return array<string, array<string, list<string>>> catalog file name => message => names
+     */
+    private function collectArguments(array $calls): array
+    {
+        $results = [];
+        foreach (TranslationArgumentCollector::collect($calls) as $category => $messages) {
+            $path = $this->getCatalogPath($category);
+            if ($path !== null) {
+                $results[basename($path)] = $messages;
+            }
+        }
+        return $results;
+    }
+
+    /**
+     * @param array<string, array<string, list<string>>> $arguments catalog file name => message => names
+     */
+    private function checkIcuMessages(string $root, array $arguments): int
     {
         $messageCount = 0;
         $issueCount = 0;
@@ -169,7 +176,7 @@ final class CheckKeysAction extends Action
 
             $relPath = substr((string)$path, strlen($root) + 1);
             $exceptions = self::ICU_CHECK_EXCEPTIONS[$language . '/' . basename((string)$path)] ?? [];
-            $extraArguments = self::ICU_EXTRA_ARGUMENTS[basename((string)$path)] ?? [];
+            $fileArguments = $arguments[basename((string)$path)] ?? [];
             $locale = str_replace('-', '_', $language);
             foreach ($catalog as $source => $translation) {
                 $source = (string)$source;
@@ -187,7 +194,7 @@ final class CheckKeysAction extends Action
                     $source,
                     $translation,
                     $locale,
-                    $extraArguments[$source] ?? [],
+                    $fileArguments[$source] ?? [],
                 );
                 $issueCount += count($issues);
                 foreach ($issues as $issue) {
