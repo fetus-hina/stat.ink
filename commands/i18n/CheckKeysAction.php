@@ -24,8 +24,10 @@ use yii\base\InvalidConfigException;
 use yii\console\ExitCode;
 use yii\i18n\PhpMessageSource;
 
+use function array_intersect;
 use function array_map;
 use function array_unique;
+use function array_values;
 use function basename;
 use function count;
 use function dirname;
@@ -153,8 +155,16 @@ final class CheckKeysAction extends Action
         $results = [];
         foreach (TranslationArgumentCollector::collect($calls, $dynamicCalls) as $category => $messages) {
             $path = $this->getCatalogPath($category);
-            if ($path !== null) {
-                $results[basename($path)] = $messages;
+            if ($path === null) {
+                continue;
+            }
+
+            // Categories sharing a catalog file must agree
+            $file = basename($path);
+            foreach ($messages as $message => $names) {
+                $results[$file][$message] = isset($results[$file][$message])
+                    ? array_values(array_intersect($results[$file][$message], $names))
+                    : $names;
             }
         }
         return $results;
