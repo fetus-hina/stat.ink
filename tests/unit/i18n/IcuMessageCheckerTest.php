@@ -56,6 +56,37 @@ class IcuMessageCheckerTest extends Unit
         );
     }
 
+    public function testMissingNonZeroNumberedArgument(): void
+    {
+        $this->assertSame(
+            [IcuMessageChecker::MISSING_ARGUMENT],
+            array_column(IcuMessageChecker::check('{1} Champion', 'Champion', 'ja'), 'type'),
+        );
+        $this->assertSame(
+            [IcuMessageChecker::MISSING_ARGUMENT],
+            array_column(IcuMessageChecker::check('{1, plural, =1{1 battle} other{# battles}}', '対戦', 'ja'), 'type'),
+        );
+    }
+
+    public function testManyNumericArguments(): void
+    {
+        $source = '';
+        for ($i = 0; $i < 20; $i++) {
+            $source .= "{x{$i}, number} ";
+        }
+        $this->assertSame([], IcuMessageChecker::check($source, $source, 'de'));
+    }
+
+    public function testPluralValueAsInteger(): void
+    {
+        // 1.5 is shown as "2" by the integer format
+        $this->assertSame([], IcuMessageChecker::check(
+            '{n, plural, =1{1 battle} other{# battles}}',
+            '{n, number, integer} 戦',
+            'ja',
+        ));
+    }
+
     public function testMissingNumberInPlural(): void
     {
         $this->assertSame(
@@ -65,6 +96,60 @@ class IcuMessageCheckerTest extends Unit
                 'type',
             ),
         );
+    }
+
+    public function testDecimalPluralValue(): void
+    {
+        // The plural value is also tested with a decimal, which fr renders as "1,5"
+        $this->assertSame([], IcuMessageChecker::check(
+            '{n, plural, =1{1 battle} other{# battles}}',
+            '{n, plural, one{# combat} other{# combats}}',
+            'fr',
+        ));
+    }
+
+    public function testPluralValueAsSimpleArgument(): void
+    {
+        // "#" renders 1000000 as "1,000,000", while "{sec}" renders it as "1000000"
+        $this->assertSame([], IcuMessageChecker::check('{sec,plural,=1{# second} other{# seconds}}', '{sec}秒', 'zh_CN'));
+    }
+
+    public function testUnknownArgumentInUnselectedPluralBranch(): void
+    {
+        // fr selects "one" for 0 and 1.5, which the default value does not
+        $this->assertSame(
+            [IcuMessageChecker::UNRESOLVED_PLACEHOLDER, IcuMessageChecker::MISSING_ARGUMENT],
+            array_column(
+                IcuMessageChecker::check(
+                    '{n, plural, one{{pct_point} percentage point} other{{pct_point} percentage points}}',
+                    '{n, plural, one{{pct_pt} point de pourcentage} other{{pct_point} points de pourcentage}}',
+                    'fr',
+                ),
+                'type',
+            ),
+        );
+    }
+
+    public function testMissingNumberInUnselectedPluralBranch(): void
+    {
+        $result = IcuMessageChecker::check(
+            '{n, plural, =1{1 battle} other{# battles}}',
+            '{n, plural, one{бой} few{# боя} many{# боёв} other{# боя}}',
+            'ru',
+        );
+        $this->assertSame([IcuMessageChecker::MISSING_ARGUMENT], array_column($result, 'type'));
+        $this->assertStringContainsString('{n}', $result[0]['detail']);
+    }
+
+    public function testMissingNumberInOneOfPluralArguments(): void
+    {
+        $result = IcuMessageChecker::check(
+            '{win, plural, =1{1 win} other{# wins}} / {lose, plural, =1{1 loss} other{# losses}}',
+            '{win, plural, one{# victoire} other{# victoires}} / {lose, plural, one{une défaite} other{# défaites}}',
+            'fr',
+        );
+        $this->assertSame([IcuMessageChecker::MISSING_ARGUMENT], array_column($result, 'type'));
+        $this->assertStringContainsString('{lose}', $result[0]['detail']);
     }
 
     public function testUnresolvedPlaceholderByApostrophe(): void
