@@ -83,6 +83,6 @@ return [
     '{name}\'s Battle Stats (by Weapon)' => 'Stats de matchs de {name} (par armes)',
     '{name}\'s Battle Stats (Turf War)' => 'Stats de matchs de {name} (Guerre de territoire)',
     '{point}p' => '{point} p.',
-    '{sec,plural,=1{# second} other{# seconds}}' => '{sec,plural,=1{# seconde} other{# secondes}}',
+    '{sec,plural,=1{# second} other{# seconds}}' => '{sec,plural,one{# seconde} other{# secondes}}',
     '~{point}p' => '~{point}p',
 ];

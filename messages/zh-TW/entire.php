@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => 'X比賽依上傳者的X戰力分類。',
     'XP' => 'X戰力',
     'v{version} or later' => 'v{version}以後',
-    '{pct_point} percentage point' => '{pct_point}百分點數',
+    '{pct_point} percentage points' => '{pct_point}百分點數',
     '{pct}% CI' => '{pct}% 信賴區間',
     '{pct}% Significant?' => '{pct}% 重要?',
 ];

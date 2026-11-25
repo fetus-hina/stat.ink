@@ -89,6 +89,22 @@ final class CheckKeysAction extends Action
         ],
     ];
 
+    /**
+     * Arguments the callers pass in addition to those in the source message
+     *
+     * Keyed by the catalog file name; applied to all languages.
+     */
+    private const ICU_EXTRA_ARGUMENTS = [
+        // views/entire/weapons2.php, views/entire/v3/weapons3/summary.php; "n" is for the plural form
+        'entire.php' => [
+            '{pct_point} percentage points' => ['n'],
+        ],
+        // views/show-v3/stats/badge/table/includes/row.php; "n" is for the plural form
+        'show-v3.php' => [
+            '{nFormatted} remaining' => ['n'],
+        ],
+    ];
+
     public function run(): int
     {
         $root = (string)Yii::getAlias('@app');
@@ -153,6 +169,7 @@ final class CheckKeysAction extends Action
 
             $relPath = substr((string)$path, strlen($root) + 1);
             $exceptions = self::ICU_CHECK_EXCEPTIONS[$language . '/' . basename((string)$path)] ?? [];
+            $extraArguments = self::ICU_EXTRA_ARGUMENTS[basename((string)$path)] ?? [];
             $locale = str_replace('-', '_', $language);
             foreach ($catalog as $source => $translation) {
                 $source = (string)$source;
@@ -166,8 +183,14 @@ final class CheckKeysAction extends Action
                 }
 
                 ++$messageCount;
-                foreach (IcuMessageChecker::check($source, $translation, $locale) as $issue) {
-                    ++$issueCount;
+                $issues = IcuMessageChecker::check(
+                    $source,
+                    $translation,
+                    $locale,
+                    $extraArguments[$source] ?? [],
+                );
+                $issueCount += count($issues);
+                foreach ($issues as $issue) {
                     fprintf(
                         STDOUT,
                         "%s: [%s] %s => %s (%s)\n",

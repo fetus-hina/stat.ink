@@ -84,6 +84,35 @@ class IcuMessageCheckerTest extends Unit
         );
     }
 
+    public function testExtraArgument(): void
+    {
+        // "n" is not in the source, but the caller passes it
+        $source = '{nFormatted} remaining';
+        $translation = '{n, plural, one{{nFormatted} restant} other{{nFormatted} restants}}';
+        $this->assertSame([], IcuMessageChecker::check($source, $translation, 'fr', ['n']));
+        $this->assertSame([], IcuMessageChecker::check($source, 'Noch {nFormatted}', 'de', ['n']));
+        $this->assertSame(
+            [IcuMessageChecker::UNRESOLVED_PLACEHOLDER, IcuMessageChecker::MISSING_ARGUMENT],
+            array_column(IcuMessageChecker::check($source, $translation, 'fr'), 'type'),
+        );
+    }
+
+    public function testUnknownArgumentWithExtraArgument(): void
+    {
+        $this->assertSame(
+            [IcuMessageChecker::UNRESOLVED_PLACEHOLDER, IcuMessageChecker::MISSING_ARGUMENT],
+            array_column(
+                IcuMessageChecker::check(
+                    '{nFormatted} remaining',
+                    '{nn, plural, one{{nFormatted} restant} other{{nFormatted} restants}}',
+                    'fr',
+                    ['n'],
+                ),
+                'type',
+            ),
+        );
+    }
+
     public function testIgnoredArguments(): void
     {
         $this->assertSame([], IcuMessageChecker::check('{boy}Apprentice', 'Praktikant', 'de'));

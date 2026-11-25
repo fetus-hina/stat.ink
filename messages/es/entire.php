@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => 'Los Combates X se clasifican según la energía X de quien subió la batalla.',
     'XP' => 'XP',
     'v{version} or later' => 'v{version} o posterior',
-    '{pct_point} percentage point' => '{pct_point} puntos porcentuales',
+    '{pct_point} percentage points' => '{pct_point} puntos porcentuales',
     '{pct}% CI' => 'IC del {pct} %',
     '{pct}% Significant?' => '¿Significativo al {pct} %?',
 ];

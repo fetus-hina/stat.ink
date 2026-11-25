@@ -34,6 +34,6 @@ return [
     '{name}\'s Battle Stats (Splatfest)' => 'Stats de matchs de {name} (festival)',
     '{name}\'s Battle Stats ({rule})' => 'Stats de matchs de {name} ({rule})',
     '{name}\'s Monthly Report - {date}' => 'Rapport mensuel de {name} - {date}',
-    '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted} {n, plural, =1{match} other{matchs}}',
+    '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted} {n, plural, one{match} other{matchs}}',
     '~{estPower}' => '~{estPower}',
 ];

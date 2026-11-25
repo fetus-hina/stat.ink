@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => 'X-Kämpfe werden nach der X-Power des Hochladenden eingeteilt.',
     'XP' => 'XP',
     'v{version} or later' => 'ab v{version}',
-    '{pct_point} percentage point' => '{pct_point} Prozentpunkte',
+    '{pct_point} percentage points' => '{pct_point} Prozentpunkte',
     '{pct}% CI' => '{pct}%-KI',
     '{pct}% Significant?' => '{pct}% signifikant?',
 ];
