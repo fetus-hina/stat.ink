@@ -101,9 +101,6 @@ use function str_starts_with;
  * @method static string inkling(?string $alt = null)
  * @method static string ios()
  * @method static string language()
- * @method static string languageLevelFew()
- * @method static string languageLevelMachine()
- * @method static string languageLevelPartical()
  * @method static string link()
  * @method static string linux()
  * @method static string list()
@@ -251,9 +248,6 @@ final class Icon
         'info' => 'info-circle-fill',
         'ios' => 'apple',
         'language' => 'translate',
-        'languageLevelFew' => 'exclamation-triangle-fill',
-        'languageLevelMachine' => 'robot',
-        'languageLevelPartical' => 'info-circle-fill',
         'link' => 'link-45deg',
         'linux' => 'ubuntu', // mmm...
         'list' => 'list',

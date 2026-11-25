@@ -24,7 +24,6 @@ return [
     'Origin' => 'Origine',
     'Privacy policy' => 'Informativa sulla privacy',
     'privacy policy' => 'informativa sulla privacy',
-    'Saving "Enable machine-translation" option state' => 'Salvataggio dello stato dell\'opzione "Abilita traduzione automatica"',
     'Saving the specified or automatically detected language setting' => 'Salvataggio dell\'impostazione della lingua specificata o rilevata automaticamente',
     'Saving the specified or automatically detected time zone setting' => 'Salvataggio dell\'impostazione del fuso orario specificato o rilevato automaticamente',
     'Saving the specified or default theme (color scheme) setting' => 'Salvataggio dell\'impostazione del tema (schema di colori) specificato o predefinito',

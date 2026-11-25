@@ -24,7 +24,6 @@ return [
     'Origin' => '起源',
     'Privacy policy' => '隐私政策',
     'privacy policy' => '隐私政策',
-    'Saving "Enable machine-translation" option state' => '保存‘启用机器翻译’的选择',
     'Saving the specified or automatically detected language setting' => '保存指定或自动检测的语言设置',
     'Saving the specified or automatically detected time zone setting' => '保存指定或自动检测的时区设置',
     'Saving the specified or default theme (color scheme) setting' => '保存指定或默认的配色方案',

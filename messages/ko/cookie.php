@@ -24,7 +24,6 @@ return [
     'Origin' => '출처',
     'Privacy policy' => '개인정보 처리방침',
     'privacy policy' => '개인정보 처리방침',
-    'Saving "Enable machine-translation" option state' => '"기계번역 사용하기" 옵션 상태 저장',
     'Saving the specified or automatically detected language setting' => '지정되었거나 자동으로 감지된 언어 설정 저장',
     'Saving the specified or automatically detected time zone setting' => '지정되었거나 자동으로 감지된 시간대 설정 저장',
     'Saving the specified or default theme (color scheme) setting' => '지정되었거나 기본값인 테마(컬러 스킴) 설정 저장',

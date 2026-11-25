@@ -1,13 +1,10 @@
 @charset "UTF-8";
 
 @use 'sass:color';
-@use 'sass:math';
 
 /*! Copyright (C) 2015-2023 AIZAWA Hina */
 
 // From node_modules/bootstrap/less/variables.less
-$font-size-base: 14px;
-$font-size-small: math.ceil(($font-size-base * 0.85)); // ~12px
 $gray-base: #000;
 $gray-dark: color.adjust($gray-base, $lightness: 20%); // #333
 $body-bg: #fff;
@@ -26,20 +23,10 @@ $btn-primary-bg: color.adjust(#428bca, $lightness: -6.5%); // #337ab7
         color: $primary-text-color;
       }
 
-      &.hint {
+      &.separator {
         background-color: $text-color;
-        color: $bg-color;
-        font-size: $font-size-small;
-
-        a {
-          &,
-          &:hover,
-          &.hover {
-            background-color: $text-color;
-            color: $bg-color;
-            text-decoration: none;
-          }
-        }
+        padding: 0;
+        height: 4px;
       }
     }
   }

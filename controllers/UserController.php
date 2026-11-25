@@ -28,7 +28,6 @@ use app\actions\user\LoginAction;
 use app\actions\user\LoginHistoryAction;
 use app\actions\user\LoginWithTwitterAction;
 use app\actions\user\LogoutAction;
-use app\actions\user\MachineTranslationAction;
 use app\actions\user\PasskeyAction;
 use app\actions\user\PasskeyDeleteAction;
 use app\actions\user\PasskeyLoginFinishAction;
@@ -188,7 +187,6 @@ final class UserController extends Controller
                     'edit-screen-name' => [ 'get', 'post' ],
                     'language' => [ 'post' ],
                     'login' => [ 'get', 'post' ],
-                    'machine-translation' => [ 'post' ],
                     'passkey-delete' => [ 'post' ],
                     'passkey-login-finish' => [ 'post' ],
                     'passkey-login-start' => [ 'post' ],
@@ -238,7 +236,6 @@ final class UserController extends Controller
             'login-with-google' => LoginWithGoogleAction::class,
             'login-with-twitter' => LoginWithTwitterAction::class,
             'logout' => LogoutAction::class,
-            'machine-translation' => MachineTranslationAction::class,
             'passkey' => PasskeyAction::class,
             'passkey-delete' => PasskeyDeleteAction::class,
             'passkey-login-finish' => PasskeyLoginFinishAction::class,

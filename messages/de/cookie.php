@@ -24,7 +24,6 @@ return [
     'Origin' => 'Ursprung',
     'Privacy policy' => 'Datenschutzrichtlinie',
     'privacy policy' => 'Datenschutzrichtlinie',
-    'Saving "Enable machine-translation" option state' => 'Speichern des Status der Option "Maschinelle Übersetzung aktivieren"',
     'Saving the specified or automatically detected language setting' => 'Speichern der festgelegten oder automatisch erkannten Spracheinstellung',
     'Saving the specified or automatically detected time zone setting' => 'Speichern der festgelegten oder automatisch erkannten Zeitzonen-Einstellung',
     'Saving the specified or default theme (color scheme) setting' => 'Speichern der selbst festgelegten oder voreingestellten Design-Einstellung (Farbschema)',

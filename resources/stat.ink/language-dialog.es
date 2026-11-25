@@ -14,18 +14,4 @@ jQuery($ => {
         window.location.reload();
       });
   });
-
-  $('a.language-change-machine-translation').click(function () {
-    const $this = $(this);
-    window.statinkFetch('/user/machine-translation', {
-      method: 'POST',
-      data: {
-        direction: $this.attr('data-direction')
-      }
-    })
-      .catch(() => {})
-      .finally(() => {
-        window.location.reload();
-      });
-  });
 });

@@ -63,7 +63,6 @@ return [
     'Effects' => '효과',
     'Email' => '이메일',
     'Enabled' => '활성화',
-    'Enable machine-translation' => '기계번역 사용하기',
     'Error' => '에러',
     'Estimated X Power' => '추정 X 파워',
     'Excluded: Private Battles' => '프라이빗 배틀 제외됨',
