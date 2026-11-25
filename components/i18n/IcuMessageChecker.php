@@ -30,6 +30,10 @@ use const PREG_SET_ORDER;
  *
  * Both messages are actually formatted with a distinct value for each argument.
  * A value shown by the source but not by the translation is reported as missing.
+ *
+ * `$extraArguments` lists the arguments the caller passes in addition to those
+ * in the source (e.g., a raw number for the plural form of a formatted value).
+ * Translations may use them, but are not required to.
  */
 final class IcuMessageChecker
 {
@@ -58,10 +62,15 @@ final class IcuMessageChecker
     private const DATE_VALUE = 1700000000;
 
     /**
+     * @param list<string> $extraArguments
      * @return list<array{type: string, detail: string}>
      */
-    public static function check(string $source, string $translation, string $locale): array
-    {
+    public static function check(
+        string $source,
+        string $translation,
+        string $locale,
+        array $extraArguments = [],
+    ): array {
         try {
             $translationFormatter = new MessageFormatter($locale, $translation);
         } catch (Throwable) {
@@ -74,7 +83,7 @@ final class IcuMessageChecker
             return []; // The source is not an ICU message; nothing to compare
         }
 
-        $params = self::createParams($source, $translation);
+        $params = self::createParams($source, $translation, $extraArguments);
         $sourceText = (string)$sourceFormatter->format($params);
         $translationText = $translationFormatter->format($params);
         if ($translationText === false) {
@@ -106,13 +115,15 @@ final class IcuMessageChecker
     /**
      * Creates a distinct value for each (possible) argument of the source
      *
-     * Arguments only in the translation get no value, so they remain unresolved.
+     * Arguments only in the translation get no value, so they remain unresolved,
+     * unless they are listed in `$extraArguments`.
      * Plural branches like `=1{battle}` are also taken as arguments, but it is
      * harmless; such values are never shown.
      *
+     * @param list<string> $extraArguments
      * @return array<string, int|string>
      */
-    private static function createParams(string $source, string $translation): array
+    private static function createParams(string $source, string $translation, array $extraArguments): array
     {
         preg_match_all('/\{\s*(\w+)\s*[,}]/', $source, $matches);
         preg_match_all('/\{\s*(\w+)\s*,\s*([a-z]+)/', $source . "\n" . $translation, $typeMatches, PREG_SET_ORDER);
@@ -124,7 +135,7 @@ final class IcuMessageChecker
 
         $params = [];
         $numberIndex = 0;
-        foreach (array_unique($matches[1]) as $name) {
+        foreach (array_unique([...$matches[1], ...$extraArguments]) as $name) {
             $nameTypes = $types[$name] ?? [];
             $params[$name] = match (true) {
                 (bool)array_intersect($nameTypes, self::DATE_TYPES) => self::DATE_VALUE,
