@@ -8,7 +8,7 @@ env:
 jobs:
   ciDoesNotSkip:
     name: 'Tag Check: `[ci skip]`'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       -
@@ -26,8 +26,12 @@ jobs:
           -
             version: '8.6'
             multiple: true
+            experimental: false
+          -
+            version: '8.7'
+            multiple: true
             experimental: true
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - ciDoesNotSkip
     if: "!contains(github.event.head_commit.message, '[no php]')"
@@ -51,7 +55,7 @@ jobs:
           LANG: C
   phpStyleCheck:
     name: 'PHP Coding Style'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - ciDoesNotSkip
       - phpSyntaxCheck
@@ -78,7 +82,7 @@ jobs:
         run: 'php vendor/bin/phpcs -p'
   phpStan:
     name: 'PHPStan'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - ciDoesNotSkip
       - phpSyntaxCheck
@@ -105,7 +109,7 @@ jobs:
         run: 'make phpstan'
   phpComposerStyle:
     name: 'Check composer.json normalized'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - ciDoesNotSkip
       - phpSyntaxCheck
@@ -132,7 +136,7 @@ jobs:
         run: 'composer.phar normalize --dry-run'
   setupNPM:
     name: 'Setup NPM (install node_modules)'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - ciDoesNotSkip
     steps:
@@ -156,7 +160,7 @@ jobs:
         run: 'npm clean-install'
   jsStyleCheck:
     name: 'JS Coding Style'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - ciDoesNotSkip
       - setupNPM
@@ -180,7 +184,7 @@ jobs:
         run: 'npx eslint "resources/**/*.{es,js,ts,tsx}"'
   cssStyleCheck:
     name: 'CSS Coding Style'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - ciDoesNotSkip
       - setupNPM
@@ -204,7 +208,7 @@ jobs:
         run: 'npx stylelint "resources/**/*.scss" "resources/**/*.css"'
   setupComposer:
     name: 'Setup Composer (install vendor)'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - ciDoesNotSkip
       - phpSyntaxCheck
@@ -238,7 +242,7 @@ jobs:
       - ciDoesNotSkip
       - setupComposer
       - setupNPM
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       -
         name: 'Install packages'
@@ -284,7 +288,7 @@ jobs:
       - ciDoesNotSkip
       - setupComposer
       - setupNPM
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       -
         name: 'Install packages'
@@ -330,7 +334,7 @@ jobs:
       - ciDoesNotSkip
       - setupComposer
       - setupNPM
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       -
         name: 'Install packages'
@@ -387,6 +391,9 @@ jobs:
             experimental: false
           -
             version: '8.6'
+            experimental: false
+          -
+            version: '8.7'
             experimental: true
         pgsql:
           -
@@ -398,9 +405,9 @@ jobs:
             experimental: false
             image: '18'
           -
-            version: '19rc1'
-            experimental: true
-            image: '19rc1'
+            version: '19'
+            experimental: false
+            image: '19'
     services:
       postgres:
         image: 'postgres:${{ matrix.pgsql.image }}'
@@ -412,7 +419,7 @@ jobs:
           POSTGRES_DB: statink
           POSTGRES_INITDB_ARGS: '-E UTF-8 --locale=en_US.UTF8 -k'
         options: '--health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       -
         name: 'Install packages'
