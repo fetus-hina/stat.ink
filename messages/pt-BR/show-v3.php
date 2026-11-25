@@ -41,5 +41,5 @@ return [
     '{name}\'s Battle Stats (Medals)' => 'Estatísticas de partida do(a) {name} (medalhas)',
     '{name}\'s Battle Stats (Winning Rate)' => 'Estatísticas de partida do(a) {name} (taxa de vitórias)',
     '{name}\'s X Power' => 'Poder X do(a) {name}',
-    '{nFormatted} remaining' => '{nFormatted} restante(s)',
+    '{nFormatted} remaining' => '{n, plural, one{{nFormatted} restante} other{{nFormatted} restantes}}',
 ];
