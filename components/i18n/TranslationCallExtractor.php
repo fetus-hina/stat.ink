@@ -15,9 +15,14 @@ use function chr;
 use function count;
 use function in_array;
 use function intval;
+use function is_int;
 use function max;
 use function mb_chr;
+use function ord;
+use function preg_match;
+use function preg_replace;
 use function preg_replace_callback;
+use function str_replace;
 use function strcasecmp;
 use function stripos;
 use function strrpos;
@@ -26,7 +31,9 @@ use function substr;
 use const T_ARRAY;
 use const T_COMMENT;
 use const T_CONSTANT_ENCAPSED_STRING;
+use const T_CURLY_OPEN;
 use const T_DOC_COMMENT;
+use const T_DOLLAR_OPEN_CURLY_BRACES;
 use const T_DOUBLE_ARROW;
 use const T_DOUBLE_COLON;
 use const T_ELLIPSIS;
@@ -219,14 +226,14 @@ final class TranslationCallExtractor
             if ($element['arrow'] === null) {
                 $names[] = (string)$position++;
             } else {
-                $key = $element['arrow'] === $j + 1 ? $tokens[$j] : null;
-                if ($key?->is(T_CONSTANT_ENCAPSED_STRING)) {
-                    $names[] = self::decodeLiteral($key->text);
-                } elseif ($key?->is(T_LNUMBER)) {
-                    $names[] = (string)intval($key->text, 0);
-                    $position = max($position, intval($key->text, 0) + 1);
-                } else {
+                $key = $element['arrow'] === $j + 1 ? self::parseArrayKey($tokens[$j]) : null;
+                if ($key === null) {
                     return null;
+                }
+
+                $names[] = (string)$key;
+                if (is_int($key)) {
+                    $position = max($position, $key + 1);
                 }
             }
 
@@ -238,6 +245,24 @@ final class TranslationCallExtractor
 
         // The array must be the whole argument (e.g., not `[...] + $params`)
         return in_array(($tokens[$j + 1] ?? null)?->text, [',', ')'], true) ? $names : null;
+    }
+
+    /**
+     * Parses a literal array key as PHP does (e.g., "5" is an integer key)
+     */
+    private static function parseArrayKey(PhpToken $token): int|string|null
+    {
+        if ($token->is(T_LNUMBER)) {
+            // intval() does not accept "_" (1_000) and "0o" (0o17)
+            return intval((string)preg_replace('/\A0[oO]/', '0', str_replace('_', '', $token->text)), 0);
+        }
+
+        if ($token->is(T_CONSTANT_ENCAPSED_STRING)) {
+            $key = self::decodeLiteral($token->text);
+            return preg_match('/\A(?:0|-?[1-9][0-9]*)\z/', $key) ? (int)$key : $key;
+        }
+
+        return null;
     }
 
     /**
@@ -254,13 +279,18 @@ final class TranslationCallExtractor
         $arrow = null;
         for ($n = count($tokens); $i < $n; ++$i) {
             $token = $tokens[$i];
-            if ($depth === 0 && ($token->text === ',' || $token->text === $close)) {
+            if ($depth === 0 && (self::isChar($token, ',') || self::isChar($token, $close))) {
                 return ['end' => $i, 'arrow' => $arrow];
             }
 
-            if (in_array($token->text, ['(', '[', '{'], true) || $token->text === '${') {
+            if (
+                self::isChar($token, '(') ||
+                self::isChar($token, '[') ||
+                self::isChar($token, '{') ||
+                $token->is([T_CURLY_OPEN, T_DOLLAR_OPEN_CURLY_BRACES]) // "{$x}", "${x}"
+            ) {
                 ++$depth;
-            } elseif (in_array($token->text, [')', ']', '}'], true)) {
+            } elseif (self::isChar($token, ')') || self::isChar($token, ']') || self::isChar($token, '}')) {
                 if (--$depth < 0) {
                     return null;
                 }
@@ -270,6 +300,14 @@ final class TranslationCallExtractor
         }
 
         return null;
+    }
+
+    /**
+     * Whether the token is the single character, not a part of a string (e.g., "a,b")
+     */
+    private static function isChar(PhpToken $token, string $char): bool
+    {
+        return $token->id === ord($char);
     }
 
     /**

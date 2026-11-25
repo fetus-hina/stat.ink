@@ -220,6 +220,41 @@ class TranslationCallExtractorTest extends Unit
         $this->assertSame([], $result['dynamic']);
     }
 
+    public function testIgnoresCommasInInterpolatedStrings(): void
+    {
+        $result = TranslationCallExtractor::extract(<<<'PHP'
+            <?php
+            Yii::t('app', 'A', ['n' => "$a,$b"]);
+            Yii::t('app', 'B', ['n' => "{$a['x']},{$b}", 'm' => "${c},d"]);
+            PHP);
+
+        $this->assertSame(
+            [['n'], ['n', 'm']],
+            array_column($result['calls'], 'arguments'),
+        );
+    }
+
+    public function testNumbersPositionalArgumentsLikePhp(): void
+    {
+        $result = TranslationCallExtractor::extract(<<<'PHP'
+            <?php
+            Yii::t('app', 'Numeric string key', ['5' => 1, 2]);
+            Yii::t('app', 'Non-canonical key', ['05' => 1, 2]);
+            Yii::t('app', 'Digit separator', [1_000 => 1, 2]);
+            Yii::t('app', 'Hexadecimal', [0x10 => 1]);
+            PHP);
+
+        $this->assertSame(
+            [
+                ['5', '6'],
+                ['05', '0'],
+                ['1000', '1001'],
+                ['16'],
+            ],
+            array_column($result['calls'], 'arguments'),
+        );
+    }
+
     public function testExtractsCallsInsideViewTemplate(): void
     {
         $result = TranslationCallExtractor::extract(<<<'PHP'
