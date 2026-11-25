@@ -15,17 +15,29 @@ use function chr;
 use function count;
 use function in_array;
 use function intval;
+use function is_int;
+use function max;
 use function mb_chr;
+use function ord;
+use function preg_match;
+use function preg_replace;
 use function preg_replace_callback;
+use function str_replace;
 use function strcasecmp;
 use function stripos;
 use function strrpos;
 use function substr;
 
+use const T_ARRAY;
 use const T_COMMENT;
 use const T_CONSTANT_ENCAPSED_STRING;
+use const T_CURLY_OPEN;
 use const T_DOC_COMMENT;
+use const T_DOLLAR_OPEN_CURLY_BRACES;
+use const T_DOUBLE_ARROW;
 use const T_DOUBLE_COLON;
+use const T_ELLIPSIS;
+use const T_LNUMBER;
 use const T_NAME_FULLY_QUALIFIED;
 use const T_NAME_QUALIFIED;
 use const T_NULLSAFE_OBJECT_OPERATOR;
@@ -40,13 +52,17 @@ final class TranslationCallExtractor
 {
     /**
      * @return array{
-     *   calls: list<array{category: string, message: string, line: int}>,
-     *   dynamic: list<int>,
+     *   calls: list<array{category: string, message: string, line: int, arguments: list<string>|null}>,
+     *   dynamic: list<array{line: int, category: string|null}>,
      * }
      *
      * `calls` are calls whose category and message are both string literals.
-     * `dynamic` lists the lines of calls that cannot be checked statically
-     * (e.g., a variable or a concatenation is passed).
+     * `arguments` are the names of the params passed to the call (the keys of
+     * the array literal; "0", "1", ... for positional ones), or null if they
+     * cannot be determined statically (e.g., a variable is passed).
+     * `dynamic` lists the calls that cannot be checked statically (e.g., a
+     * variable or a concatenation is passed), with the category if it is a
+     * string literal.
      */
     public static function extract(string $code): array
     {
@@ -70,9 +86,15 @@ final class TranslationCallExtractor
                     'category' => $category['value'],
                     'message' => $message['value'],
                     'line' => $tokens[$i]->line,
+                    'arguments' => $tokens[$message['next']]->text === ')'
+                        ? []
+                        : self::parseArgumentNames($tokens, $message['next'] + 1),
                 ];
             } else {
-                $dynamic[] = $tokens[$i]->line;
+                $dynamic[] = [
+                    'line' => $tokens[$i]->line,
+                    'category' => $category['value'] ?? null,
+                ];
             }
         }
 
@@ -167,6 +189,129 @@ final class TranslationCallExtractor
             }
             $i += 2;
         }
+    }
+
+    /**
+     * Parses the names of the params passed as an array literal
+     *
+     * @param list<PhpToken> $tokens
+     * @param int $i The index of the token next to "," after the message
+     * @return list<string>|null
+     */
+    private static function parseArgumentNames(array $tokens, int $i): ?array
+    {
+        $token = $tokens[$i] ?? null;
+        if ($token?->text === ')') {
+            return []; // trailing comma
+        }
+
+        if ($token?->text === '[') {
+            $close = ']';
+            $j = $i + 1;
+        } elseif ($token?->is(T_ARRAY) && ($tokens[$i + 1] ?? null)?->text === '(') {
+            $close = ')';
+            $j = $i + 2;
+        } else {
+            return null;
+        }
+
+        $names = [];
+        $position = 0;
+        while (($tokens[$j] ?? null)?->text !== $close) {
+            if (($tokens[$j] ?? null)?->is(T_ELLIPSIS)) {
+                return null;
+            }
+
+            $element = self::findElementEnd($tokens, $j, $close);
+            if ($element === null) {
+                return null;
+            }
+
+            if ($element['arrow'] === null) {
+                $names[] = (string)$position++;
+            } else {
+                $key = $element['arrow'] === $j + 1 ? self::parseArrayKey($tokens[$j]) : null;
+                if ($key === null) {
+                    return null;
+                }
+
+                $names[] = (string)$key;
+                if (is_int($key)) {
+                    $position = max($position, $key + 1);
+                }
+            }
+
+            $j = $element['end'];
+            if ($tokens[$j]->text === ',') {
+                ++$j;
+            }
+        }
+
+        // The array must be the whole argument (e.g., not `[...] + $params`)
+        return in_array(($tokens[$j + 1] ?? null)?->text, [',', ')'], true) ? $names : null;
+    }
+
+    /**
+     * Parses a literal array key as PHP does (e.g., "5" is an integer key)
+     */
+    private static function parseArrayKey(PhpToken $token): int|string|null
+    {
+        if ($token->is(T_LNUMBER)) {
+            // intval() does not accept "_" (1_000) and "0o" (0o17)
+            return intval((string)preg_replace('/\A0[oO]/', '0', str_replace('_', '', $token->text)), 0);
+        }
+
+        if ($token->is(T_CONSTANT_ENCAPSED_STRING)) {
+            $key = self::decodeLiteral($token->text);
+            return preg_match('/\A(?:0|-?[1-9][0-9]*)\z/', $key) ? (int)$key : $key;
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds the end of an array element starting at $i
+     *
+     * @param list<PhpToken> $tokens
+     * @return array{end: int, arrow: int|null}|null
+     *   `end` is the index of "," or the closing bracket after the element;
+     *   `arrow` is the index of the first "=>" at the top level of the element
+     */
+    private static function findElementEnd(array $tokens, int $i, string $close): ?array
+    {
+        $depth = 0;
+        $arrow = null;
+        for ($n = count($tokens); $i < $n; ++$i) {
+            $token = $tokens[$i];
+            if ($depth === 0 && (self::isChar($token, ',') || self::isChar($token, $close))) {
+                return ['end' => $i, 'arrow' => $arrow];
+            }
+
+            if (
+                self::isChar($token, '(') ||
+                self::isChar($token, '[') ||
+                self::isChar($token, '{') ||
+                $token->is([T_CURLY_OPEN, T_DOLLAR_OPEN_CURLY_BRACES]) // "{$x}", "${x}"
+            ) {
+                ++$depth;
+            } elseif (self::isChar($token, ')') || self::isChar($token, ']') || self::isChar($token, '}')) {
+                if (--$depth < 0) {
+                    return null;
+                }
+            } elseif ($depth === 0 && $arrow === null && $token->is(T_DOUBLE_ARROW)) {
+                $arrow = $i;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Whether the token is the single character, not a part of a string (e.g., "a,b")
+     */
+    private static function isChar(PhpToken $token, string $char): bool
+    {
+        return $token->id === ord($char);
     }
 
     /**

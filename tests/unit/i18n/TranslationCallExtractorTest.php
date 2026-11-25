@@ -17,7 +17,7 @@ class TranslationCallExtractorTest extends Unit
             PHP);
 
         $this->assertSame(
-            [['category' => 'app', 'message' => 'Hello', 'line' => 2]],
+            [['category' => 'app', 'message' => 'Hello', 'line' => 2, 'arguments' => []]],
             $result['calls'],
         );
         $this->assertSame([], $result['dynamic']);
@@ -33,8 +33,8 @@ class TranslationCallExtractorTest extends Unit
 
         $this->assertSame(
             [
-                ['category' => 'app-email', 'message' => '{n} items', 'line' => 2],
-                ['category' => 'app', 'message' => 'Trailing comma', 'line' => 3],
+                ['category' => 'app-email', 'message' => '{n} items', 'line' => 2, 'arguments' => ['n']],
+                ['category' => 'app', 'message' => 'Trailing comma', 'line' => 3, 'arguments' => []],
             ],
             $result['calls'],
         );
@@ -52,7 +52,7 @@ class TranslationCallExtractorTest extends Unit
             PHP);
 
         $this->assertSame(
-            [['category' => 'app', 'message' => 'Multi-line', 'line' => 3]],
+            [['category' => 'app', 'message' => 'Multi-line', 'line' => 3, 'arguments' => []]],
             $result['calls'],
         );
     }
@@ -96,7 +96,7 @@ class TranslationCallExtractorTest extends Unit
             PHP);
 
         $this->assertSame(
-            [['category' => 'app-apidoc2', 'message' => 'Long messages are split into lines.', 'line' => 2]],
+            [['category' => 'app-apidoc2', 'message' => 'Long messages are split into lines.', 'line' => 2, 'arguments' => []]],
             $result['calls'],
         );
     }
@@ -116,7 +116,17 @@ class TranslationCallExtractorTest extends Unit
             PHP);
 
         $this->assertSame([], $result['calls']);
-        $this->assertSame([2, 3, 4, 5, 6, 9], $result['dynamic']);
+        $this->assertSame(
+            [
+                ['line' => 2, 'category' => 'app'],
+                ['line' => 3, 'category' => null],
+                ['line' => 4, 'category' => 'app'],
+                ['line' => 5, 'category' => 'app'],
+                ['line' => 6, 'category' => 'app'],
+                ['line' => 9, 'category' => 'app'],
+            ],
+            $result['dynamic'],
+        );
     }
 
     public function testExtractsOtherTranslationApis(): void
@@ -132,11 +142,11 @@ class TranslationCallExtractorTest extends Unit
 
         $this->assertSame(
             [
-                ['category' => 'app-slack', 'message' => 'won', 'line' => 2],
-                ['category' => 'app', 'message' => 'Mode', 'line' => 3],
-                ['category' => 'app', 'message' => 'Nullsafe', 'line' => 4],
-                ['category' => 'app-ability2', 'message' => 'Ink Saver', 'line' => 5],
-                ['category' => 'app', 'message' => 'Qualified', 'line' => 6],
+                ['category' => 'app-slack', 'message' => 'won', 'line' => 2, 'arguments' => []],
+                ['category' => 'app', 'message' => 'Mode', 'line' => 3, 'arguments' => []],
+                ['category' => 'app', 'message' => 'Nullsafe', 'line' => 4, 'arguments' => []],
+                ['category' => 'app-ability2', 'message' => 'Ink Saver', 'line' => 5, 'arguments' => []],
+                ['category' => 'app', 'message' => 'Qualified', 'line' => 6, 'arguments' => []],
             ],
             $result['calls'],
         );
@@ -151,7 +161,13 @@ class TranslationCallExtractorTest extends Unit
             PHP);
 
         $this->assertSame([], $result['calls']);
-        $this->assertSame([2, 3], $result['dynamic']);
+        $this->assertSame(
+            [
+                ['line' => 2, 'category' => 'app'],
+                ['line' => 3, 'category' => 'app'],
+            ],
+            $result['dynamic'],
+        );
     }
 
     public function testIgnoresOtherCalls(): void
@@ -170,6 +186,91 @@ class TranslationCallExtractorTest extends Unit
         $this->assertSame([], $result['dynamic']);
     }
 
+    public function testExtractsArgumentNames(): void
+    {
+        $result = TranslationCallExtractor::extract(<<<'PHP'
+            <?php
+            Yii::t('app', 'Keyed', ['n' => $n, "nFormatted" => $fmt->asInteger($n, 0)]);
+            Yii::t('app', 'Positional', [20, $x]);
+            Yii::t('app', 'Empty', []);
+            Yii::t('app', 'Old syntax', array('n' => 1));
+            Yii::t('app', 'Trailing commas', ['n' => 1,],);
+            Yii::t('app', 'Nested', [
+                'a' => [1, 2],
+                'b' => fn ($x) => $x,
+                'c' => match (true) { $x => 1, default => 2 },
+                'd' => $x ? 'y' : 'z',
+            ]);
+            $i18n->translate('app', 'Other API', ['x' => 1], $lang);
+            PHP);
+
+        $this->assertSame(
+            [
+                ['n', 'nFormatted'],
+                ['0', '1'],
+                [],
+                ['n'],
+                ['n'],
+                ['a', 'b', 'c', 'd'],
+                ['x'],
+            ],
+            array_column($result['calls'], 'arguments'),
+        );
+    }
+
+    public function testReportsUnknownArgumentsAsNull(): void
+    {
+        $result = TranslationCallExtractor::extract(<<<'PHP'
+            <?php
+            Yii::t('app', 'Variable', $params);
+            Yii::t('app', 'Function', compact('n'));
+            Yii::t('app', 'Spread', ['n' => 1, ...$params]);
+            Yii::t('app', 'Variable key', [$key => 1]);
+            Yii::t('app', 'Concatenated key', ['a' . 'b' => 1]);
+            PHP);
+
+        $this->assertSame(
+            [null, null, null, null, null],
+            array_column($result['calls'], 'arguments'),
+        );
+        $this->assertSame([], $result['dynamic']);
+    }
+
+    public function testIgnoresCommasInInterpolatedStrings(): void
+    {
+        $result = TranslationCallExtractor::extract(<<<'PHP'
+            <?php
+            Yii::t('app', 'A', ['n' => "$a,$b"]);
+            Yii::t('app', 'B', ['n' => "{$a['x']},{$b}", 'm' => "${c},d"]);
+            PHP);
+
+        $this->assertSame(
+            [['n'], ['n', 'm']],
+            array_column($result['calls'], 'arguments'),
+        );
+    }
+
+    public function testNumbersPositionalArgumentsLikePhp(): void
+    {
+        $result = TranslationCallExtractor::extract(<<<'PHP'
+            <?php
+            Yii::t('app', 'Numeric string key', ['5' => 1, 2]);
+            Yii::t('app', 'Non-canonical key', ['05' => 1, 2]);
+            Yii::t('app', 'Digit separator', [1_000 => 1, 2]);
+            Yii::t('app', 'Hexadecimal', [0x10 => 1]);
+            PHP);
+
+        $this->assertSame(
+            [
+                ['5', '6'],
+                ['05', '0'],
+                ['1000', '1001'],
+                ['16'],
+            ],
+            array_column($result['calls'], 'arguments'),
+        );
+    }
+
     public function testExtractsCallsInsideViewTemplate(): void
     {
         $result = TranslationCallExtractor::extract(<<<'PHP'
@@ -179,8 +280,8 @@ class TranslationCallExtractorTest extends Unit
 
         $this->assertSame(
             [
-                ['category' => 'app', 'message' => 'Title', 'line' => 1],
-                ['category' => 'app', 'message' => 'Body', 'line' => 2],
+                ['category' => 'app', 'message' => 'Title', 'line' => 1, 'arguments' => []],
+                ['category' => 'app', 'message' => 'Body', 'line' => 2, 'arguments' => []],
             ],
             $result['calls'],
         );
