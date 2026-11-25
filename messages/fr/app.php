@@ -195,7 +195,7 @@ return [
     '{0} etc.' => '{0} etc.',
     '{decimal5_7} Format' => 'Format {decimal5_7}',
     '{from} - {to}' => '{from} - {to}',
-    '{n,plural,=1{battle} other{battles}}' => '{n,plural,=1{match} other{matchs}}',
+    '{n,plural,=1{battle} other{battles}}' => '{n,plural,one{match} other{matchs}}',
     '{name}\'s Battles' => 'Matchs de {name}',
     '{name}\'s Splat Log' => 'Splat Log de {name}',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} fois',
