@@ -53,15 +53,16 @@ final class TranslationCallExtractor
     /**
      * @return array{
      *   calls: list<array{category: string, message: string, line: int, arguments: list<string>|null}>,
-     *   dynamic: list<int>,
+     *   dynamic: list<array{line: int, category: string|null}>,
      * }
      *
      * `calls` are calls whose category and message are both string literals.
      * `arguments` are the names of the params passed to the call (the keys of
      * the array literal; "0", "1", ... for positional ones), or null if they
      * cannot be determined statically (e.g., a variable is passed).
-     * `dynamic` lists the lines of calls that cannot be checked statically
-     * (e.g., a variable or a concatenation is passed).
+     * `dynamic` lists the calls that cannot be checked statically (e.g., a
+     * variable or a concatenation is passed), with the category if it is a
+     * string literal.
      */
     public static function extract(string $code): array
     {
@@ -90,7 +91,10 @@ final class TranslationCallExtractor
                         : self::parseArgumentNames($tokens, $message['next'] + 1),
                 ];
             } else {
-                $dynamic[] = $tokens[$i]->line;
+                $dynamic[] = [
+                    'line' => $tokens[$i]->line,
+                    'category' => $category['value'] ?? null,
+                ];
             }
         }
 

@@ -58,7 +58,8 @@ use const STDOUT;
  *    source message. Machine translations (`messages/_deepl`) are not checked.
  *    A translation may also use params that are not in the source message, if
  *    all the callers pass them (e.g., a raw number for the plural form of a
- *    formatted value).
+ *    formatted value). Calls whose category is not a literal (e.g., wrappers
+ *    like `$t()` in `views/email`) are not taken into account.
  */
 final class CheckKeysAction extends Action
 {
@@ -98,14 +99,16 @@ final class CheckKeysAction extends Action
         $root = (string)Yii::getAlias('@app');
 
         $calls = [];
-        $dynamicCount = 0;
+        $dynamicCalls = [];
         foreach ($this->findPhpFiles($root) as $path) {
             $result = TranslationCallExtractor::extract((string)file_get_contents($path));
             $relPath = substr($path, strlen($root) + 1);
             foreach ($result['calls'] as $call) {
                 $calls[] = $call + ['file' => $relPath];
             }
-            $dynamicCount += count($result['dynamic']);
+            foreach ($result['dynamic'] as $call) {
+                $dynamicCalls[] = $call;
+            }
         }
 
         $categories = array_unique(array_map(fn (array $c): string => $c['category'], $calls));
@@ -132,22 +135,23 @@ final class CheckKeysAction extends Action
             "Checked %d calls, %d missing. %d calls with non-literal arguments were skipped.\n",
             count($calls),
             count($missing),
-            $dynamicCount,
+            count($dynamicCalls),
         );
 
-        $icuIssueCount = $this->checkIcuMessages($root, $this->collectArguments($calls));
+        $icuIssueCount = $this->checkIcuMessages($root, $this->collectArguments($calls, $dynamicCalls));
 
         return $missing || $icuIssueCount > 0 ? ExitCode::DATAERR : ExitCode::OK;
     }
 
     /**
      * @param list<array{category: string, message: string, arguments: list<string>|null, ...}> $calls
+     * @param list<array{line: int, category: string|null}> $dynamicCalls
      * @return array<string, array<string, list<string>>> catalog file name => message => names
      */
-    private function collectArguments(array $calls): array
+    private function collectArguments(array $calls, array $dynamicCalls): array
     {
         $results = [];
-        foreach (TranslationArgumentCollector::collect($calls) as $category => $messages) {
+        foreach (TranslationArgumentCollector::collect($calls, $dynamicCalls) as $category => $messages) {
             $path = $this->getCatalogPath($category);
             if ($path !== null) {
                 $results[basename($path)] = $messages;

@@ -51,4 +51,25 @@ class TranslationArgumentCollectorTest extends Unit
             ]),
         );
     }
+
+    public function testCategoryWithDynamicMessagesHasNoArguments(): void
+    {
+        // e.g., Yii::t('app', $message, ['x' => 1]) might also call "Hello"
+        $this->assertSame(
+            [
+                'app' => ['Hello' => []],
+                'app-show' => ['Hello' => ['n']],
+            ],
+            TranslationArgumentCollector::collect(
+                [
+                    ['category' => 'app', 'message' => 'Hello', 'arguments' => ['n']],
+                    ['category' => 'app-show', 'message' => 'Hello', 'arguments' => ['n']],
+                ],
+                [
+                    ['line' => 1, 'category' => 'app'],
+                    ['line' => 2, 'category' => null],
+                ],
+            ),
+        );
+    }
 }

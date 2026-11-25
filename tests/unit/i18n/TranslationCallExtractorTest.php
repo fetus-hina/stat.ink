@@ -116,7 +116,17 @@ class TranslationCallExtractorTest extends Unit
             PHP);
 
         $this->assertSame([], $result['calls']);
-        $this->assertSame([2, 3, 4, 5, 6, 9], $result['dynamic']);
+        $this->assertSame(
+            [
+                ['line' => 2, 'category' => 'app'],
+                ['line' => 3, 'category' => null],
+                ['line' => 4, 'category' => 'app'],
+                ['line' => 5, 'category' => 'app'],
+                ['line' => 6, 'category' => 'app'],
+                ['line' => 9, 'category' => 'app'],
+            ],
+            $result['dynamic'],
+        );
     }
 
     public function testExtractsOtherTranslationApis(): void
@@ -151,7 +161,13 @@ class TranslationCallExtractorTest extends Unit
             PHP);
 
         $this->assertSame([], $result['calls']);
-        $this->assertSame([2, 3], $result['dynamic']);
+        $this->assertSame(
+            [
+                ['line' => 2, 'category' => 'app'],
+                ['line' => 3, 'category' => 'app'],
+            ],
+            $result['dynamic'],
+        );
     }
 
     public function testIgnoresOtherCalls(): void
