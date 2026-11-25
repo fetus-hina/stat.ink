@@ -189,8 +189,8 @@ final class CheckKeysAction extends Action
                     $locale,
                     $extraArguments[$source] ?? [],
                 );
+                $issueCount += count($issues);
                 foreach ($issues as $issue) {
-                    ++$issueCount;
                     fprintf(
                         STDOUT,
                         "%s: [%s] %s => %s (%s)\n",
