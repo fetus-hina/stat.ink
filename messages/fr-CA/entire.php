@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => 'Les Matchs X sont classés selon la Force X de la personne ayant envoyé le match.',
     'XP' => '',
     'v{version} or later' => '',
-    '{pct_point} percentage point' => '',
+    '{pct_point} percentage points' => '',
     '{pct}% CI' => '',
     '{pct}% Significant?' => '',
 ];

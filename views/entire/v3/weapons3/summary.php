@@ -82,7 +82,8 @@ $error = ($winRate - 0.5) * 100;
     vsprintf('%s %s', [
       Html::encode(Yii::t('app-entire', 'Systematic error of win %') . ':'),
       Html::encode(
-        Yii::t('app-entire', '{pct_point} percentage point', [
+        Yii::t('app-entire', '{pct_point} percentage points', [
+          'n' => round(abs($error), 2),
           'pct_point' => $fmt->asDecimal(
             $error,
             2,

@@ -95,6 +95,10 @@ final class CheckKeysAction extends Action
      * Keyed by the catalog file name; applied to all languages.
      */
     private const ICU_EXTRA_ARGUMENTS = [
+        // views/entire/weapons2.php, views/entire/v3/weapons3/summary.php; "n" is for the plural form
+        'entire.php' => [
+            '{pct_point} percentage points' => ['n'],
+        ],
         // views/show-v3/stats/badge/table/includes/row.php; "n" is for the plural form
         'show-v3.php' => [
             '{nFormatted} remaining' => ['n'],

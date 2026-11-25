@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => 'As Partidas X são classificadas pelo Poder X de quem enviou a partida.',
     'XP' => 'XP',
     'v{version} or later' => 'v{version} ou posterior',
-    '{pct_point} percentage point' => '{pct_point} p.p.',
+    '{pct_point} percentage points' => '{pct_point} p.p.',
     '{pct}% CI' => 'IC de {pct}%',
     '{pct}% Significant?' => '{pct}% significativo?',
 ];

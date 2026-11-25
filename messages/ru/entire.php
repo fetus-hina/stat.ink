@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => 'Бои X классифицированы по Силе X загрузившего бой игрока.',
     'XP' => 'XP',
     'v{version} or later' => 'v{version} и новее',
-    '{pct_point} percentage point' => '{pct_point} п. п.',
+    '{pct_point} percentage points' => '{pct_point} п. п.',
     '{pct}% CI' => '{pct}% ДИ',
     '{pct}% Significant?' => 'Значимо при {pct}%?',
 ];
