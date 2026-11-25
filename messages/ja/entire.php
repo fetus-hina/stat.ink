@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => 'Xマッチは、バトルを投稿したユーザーのXパワーで分類しています。',
     'XP' => 'XP',
     'v{version} or later' => 'v{version}以降',
-    '{pct_point} percentage point' => '{pct_point} パーセントポイント',
+    '{pct_point} percentage points' => '{pct_point} パーセントポイント',
     '{pct}% CI' => '{pct}%信頼区間',
     '{pct}% Significant?' => '{pct}% 有意?',
 ];

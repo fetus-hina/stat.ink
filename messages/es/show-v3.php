@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'Anarchy Power' => 'Energía caótica',
-    'Check with Setup Analyzer' => 'Comprobar con Setup Analyzer',
+    'Check with Setup Analyzer' => 'Comprobar con el Analizador',
     'Completed!' => '¡Completado!',
     'Correction' => 'Corrección',
     'Correction Value' => 'Valor de corrección',

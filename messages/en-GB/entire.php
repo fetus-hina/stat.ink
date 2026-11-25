@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => '',
     'XP' => '',
     'v{version} or later' => '',
-    '{pct_point} percentage point' => '',
+    '{pct_point} percentage points' => '',
     '{pct}% CI' => '',
     '{pct}% Significant?' => '',
 ];

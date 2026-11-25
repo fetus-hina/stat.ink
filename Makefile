@@ -164,7 +164,6 @@ RESOURCE_TARGETS := \
 SIMPLE_CONFIG_TARGETS := \
 	config/backup-gpg.php \
 	config/debug-ips.php \
-	config/deepl.php \
 	config/discord.php \
 	config/google.php \
 	config/lepton.php \
@@ -573,14 +572,6 @@ config/debug-ips.php:
 	@echo "    '127.0.0.1'," >> $@
 	@echo "    '::1'," >> $@
 	@echo '];' >> $@
-
-config/deepl.php:
-	@echo Creating $@
-	@echo '<?php' > $@
-	@echo '' >> $@
-	@echo 'declare(strict_types=1);' >> $@
-	@echo '' >> $@
-	@echo "return '';" >> $@
 
 config/discord.php:
 	cp config/discord.sample.php $@

@@ -197,24 +197,30 @@ EntireWeaponsAsset::register($this);
     ]),
     ['id' => 'weapon-' . $rule->key]
   ) . "\n" ?>
+<?php
+$systematicError = (function () use ($rule): ?float {
+  $totalBattles = array_sum(ArrayHelper::getColumn($rule->data->weapons, 'count'));
+  if ($totalBattles < 1) {
+    return null;
+  }
+  $totalWins = array_sum(ArrayHelper::getColumn($rule->data->weapons, 'win_count'));
+  $rate = $totalWins / $totalBattles;
+  return ($rate - 0.5) * 100;
+})();
+?>
   <p>
     <?= vsprintf('%s %s', [
       Html::encode(Yii::t('app-entire', 'Players:')),
       Html::encode(Yii::$app->formatter->asInteger($rule->data->player_count)),
-    ]) ?><br>
+    ]) ?>
+<?php if ($systematicError !== null) { ?>
+    <br>
     <?= vsprintf('%s %s', [
       Html::encode(Yii::t('app-entire', 'Systematic error of win %') . ':'),
-      Html::encode(Yii::t('app-entire', '{pct_point} percentage point', [
+      Html::encode(Yii::t('app-entire', '{pct_point} percentage points', [
+        'n' => round(abs($systematicError), 2),
         'pct_point' => Yii::$app->formatter->asDecimal(
-          (function () use ($rule): ?float {
-            $totalBattles = array_sum(ArrayHelper::getColumn($rule->data->weapons, 'count'));
-            if ($totalBattles < 1) {
-              return null;
-            }
-            $totalWins = array_sum(ArrayHelper::getColumn($rule->data->weapons, 'win_count'));
-            $rate = $totalWins / $totalBattles;
-            return ($rate - 0.5) * 100;
-          })(),
+          $systematicError,
           2,
           [],
           [
@@ -224,6 +230,7 @@ EntireWeaponsAsset::register($this);
         ),
       ]))
     ]) ?>
+<?php } ?>
   </p>
 <?php
 $maxWP = max(0.0, ...array_map(

@@ -24,7 +24,6 @@ web/assets/*
 /config/cookie-secret.php
 /config/db.php
 /config/debug-ips.php
-/config/deepl.php
 /config/discord.php
 /config/git-revision.php
 /config/google-adsense.php

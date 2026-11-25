@@ -52,7 +52,6 @@ return [
     'Edit' => '編集',
     'Effects' => '効果',
     'Email' => 'Eメール',
-    'Enable machine-translation' => '機械翻訳を使用する',
     'Enabled' => '有効',
     'Error' => 'エラー',
     'Estimated X Power' => '概算Xパワー',

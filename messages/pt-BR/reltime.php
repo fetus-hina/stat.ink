@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 return [
     'now' => 'agora',
-    '{delta} d' => '{delta} dia(s)',
+    '{delta} d' => '{delta, plural, =1{# dia} other{# dias}}',
     '{delta} h' => '{delta} h',
     '{delta} m' => '{delta} min',
-    '{delta} mo' => '{delta} mês(es)',
+    '{delta} mo' => '{delta, plural, =1{# mês} other{# meses}}',
     '{delta} s' => '{delta} s',
-    '{delta} yr' => '{delta} ano(s)',
+    '{delta} yr' => '{delta, plural, =1{# ano} other{# anos}}',
 ];

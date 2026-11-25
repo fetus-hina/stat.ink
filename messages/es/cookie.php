@@ -24,7 +24,6 @@ return [
     'Origin' => 'Origen',
     'Privacy policy' => 'Política de privacidad',
     'privacy policy' => 'política de privacidad',
-    'Saving "Enable machine-translation" option state' => 'Guardar el estado de la opción «Activar traducción automática»',
     'Saving the specified or automatically detected language setting' => 'Guardar la configuración de idioma especificada o detectada automáticamente',
     'Saving the specified or automatically detected time zone setting' => 'Guardar la configuración de zona horaria especificada o detectada automáticamente',
     'Saving the specified or default theme (color scheme) setting' => 'Guardar la configuración de tema (esquema de colores) especificada o predeterminada',

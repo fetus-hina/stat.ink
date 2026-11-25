@@ -123,7 +123,7 @@ return [
     'X Battle is classified by the X Power of the battle uploader.' => 'X 매치는 배틀을 업로드한 사용자의 X 파워로 분류합니다.',
     'XP' => 'XP',
     'v{version} or later' => 'v{version} 이후',
-    '{pct_point} percentage point' => '{pct_point} 퍼센트포인트',
+    '{pct_point} percentage points' => '{pct_point} 퍼센트포인트',
     '{pct}% CI' => '{pct}% 신뢰 구간',
     '{pct}% Significant?' => '{pct}% 유의?',
 ];

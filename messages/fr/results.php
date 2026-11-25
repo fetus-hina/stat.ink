@@ -58,6 +58,6 @@ return [
     'Win %' => '% victoire',
     'Wins' => 'Victoires',
     'Won' => 'Victoire',
-    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 mort} other{# morts}} dans {battle, plural, =1{1 match} other{# matchs}}',
-    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 kill} other{# kills}} dans {battle, plural, =1{1 match} other{# matchs}}',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, one{# mort} other{# morts}} dans {battle, plural, one{# match} other{# matchs}}',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, one{# kill} other{# kills}} dans {battle, plural, one{# match} other{# matchs}}',
 ];

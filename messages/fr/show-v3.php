@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'Anarchy Power' => 'Anarchie Power',
-    'Check with Setup Analyzer' => 'Vérifier avec le Setup Analyzer',
+    'Check with Setup Analyzer' => 'Vérifier avec l\'Analyseur de Sets',
     'Completed!' => 'Complété !',
     'Correction' => 'Correction',
     'Correction Value' => 'Valeur de correction',
@@ -41,5 +41,5 @@ return [
     '{name}\'s Battle Stats (Medals)' => 'Stats de match de {name} (médailles)',
     '{name}\'s Battle Stats (Winning Rate)' => 'Stats de matchs de {name} (par taux de victoires)',
     '{name}\'s X Power' => 'X Power de {name}',
-    '{nFormatted} remaining' => '{nFormatted} restant(s)',
+    '{nFormatted} remaining' => '{n, plural, one{{nFormatted} restant} other{{nFormatted} restants}}',
 ];

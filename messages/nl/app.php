@@ -63,7 +63,6 @@ return [
     'Effects' => 'Effecten',
     'Email' => 'E-mail',
     'Enabled' => 'Ingeschakeld',
-    'Enable machine-translation' => 'Machinevertaling inschakelen',
     'Error' => 'Fout',
     'Estimated X Power' => 'Geschatte X-kracht',
     'Excluded: Private Battles' => 'Uitgesloten: privégevechten',

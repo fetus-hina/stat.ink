@@ -11,10 +11,8 @@ namespace app\components\widgets;
 
 use Override;
 use Yii;
-use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
 use app\models\Language;
-use app\models\SupportLevel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -58,7 +56,8 @@ final class LanguageDialog extends Dialog
             'div',
             implode('', array_merge(
                 $this->createLanguageList(),
-                $this->createHintList(),
+                [$this->createSeparator()],
+                $this->createLinkList(),
             )),
             ['class' => 'list-group-flush'],
         );
@@ -70,7 +69,6 @@ final class LanguageDialog extends Dialog
     private function createLanguageList(): array
     {
         LanguageDialogAsset::register($this->view);
-        FlexboxAsset::register($this->view);
 
         return Yii::$app->cache->getOrSet(
             [
@@ -108,7 +106,6 @@ final class LanguageDialog extends Dialog
                 },
                 ArrayHelper::sort(
                     Language::find()
-                        ->with('supportLevel')
                         ->cache(86400)
                         ->all(),
                     fn (Language $a, Language $b): int => strcmp($a->name, $b->name),
@@ -127,114 +124,42 @@ final class LanguageDialog extends Dialog
                 $this->langText($lang->name_en, 'en-US'),
             ]);
 
-        $levelIcon = $this->renderSupportLevelIcon($lang->supportLevel);
-
-        $left = Html::tag('span', implode('', [
+        return Html::tag('span', implode('', [
             $this->flagIcon(strtolower($lang->countryCode), strtolower($lang->languageCode)),
             $label,
         ]));
-
-        $right = Html::tag('span', implode('', [
-            $levelIcon,
-        ]));
-
-        return Html::tag(
-            'div',
-            $left . $right,
-            [
-                'class' => [
-                    'd-flex',
-                    'justify-content-between',
-                ],
-            ],
-        );
     }
 
-    private function renderSupportLevelIcon(SupportLevel $level): string
+    private function createSeparator(): string
     {
-        switch ($level->id) {
-            case SupportLevel::FULL:
-            case SupportLevel::ALMOST:
-            default:
-                return Icon::dummy();
-
-            case SupportLevel::PARTIAL:
-                return Html::tag('span', Icon::languageLevelPartical(), [
-                    'class' => 'auto-tooltip',
-                    'title' => 'Partically supported',
-                ]);
-
-            case SupportLevel::FEW:
-                return Html::tag('span', Icon::languageLevelFew(), [
-                    'class' => 'auto-tooltip',
-                    'title' => 'Proper-noun only',
-                ]);
-
-            case SupportLevel::MACHINE:
-                return Html::tag('span', Icon::languageLevelMachine(), [
-                    'class' => 'auto-tooltip',
-                    'title' => 'Machine-translated',
-                ]);
-        }
+        return Html::tag('div', '', [
+            'class' => [
+                'list-group-item',
+                'separator',
+            ],
+            'role' => 'separator',
+        ]);
     }
 
     /**
      * @return string[]
      */
-    private function createHintList(): array
+    private function createLinkList(): array
     {
-        $enabledMachineTranslation = Yii::$app->getIsEnabledMachineTranslation();
-
         return [
-            Html::tag(
-                'div',
-                implode('', [
-                    Html::tag(
-                        'a',
-                        implode(' ', [
-                            $enabledMachineTranslation
-                                ? Icon::checkboxChecked()
-                                : Icon::checkboxEmpty(),
-                            Html::encode(Yii::t('app', 'Enable machine-translation')),
-                        ]),
-                        [
-                            'rel' => 'nofollow',
-                            'class' => [
-                                'language-change-machine-translation',
-                                'cursor-pointer',
-                            ],
-                            'data' => [
-                                'direction' => $enabledMachineTranslation ? 'disable' : 'enable',
-                            ],
-                        ],
-                    ),
-                    Html::tag(
-                        'div',
-                        implode('<br>', [
-                            Icon::languageLevelPartical() . ' : Partically supported',
-                            Icon::languageLevelFew() . ' : Proper-noun only',
-                            Icon::languageLevelMachine() . ' : Almost machine-translated',
-                        ]),
-                        [
-                            'class' => 'ml-auto',
-                        ],
-                    ),
-                ]),
-                [
-                    'class' => [
-                        'list-group-item',
-                        'hint',
-                        'd-flex',
-                    ],
-                ],
-            ),
             Html::a(
-                Icon::help() . ' About Translation',
+                implode(' ', [
+                    Icon::help(),
+                    Html::encode(Yii::t('app-translate', 'About Translation')),
+                ]),
                 ['site/translate'],
                 ['class' => 'list-group-item'],
             ),
             Html::a(
-                Icon::refresh() . ' How to update',
+                implode(' ', [
+                    Icon::refresh(),
+                    Html::encode(Yii::t('app-translate', 'How to update the translation files')),
+                ]),
                 'https://github.com/fetus-hina/stat.ink/wiki/Translation',
                 ['class' => 'list-group-item'],
             ),

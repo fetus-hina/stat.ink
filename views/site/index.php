@@ -19,7 +19,6 @@ use app\components\widgets\IndexI18nButtons;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\alerts\AccessRestriction;
 use app\components\widgets\alerts\ImportFromSplatnet;
-use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\NSOIssue;
 use yii\helpers\ArrayHelper;
@@ -88,7 +87,6 @@ OgpHelper::default($this, Url::to(['site/index'], true));
   <?= NSOIssue::widget() . "\n" ?>
   <?= HappyNewYearWidget::widget() . "\n" ?>
   <?= MaintenanceInfo::widget() . "\n" ?>
-  <?= LanguageSupportLevelWarning::widget() . "\n" ?>
 
 <?php InlineListAsset::register($this) ?>
   <nav class="mb-3"><?= implode('', array_map(
