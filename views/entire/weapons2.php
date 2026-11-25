@@ -212,11 +212,13 @@ $systematicError = (function () use ($rule): ?float {
     <?= vsprintf('%s %s', [
       Html::encode(Yii::t('app-entire', 'Players:')),
       Html::encode(Yii::$app->formatter->asInteger($rule->data->player_count)),
-    ]) ?><br>
+    ]) ?>
+<?php if ($systematicError !== null) { ?>
+    <br>
     <?= vsprintf('%s %s', [
       Html::encode(Yii::t('app-entire', 'Systematic error of win %') . ':'),
       Html::encode(Yii::t('app-entire', '{pct_point} percentage points', [
-        'n' => round(abs($systematicError ?? 0.0), 2),
+        'n' => round(abs($systematicError), 2),
         'pct_point' => Yii::$app->formatter->asDecimal(
           $systematicError,
           2,
@@ -228,6 +230,7 @@ $systematicError = (function () use ($rule): ?float {
         ),
       ]))
     ]) ?>
+<?php } ?>
   </p>
 <?php
 $maxWP = max(0.0, ...array_map(
