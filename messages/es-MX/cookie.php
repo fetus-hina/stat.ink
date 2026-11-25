@@ -24,7 +24,6 @@ return [
     'Origin' => '',
     'Privacy policy' => '',
     'privacy policy' => '',
-    'Saving "Enable machine-translation" option state' => '',
     'Saving the specified or automatically detected language setting' => '',
     'Saving the specified or automatically detected time zone setting' => '',
     'Saving the specified or default theme (color scheme) setting' => '',

@@ -40,7 +40,6 @@ use function is_array;
 use function is_string;
 use function str_contains;
 use function str_replace;
-use function str_starts_with;
 use function strlen;
 use function substr;
 use function usort;
@@ -57,11 +56,10 @@ use const STDOUT;
  *    runtime; Yii just shows the source (English) text, so it is easily
  *    overlooked.
  * 2. Every translation is a valid ICU message and keeps the placeholders of its
- *    source message. Machine translations (`messages/_deepl`) are not checked.
- *    A translation may also use params that are not in the source message, if
- *    all the callers pass them (e.g., a raw number for the plural form of a
- *    formatted value). Calls whose category is not a literal (e.g., wrappers
- *    like `$t()` in `views/email`) are not taken into account.
+ *    source message. A translation may also use params that are not in the
+ *    source message, if all the callers pass them (e.g., a raw number for the
+ *    plural form of a formatted value). Calls whose category is not a literal
+ *    (e.g., wrappers like `$t()` in `views/email`) are not taken into account.
  */
 final class CheckKeysAction extends Action
 {
@@ -179,10 +177,6 @@ final class CheckKeysAction extends Action
         $issueCount = 0;
         foreach ((array)glob($root . '/messages/*/*.php') as $path) {
             $language = basename(dirname((string)$path));
-            if (str_starts_with($language, '_')) {
-                continue;
-            }
-
             $catalog = require $path;
             if (!is_array($catalog)) {
                 continue;

@@ -201,14 +201,4 @@ final class I18nController extends Controller
 
         return $status1 | $status2;
     }
-
-    public function actionMachineTranslation(): int
-    {
-        $result = 0;
-        $deepl = Yii::createObject(['class' => i18n\DeeplTranslator::class]);
-        $result |= $deepl->run() ? 0 : 1;
-
-        $opencc = Yii::createObject(['class' => i18n\OpenCCTranslator::class]);
-        return $result | $opencc->run() ? 0 : 1;
-    }
 }

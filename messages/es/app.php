@@ -63,7 +63,6 @@ return [
     'Effects' => 'Efectos',
     'Email' => 'Correo electrónico',
     'Enabled' => 'Activado',
-    'Enable machine-translation' => 'Activar la traducción automática',
     'Error' => 'Error',
     'Estimated X Power' => 'Energía X estimada',
     'Excluded: Private Battles' => 'Excluidos: combates privados',

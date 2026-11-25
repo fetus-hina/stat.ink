@@ -63,7 +63,6 @@ return [
     'Effects' => '效果',
     'Email' => '电子邮件',
     'Enabled' => '启用',
-    'Enable machine-translation' => '启用机器翻译',
     'Error' => '错误',
     'Estimated X Power' => '估算X能力值',
     'Excluded: Private Battles' => '排除私房对战',

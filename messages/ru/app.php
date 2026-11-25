@@ -63,7 +63,6 @@ return [
     'Effects' => 'Эффекты',
     'Email' => 'Электронная почта',
     'Enabled' => 'Включено',
-    'Enable machine-translation' => 'Использовать машинный перевод',
     'Error' => 'Ошибка',
     'Estimated X Power' => 'Расчётная сила X',
     'Excluded: Private Battles' => 'Исключено: частные бои',

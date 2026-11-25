@@ -63,7 +63,6 @@ return [
     'Effects' => '',
     'Email' => '',
     'Enabled' => '',
-    'Enable machine-translation' => '',
     'Error' => '',
     'Estimated X Power' => 'Force X estimée',
     'Excluded: Private Battles' => '',

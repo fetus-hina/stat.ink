@@ -24,7 +24,6 @@ return [
     'Origin' => 'Источник',
     'Privacy policy' => 'Политика конфиденциальности',
     'privacy policy' => 'политику конфиденциальности',
-    'Saving "Enable machine-translation" option state' => 'Сохранение состояния параметра «Использовать машинный перевод»',
     'Saving the specified or automatically detected language setting' => 'Сохранение указанной или автоматически определённой настройки языка',
     'Saving the specified or automatically detected time zone setting' => 'Сохранение указанной или автоматически определённой настройки часового пояса',
     'Saving the specified or default theme (color scheme) setting' => 'Сохранение указанной или стандартной настройки темы (цветовой схемы)',
