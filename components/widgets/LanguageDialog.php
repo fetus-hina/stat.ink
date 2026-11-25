@@ -148,12 +148,18 @@ final class LanguageDialog extends Dialog
     {
         return [
             Html::a(
-                Icon::help() . ' About Translation',
+                implode(' ', [
+                    Icon::help(),
+                    Html::encode(Yii::t('app-translate', 'About Translation')),
+                ]),
                 ['site/translate'],
                 ['class' => 'list-group-item'],
             ),
             Html::a(
-                Icon::refresh() . ' How to update',
+                implode(' ', [
+                    Icon::refresh(),
+                    Html::encode(Yii::t('app-translate', 'How to update the translation files')),
+                ]),
                 'https://github.com/fetus-hina/stat.ink/wiki/Translation',
                 ['class' => 'list-group-item'],
             ),

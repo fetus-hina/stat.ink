@@ -88,6 +88,7 @@ return [
         'app-subweapon' => 'subweapon.php',
         'app-subweapon2' => 'subweapon2.php',
         'app-subweapon3' => 'subweapon3.php',
+        'app-translate' => 'translate.php',
         'app-tz' => 'tz.php',
         'app-ua-vars' => 'ua_vars.php',
         'app-ua-vars-v' => 'ua_vars_v.php',
