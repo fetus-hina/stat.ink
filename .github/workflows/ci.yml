@@ -26,6 +26,10 @@ jobs:
           -
             version: '8.6'
             multiple: true
+            experimental: false
+          -
+            version: '8.7'
+            multiple: true
             experimental: true
     runs-on: ubuntu-24.04
     needs:
@@ -387,6 +391,9 @@ jobs:
             experimental: false
           -
             version: '8.6'
+            experimental: false
+          -
+            version: '8.7'
             experimental: true
         pgsql:
           -
@@ -398,9 +405,9 @@ jobs:
             experimental: false
             image: '18'
           -
-            version: '19rc1'
-            experimental: true
-            image: '19rc1'
+            version: '19'
+            experimental: false
+            image: '19'
     services:
       postgres:
         image: 'postgres:${{ matrix.pgsql.image }}'
