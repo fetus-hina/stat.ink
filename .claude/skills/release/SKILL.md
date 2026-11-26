@@ -1,7 +1,7 @@
 ---
 name: release
-description: Use this skill when the user wants to merge the dev branch into master and ship a release. Triggers include phrases like "release", "deploy", "ship it", "リリース", "デプロイ", "master にマージしてデプロイ", "本番リリース". Verifies a clean working tree, switches to master, fetches origin --prune, confirms master matches origin/master, merges dev with --no-ff, drafts bilingual (Japanese then English) release notes from the changes since the previous release, then runs deploy.sh with the minor/patch bump confirmed up front (suggesting one from the changes since the previous release when the user did not specify it) and publishes a GitHub release for the new tag. Streams deployer output to the user and reports success or failure at the end.
-version: 1.2.0
+description: Use this skill when the user wants to merge the dev branch into master and ship a release. Triggers include phrases like "release", "deploy", "ship it", "リリース", "デプロイ", "master にマージしてデプロイ", "本番リリース". Verifies a clean working tree, switches to master, fetches origin --prune, confirms master matches origin/master, merges dev with --no-ff using a commit message that names the upcoming version and links to its planned GitHub release page, drafts bilingual (Japanese then English) release notes from the changes since the previous release, then runs deploy.sh with that version, computed from the minor/patch bump confirmed up front (suggesting one from the changes since the previous release when the user did not specify it), and publishes a GitHub release for the new tag. Streams deployer output to the user and reports success or failure at the end.
+version: 1.4.0
 ---
 
 # release
@@ -22,7 +22,7 @@ Run the steps below in order using the Bash tool. Proceed to the next step only 
 
 ### Step 0: Confirm version bump
 
-Decide whether this release is a `minor` or `patch` bump before touching any branch. Save the answer; it will be passed to `deploy.sh` later. This must happen up front so the long-running deploy is not blocked waiting for input later.
+Decide whether this release is a `minor` or `patch` bump before touching any branch. Save the answer; it determines the new version used in the merge commit message and passed to `deploy.sh` later. This must happen up front so the long-running deploy is not blocked waiting for input later.
 
 If the user already specified `minor` or `patch` in their request, use it as is and skip the rest of this step.
 
@@ -73,7 +73,7 @@ git rev-parse HEAD origin/master
 
 If the two SHAs do not match, local `master` has diverged from the remote. **Stop** and tell the user — do not rebase, reset, or force-push. Suggest the user inspect with `git log --oneline --graph --decorate master origin/master`.
 
-### Step 5: Record the previous release tag
+### Step 5: Determine the previous and next release tags
 
 Determine the latest existing version tag **before** `deploy.sh` creates the new one. Use the same selection rule as `deploy.sh` (`current_version`), but without running `deploy.sh` itself:
 
@@ -83,11 +83,32 @@ git tag -l 'v*' --sort=-v:refname | grep -m1 -E '^v[0-9]+\.[0-9]+\.[0-9]+'
 
 Save it as `PREV_TAG`. It is the starting point of the release notes. If no tag is found, stop and report.
 
+Then compute the next tag from `PREV_TAG` and the bump confirmed in Step 0, using the same rule as `deploy.sh`:
+
+```bash
+NEXT_TAG="v$(npx semver -i {minor|patch} "$PREV_TAG")"
+```
+
+Save it as `NEXT_TAG`. It must match `^v[0-9]+\.[0-9]+\.[0-9]+$`, and the tag must not already exist (`git rev-parse -q --verify "refs/tags/$NEXT_TAG"` prints nothing); otherwise stop and report.
+
 ### Step 6: Merge dev with --no-ff
 
 ```bash
-git merge --no-ff dev -m "Merge branch 'dev'"
+REPO_URL=$(gh repo view --json url -q .url)
+git merge --no-ff dev \
+  -m "Merge branch 'dev' for $NEXT_TAG" \
+  -m "Release notes: $REPO_URL/releases/tag/$NEXT_TAG"
 ```
+
+The subject names the version this merge is released as, and the body links to the GitHub release page that Step 9 will publish for that tag. The page does not exist yet at merge time; the link is the planned URL. For example:
+
+```
+Merge branch 'dev' for v3.156.3
+
+Release notes: https://github.com/fetus-hina/stat.ink/releases/tag/v3.156.3
+```
+
+If `REPO_URL` comes back empty, stop and report instead of merging.
 
 If the merge fails (conflicts), stop and report to the user. Do not attempt to resolve conflicts automatically.
 
@@ -168,10 +189,10 @@ Keep entries short (one line each where possible), natural in each language, and
 
 ### Step 8: Run deploy.sh
 
-Invoke `deploy.sh` with the bump confirmed in Step 0. Use a long timeout (e.g. 600000ms = 10 minutes) since the deployer can take several minutes.
+Invoke `deploy.sh` with the explicit `NEXT_TAG` from Step 5 (not `minor`/`patch`), so the created tag is guaranteed to match the version in the merge commit message. Use a long timeout (e.g. 600000ms = 10 minutes) since the deployer can take several minutes.
 
 ```bash
-./deploy.sh {minor|patch}
+./deploy.sh "$NEXT_TAG"
 ```
 
 **Streaming requirement:** The user wants to see deployer progress live, including the tag that gets created, the `git push`, and the `dep deploy` output. Do not truncate or summarize the output during the run — surface it as-is in the tool call.
@@ -180,7 +201,7 @@ On failure: report the failing step (composer install / git tag / git push / dep
 
 ### Step 9: Create the GitHub release (success only)
 
-Take the new tag name from the deploy output (it must be the tag that was just pushed) and publish the release with the notes from Step 7:
+Use `NEXT_TAG` as `TAG` (confirm the deploy output shows that tag being created and pushed) and publish the release with the notes from Step 7:
 
 ```bash
 gh release create "$TAG" --verify-tag --title "$TAG" --notes-file <scratchpad>/release-notes.md
@@ -206,6 +227,6 @@ Report concisely that the release tag was created, pushed, and deployed, includi
 
 - This skill performs a **production deploy**. Never use force flags, never skip hooks, never bypass signing.
 - The merge into `master`, the deploy tag/push, and the GitHub release are outward-facing and not reversible without manual intervention — bail out at the first sign of trouble.
-- Always confirm `minor` vs `patch` up front (Step 0) so the long-running deploy is not interrupted. When the user did not specify it, suggest one based on the changes, but let the user make the final choice.
+- Always confirm `minor` vs `patch` up front (Step 0) so the merge commit message can name the new version and the long-running deploy is not interrupted. When the user did not specify it, suggest one based on the changes, but let the user make the final choice.
 - The deployer script creates an annotated tag (`git tag -a`), not a signed one. If tag creation fails, surface the error to the user and stop.
 - Release notes are user-facing: describe changes from the user's point of view, and never include secrets, internal hostnames, or private details.
