@@ -31,6 +31,10 @@ use yii\db\ExpressionInterface;
  * @property Rule3[] $rules
  * @property StatAbility3XUsage[] $statAbility3XUsages
  * @property StatKdWinRate3[] $statKdWinRate3s
+ * @property StatMatchingRangeDiff3[] $statMatchingRangeDiff3s
+ * @property StatMatchingRangeSpread3[] $statMatchingRangeSpread3s
+ * @property StatMatchingRangeSpreadDiff3[] $statMatchingRangeSpreadDiff3s
+ * @property StatMatchingRangeTeam3[] $statMatchingRangeTeam3s
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
  * @property StatStealthJumpEquipment3[] $statStealthJumpEquipment3s
@@ -102,6 +106,26 @@ class Season3 extends ActiveRecord
     public function getStatKdWinRate3s(): ActiveQuery
     {
         return $this->hasMany(StatKdWinRate3::class, ['season_id' => 'id']);
+    }
+
+    public function getStatMatchingRangeDiff3s(): ActiveQuery
+    {
+        return $this->hasMany(StatMatchingRangeDiff3::class, ['season_id' => 'id']);
+    }
+
+    public function getStatMatchingRangeSpread3s(): ActiveQuery
+    {
+        return $this->hasMany(StatMatchingRangeSpread3::class, ['season_id' => 'id']);
+    }
+
+    public function getStatMatchingRangeSpreadDiff3s(): ActiveQuery
+    {
+        return $this->hasMany(StatMatchingRangeSpreadDiff3::class, ['season_id' => 'id']);
+    }
+
+    public function getStatMatchingRangeTeam3s(): ActiveQuery
+    {
+        return $this->hasMany(StatMatchingRangeTeam3::class, ['season_id' => 'id']);
     }
 
     public function getStatSpecialUse3s(): ActiveQuery

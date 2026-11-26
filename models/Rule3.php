@@ -33,8 +33,13 @@ use yii\db\ActiveRecord;
  * @property Season3[] $seasons
  * @property StatAbility3XUsage[] $statAbility3XUsages
  * @property StatKdWinRate3[] $statKdWinRate3s
+ * @property StatMatchingRangeDiff3[] $statMatchingRangeDiff3s
+ * @property StatMatchingRangeSpread3[] $statMatchingRangeSpread3s
+ * @property StatMatchingRangeSpreadDiff3[] $statMatchingRangeSpreadDiff3s
+ * @property StatMatchingRangeTeam3[] $statMatchingRangeTeam3s
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
+ * @property StatStealthJumpEquipment3[] $statStealthJumpEquipment3s
  * @property StatWeapon3AssistPerVersion[] $statWeapon3AssistPerVersions
  * @property StatWeapon3Assist[] $statWeapon3Assists
  * @property StatWeapon3DeathPerVersion[] $statWeapon3DeathPerVersions
@@ -141,6 +146,26 @@ class Rule3 extends ActiveRecord
         return $this->hasMany(StatKdWinRate3::class, ['rule_id' => 'id']);
     }
 
+    public function getStatMatchingRangeDiff3s(): ActiveQuery
+    {
+        return $this->hasMany(StatMatchingRangeDiff3::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatMatchingRangeSpread3s(): ActiveQuery
+    {
+        return $this->hasMany(StatMatchingRangeSpread3::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatMatchingRangeSpreadDiff3s(): ActiveQuery
+    {
+        return $this->hasMany(StatMatchingRangeSpreadDiff3::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatMatchingRangeTeam3s(): ActiveQuery
+    {
+        return $this->hasMany(StatMatchingRangeTeam3::class, ['rule_id' => 'id']);
+    }
+
     public function getStatSpecialUse3s(): ActiveQuery
     {
         return $this->hasMany(StatSpecialUse3::class, ['rule_id' => 'id']);
@@ -149,6 +174,11 @@ class Rule3 extends ActiveRecord
     public function getStatSpecialUseCount3s(): ActiveQuery
     {
         return $this->hasMany(StatSpecialUseCount3::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatStealthJumpEquipment3s(): ActiveQuery
+    {
+        return $this->hasMany(StatStealthJumpEquipment3::class, ['rule_id' => 'id']);
     }
 
     public function getStatWeapon3AssistPerVersions(): ActiveQuery
