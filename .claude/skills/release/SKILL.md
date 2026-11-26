@@ -1,7 +1,7 @@
 ---
 name: release
-description: Use this skill when the user wants to merge the dev branch into master and ship a release. Triggers include phrases like "release", "deploy", "ship it", "リリース", "デプロイ", "master にマージしてデプロイ", "本番リリース". Verifies a clean working tree, switches to master, fetches origin --prune, confirms master matches origin/master, merges dev with --no-ff, drafts bilingual (Japanese then English) release notes from the changes since the previous release, then runs deploy.sh with the minor/patch bump confirmed up front and publishes a GitHub release for the new tag. Streams deployer output to the user and reports success or failure at the end.
-version: 1.1.0
+description: Use this skill when the user wants to merge the dev branch into master and ship a release. Triggers include phrases like "release", "deploy", "ship it", "リリース", "デプロイ", "master にマージしてデプロイ", "本番リリース". Verifies a clean working tree, switches to master, fetches origin --prune, confirms master matches origin/master, merges dev with --no-ff, drafts bilingual (Japanese then English) release notes from the changes since the previous release, then runs deploy.sh with the minor/patch bump confirmed up front (suggesting one from the changes since the previous release when the user did not specify it) and publishes a GitHub release for the new tag. Streams deployer output to the user and reports success or failure at the end.
+version: 1.2.0
 ---
 
 # release
@@ -22,9 +22,26 @@ Run the steps below in order using the Bash tool. Proceed to the next step only 
 
 ### Step 0: Confirm version bump
 
-Before touching git, ask the user whether this release is a `minor` or `patch` bump. Use `AskUserQuestion` with these two options. Save the answer; it will be passed to `deploy.sh` later.
+Decide whether this release is a `minor` or `patch` bump before touching any branch. Save the answer; it will be passed to `deploy.sh` later. This must happen up front so the long-running deploy is not blocked waiting for input later.
 
-This must happen up front so the long-running deploy is not blocked waiting for input later.
+If the user already specified `minor` or `patch` in their request, use it as is and skip the rest of this step.
+
+Otherwise, inspect the changes that will be released and suggest a bump. This is read-only: do not switch branches or fetch here. Use the local `dev`, since that is what Step 6 merges.
+
+```bash
+PREV_TAG=$(git tag -l 'v*' --sort=-v:refname | grep -m1 -E '^v[0-9]+\.[0-9]+\.[0-9]+')
+git log --no-merges --format='--- %h %s%n%b' "$PREV_TAG"..dev
+git diff --stat "$PREV_TAG"..dev
+```
+
+Read diffs when a commit subject alone does not tell you how visible the change is. Then classify, following the convention of past releases:
+
+- **minor**: new user-facing features — a new page or statistic, a new kind of display element or significant information shown for the first time, a substantial rework of an existing page or feature, or a noticeable change in how statistics are calculated. A backward-compatible API addition (new endpoint or field) also counts as minor.
+- **patch**: everything else — bug fixes, small UI tweaks to existing displays (tooltips, chart styling, formatting), translation fixes, adding data such as a new gear item, game version support data only (e.g. `Splatoon 3 vX.Y.Z` commits), dependency updates, internal-only changes (CI, linters, refactoring, tests, tooling).
+
+If even one change qualifies as minor, suggest minor. If there are no commits at all since `PREV_TAG`, stop and tell the user there is nothing to release.
+
+Ask with `AskUserQuestion`, putting the suggested option first with "(Recommended)" appended to its label. In each option's description, or in the question text, briefly state the reason (e.g. "新ページ entire/matching-range3 の追加を含むため" or "バグ修正と依存更新のみのため"), so the user can judge without reading the log.
 
 ### Step 1: Check working-tree state
 
@@ -189,6 +206,6 @@ Report concisely that the release tag was created, pushed, and deployed, includi
 
 - This skill performs a **production deploy**. Never use force flags, never skip hooks, never bypass signing.
 - The merge into `master`, the deploy tag/push, and the GitHub release are outward-facing and not reversible without manual intervention — bail out at the first sign of trouble.
-- Always confirm `minor` vs `patch` up front (Step 0) so the long-running deploy is not interrupted.
+- Always confirm `minor` vs `patch` up front (Step 0) so the long-running deploy is not interrupted. When the user did not specify it, suggest one based on the changes, but let the user make the final choice.
 - The deployer script creates an annotated tag (`git tag -a`), not a signed one. If tag creation fails, surface the error to the user and stop.
 - Release notes are user-facing: describe changes from the user's point of view, and never include secrets, internal hostnames, or private details.
