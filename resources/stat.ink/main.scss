@@ -22,6 +22,12 @@ $color-time: #f5a101;
 
 html {
   height: 100%;
+  // Keep the in-page link targets below the fixed navbar
+  scroll-padding-top: 60px;
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

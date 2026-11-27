@@ -46,7 +46,6 @@ class AppAsset extends AssetBundle
         LinkPrevNextAsset::class,
         NotoSansAsset::class,
         RewriteLinkForIosAppAsset::class,
-        SmoothScrollAsset::class,
         YiiAsset::class,
     ];
 
