@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use Curl\Curl;
 use Exception;
 use Override;
 use RuntimeException;
@@ -17,14 +16,19 @@ use Throwable;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
+use yii\httpclient\Client as HttpClient;
+use yii\httpclient\CurlTransport;
+use yii\httpclient\Exception as HttpClientException;
 
 use function array_map;
 use function basename;
 use function dirname;
 use function escapeshellarg;
 use function exec;
+use function fclose;
 use function file_exists;
 use function filesize;
+use function fopen;
 use function fprintf;
 use function fwrite;
 use function http_build_query;
@@ -32,6 +36,7 @@ use function implode;
 use function preg_last_error_msg;
 use function preg_replace_callback;
 use function rtrim;
+use function sprintf;
 use function str_repeat;
 use function strlen;
 use function unlink;
@@ -137,18 +142,19 @@ class GeoipController extends Controller
                 }
             }
 
+            $maskedUrl = preg_replace_callback(
+                '/\b(license_key=)([^&]+)/',
+                fn (array $match): string => $match[1] . str_repeat('*', strlen($match[2])),
+                $url,
+            );
             vfprintf(STDERR, "Downloading %s from %s\n", [
                 basename($savePath),
-                preg_replace_callback(
-                    '/\b(license_key=)([^&]+)/',
-                    fn (array $match): string => $match[1] . str_repeat('*', strlen($match[2])),
-                    $url,
-                ),
+                $maskedUrl,
             ]);
 
-            $curl = new Curl();
-            if (!$curl->download($url, $savePath)) {
-                fwrite(STDERR, "Could not download from {$url}\n");
+            if (!$this->downloadTo($url, $savePath)) {
+                fwrite(STDERR, "Could not download from {$maskedUrl}\n");
+                @unlink($savePath);
                 return false;
             }
 
@@ -217,5 +223,41 @@ class GeoipController extends Controller
             },
             $text,
         ) ?? throw new RuntimeException(preg_last_error_msg());
+    }
+
+    private function downloadTo(string $url, string $savePath): bool
+    {
+        $fh = fopen($savePath, 'wb');
+        if ($fh === false) {
+            return false;
+        }
+
+        try {
+            $client = Yii::createObject([
+                'class' => HttpClient::class,
+                'transport' => Yii::createObject(['class' => CurlTransport::class]),
+            ]);
+            $response = $client->createRequest()
+                ->setOptions([
+                    'timeout' => 600,
+                    'userAgent' => sprintf(
+                        'stat.ink/%s (+https://github.com/fetus-hina/stat.ink)',
+                        Yii::$app->version,
+                    ),
+                    'followLocation' => true,
+                    'maxRedirects' => 5,
+                ])
+                ->setMethod('get')
+                ->setUrl($url)
+                ->setOutputFile($fh)
+                ->send();
+
+            return $response->isOk;
+        } catch (HttpClientException $e) {
+            fprintf(STDERR, "Request failed: %s\n", $e->getMessage());
+            return false;
+        } finally {
+            fclose($fh);
+        }
     }
 }

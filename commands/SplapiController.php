@@ -7,7 +7,6 @@
 
 namespace app\commands;
 
-use Curl\Curl;
 use Exception;
 use Override;
 use Yii;
@@ -22,6 +21,9 @@ use app\models\Splatfest;
 use app\models\SplatfestMap;
 use yii\console\Controller;
 use yii\helpers\Json;
+use yii\httpclient\Client as HttpClient;
+use yii\httpclient\CurlTransport;
+use yii\httpclient\Exception as HttpClientException;
 
 use function array_filter;
 use function array_map;
@@ -302,18 +304,34 @@ class SplapiController extends Controller
     private function queryJson(string $url, array $data = []): mixed
     {
         echo "Querying {$url} ...\n";
-        $curl = new Curl();
-        $curl->setUserAgent(sprintf(
-            '%s/%s (+%s)',
-            'stat.ink',
-            Yii::$app->version,
-            'https://github.com/fetus-hina/stat.ink',
-        ));
-        $curl->get($url, $data);
-        if ($curl->error) {
-            throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
+        $client = Yii::createObject([
+            'class' => HttpClient::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
+        ]);
+        try {
+            $response = $client->createRequest()
+                ->setOptions([
+                    'timeout' => 30,
+                    'userAgent' => sprintf(
+                        '%s/%s (+%s)',
+                        'stat.ink',
+                        Yii::$app->version,
+                        'https://github.com/fetus-hina/stat.ink',
+                    ),
+                    'followLocation' => true,
+                    'maxRedirects' => 5,
+                ])
+                ->setMethod('get')
+                ->setUrl($url)
+                ->setData($data)
+                ->send();
+        } catch (HttpClientException $e) {
+            throw new Exception("Request failed: url={$url}, msg={$e->getMessage()}", 0, $e);
         }
-        return Json::decode(TypeHelper::string($curl->rawResponse), false);
+        if (!$response->isOk) {
+            throw new Exception("Request failed: url={$url}, code={$response->statusCode}");
+        }
+        return Json::decode($response->content, false);
     }
 
     /**

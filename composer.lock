@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50285a6d0db5811c782a9f0a5020f648",
+    "content-hash": "e9d6193fd173b6a5325b423104b9107d",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1921,87 +1921,6 @@
             },
             "time": "2026-11-18T13:55:22+00:00",
             "published-time": "2026-11-18T13:55:46+00:00"
-        },
-        {
-            "name": "php-curl-class/php-curl-class",
-            "version": "13.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "f6d59542d9d5285976869cd4e166438292c243e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/f6d59542d9d5285976869cd4e166438292c243e5",
-                "reference": "f6d59542d9d5285976869cd4e166438292c243e5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=8.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "*",
-                "ext-gd": "*",
-                "friendsofphp/php-cs-fixer": "*",
-                "phpcompatibility/php-compatibility": "dev-develop",
-                "phpcsstandards/phpcsutils": "@alpha",
-                "phpstan/phpstan": "*",
-                "phpunit/phpunit": "*",
-                "squizlabs/php_codesniffer": "*"
-            },
-            "suggest": {
-                "ext-mbstring": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Curl\\": "src/Curl/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Unlicense"
-            ],
-            "authors": [
-                {
-                    "name": "Zach Borboa"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/php-curl-class/php-curl-class/graphs/contributors"
-                }
-            ],
-            "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
-            "homepage": "https://github.com/php-curl-class/php-curl-class",
-            "keywords": [
-                "API-Client",
-                "api",
-                "class",
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http-client",
-                "http-proxy",
-                "json",
-                "php",
-                "php-curl",
-                "php-curl-library",
-                "proxy",
-                "requests",
-                "restful",
-                "web-scraper",
-                "web-scraping ",
-                "web-service",
-                "xml"
-            ],
-            "support": {
-                "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/13.1.0"
-            },
-            "time": "2026-11-17T17:08:18+00:00",
-            "published-time": "2026-11-17T17:08:24+00:00"
         },
         {
             "name": "psr/container",
