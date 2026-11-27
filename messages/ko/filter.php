@@ -8,8 +8,6 @@
 declare(strict_types=1);
 
 return [
-    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">시작:</span>{input}</div>',
-    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">종료:</span>{input}</div>',
     'Advanced Options' => '고급 옵션',
     'Ally / Enemy' => '아군 / 상대',
     'Any Result' => '모든 결과',

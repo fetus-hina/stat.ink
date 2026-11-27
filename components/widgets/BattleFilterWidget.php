@@ -422,24 +422,14 @@ final class BattleFilterWidget extends Widget
         return Html::tag(
             'div',
             implode('', [
-                $form->field($this->filter, 'term_from', [
-                    'inputTemplate' => Yii::t(
-                        'app-filter',
-                        '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>',
-                    ),
-                ])->input('datetime-local', [
+                $form->field($this->filter, 'term_from')->input('datetime-local', [
                     'step' => 1,
                     'value' => DateTimeLocal::toInputValue($this->filter->term_from),
-                ])->label(false),
-                $form->field($this->filter, 'term_to', [
-                    'inputTemplate' => Yii::t(
-                        'app-filter',
-                        '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>',
-                    ),
-                ])->input('datetime-local', [
+                ]),
+                $form->field($this->filter, 'term_to')->input('datetime-local', [
                     'step' => 1,
                     'value' => DateTimeLocal::toInputValue($this->filter->term_to),
-                ])->label(false),
+                ]),
             ]),
             ['id' => $divId],
         );
