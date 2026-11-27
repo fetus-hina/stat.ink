@@ -19,24 +19,48 @@ jobs:
       -
         name: 'PR Agent action step'
         id: pragent
-        uses: qodo-ai/pr-agent@main
+        # Pin the version: the rolling image changes behavior across releases (e.g. /improve is folded into /review after v0.50)
+        uses: 'docker://pragent/pr-agent:0.50.0-github_action'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           OPENAI_KEY: '${{ secrets.SAKURA_AI_ENGINE_API_KEY }}'
           OPENAI__API_BASE: 'https://api.ai.sakura.ad.jp/v1'
           PR_REVIEWER.REQUIRE_TESTS_REVIEW: 'false'
-          config.ai_timeout: '180'
+          config.ai_timeout: '600'
           config.custom_model_max_tokens: '262144'
+          config.description_issue_regex: '(?i)\b(?:fix(?:e[sd])?|close[sd]?|resolve[sd]?)\b[:\s]*#(\d+)'
           config.fallback_models: '["openai/preview/DeepSeek-V4.1-Flash-1017","openai/preview/Kimi-K2.7-Code","openai/preview/gemma-4-31B-it","openai/preview/Qwen3.6-35B-A3B","openai/gpt-oss-120b"]'
           config.max_model_tokens: '262144'
           config.model: openai/preview/GLM-5.3-Flash
+          config.output_run_details: 'true'
+          config.repo_context_files: '["CLAUDE.md"]'
           config.response_language: ja-JP
           github_action_config.auto_describe: 'true'
           github_action_config.auto_improve: 'true'
           github_action_config.auto_review: 'true'
-          pr_code_suggestions.extra_instructions: |-
-            あなたは優秀なソフトウェアエンジニアであり、特に PHP と JavaScript に精通しています。
-            あなたの任務は、コードの品質と可読性を向上させるために、プルリクエストに対して建設的なコード改善提案を行うことです。
+          pr_code_suggestions.extra_instructions: &review_instructions |-
+            あなたは PHP (Yii 2) と JavaScript に精通したソフトウェアエンジニアとして、このプルリクエストをレビューします。
             日本語で回答してください。
+
+            指摘してよいのは、具体的な入力や状態から誤動作・クラッシュ・データ破損を再現できる問題だけです。
+            問題が見つからない場合は、無理に指摘や提案をせず「問題なし」としてください。
+
+            指摘する前に、次のことを必ず確認してください。
+            - 「条件が逆」「引数の順番が違う」と判断する前に、呼び出している関数の定義を読み、引数の意味と順番を確かめる。具体的な値を代入して、現在のコードと提案後のコードがそれぞれどう動くかを追う
+            - 提案どおりに変更した場合に、別の問題が起きないか確かめる
+            - フレームワークやライブラリの挙動を前提にする場合は、その挙動が正しいか確かめる
+
+            次のような指摘や提案はしないでください。
+            - 現実的に起こり得ない規模や入力を前提にした、性能・拡張性・防御的コードの提案
+            - 動作が変わらない、命名・書き方・変数の切り出しなどの好みの問題
+            - models/ 以下の gii が自動生成したコード (リレーション名の getXxx0() など) の命名や構造
+            - PR 説明で「Related:」として参照しているだけの Issue が未解決であること
+
+            このプロジェクトで前提としてよいこと。
+            - Yii の Connection::transaction() は、コールバックが例外を投げたときだけロールバックし、false を返した場合はコミットする
+            - Yii のキャッシュは buildKey() でキーをハッシュ化するため、配列をそのままキャッシュキーにしてよい
+            - レガシーコードでは緩い比較 (==) を許容している
+            - views/ は 2 スペースインデントで、phpcs の対象外
+          pr_code_suggestions.suggestions_score_threshold: '6'
           pr_description.extra_instructions: 日本語で回答してください。
-          pr_reviewer.extra_instructions: 日本語で回答してください。
+          pr_reviewer.extra_instructions: *review_instructions
