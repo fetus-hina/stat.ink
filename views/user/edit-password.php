@@ -8,8 +8,8 @@
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
+use app\components\widgets\PasswordStrength;
 use app\models\PasswordForm;
-use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
@@ -28,7 +28,6 @@ $this->title = implode(' | ', [
     $title,
 ]);
 
-ZxcvbnAsset::register($this);
 ?>
 <div class="container">
   <div class="row">
@@ -76,7 +75,9 @@ ZxcvbnAsset::register($this);
           'autocomplete' => 'new-password',
           'minlength' => 10,
         ]) . "\n" ?>
-        <div id="password-strength"></div>
+        <?= PasswordStrength::widget([
+          'selector' => '#' . Html::getInputId($form, 'new_password'),
+        ]) . "\n" ?>
 
         <?= Html::submitButton(
           Html::encode(Yii::t('app', 'Update')),
@@ -97,49 +98,3 @@ ZxcvbnAsset::register($this);
     </div>
   </div>
 </div>
-<?php
-$js = <<<'JS'
-(function ($) {
-  "use strict";
-  var $container = $('#password-strength');
-  $container.empty().append($('<div>', {id: 'password-strength-gauge'}).width(0));
-
-  var $input = $('input[name="PasswordForm[new_password]"]');
-  var timerId = null;
-  var doUpdate = function () {
-    timerId = null;
-    var score = zxcvbn($input.val() + "").score;
-    $('#password-strength-gauge').width((1 + (99 * score / 4)) + '%');
-  };
-
-  $input.keydown(function () {
-    if (timerId !== null) {
-      window.clearTimeout(timerId);
-      timerId = null;
-    }
-    timerId = window.setTimeout(doUpdate, 100);
-  });
-
-  window.setTimeout(doUpdate, 1);
-})(jQuery);
-JS;
-$this->registerJs($js) ?>
-<?php $this->registerCss(<<<'CSS'
-#password-strength {
-  box-sizing:border-box;
-  font-size:1px;
-  line-height:1;
-  width:100%;
-  height:6px;
-  border:1px solid #ccc;
-  border-radius:3px;
-  margin-bottom: 15px;
-}
-
-#password-strength-gauge {
-  width:0;
-  height:100%;
-  background-color:#0d0;
-}
-CSS
-) ?>

@@ -21,7 +21,6 @@ use jp3cki\yii2\flot\FlotResizeAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
 use jp3cki\yii2\flot\FlotSymbolAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
-use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use statink\yii2\sortableTable\SortableTableAsset;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
@@ -77,7 +76,6 @@ class SiteController extends Controller
                     SortableTableAsset::class,
                     TwitterWebIntentsAsset::class,
                     YiiAsset::class,
-                    ZxcvbnAsset::class,
                 ],
             ],
             'index' => [

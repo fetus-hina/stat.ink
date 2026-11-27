@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a482786f1a459dec02b5a68fd38abd09",
+    "content-hash": "9293d7c2c5fe384b95bcfae83d384669",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1187,48 +1187,6 @@
             },
             "time": "2016-03-16T16:56:39+00:00",
             "published-time": "2016-03-16T16:57:37+00:00"
-        },
-        {
-            "name": "jp3cki/yii2-zxcvbn",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fetus-hina/yii2-zxcvbn.git",
-                "reference": "c6d7865b1ca6c97e1566258a439cdb3dee8f8b8f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/yii2-zxcvbn/zipball/c6d7865b1ca6c97e1566258a439cdb3dee8f8b8f",
-                "reference": "c6d7865b1ca6c97e1566258a439cdb3dee8f8b8f",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/zxcvbn": "^4.2",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "jp3cki\\yii2\\zxcvbn\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "Zxcvbn Assets for Yii Framework 2.",
-            "support": {
-                "issues": "https://github.com/fetus-hina/yii2-zxcvbn/issues",
-                "source": "https://github.com/fetus-hina/yii2-zxcvbn/tree/v1.0.0"
-            },
-            "time": "2015-12-25T14:01:09+00:00",
-            "published-time": "2015-12-25T14:17:16+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
