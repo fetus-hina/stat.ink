@@ -300,5 +300,12 @@ $this->title = $title;
 
   <h3><?= Html::encode(Yii::t('app-privacy', 'Law')) ?></h3>
   <p><?= Html::encode(Yii::t('app-privacy', 'We are governed by Japanese law.')) ?></p>
-  <p><?= Html::encode(Yii::t('app-privacy', 'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.')) ?></p>
+  <p><?= Html::encode(Yii::t(
+    'app-privacy',
+    'Any disputes will be handled by the {osaka_court} or the {hirakata_court} in the first instance.',
+    [
+      'osaka_court' => Yii::t('app-privacy', 'Osaka District Court'),
+      'hirakata_court' => Yii::t('app-privacy', 'Hirakata Summary Court'),
+    ],
+  )) ?></p>
 </div>
