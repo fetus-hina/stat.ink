@@ -22,6 +22,7 @@ module.exports = {
   entry: {
     'counter-app.js': './resources/react/counter-app.tsx',
     'index-app.js': './resources/react/index-app.tsx',
+    'password-strength.js': './resources/react/password-strength.ts',
   },
   output: {
     path: path.resolve(__dirname, 'resources', '.compiled', 'react'),

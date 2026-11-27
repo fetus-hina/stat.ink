@@ -224,6 +224,42 @@ $this->title = $title;
     <?= Html::encode(Yii::t('app-privacy', 'This behavior was started on 27 Oct 2015.')) . "\n" ?>
   </p>
 
+  <h2 id="password">
+    <?= Html::encode(Yii::t('app-privacy', 'Password Strength Check')) . "\n" ?>
+  </h2>
+  <p>
+    <?= Yii::t(
+      'app-privacy',
+      'When you enter a new password, your browser checks whether it has appeared in known data breaches by using {service}.',
+      [
+        'service' => Html::a(
+          Html::encode('Pwned Passwords (Have I Been Pwned)'),
+          'https://haveibeenpwned.com/Passwords',
+          ['rel' => 'nofollow external'],
+        ),
+      ],
+    ) . "\n" ?>
+  </p>
+  <p>
+    <?= Html::encode(Yii::t('app-privacy', 'Only the first 5 characters of the SHA-1 hash of the password are sent. Neither the password itself nor its full hash is sent.')) . "\n" ?>
+  </p>
+  <p>
+    <?= Html::encode(Yii::t('app-privacy', 'The check is done once you have finished entering the password, not while you are typing.')) . "\n" ?>
+  </p>
+  <p>
+    <?= Yii::t(
+      'app-privacy',
+      'Like any other website, the service can see your IP address. For more details, see their {privacy}.',
+      [
+        'privacy' => Html::a(
+          Html::encode(Yii::t('app-privacy', 'privacy policy')),
+          'https://haveibeenpwned.com/Privacy',
+          ['rel' => 'nofollow external'],
+        ),
+      ],
+    ) . "\n" ?>
+  </p>
+
   <h2 id="location"><?= Html::encode(Yii::t('app-privacy', 'Locations and Law')) ?></h2>
   <h3><?= Html::encode(Yii::t('app-privacy', 'Server Location')) ?></h3>
   <p><?= Html::encode(Yii::t('app-privacy', 'Our servers are located in Ishikari Datacenter (Hokkaido, Japan), SAKURA internet inc.')) ?></p>
@@ -264,5 +300,12 @@ $this->title = $title;
 
   <h3><?= Html::encode(Yii::t('app-privacy', 'Law')) ?></h3>
   <p><?= Html::encode(Yii::t('app-privacy', 'We are governed by Japanese law.')) ?></p>
-  <p><?= Html::encode(Yii::t('app-privacy', 'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.')) ?></p>
+  <p><?= Html::encode(Yii::t(
+    'app-privacy',
+    'Any disputes will be handled by the {osaka_court} or the {hirakata_court} in the first instance.',
+    [
+      'osaka_court' => Yii::t('app-privacy', 'Osaka District Court'),
+      'hirakata_court' => Yii::t('app-privacy', 'Hirakata Summary Court'),
+    ],
+  )) ?></p>
 </div>
