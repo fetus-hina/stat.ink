@@ -26,9 +26,10 @@ jobs:
           OPENAI__API_BASE: 'https://api.ai.sakura.ad.jp/v1'
           PR_REVIEWER.REQUIRE_TESTS_REVIEW: 'false'
           config.ai_timeout: '180'
-          config.custom_model_max_tokens: '512000'
-          config.fallback_models: '["openai/preview/Kimi-K2.6","openai/preview/gemma-4-31B-it","openai/preview/Qwen3.6-35B-A3B","openai/gpt-oss-120b"]'
-          config.model: openai/preview/Kimi-K2.7-Code
+          config.custom_model_max_tokens: '262144'
+          config.fallback_models: '["openai/preview/DeepSeek-V4.1-Flash-1017","openai/preview/Kimi-K2.7-Code","openai/preview/gemma-4-31B-it","openai/preview/Qwen3.6-35B-A3B","openai/gpt-oss-120b"]'
+          config.max_model_tokens: '262144'
+          config.model: openai/preview/GLM-5.3-Flash
           config.response_language: ja-JP
           github_action_config.auto_describe: 'true'
           github_action_config.auto_improve: 'true'
