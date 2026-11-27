@@ -158,7 +158,13 @@
     },
     "policy": {
       "cooldown": {
-        "period": "3 days"
+        "period": "3 days",
+        "ignore": {
+          "symfony/mailer": {
+            "constraint": "7.4.24 || 8.1.12",
+            "reason": "Security fixes for CVE-2026-133751 and CVE-2026-133755"
+          }
+        }
       }
     },
     "process-timeout": 1800
