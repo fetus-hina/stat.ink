@@ -21,6 +21,7 @@ use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
 
+use function array_filter;
 use function basename;
 use function bin2hex;
 use function count;
@@ -49,6 +50,7 @@ use function substr;
 use function sys_get_temp_dir;
 use function trim;
 use function vfprintf;
+use function vsprintf;
 
 use const STDERR;
 
@@ -119,6 +121,101 @@ final class DepsController extends Controller
 
         echo $this->assembleBody($body, $auditSection);
         return ExitCode::OK;
+    }
+
+    /**
+     * Fail when any lock file in the working tree pins an older version than HEAD.
+     *
+     * A full `composer update` re-evaluates every package, so when a fixed release is
+     * still in the cooldown period while the locked version is blocked by a security
+     * advisory, Composer silently falls back to an older release (and drags its
+     * dependents down with it). This check stops such updates from becoming a PR.
+     */
+    public function actionCheckDowngrades(): int
+    {
+        $lockfiles = [
+            'composer.lock' => 'composer',
+            'deploy/composer.lock' => 'composer',
+            'package-lock.json' => 'npm',
+        ];
+
+        $lines = [];
+        $errors = [];
+        foreach ($lockfiles as $path => $type) {
+            $pair = $this->loadLockfilePair($path);
+            if (is_string($pair)) {
+                $errors[] = vsprintf('- %s: %s', [$path, $pair]);
+                continue;
+            }
+
+            [$oldData, $newData] = $pair;
+            $downgrades = $type === 'npm'
+                ? DepsLockfileDiff::findNpmDowngrades($oldData, $newData)
+                : array_filter(
+                    DepsLockfileDiff::diffComposerPackages($oldData, $newData),
+                    fn (array $c): bool => DepsLockfileDiff::isDowngrade($c['oldVersion'], $c['newVersion']),
+                );
+            foreach ($downgrades as $change) {
+                $lines[] = vsprintf('- `%s` (%s): %s -> %s', [
+                    $change['name'],
+                    $path,
+                    (string)$change['oldVersion'],
+                    (string)$change['newVersion'],
+                ]);
+            }
+        }
+
+        // Fail closed: a lock file that could not be compared must not pass the check
+        if ($errors) {
+            echo "## Downgrade check failed\n\n";
+            echo "Could not compare the following lock files with HEAD:\n\n";
+            echo implode("\n", $errors) . "\n";
+            if ($lines) {
+                echo "\n";
+            }
+        }
+
+        if ($lines) {
+            echo "## Downgrades detected\n\n";
+            echo implode("\n", $lines) . "\n";
+        }
+
+        if ($errors || $lines) {
+            return ExitCode::UNSPECIFIED_ERROR;
+        }
+
+        echo "No downgrades detected.\n";
+        return ExitCode::OK;
+    }
+
+    /**
+     * Load the HEAD and working-tree versions of a lock file.
+     *
+     * @return array{array<string, mixed>, array<string, mixed>}|string the parsed pair, or an error message
+     */
+    private function loadLockfilePair(string $path): array|string
+    {
+        if (!file_exists($path)) {
+            return 'not found in the working tree';
+        }
+
+        $oldJson = $this->gitFileAtHead($path);
+        if ($oldJson === null) {
+            return 'not found at HEAD';
+        }
+
+        try {
+            $oldData = Json::decode($oldJson);
+            $newData = Json::decode((string)file_get_contents($path));
+        } catch (Throwable $e) {
+            return 'failed to parse: ' . $e->getMessage();
+        }
+
+        if (!is_array($oldData) || !is_array($newData)) {
+            return 'not a JSON object';
+        }
+
+        return [$oldData, $newData];
     }
 
     private function assembleBody(?string $summary, string $auditSection): string

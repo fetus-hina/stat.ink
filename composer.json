@@ -67,7 +67,6 @@
     "codeception/module-yii2": "^2.0.5",
     "codeception/specify": "^2.0.0",
     "codeception/verify": "^3.4.0",
-    "cotonet/soak-time": "1.1.0",
     "ergebnis/composer-normalize": "^2.58.0",
     "jp3cki/coding-standard": "^2.0.0",
     "mspirkov/yii2-phpstan": "~0.15.2",
@@ -149,7 +148,6 @@
   },
   "config": {
     "allow-plugins": {
-      "cotonet/soak-time": true,
       "cweagans/composer-patches": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "ergebnis/composer-normalize": true,
@@ -157,6 +155,17 @@
     },
     "platform": {
       "php": "8.5.13"
+    },
+    "policy": {
+      "cooldown": {
+        "period": "3 days",
+        "ignore": {
+          "symfony/mailer": {
+            "constraint": "7.4.24 || 8.1.12",
+            "reason": "Security fixes for CVE-2026-133751 and CVE-2026-133755"
+          }
+        }
+      }
     },
     "process-timeout": 1800
   },
@@ -176,11 +185,7 @@
         "non-progress progressbar": "data/patch/yii2-bootstrap-non-progress-progressbar.patch",
         "fix: phpdoc of Progress::$percent accepts float": "data/patch/yii2-bootstrap-progress-percent-float.patch"
       }
-    },
-    "soak-time-hours": 72,
-    "soak-time-whitelist": [
-      "symfony/mailer"
-    ]
+    }
   },
   "scripts": {
     "post-install-cmd": [

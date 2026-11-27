@@ -76,9 +76,7 @@ trait LicenseCheckTrait
     /**
      * @var string[]
      */
-    private array $skipPackages = [
-        'composer::cotonet/soak-time',
-    ];
+    private array $skipPackages = [];
 
     public function actionCheck(): int
     {

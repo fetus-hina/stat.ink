@@ -174,4 +174,111 @@ final class DepsLockfileDiffTest extends Unit
         $this->assertSame('1.0.0', $changes[0]['oldVersion']);
         $this->assertSame('1.1.0', $changes[0]['newVersion']);
     }
+
+    public function testIsDowngradeDetectsLowerVersion(): void
+    {
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('v7.4.22', 'v6.4.51'));
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('8.1.11', '8.0.15'));
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('1.0.10', '1.0.9'));
+    }
+
+    public function testIsDowngradeReturnsFalseForUpgradeOrSameVersion(): void
+    {
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('v7.4.22', 'v7.4.24'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('1.0.9', '1.0.10'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('1.0.0', '1.0.0'));
+    }
+
+    public function testIsDowngradeIgnoresPrefixAndMissingParts(): void
+    {
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('1.0', 'v1.0.0'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('v1.0.0', '1.0'));
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('2.0', '1.9.9'));
+    }
+
+    public function testIsDowngradeHandlesPrereleases(): void
+    {
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('2.0.0', '2.0.0-rc.1'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('2.0.0-rc.1', '2.0.0'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('2.0.0-beta.1', '2.0.0-rc.1'));
+    }
+
+    public function testIsDowngradeReturnsFalseForAddedOrRemovedPackage(): void
+    {
+        $this->assertFalse(DepsLockfileDiff::isDowngrade(null, '1.0.0'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('1.0.0', null));
+    }
+
+    public function testIsDowngradeReturnsFalseForNonNumericVersions(): void
+    {
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('dev-master', '1.0.0'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('2.0.0', '2.x-dev'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('3.0.0', '2.1.x-dev'));
+    }
+
+    public function testIsDowngradeComparesPrereleaseNamedX(): void
+    {
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('2.0.0', '1.0.0-x.1'));
+    }
+
+    public function testFindNpmDowngradesDetectsNestedDowngrade(): void
+    {
+        $old = ['packages' => [
+            'node_modules/foo' => ['version' => '1.0.0'],
+            'node_modules/foo/node_modules/bar' => ['version' => '3.2.0'],
+        ]];
+        $new = ['packages' => [
+            'node_modules/foo' => ['version' => '1.0.0'],
+            'node_modules/foo/node_modules/bar' => ['version' => '3.0.0'],
+        ]];
+        $this->assertSame(
+            [['name' => 'bar', 'oldVersion' => '3.2.0', 'newVersion' => '3.0.0']],
+            DepsLockfileDiff::findNpmDowngrades($old, $new),
+        );
+    }
+
+    public function testFindNpmDowngradesIgnoresHoistingChanges(): void
+    {
+        $old = ['packages' => [
+            'node_modules/foo' => ['version' => '2.1.0'],
+            'node_modules/bar/node_modules/foo' => ['version' => '1.9.0'],
+        ]];
+        $new = ['packages' => [
+            'node_modules/foo' => ['version' => '1.9.0'],
+            'node_modules/bar/node_modules/@scope/baz' => ['version' => '1.0.0'],
+            'node_modules/baz/node_modules/foo' => ['version' => '2.1.0'],
+        ]];
+        $this->assertSame([], DepsLockfileDiff::findNpmDowngrades($old, $new));
+    }
+
+    public function testFindNpmDowngradesComparesHighestVersions(): void
+    {
+        $old = ['packages' => [
+            'node_modules/foo' => ['version' => '2.1.0'],
+            'node_modules/bar/node_modules/foo' => ['version' => '1.0.0'],
+        ]];
+        $new = ['packages' => [
+            'node_modules/foo' => ['version' => '2.0.0'],
+            'node_modules/bar/node_modules/foo' => ['version' => '1.0.0'],
+        ]];
+        $this->assertSame(
+            [['name' => 'foo', 'oldVersion' => '2.1.0', 'newVersion' => '2.0.0']],
+            DepsLockfileDiff::findNpmDowngrades($old, $new),
+        );
+    }
+
+    public function testFindNpmDowngradesIgnoresUpgradesAndRemovals(): void
+    {
+        $old = ['packages' => [
+            '' => ['name' => 'root', 'version' => '1.0.0'],
+            'node_modules/@scope/up' => ['version' => '1.0.0'],
+            'node_modules/removed' => ['version' => '1.0.0'],
+        ]];
+        $new = ['packages' => [
+            '' => ['name' => 'root', 'version' => '0.1.0'],
+            'node_modules/@scope/up' => ['version' => '1.1.0'],
+            'node_modules/added' => ['version' => '1.0.0'],
+        ]];
+        $this->assertSame([], DepsLockfileDiff::findNpmDowngrades($old, $new));
+    }
 }
