@@ -18,6 +18,11 @@
     "config": {
         "allow-plugins": {
             "ergebnis/composer-normalize": true
+        },
+        "policy": {
+            "cooldown": {
+                "period": "3 days"
+            }
         }
     }
 }
