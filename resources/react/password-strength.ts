@@ -35,11 +35,29 @@ interface Checker {
 
 const MAX_SCORE = 4;
 
+// zxcvbn-ts checks only the first MAX_LENGTH UTF-16 code units of the password.
+// It is passed to zxcvbn-ts explicitly so that truncate() cuts the same way.
+const MAX_LENGTH = 256;
+
+// Same as what ZxcvbnFactory does before matching: a surrogate pair at the cut is
+// dropped as a whole.
+function truncate (password: string): string {
+  let end = MAX_LENGTH;
+  if (
+    password.length > end &&
+    /^[\uD800-\uDBFF][\uDC00-\uDFFF]$/.test(password.substring(end - 1, end + 1))
+  ) {
+    end -= 1;
+  }
+  return password.substring(0, end);
+}
+
 // The pwned matcher is asynchronous and asks the Have I Been Pwned API.
 // To avoid leaking the password while it is being typed, it is gated: it only
 // runs for `pwnedTarget`, which is set while a whole password is checked.
 // Comparing with the target also keeps it from running for the sub-tokens that
-// the repeat matcher checks recursively.
+// the repeat matcher checks recursively. The target is truncated as the matchers
+// receive the truncated password.
 let pwnedTarget: string | null = null;
 
 function createChecker (translationsName: string): Checker {
@@ -50,7 +68,15 @@ function createChecker (translationsName: string): Checker {
     .map(([, pkg]) => pkg);
   const translations = (packages[translationsName] ?? packages['language-en'])?.translations;
 
-  const pwned = matcherPwnedFactory(window.fetch.bind(window));
+  const pwned = matcherPwnedFactory(window.fetch.bind(window), {
+    // The default handler treats a failed request as "not pwned". Throw instead so
+    // that checkAsync() rejects and the result is not cached as a checked one.
+    networkErrorHandler: error => {
+      throw error instanceof Error
+        ? error
+        : new Error(`Pwned Passwords API responded with ${error.status}`);
+    }
+  });
   const PwnedMatching = pwned.Matching;
   class GatedPwnedMatching extends MatcherBaseClass {
     private readonly pwnedMatching: MatcherBaseClass;
@@ -68,6 +94,7 @@ function createChecker (translationsName: string): Checker {
   const factory = new ZxcvbnFactory(
     {
       translations,
+      maxLength: MAX_LENGTH,
       graphs: common?.adjacencyGraphs,
       dictionary: Object.assign(
         {},
@@ -85,7 +112,7 @@ function createChecker (translationsName: string): Checker {
     checkWithPwned: password => {
       // The matchers are called synchronously by checkAsync(), so the gate can be
       // closed right after the call.
-      pwnedTarget = password;
+      pwnedTarget = truncate(password);
       try {
         return factory.checkAsync(password);
       } finally {
@@ -186,14 +213,17 @@ function setup (container: HTMLElement): void {
     getChecker(translationsName)
       .checkWithPwned(password)
       .then(result => {
-        pwnedChecked = { password, result };
-        // The password may have been changed while the API was being asked
+        // The password may have been changed while the API was being asked.
+        // Ignore the result then, or a late response would overwrite the result
+        // for the current password.
         if (input.value === password) {
+          pwnedChecked = { password, result };
           render(bar, feedback, result);
         }
       })
       .catch(err => {
-        console.error(err);
+        // Not cached, so the check is retried on the next change event
+        console.warn(err);
       });
   };
 

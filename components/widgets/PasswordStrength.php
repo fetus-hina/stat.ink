@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\PasswordStrengthAsset;
 use app\components\helpers\ZxcvbnLanguage;
@@ -25,6 +26,7 @@ final class PasswordStrength extends Widget
      */
     public string $selector;
 
+    #[Override]
     public function run(): string
     {
         PasswordStrengthAsset::register($this->view);
