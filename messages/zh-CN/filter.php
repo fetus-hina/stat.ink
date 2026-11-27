@@ -8,8 +8,6 @@
 declare(strict_types=1);
 
 return [
-    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">从:</span>{input}</div>',
-    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">到:</span>{input}</div>',
     'Advanced Options' => '高级选项',
     'Ally / Enemy' => '我方／对方',
     'Any Result' => '所有结果',

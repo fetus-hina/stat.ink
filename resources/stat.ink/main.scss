@@ -22,6 +22,12 @@ $color-time: #f5a101;
 
 html {
   height: 100%;
+  // Keep the in-page link targets below the fixed navbar
+  scroll-padding-top: 60px;
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -41,6 +47,11 @@ main {
 
 .navbar {
   border-radius: 0 !important;
+}
+
+// datetime-local は内容に合わせた固定幅を持つため、親要素からはみ出さないようにする
+[type='datetime-local'] {
+  max-width: 100%;
 }
 
 // フッター

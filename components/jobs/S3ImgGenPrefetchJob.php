@@ -117,6 +117,10 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
             'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
         $request = $client->createRequest()
+            ->setOptions([
+                'followLocation' => true,
+                'maxRedirects' => 5,
+            ])
             ->setMethod('get')
             ->setUrl($url);
         $request->headers->set('User-Agent', 'stat.ink prefetcher');

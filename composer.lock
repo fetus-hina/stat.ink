@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9293d7c2c5fe384b95bcfae83d384669",
+    "content-hash": "be864401e44072ad44abe0de737db207",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -977,50 +977,6 @@
             "published-time": "2026-11-15T13:44:22+00:00"
         },
         {
-            "name": "jp3cki/yii2-bs-datetimepicker",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fetus-hina/yii2-bs-datetimepicker.git",
-                "reference": "c0628b943375b4340bc6c45777a0a6a264eb3522"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/yii2-bs-datetimepicker/zipball/c0628b943375b4340bc6c45777a0a6a264eb3522",
-                "reference": "c0628b943375b4340bc6c45777a0a6a264eb3522",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/eonasdan-bootstrap-datetimepicker": "^4.17",
-                "jp3cki/yii2-momentjs": "^1.0",
-                "yiisoft/yii2": "*",
-                "yiisoft/yii2-bootstrap": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "jp3cki\\yii2\\datetimepicker\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "Eonasdan's Bootstrap-Datetimepicker Assets for Yii Framework 2.",
-            "support": {
-                "issues": "https://github.com/fetus-hina/yii2-bs-datetimepicker/issues",
-                "source": "https://github.com/fetus-hina/yii2-bs-datetimepicker/tree/v1.0.0"
-            },
-            "time": "2015-12-29T11:26:44+00:00",
-            "published-time": "2015-12-29T11:41:47+00:00"
-        },
-        {
             "name": "jp3cki/yii2-flot",
             "version": "v1.0.0",
             "source": {
@@ -1103,49 +1059,6 @@
             },
             "time": "2015-12-29T11:49:02+00:00",
             "published-time": "2015-12-29T12:06:54+00:00"
-        },
-        {
-            "name": "jp3cki/yii2-momentjs",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fetus-hina/yii2-momentjs.git",
-                "reference": "14d13ba28093821d72ca942eeed7f3d99ea92070"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/yii2-momentjs/zipball/14d13ba28093821d72ca942eeed7f3d99ea92070",
-                "reference": "14d13ba28093821d72ca942eeed7f3d99ea92070",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/moment": "~2.10",
-                "bower-asset/moment-timezone": "~0.5.0",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "jp3cki\\yii2\\momentjs\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "Moment.js Assets for Yii Framework 2.",
-            "support": {
-                "issues": "https://github.com/fetus-hina/yii2-momentjs/issues",
-                "source": "https://github.com/fetus-hina/yii2-momentjs/tree/v1.0.1"
-            },
-            "time": "2015-12-29T11:12:12+00:00",
-            "published-time": "2015-12-29T11:18:01+00:00"
         },
         {
             "name": "jp3cki/yii2-twitter-widget",
@@ -2010,87 +1923,6 @@
             "published-time": "2026-11-18T13:55:46+00:00"
         },
         {
-            "name": "php-curl-class/php-curl-class",
-            "version": "13.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "f6d59542d9d5285976869cd4e166438292c243e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/f6d59542d9d5285976869cd4e166438292c243e5",
-                "reference": "f6d59542d9d5285976869cd4e166438292c243e5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=8.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "*",
-                "ext-gd": "*",
-                "friendsofphp/php-cs-fixer": "*",
-                "phpcompatibility/php-compatibility": "dev-develop",
-                "phpcsstandards/phpcsutils": "@alpha",
-                "phpstan/phpstan": "*",
-                "phpunit/phpunit": "*",
-                "squizlabs/php_codesniffer": "*"
-            },
-            "suggest": {
-                "ext-mbstring": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Curl\\": "src/Curl/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Unlicense"
-            ],
-            "authors": [
-                {
-                    "name": "Zach Borboa"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/php-curl-class/php-curl-class/graphs/contributors"
-                }
-            ],
-            "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
-            "homepage": "https://github.com/php-curl-class/php-curl-class",
-            "keywords": [
-                "API-Client",
-                "api",
-                "class",
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http-client",
-                "http-proxy",
-                "json",
-                "php",
-                "php-curl",
-                "php-curl-library",
-                "proxy",
-                "requests",
-                "restful",
-                "web-scraper",
-                "web-scraping ",
-                "web-service",
-                "xml"
-            ],
-            "support": {
-                "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/13.1.0"
-            },
-            "time": "2026-11-17T17:08:18+00:00",
-            "published-time": "2026-11-17T17:08:24+00:00"
-        },
-        {
             "name": "psr/container",
             "version": "2.0.2",
             "source": {
@@ -2673,49 +2505,6 @@
                 "issues": "https://github.com/statink/yii2-jdenticon/issues"
             },
             "time": "2024-06-03T10:28:40+00:00",
-            "published-time": "2026-11-10T15:00:55+00:00"
-        },
-        {
-            "name": "statink/yii2-momentjs",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/statink/yii2-momentjs.git",
-                "reference": "d54028b82ea78139c00a69f27c929437808cd83e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-momentjs/zipball/d54028b82ea78139c00a69f27c929437808cd83e",
-                "reference": "d54028b82ea78139c00a69f27c929437808cd83e",
-                "shasum": ""
-            },
-            "require": {
-                "npm-asset/moment": "*",
-                "npm-asset/moment-timezone": "*",
-                "php": ">= 7.3.0",
-                "yiisoft/yii2": "2.0.*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "statink\\yii2\\momentjs\\": "src"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "MomentJS asset bundle for stat.ink",
-            "support": {
-                "source": "https://github.com/statink/yii2-momentjs/tree/v1.0.0",
-                "issues": "https://github.com/statink/yii2-momentjs/issues"
-            },
-            "time": "2019-05-09T13:48:47+00:00",
             "published-time": "2026-11-10T15:00:55+00:00"
         },
         {

@@ -10,15 +10,15 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\DateTimeLocal;
+use app\components\helpers\TypeHelper;
 use app\models\Salmon3FilterForm;
 use app\models\User;
-use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveField;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
-use app\components\helpers\TypeHelper;
 
 use function implode;
 use function ob_end_clean;
@@ -167,14 +167,7 @@ final class Salmon3FilterWidget extends Widget
     {
         $divId = sprintf('%s-term', (string)$this->getId());
 
-        BootstrapDateTimePickerAsset::register($this->view);
-
         // (function ($) {
-        //   $('#{divId} input')
-        //     .datetimepicker({
-        //       format: 'YYYY-MM-DD HH:mm:ss'
-        //     });
-        //
         //   $('#f-term')
         //     .change(
         //       function () {
@@ -192,7 +185,7 @@ final class Salmon3FilterWidget extends Widget
             str_replace(
                 '{divId}',
                 $divId,
-                '!function(i){i("#{divId} input").datetimepicker({format:"YYYY-MM-DD HH:mm:ss"}),i("#f-term").change(function(){"term"===i(this).val()?i("#{divId}").show():i("#{divId}").hide()}).change()}(jQuery);',
+                '!function(i){i("#f-term").change(function(){"term"===i(this).val()?i("#{divId}").show():i("#{divId}").hide()}).change()}(jQuery);',
             ),
         );
 
@@ -203,27 +196,19 @@ final class Salmon3FilterWidget extends Widget
                 [
                     (string)self::disableClientValidation(
                         $form
-                            ->field(
-                                $filter,
-                                'term_from',
-                                [
-                                    'inputTemplate' => Yii::t('app-filter', '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'),
-                                ],
-                            )
-                            ->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])
-                            ->label(false),
+                            ->field($filter, 'term_from')
+                            ->input('datetime-local', [
+                                'step' => 1,
+                                'value' => DateTimeLocal::toInputValue($filter->term_from),
+                            ]),
                     ),
                     (string)self::disableClientValidation(
                         $form
-                            ->field(
-                                $filter,
-                                'term_to',
-                                [
-                                    'inputTemplate' => Yii::t('app-filter', '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'),
-                                ],
-                            )
-                            ->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])
-                            ->label(false),
+                            ->field($filter, 'term_to')
+                            ->input('datetime-local', [
+                                'step' => 1,
+                                'value' => DateTimeLocal::toInputValue($filter->term_to),
+                            ]),
                     ),
                 ],
             ),

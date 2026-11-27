@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 use Yii;
+use app\components\helpers\DateTimeLocal;
 use app\models\battle3FilterForm\DropdownListTrait;
 use app\models\battle3FilterForm\PermalinkTrait;
 use app\models\battle3FilterForm\QueryDecoratorTrait;
@@ -126,6 +127,7 @@ final class Battle3FilterForm extends Model
                 'range' => self::getKeyListFromDropdown(...$this->getTermDropdown()),
             ],
 
+            [['term_from', 'term_to'], 'filter', 'filter' => DateTimeLocal::toFormValue(...)],
             [['term_from', 'term_to'], 'required',
                 'when' => fn (self $model): bool => $model->term === 'term',
             ],

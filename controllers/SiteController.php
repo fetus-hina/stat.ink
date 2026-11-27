@@ -14,7 +14,6 @@ use app\actions\site\SimpleAction;
 use app\actions\site\StartAction;
 use app\components\web\AssetPublishAction;
 use app\components\web\Controller;
-use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotPieAsset;
 use jp3cki\yii2\flot\FlotResizeAsset;
@@ -64,7 +63,6 @@ class SiteController extends Controller
                 'classes' => [
                     AnonymizerAsset::class,
                     BootstrapAsset::class,
-                    BootstrapDateTimePickerAsset::class,
                     BootstrapPluginAsset::class,
                     FlotAsset::class,
                     FlotPieAsset::class,

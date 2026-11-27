@@ -7,7 +7,6 @@
 
 namespace app\models;
 
-use Curl\Curl;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -15,6 +14,9 @@ use yii\db\ExpressionInterface;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\httpclient\Client as HttpClient;
+use yii\httpclient\CurlTransport;
+use yii\httpclient\Exception as HttpClientException;
 
 use function implode;
 use function rawurlencode;
@@ -500,15 +502,29 @@ class Slack extends ActiveRecord
             return $params;
         }
 
-        $curl = new Curl();
-        $curl->setUserAgent(sprintf(
-            '%s/%s (+https://github.com/fetus-hina/stat.ink)',
-            Yii::$app->name,
-            Yii::$app->version,
-        ));
-        $curl->setHeader('Content-Type', 'application/json');
-        $curl->post($this->webhook_url, $params);
-        if ($curl->error) {
+        try {
+            $client = Yii::createObject([
+                'class' => HttpClient::class,
+                'transport' => Yii::createObject(['class' => CurlTransport::class]),
+            ]);
+            $response = $client->createRequest()
+                ->setOptions([
+                    'timeout' => 30,
+                    'userAgent' => sprintf(
+                        '%s/%s (+https://github.com/fetus-hina/stat.ink)',
+                        Yii::$app->name,
+                        Yii::$app->version,
+                    ),
+                ])
+                ->setMethod('post')
+                ->setUrl($this->webhook_url)
+                ->setHeaders(['Content-Type' => 'application/json'])
+                ->setContent($params)
+                ->send();
+            if (!$response->isOk) {
+                return null;
+            }
+        } catch (HttpClientException) {
             return null;
         }
 

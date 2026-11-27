@@ -8,8 +8,6 @@
 declare(strict_types=1);
 
 return [
-    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">から</span></div>',
-    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">まで</span></div>',
     'Advanced Options' => '高度なオプション',
     'Ally / Enemy' => '味方／相手',
     'Any Result' => 'すべての結果',

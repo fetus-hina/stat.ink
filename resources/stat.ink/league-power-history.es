@@ -1,6 +1,6 @@
-/*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2026 AIZAWA Hina | MIT License */
 
-(($, moment) => {
+(($, luxon) => {
   const decimalFormat = (value, digit) => {
     const locales = [
       $('html').attr('lang'),
@@ -18,7 +18,8 @@
     const $html = $('html');
     const locale = $html.attr('lang');
     const timeZone = $('html').attr('data-timezone');
-    return moment(unixtime).locale(locale).tz(timeZone).format('LT');
+    return luxon.DateTime.fromMillis(unixtime, { locale, zone: timeZone })
+      .toLocaleString(luxon.DateTime.TIME_SIMPLE);
   };
 
   $.fn.leaguePowerHistory = function ($legend, translations, periodBeginTime, periodEndTime, currentPeriodMax, overallPeriodMax, historyData) {
@@ -128,4 +129,4 @@
 
     return this;
   };
-})(jQuery, window.moment);
+})(jQuery, window.luxon);

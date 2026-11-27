@@ -9,26 +9,31 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use Curl\Curl;
+use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\TypeHelper;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
+use yii\httpclient\Client as HttpClient;
+use yii\httpclient\CurlTransport;
 
 use function addslashes;
 use function array_merge;
 use function array_unique;
 use function array_values;
 use function dirname;
+use function end;
 use function explode;
 use function file_put_contents;
 use function filter_var;
 use function fwrite;
 use function implode;
 use function inet_pton;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
+use function sprintf;
 use function strcmp;
 use function strpos;
 use function strtolower;
@@ -117,14 +122,32 @@ class CloudflareController extends Controller
         try {
             fwrite(STDERR, "Downloading ip ranges from {$url}\n");
 
-            $curl = new Curl();
-            $text = $curl->get($url, []);
-            if ($curl->error || !$curl->responseHeaders) {
+            $client = Yii::createObject([
+                'class' => HttpClient::class,
+                'transport' => Yii::createObject(['class' => CurlTransport::class]),
+            ]);
+            $response = $client->createRequest()
+                ->setOptions([
+                    'timeout' => 30,
+                    'userAgent' => sprintf(
+                        'stat.ink/%s (+https://github.com/fetus-hina/stat.ink)',
+                        Yii::$app->version,
+                    ),
+                    'followLocation' => true,
+                    'maxRedirects' => 5,
+                ])
+                ->setMethod('get')
+                ->setUrl($url)
+                ->send();
+            if (!$response->isOk) {
                 fwrite(STDERR, "Failed to download from {$url}\n");
                 return null;
             }
 
-            $contentType = (string)($curl->responseHeaders['Content-Type'] ?? null);
+            $text = $response->content;
+            // With redirects, the headers of all the responses are collected; use the last one
+            $contentTypes = (array)$response->headers->get('Content-Type', [], false);
+            $contentType = (string)(end($contentTypes) ?: '');
             $contentType = strtolower($contentType);
             if (substr($contentType, 0, 10) !== 'text/plain') {
                 fwrite(STDERR, "Downloaded data looks not a plain text\n");
@@ -132,7 +155,8 @@ class CloudflareController extends Controller
             }
 
             $results = [];
-            $text = preg_replace('/\x0d\x0a|\x0d|\x0a/s', "\n", $text);
+            $text = preg_replace('/\x0d\x0a|\x0d|\x0a/s', "\n", $text)
+                ?? throw new RuntimeException(preg_last_error_msg());
             foreach (explode("\n", $text) as $line) {
                 $line = trim($line);
                 if (!$line) {

@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 final class TwemojiAsset extends AssetBundle
 {
-    public $sourcePath = '@node/twemoji/dist';
+    public $sourcePath = '@node/@twemoji/api/dist';
     public $js = [
         'twemoji.min.js',
     ];

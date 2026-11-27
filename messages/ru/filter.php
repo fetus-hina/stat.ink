@@ -8,8 +8,6 @@
 declare(strict_types=1);
 
 return [
-    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">С:</span>{input}</div>',
-    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">По:</span>{input}</div>',
     'Advanced Options' => 'Расширенные параметры',
     'Ally / Enemy' => 'Союзник / противник',
     'Any Result' => 'Любой результат',

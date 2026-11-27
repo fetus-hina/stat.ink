@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 use Yii;
+use app\components\helpers\DateTimeLocal;
 use app\models\salmon3FilterForm\DropdownListTrait;
 use app\models\salmon3FilterForm\PermalinkTrait;
 use app\models\salmon3FilterForm\QueryDecoratorTrait;
@@ -116,6 +117,7 @@ final class Salmon3FilterForm extends Model
             [['term'], 'in',
                 'range' => self::getKeyListFromDropdown(...$this->getTermDropdown()),
             ],
+            [['term_from', 'term_to'], 'filter', 'filter' => DateTimeLocal::toFormValue(...)],
             [['term_from', 'term_to'], 'required',
                 'when' => fn (self $model): bool => $model->term === 'term',
             ],

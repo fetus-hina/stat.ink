@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use Curl\Curl;
 use Exception;
 use Yii;
 use app\commands\splatoon3Ink\EventMessages;
@@ -24,6 +23,9 @@ use app\models\TranslateSourceMessage;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Json;
+use yii\httpclient\Client as HttpClient;
+use yii\httpclient\CurlTransport;
+use yii\httpclient\Exception as HttpClientException;
 
 use function vsprintf;
 
@@ -114,21 +116,33 @@ final class Splatoon3InkController extends Controller
             [__METHOD__, $url, $data],
             function () use ($url, $data): array {
                 echo "Querying {$url} ...\n";
-                $curl = new Curl();
-                $curl->setUserAgent(
-                    vsprintf('%s/%s (+%s)', [
-                        'stat.ink',
-                        Yii::$app->version,
-                        'https://github.com/fetus-hina/stat.ink',
-                    ]),
-                );
-                $curl->get($url, $data);
-                if ($curl->error) {
-                    throw new Exception(
-                        "Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}",
-                    );
+                $client = Yii::createObject([
+                    'class' => HttpClient::class,
+                    'transport' => Yii::createObject(['class' => CurlTransport::class]),
+                ]);
+                try {
+                    $response = $client->createRequest()
+                        ->setOptions([
+                            'timeout' => 30,
+                            'userAgent' => vsprintf('%s/%s (+%s)', [
+                                'stat.ink',
+                                Yii::$app->version,
+                                'https://github.com/fetus-hina/stat.ink',
+                            ]),
+                            'followLocation' => true,
+                            'maxRedirects' => 5,
+                        ])
+                        ->setMethod('get')
+                        ->setUrl($url)
+                        ->setData($data)
+                        ->send();
+                } catch (HttpClientException $e) {
+                    throw new Exception("Request failed: url={$url}, msg={$e->getMessage()}", 0, $e);
                 }
-                return Json::decode(TypeHelper::string($curl->rawResponse), true);
+                if (!$response->isOk) {
+                    throw new Exception("Request failed: url={$url}, code={$response->statusCode}");
+                }
+                return TypeHelper::array(Json::decode($response->content, true));
             },
             duration: 1800, // 30 min
         );

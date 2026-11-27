@@ -7,7 +7,6 @@
 
 namespace app\commands;
 
-use Curl\Curl;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
@@ -15,7 +14,6 @@ use Exception;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
-use app\components\helpers\TypeHelper;
 use app\models\Map2;
 use app\models\Rule2;
 use app\models\SalmonMap2;
@@ -29,6 +27,9 @@ use stdClass;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\httpclient\Client as HttpClient;
+use yii\httpclient\CurlTransport;
+use yii\httpclient\Exception as HttpClientException;
 
 use function array_filter;
 use function array_map;
@@ -336,18 +337,34 @@ class Splatoon2InkController extends Controller
     private function queryJson(string $url, array $data = []): mixed
     {
         echo "Querying {$url} ...\n";
-        $curl = new Curl();
-        $curl->setUserAgent(sprintf(
-            '%s/%s (+%s)',
-            'stat.ink',
-            Yii::$app->version,
-            'https://github.com/fetus-hina/stat.ink',
-        ));
-        $curl->get($url, $data);
-        if ($curl->error) {
-            throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
+        $client = Yii::createObject([
+            'class' => HttpClient::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
+        ]);
+        try {
+            $response = $client->createRequest()
+                ->setOptions([
+                    'timeout' => 30,
+                    'userAgent' => sprintf(
+                        '%s/%s (+%s)',
+                        'stat.ink',
+                        Yii::$app->version,
+                        'https://github.com/fetus-hina/stat.ink',
+                    ),
+                    'followLocation' => true,
+                    'maxRedirects' => 5,
+                ])
+                ->setMethod('get')
+                ->setUrl($url)
+                ->setData($data)
+                ->send();
+        } catch (HttpClientException $e) {
+            throw new Exception("Request failed: url={$url}, msg={$e->getMessage()}", 0, $e);
         }
-        return Json::decode(TypeHelper::string($curl->rawResponse), false);
+        if (!$response->isOk) {
+            throw new Exception("Request failed: url={$url}, code={$response->statusCode}");
+        }
+        return Json::decode($response->content, false);
     }
 
     private function dateTimeFromTimestamp(int $timestamp): DateTimeImmutable
