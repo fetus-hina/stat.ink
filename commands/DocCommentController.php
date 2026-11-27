@@ -13,7 +13,7 @@ use DirectoryIterator;
 use Override;
 use RuntimeException;
 use SebastianBergmann\Diff\Differ;
-use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 use Yii;
 use app\components\helpers\GitHelper;
 use app\components\helpers\TypeHelper;
@@ -139,7 +139,12 @@ final class DocCommentController extends Controller
         }
 
         echo Console::ansiFormat($relPath, [Console::FG_PURPLE]) . "\n";
-        $differ = new Differ(new UnifiedDiffOutputBuilder());
+        $differ = new Differ(
+            new StrictUnifiedDiffOutputBuilder([
+                'fromFile' => "a/{$relPath}",
+                'toFile' => "b/{$relPath}",
+            ]),
+        );
         echo $differ->diff($file, $newFile) . "\n";
 
         file_put_contents($path, rtrim($newFile) . "\n");

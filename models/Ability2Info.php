@@ -63,9 +63,9 @@ class Ability2Info extends Model
         ));
     }
 
-    // @codingStandardsIgnoreStart
+    // phpcs:disable
     // https://mntone.minibird.jp/splw/%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA:%E3%82%AE%E3%82%A2%E3%83%91%E3%83%AF%E3%83%BC
-    // @codingStandardsIgnoreEnd
+    // phpcs:enable
 
     /**
      * @return array<string, mixed>|float|string|null

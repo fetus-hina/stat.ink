@@ -1,0 +1,69 @@
+{
+    "_hash": "84c708f86633dd6f84c9258eefd3fae4096dae1860bd65febdabbd809ef5bd23",
+    "patches": {
+        "yiisoft/yii2": [
+            {
+                "package": "yiisoft/yii2",
+                "description": "enhance: callable filter column to GridView",
+                "url": "data/patch/yii2-gridview-callable-filter.patch",
+                "sha256": "066c1605e099538ae668860e115391b6b197bcd32c30a9943cb336869cd92326",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "yiisoft/yii2",
+                "description": "enhance: make `protected` CacheController::findCaches()",
+                "url": "data/patch/yii2-cache-command.patch",
+                "sha256": "657303386df3c1608e87030756eb79058a1ea375b1c4fe4bcc77638f2e43c209",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "yiisoft/yii2",
+                "description": "enhance: use sha256 to caching key",
+                "url": "data/patch/yii2-cache-key.patch",
+                "sha256": "9c0cadddd05deabbd5b4c9e17fc73261411c4154676a1d5927b18c332f6a17f1",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "yiisoft/yii2",
+                "description": "fix: avoid unserialize() on cache miss in Cache::multiGet()",
+                "url": "data/patch/yii2-cache-multiget-miss.patch",
+                "sha256": "eceb91110cc7b6600e508a62968634d2f839a52e7f00075d6d46726d322d53ab",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ],
+        "yiisoft/yii2-bootstrap": [
+            {
+                "package": "yiisoft/yii2-bootstrap",
+                "description": "non-progress progressbar",
+                "url": "data/patch/yii2-bootstrap-non-progress-progressbar.patch",
+                "sha256": "f0b211303c2e20006016abbe64bc56871b7cfcbe294f62eabf4cbf6d1ba56f12",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "yiisoft/yii2-bootstrap",
+                "description": "fix: phpdoc of Progress::$percent accepts float",
+                "url": "data/patch/yii2-bootstrap-progress-percent-float.patch",
+                "sha256": "64b8010700ab37a0ac85da2a212c984be99d572dfe230c038846f343c033d257",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}

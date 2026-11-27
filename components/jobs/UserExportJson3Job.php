@@ -67,7 +67,7 @@ final class UserExportJson3Job extends BaseObject implements RetryableJobInterfa
      * is restarted on deployment. The export saves its progress every 200 battles,
      * so a retried job continues from where it stopped.
      */
-    public function getTtr()
+    public function getTtr(): int
     {
         return 3600;
     }
@@ -75,7 +75,7 @@ final class UserExportJson3Job extends BaseObject implements RetryableJobInterfa
     /**
      * @inheritdoc
      */
-    public function canRetry($attempt, $error)
+    public function canRetry($attempt, $error): bool
     {
         return $attempt < 10;
     }

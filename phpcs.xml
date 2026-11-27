@@ -43,12 +43,12 @@
 
   <rule ref="JP3CKI">
     <file>*/components/ability/effect/*</file>
-    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+    <exclude name="Squiz.Classes.ValidClassName.NotPascalCase"/>
   </rule>
 
   <rule ref="JP3CKI">
     <file>*/migrations/*</file>
-    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+    <exclude name="Squiz.Classes.ValidClassName.NotPascalCase"/>
     <exclude name="PSR1.Classes.ClassDeclaration"/>
   </rule>
 
