@@ -213,5 +213,56 @@ final class DepsLockfileDiffTest extends Unit
     {
         $this->assertFalse(DepsLockfileDiff::isDowngrade('dev-master', '1.0.0'));
         $this->assertFalse(DepsLockfileDiff::isDowngrade('2.0.0', '2.x-dev'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('3.0.0', '2.1.x-dev'));
+    }
+
+    public function testIsDowngradeComparesPrereleaseNamedX(): void
+    {
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('2.0.0', '1.0.0-x.1'));
+    }
+
+    public function testFindNpmDowngradesDetectsNestedDowngrade(): void
+    {
+        $old = ['packages' => [
+            'node_modules/foo' => ['version' => '1.0.0'],
+            'node_modules/foo/node_modules/bar' => ['version' => '3.2.0'],
+        ]];
+        $new = ['packages' => [
+            'node_modules/foo' => ['version' => '1.0.0'],
+            'node_modules/foo/node_modules/bar' => ['version' => '3.0.0'],
+        ]];
+        $this->assertSame(
+            [['name' => 'bar', 'oldVersion' => '3.2.0', 'newVersion' => '3.0.0']],
+            DepsLockfileDiff::findNpmDowngrades($old, $new),
+        );
+    }
+
+    public function testFindNpmDowngradesIgnoresHoistingChanges(): void
+    {
+        $old = ['packages' => [
+            'node_modules/foo' => ['version' => '2.1.0'],
+            'node_modules/bar/node_modules/foo' => ['version' => '1.9.0'],
+        ]];
+        $new = ['packages' => [
+            'node_modules/foo' => ['version' => '1.9.0'],
+            'node_modules/bar/node_modules/@scope/baz' => ['version' => '1.0.0'],
+            'node_modules/baz/node_modules/foo' => ['version' => '2.1.0'],
+        ]];
+        $this->assertSame([], DepsLockfileDiff::findNpmDowngrades($old, $new));
+    }
+
+    public function testFindNpmDowngradesIgnoresUpgradesAndRemovals(): void
+    {
+        $old = ['packages' => [
+            '' => ['name' => 'root', 'version' => '1.0.0'],
+            'node_modules/@scope/up' => ['version' => '1.0.0'],
+            'node_modules/removed' => ['version' => '1.0.0'],
+        ]];
+        $new = ['packages' => [
+            '' => ['name' => 'root', 'version' => '0.1.0'],
+            'node_modules/@scope/up' => ['version' => '1.1.0'],
+            'node_modules/added' => ['version' => '1.0.0'],
+        ]];
+        $this->assertSame([], DepsLockfileDiff::findNpmDowngrades($old, $new));
     }
 }

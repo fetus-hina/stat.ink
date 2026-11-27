@@ -21,6 +21,7 @@ use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
 
+use function array_filter;
 use function basename;
 use function bin2hex;
 use function count;
@@ -133,33 +134,88 @@ final class DepsController extends Controller
     public function actionCheckDowngrades(): int
     {
         $lockfiles = [
-            'composer.lock' => $this->collectComposerChanges(...),
-            'deploy/composer.lock' => $this->collectComposerChanges(...),
-            'package-lock.json' => $this->collectNpmChanges(...),
+            'composer.lock' => 'composer',
+            'deploy/composer.lock' => 'composer',
+            'package-lock.json' => 'npm',
         ];
 
         $lines = [];
-        foreach ($lockfiles as $path => $collector) {
-            foreach ($collector($path) as $change) {
-                if (DepsLockfileDiff::isDowngrade($change['oldVersion'], $change['newVersion'])) {
-                    $lines[] = vsprintf('- `%s` (%s): %s -> %s', [
-                        $change['name'],
-                        $path,
-                        (string)$change['oldVersion'],
-                        (string)$change['newVersion'],
-                    ]);
-                }
+        $errors = [];
+        foreach ($lockfiles as $path => $type) {
+            $pair = $this->loadLockfilePair($path);
+            if (is_string($pair)) {
+                $errors[] = vsprintf('- %s: %s', [$path, $pair]);
+                continue;
+            }
+
+            [$oldData, $newData] = $pair;
+            $downgrades = $type === 'npm'
+                ? DepsLockfileDiff::findNpmDowngrades($oldData, $newData)
+                : array_filter(
+                    DepsLockfileDiff::diffComposerPackages($oldData, $newData),
+                    fn (array $c): bool => DepsLockfileDiff::isDowngrade($c['oldVersion'], $c['newVersion']),
+                );
+            foreach ($downgrades as $change) {
+                $lines[] = vsprintf('- `%s` (%s): %s -> %s', [
+                    $change['name'],
+                    $path,
+                    (string)$change['oldVersion'],
+                    (string)$change['newVersion'],
+                ]);
             }
         }
 
-        if (!$lines) {
-            echo "No downgrades detected.\n";
-            return ExitCode::OK;
+        // Fail closed: a lock file that could not be compared must not pass the check
+        if ($errors) {
+            echo "## Downgrade check failed\n\n";
+            echo "Could not compare the following lock files with HEAD:\n\n";
+            echo implode("\n", $errors) . "\n";
+            if ($lines) {
+                echo "\n";
+            }
         }
 
-        echo "## Downgrades detected\n\n";
-        echo implode("\n", $lines) . "\n";
-        return ExitCode::UNSPECIFIED_ERROR;
+        if ($lines) {
+            echo "## Downgrades detected\n\n";
+            echo implode("\n", $lines) . "\n";
+        }
+
+        if ($errors || $lines) {
+            return ExitCode::UNSPECIFIED_ERROR;
+        }
+
+        echo "No downgrades detected.\n";
+        return ExitCode::OK;
+    }
+
+    /**
+     * Load the HEAD and working-tree versions of a lock file.
+     *
+     * @return array{array<string, mixed>, array<string, mixed>}|string the parsed pair, or an error message
+     */
+    private function loadLockfilePair(string $path): array|string
+    {
+        if (!file_exists($path)) {
+            return 'not found in the working tree';
+        }
+
+        $oldJson = $this->gitFileAtHead($path);
+        if ($oldJson === null) {
+            return 'not found at HEAD';
+        }
+
+        try {
+            $oldData = Json::decode($oldJson);
+            $newData = Json::decode((string)file_get_contents($path));
+        } catch (Throwable $e) {
+            return 'failed to parse: ' . $e->getMessage();
+        }
+
+        if (!is_array($oldData) || !is_array($newData)) {
+            return 'not a JSON object';
+        }
+
+        return [$oldData, $newData];
     }
 
     private function assembleBody(?string $summary, string $auditSection): string

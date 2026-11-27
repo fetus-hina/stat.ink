@@ -69,6 +69,73 @@ final class DepsLockfileDiff
     }
 
     /**
+     * Find packages whose highest installed version went down between two parsed
+     * `package-lock.json` payloads.
+     *
+     * Every entry is considered, including nested `node_modules/<x>/node_modules/...`
+     * ones, and each package name is reduced to its highest version. A lock file that
+     * is regenerated from scratch may hoist a different copy to the top level, which
+     * must not be reported as a downgrade.
+     *
+     * @param array<string, mixed> $oldData parsed old package-lock.json
+     * @param array<string, mixed> $newData parsed new package-lock.json
+     * @return list<array{name: string, oldVersion: string, newVersion: string}>
+     */
+    public static function findNpmDowngrades(array $oldData, array $newData): array
+    {
+        $oldMap = self::mapNpmHighestVersions($oldData);
+        $newMap = self::mapNpmHighestVersions($newData);
+
+        $downgrades = [];
+        foreach ($newMap as $name => $newVersion) {
+            $oldVersion = $oldMap[$name] ?? null;
+            if ($oldVersion !== null && self::isDowngrade($oldVersion, $newVersion)) {
+                $downgrades[] = [
+                    'name' => $name,
+                    'oldVersion' => $oldVersion,
+                    'newVersion' => $newVersion,
+                ];
+            }
+        }
+        return $downgrades;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @return array<string, string>
+     */
+    private static function mapNpmHighestVersions(array $data): array
+    {
+        $packages = $data['packages'] ?? null;
+        if (!is_array($packages)) {
+            return [];
+        }
+
+        $map = [];
+        foreach ($packages as $path => $pkg) {
+            if (
+                !is_string($path) ||
+                !is_array($pkg) ||
+                preg_match('#(?:^|/)node_modules/((?:@[^/]+/)?[^/]+)$#', $path, $m) !== 1
+            ) {
+                continue;
+            }
+
+            $version = $pkg['version'] ?? null;
+            if (!is_string($version) || self::parseVersion($version) === null) {
+                continue;
+            }
+
+            $name = $m[1];
+            if (!isset($map[$name]) || self::isDowngrade($version, $map[$name])) {
+                $map[$name] = $version;
+            }
+        }
+        ksort($map);
+        return $map;
+    }
+
+    /**
      * @return array{core: non-empty-list<string>, suffix: string}|null
      */
     private static function parseVersion(?string $version): ?array
@@ -78,7 +145,7 @@ final class DepsLockfileDiff
         }
 
         // Branch aliases such as `2.x-dev` have no comparable position
-        if (preg_match('/(?:^|[.-])x(?:[.-]|$)/i', $version) === 1) {
+        if (preg_match('/^v?\d+(?:\.\d+)*\.x-dev$/i', $version) === 1) {
             return null;
         }
 
