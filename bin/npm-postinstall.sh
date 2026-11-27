@@ -8,6 +8,8 @@ pushd $DIR >/dev/null 2>&1
   mkdir -p $DIR/data/licenses-npm
   npx --no -- license-checker-rseidelsohn --files $DIR/data/licenses-npm/ >/dev/null
 
+  # Download the images of the same version as the @twemoji/api package
+  TWEMOJI_VERSION="$(node -p "require('@twemoji/api/package.json').version")"
   rm -rf $DIR/node_modules/twemoji-emojis
-  $DIR/bin/twemoji-download $DIR/node_modules/twemoji-emojis/vendor/
+  $DIR/bin/twemoji-download $DIR/node_modules/twemoji-emojis/vendor/ "$TWEMOJI_VERSION"
 popd >/dev/null 2>&1

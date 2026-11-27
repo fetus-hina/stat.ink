@@ -7,8 +7,9 @@
 
 declare(strict_types=1);
 
-use app\assets\EmojifyResourceAsset;
 use app\assets\SlackAsset;
+use app\components\helpers\SlackEmoji;
+use app\components\widgets\Emoji;
 use app\components\widgets\Icon;
 use app\models\Slack;
 use app\models\User;
@@ -100,14 +101,10 @@ echo GridView::widget([
           return Html::img($value, ['class' => 'emoji emoji-url']);
         }
 
-        if (preg_match('/^:[a-zA-Z0-9+._-]+:$/', $value)) {
-          $asset = EmojifyResourceAsset::register($this);
-          $fileName = trim((string)$value, ':') . '.png';
+        $emoji = SlackEmoji::fromShortcode($value);
+        if ($emoji !== null) {
           return implode(' ', [
-            Html::img(
-              Yii::$app->assetManager->getAssetUrl($asset, $fileName),
-              ['style' => 'height:2em;width:auto']
-            ),
+            Html::tag('span', Emoji::text($emoji), ['style' => '--emoji-size:2em']),
             Html::encode($value),
           ]);
         }

@@ -2,10 +2,9 @@
 
 /*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
 
+// The size can be changed by setting --emoji-size on an ancestor element
 .twemoji {
-  --emoji-size: 1.2em;
-
-  height: var(--emoji-size);
+  height: var(--emoji-size, 1.2em);
   vertical-align: middle;
-  width: var(--emoji-size);
+  width: var(--emoji-size, 1.2em);
 }
