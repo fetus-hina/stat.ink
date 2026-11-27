@@ -251,6 +251,22 @@ final class DepsLockfileDiffTest extends Unit
         $this->assertSame([], DepsLockfileDiff::findNpmDowngrades($old, $new));
     }
 
+    public function testFindNpmDowngradesComparesHighestVersions(): void
+    {
+        $old = ['packages' => [
+            'node_modules/foo' => ['version' => '2.1.0'],
+            'node_modules/bar/node_modules/foo' => ['version' => '1.0.0'],
+        ]];
+        $new = ['packages' => [
+            'node_modules/foo' => ['version' => '2.0.0'],
+            'node_modules/bar/node_modules/foo' => ['version' => '1.0.0'],
+        ]];
+        $this->assertSame(
+            [['name' => 'foo', 'oldVersion' => '2.1.0', 'newVersion' => '2.0.0']],
+            DepsLockfileDiff::findNpmDowngrades($old, $new),
+        );
+    }
+
     public function testFindNpmDowngradesIgnoresUpgradesAndRemovals(): void
     {
         $old = ['packages' => [
