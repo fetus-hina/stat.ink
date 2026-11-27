@@ -636,17 +636,17 @@ class UserMiniInfo2 extends Widget
                         ]),
                         'format' => 'raw',
                         'value' => function (UserStat2 $model) use ($info): string {
-                                $value = $model->{$info['attribute']};
-                                if ($model->gachi_battles < 1 || $value === null) {
-                                    return Html::encode(Yii::t('app', 'N/A'));
-                                }
+                            $value = $model->{$info['attribute']};
+                            if ($model->gachi_battles < 1 || $value === null) {
+                                return Html::encode(Yii::t('app', 'N/A'));
+                            }
 
-                                $html = Html::rank2($value);
-                                if (!$html) {
-                                    return Html::encode(Yii::t('app', 'N/A'));
-                                }
+                            $html = Html::rank2($value);
+                            if (!$html) {
+                                return Html::encode(Yii::t('app', 'N/A'));
+                            }
 
-                                return Html::tag('span', $html, ['class' => 'nobr']);
+                            return Html::tag('span', $html, ['class' => 'nobr']);
                         },
                     ],
                     $rules,
@@ -760,17 +760,17 @@ class UserMiniInfo2 extends Widget
                         ]),
                         'format' => 'raw',
                         'value' => function (UserStat2 $model) use ($info): string {
-                                $value = $model->{$info['attribute']};
-                                if ($model->gachi_battles < 1) {
-                                    return Html::encode(Yii::t('app', 'N/A'));
-                                }
+                            $value = $model->{$info['attribute']};
+                            if ($model->gachi_battles < 1) {
+                                return Html::encode(Yii::t('app', 'N/A'));
+                            }
 
-                                $html = Html::rank2($value);
-                                if (!$html) {
-                                    return Html::encode(Yii::t('app', 'N/A'));
-                                }
+                            $html = Html::rank2($value);
+                            if (!$html) {
+                                return Html::encode(Yii::t('app', 'N/A'));
+                            }
 
-                                return Html::tag('span', $html, ['class' => 'nobr']);
+                            return Html::tag('span', $html, ['class' => 'nobr']);
                         },
                     ],
                     $rules,

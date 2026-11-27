@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c131a62b45ec23f353173000c576fb5",
+    "content-hash": "a482786f1a459dec02b5a68fd38abd09",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -145,30 +145,100 @@
             "published-time": "2026-10-29T14:45:12+00:00"
         },
         {
-            "name": "cweagans/composer-patches",
-            "version": "1.7.3",
+            "name": "cweagans/composer-configurable-plugin",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "e190d4466fe2b103a55467dfa83fc2fecfcaf2db"
+                "url": "https://github.com/cweagans/composer-configurable-plugin.git",
+                "reference": "15433906511a108a1806710e988629fd24b89974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/e190d4466fe2b103a55467dfa83fc2fecfcaf2db",
-                "reference": "e190d4466fe2b103a55467dfa83fc2fecfcaf2db",
+                "url": "https://api.github.com/repos/cweagans/composer-configurable-plugin/zipball/15433906511a108a1806710e988629fd24b89974",
+                "reference": "15433906511a108a1806710e988629fd24b89974",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0 || ^2.0",
-                "php": ">=5.3.0"
+                "php": ">=8.0.0"
             },
             "require-dev": {
-                "composer/composer": "~1.0 || ~2.0",
-                "phpunit/phpunit": "~4.6"
+                "codeception/codeception": "~4.0",
+                "codeception/module-asserts": "^2.0",
+                "composer/composer": "~2.0",
+                "php-coveralls/php-coveralls": "~2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.0.0",
+                "phpro/grumphp": "^1.8.0",
+                "sebastian/phpcpd": "^6.0",
+                "squizlabs/php_codesniffer": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "cweagans\\Composer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Cameron Eagans",
+                    "email": "me@cweagans.net"
+                }
+            ],
+            "description": "Provides a lightweight configuration system for Composer plugins.",
+            "support": {
+                "issues": "https://github.com/cweagans/composer-configurable-plugin/issues",
+                "source": "https://github.com/cweagans/composer-configurable-plugin/tree/2.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/cweagans",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-02-12T04:58:58+00:00",
+            "published-time": "2023-02-12T05:06:43+00:00"
+        },
+        {
+            "name": "cweagans/composer-patches",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cweagans/composer-patches.git",
+                "reference": "bfa6018a5f864653d9ed899b902ea72f858a2cf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/bfa6018a5f864653d9ed899b902ea72f858a2cf7",
+                "reference": "bfa6018a5f864653d9ed899b902ea72f858a2cf7",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "cweagans/composer-configurable-plugin": "^2.0",
+                "ext-json": "*",
+                "php": ">=8.0.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "~4.0",
+                "codeception/module-asserts": "^2.0",
+                "codeception/module-cli": "^2.0",
+                "codeception/module-filesystem": "^2.0",
+                "composer/composer": "~2.0",
+                "php-coveralls/php-coveralls": "~2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.0.0",
+                "phpro/grumphp": "^1.8.0",
+                "sebastian/phpcpd": "^6.0",
+                "squizlabs/php_codesniffer": "^4.0"
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "cweagans\\Composer\\Patches"
+                "_": "The following two lines ensure that composer-patches is loaded as early as possible.",
+                "class": "cweagans\\Composer\\Plugin\\Patches",
+                "plugin-modifies-downloads": true,
+                "plugin-modifies-install-path": true
             },
             "autoload": {
                 "psr-4": {
@@ -188,10 +258,16 @@
             "description": "Provides a way to patch Composer packages.",
             "support": {
                 "issues": "https://github.com/cweagans/composer-patches/issues",
-                "source": "https://github.com/cweagans/composer-patches/tree/1.7.3"
+                "source": "https://github.com/cweagans/composer-patches/tree/2.0.0"
             },
-            "time": "2022-12-20T22:53:13+00:00",
-            "published-time": "2022-12-21T19:08:26+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/cweagans",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-10-30T23:44:22+00:00",
+            "published-time": "2025-10-31T01:21:00+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -846,78 +922,35 @@
             "published-time": "2026-11-13T19:46:05+00:00"
         },
         {
-            "name": "jp3cki/mb_str_replace",
-            "version": "4.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fetus-hina/mb_str_replace.git",
-                "reference": "2da85ced60f7067d2ef22b688b6dd7eec85200f7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/mb_str_replace/zipball/2da85ced60f7067d2ef22b688b6dd7eec85200f7",
-                "reference": "2da85ced60f7067d2ef22b688b6dd7eec85200f7",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.* || 5.*",
-                "squizlabs/php_codesniffer": "2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/mb_str_replace.function.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "The mb_str_replace() implementation.",
-            "support": {
-                "issues": "https://github.com/fetus-hina/mb_str_replace/issues",
-                "source": "https://github.com/fetus-hina/mb_str_replace/tree/v4.0.2"
-            },
-            "time": "2016-02-14T17:28:38+00:00",
-            "published-time": "2016-02-14T17:29:00+00:00"
-        },
-        {
             "name": "jp3cki/uuid",
-            "version": "v6.0.0",
+            "version": "v7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/uuid.git",
-                "reference": "d2b680fb4edd48fb56f1b8398299114c804e607b"
+                "reference": "17f39388f6422f7e15071f64e5c69ff4cb8e3ad1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/d2b680fb4edd48fb56f1b8398299114c804e607b",
-                "reference": "d2b680fb4edd48fb56f1b8398299114c804e607b",
+                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/17f39388f6422f7e15071f64e5c69ff4cb8e3ad1",
+                "reference": "17f39388f6422f7e15071f64e5c69ff4cb8e3ad1",
                 "shasum": ""
             },
             "require": {
+                "ext-date": "*",
                 "ext-hash": "*",
                 "ext-pcre": "*",
-                "paragonie/constant_time_encoding": "^3.1.3",
-                "php": ">= 8.2",
-                "php-64bit": ">= 8.2"
+                "ext-random": "*",
+                "ext-spl": "*",
+                "paragonie/constant_time_encoding": "^3.1.4",
+                "php": ">= 8.3",
+                "php-64bit": ">= 8.3"
             },
             "require-dev": {
-                "ergebnis/composer-normalize": "^2.52.0",
+                "ergebnis/composer-normalize": "^2.57.0",
                 "jp3cki/coding-standard": "^2.0.0",
-                "phpstan/phpstan": "^2.1.56",
-                "phpunit/phpunit": "^11.5.55",
-                "squizlabs/php_codesniffer": "^3.13.5"
+                "phpstan/phpstan": "^2.3.5",
+                "phpunit/phpunit": "^12.5.44",
+                "squizlabs/php_codesniffer": "^4.0.4"
             },
             "type": "library",
             "autoload": {
@@ -938,10 +971,10 @@
             ],
             "support": {
                 "issues": "https://github.com/fetus-hina/uuid/issues",
-                "source": "https://github.com/fetus-hina/uuid/tree/v6.0.0"
+                "source": "https://github.com/fetus-hina/uuid/tree/v7.0.0"
             },
-            "time": "2026-05-28T06:52:37+00:00",
-            "published-time": "2026-05-28T06:53:22+00:00"
+            "time": "2026-11-15T13:34:01+00:00",
+            "published-time": "2026-11-15T13:44:22+00:00"
         },
         {
             "name": "jp3cki/yii2-bs-datetimepicker",
@@ -1402,6 +1435,68 @@
             ],
             "time": "2026-11-09T22:51:17+00:00",
             "published-time": "2026-11-09T22:52:04+00:00"
+        },
+        {
+            "name": "laravel/serializable-closure",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/serializable-closure.git",
+                "reference": "2bfb44e8af009b553ed2c060c94b0bc3c67b4769"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/2bfb44e8af009b553ed2c060c94b0bc3c67b4769",
+                "reference": "2bfb44e8af009b553ed2c060c94b0bc3c67b4769",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+                "nesbot/carbon": "^2.67|^3.0",
+                "pestphp/pest": "^2.36|^3.0|^4.0",
+                "phpstan/phpstan": "^2.0",
+                "symfony/var-dumper": "^6.2.0|^7.0.0|^8.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\SerializableClosure\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Nuno Maduro",
+                    "email": "nuno@laravel.com"
+                }
+            ],
+            "description": "Laravel Serializable Closure provides an easy and secure way to serialize closures in PHP.",
+            "keywords": [
+                "closure",
+                "laravel",
+                "serializable"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/serializable-closure/issues",
+                "source": "https://github.com/laravel/serializable-closure"
+            },
+            "time": "2026-10-14T21:20:29+00:00",
+            "published-time": "2026-11-10T16:11:08+00:00"
         },
         {
             "name": "lbuchs/webauthn",
@@ -4007,34 +4102,41 @@
         },
         {
             "name": "yiisoft/yii2-queue",
-            "version": "2.3.9",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-queue.git",
-                "reference": "4b38cb61fe31631aa9bcf48ee90eb0c3132dc85b"
+                "reference": "ad2e29c85b3d75edd151b7efba6e4177a97a9231"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/4b38cb61fe31631aa9bcf48ee90eb0c3132dc85b",
-                "reference": "4b38cb61fe31631aa9bcf48ee90eb0c3132dc85b",
+                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/ad2e29c85b3d75edd151b7efba6e4177a97a9231",
+                "reference": "ad2e29c85b3d75edd151b7efba6e4177a97a9231",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.0",
-                "symfony/process": "^3.3||^4.0||^5.0||^6.0||^7.0||^8.0",
-                "yiisoft/yii2": "~2.0.14"
+                "laravel/serializable-closure": "^v2.0.0",
+                "php": ">=8.3",
+                "symfony/process": "^7.0||^8.0",
+                "yiisoft/yii2": "~2.0.54"
             },
             "require-dev": {
-                "aws/aws-sdk-php": ">=2.4",
-                "enqueue/amqp-lib": "^0.8||^0.9.10||^0.10.0",
-                "enqueue/stomp": "^0.8.39||^0.10.19",
-                "opis/closure": "*",
-                "pda/pheanstalk": "~3.2.1",
-                "php-amqplib/php-amqplib": "^2.8.0||^3.0.0",
-                "phpunit/phpunit": "^9.5",
+                "aws/aws-sdk-php": "^3.369.0",
+                "enqueue/amqp-bunny": "^0.10.0",
+                "enqueue/amqp-ext": "^0.10.8",
+                "enqueue/amqp-lib": "^0.10.0",
+                "enqueue/stomp": "^0.10.0",
+                "friendsofphp/php-cs-fixer": "^3.95",
+                "mspirkov/yii2-rector": "^0.2",
+                "pda/pheanstalk": "^8.0.0",
+                "php-amqplib/php-amqplib": "^3.0.0",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^12.5.0",
+                "rector/rector": "^2.6",
                 "yiisoft/yii2-debug": "~2.1.0",
                 "yiisoft/yii2-gii": "~2.2.0",
-                "yiisoft/yii2-redis": "~2.0.19"
+                "yiisoft/yii2-redis": "~2.1.0"
             },
             "suggest": {
                 "aws/aws-sdk-php": "Need for aws SQS.",
@@ -4047,12 +4149,16 @@
                 "yiisoft/yii2-redis": "Need for Redis queue."
             },
             "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "yii\\queue\\": "src",
                     "yii\\queue\\db\\": "src/drivers/db",
                     "yii\\queue\\sqs\\": "src/drivers/sqs",
-                    "yii\\queue\\amqp\\": "src/drivers/amqp",
                     "yii\\queue\\file\\": "src/drivers/file",
                     "yii\\queue\\sync\\": "src/drivers/sync",
                     "yii\\queue\\redis\\": "src/drivers/redis",
@@ -4104,8 +4210,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-15T13:15:21+00:00",
-            "published-time": "2026-11-15T13:22:38+00:00"
+            "time": "2026-11-24T10:13:15+00:00",
+            "published-time": "2026-11-24T10:44:18+00:00"
         },
         {
             "name": "yiisoft/yii2-symfonymailer",
@@ -5852,16 +5958,16 @@
         },
         {
             "name": "mspirkov/yii2-phpstan",
-            "version": "0.15.2",
+            "version": "0.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mspirkov/yii2-phpstan.git",
-                "reference": "e0b3fdd0809f4aae5ea75929c27197b6b1276594"
+                "reference": "af626fdffccb4bc194bbfa474570f9b53599bca5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mspirkov/yii2-phpstan/zipball/e0b3fdd0809f4aae5ea75929c27197b6b1276594",
-                "reference": "e0b3fdd0809f4aae5ea75929c27197b6b1276594",
+                "url": "https://api.github.com/repos/mspirkov/yii2-phpstan/zipball/af626fdffccb4bc194bbfa474570f9b53599bca5",
+                "reference": "af626fdffccb4bc194bbfa474570f9b53599bca5",
                 "shasum": ""
             },
             "require": {
@@ -5923,10 +6029,10 @@
             ],
             "support": {
                 "issues": "https://github.com/mspirkov/yii2-phpstan/issues",
-                "source": "https://github.com/mspirkov/yii2-phpstan/tree/0.15.2"
+                "source": "https://github.com/mspirkov/yii2-phpstan/tree/0.19.0"
             },
-            "time": "2026-10-21T12:01:45+00:00",
-            "published-time": "2026-10-21T12:02:07+00:00"
+            "time": "2026-11-22T17:00:27+00:00",
+            "published-time": "2026-11-22T17:03:49+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -8100,32 +8206,32 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "8.22.1",
+            "version": "8.31.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "1dd80bf3b93692bedb21a6623c496887fad05fec"
+                "reference": "b5c34b28811ee2ed323c52c7dabe2f2802dd2f8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/1dd80bf3b93692bedb21a6623c496887fad05fec",
-                "reference": "1dd80bf3b93692bedb21a6623c496887fad05fec",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/b5c34b28811ee2ed323c52c7dabe2f2802dd2f8a",
+                "reference": "b5c34b28811ee2ed323c52c7dabe2f2802dd2f8a",
                 "shasum": ""
             },
             "require": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7 || ^1.1.2",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7 || ^1.2.1",
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpdoc-parser": "^2.3.0",
-                "squizlabs/php_codesniffer": "^3.13.4"
+                "phpstan/phpdoc-parser": "^2.3.6",
+                "squizlabs/php_codesniffer": "^4.0.4"
             },
             "require-dev": {
-                "phing/phing": "3.0.1|3.1.0",
+                "phing/phing": "3.0.1|3.1.2",
                 "php-parallel-lint/php-parallel-lint": "1.4.0",
-                "phpstan/phpstan": "2.1.24",
-                "phpstan/phpstan-deprecation-rules": "2.0.3",
-                "phpstan/phpstan-phpunit": "2.0.7",
-                "phpstan/phpstan-strict-rules": "2.0.6",
-                "phpunit/phpunit": "9.6.8|10.5.48|11.4.4|11.5.36|12.3.10"
+                "phpstan/phpstan": "2.3.2",
+                "phpstan/phpstan-deprecation-rules": "2.0.5",
+                "phpstan/phpstan-phpunit": "2.1.1",
+                "phpstan/phpstan-strict-rules": "2.1.0",
+                "phpunit/phpunit": "9.6.38|10.5.66|11.4.4|11.5.57|12.5.40"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -8149,7 +8255,7 @@
             ],
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/8.22.1"
+                "source": "https://github.com/slevomat/coding-standard/tree/8.31.3"
             },
             "funding": [
                 {
@@ -8161,31 +8267,36 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-09-13T08:53:30+00:00",
-            "published-time": "2025-09-13T08:55:12+00:00"
+            "time": "2026-10-28T16:34:46+00:00",
+            "published-time": "2026-10-28T16:36:09+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.13.6",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "4c378e1a528ea066890fc2397cbdd2f94eb2fc91"
+                "reference": "bbdc3d0532623e21838b7041a4364383a8126f96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/4c378e1a528ea066890fc2397cbdd2f94eb2fc91",
-                "reference": "4c378e1a528ea066890fc2397cbdd2f94eb2fc91",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/bbdc3d0532623e21838b7041a4364383a8126f96",
+                "reference": "bbdc3d0532623e21838b7041a4364383a8126f96",
                 "shasum": ""
             },
             "require": {
+                "ext-libxml": "*",
                 "ext-simplexml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
-                "php": ">=5.4.0"
+                "php": ">=7.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
+                "phpunit/phpunit": "^8.4.0 || ^9.3.4 || ^10.5.32 || 11.3.3 - 11.5.28 || ^11.5.31"
+            },
+            "suggest": {
+                "ext-iconv": "For accurate character length calculation when the checked files contain multi-byte characters.",
+                "ext-pcntl": "For parallel processing support via the --parallel CLI option."
             },
             "bin": [
                 "bin/phpcbf",
@@ -8210,7 +8321,7 @@
                     "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer/graphs/contributors"
                 }
             ],
-            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "description": "PHP_CodeSniffer tokenizes PHP files and detects violations of a defined set of coding standards.",
             "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
@@ -8241,8 +8352,8 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2026-08-06T00:17:32+00:00",
-            "published-time": "2026-08-06T01:05:02+00:00"
+            "time": "2026-08-06T02:45:27+00:00",
+            "published-time": "2026-08-06T02:57:35+00:00"
         },
         {
             "name": "symfony/browser-kit",

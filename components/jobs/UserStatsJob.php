@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
+use Override;
 use Yii;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\UserStatsV3;
@@ -27,6 +28,7 @@ final class UserStatsJob extends BaseObject implements JobInterface
     public int|string|null $user = null;
     public ?int $version = null;
 
+    #[Override]
     public function execute($queue)
     {
         $user = User::find()

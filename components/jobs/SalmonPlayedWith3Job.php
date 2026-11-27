@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
+use Override;
 use Yii;
 use app\components\helpers\UserPlayedWith3Helper;
 use app\models\Salmon3;
@@ -26,6 +27,7 @@ final class SalmonPlayedWith3Job extends BaseObject implements JobInterface
     /**
      * @inheritdoc
      */
+    #[Override]
     public function execute($queue)
     {
         $user = User::find()

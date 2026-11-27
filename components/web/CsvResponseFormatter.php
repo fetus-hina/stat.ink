@@ -21,11 +21,11 @@ use function fwrite;
 use function implode;
 use function in_array;
 use function mb_convert_encoding;
-use function mb_str_replace;
 use function mb_substitute_character;
 use function preg_match;
 use function preg_quote;
 use function sprintf;
+use function str_replace;
 use function tmpfile;
 
 use const SEEK_SET;
@@ -87,7 +87,7 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
             function ($cell) use ($quoteRegex, $outputCharset) {
                 $utf8 = TypeHelper::string(mb_convert_encoding((string)$cell, 'UTF-8', $this->inputCharset));
                 if (preg_match($quoteRegex, $cell)) {
-                    $utf8 = sprintf('"%s"', mb_str_replace('"', '""', $utf8, 'UTF-8'));
+                    $utf8 = sprintf('"%s"', str_replace('"', '""', $utf8));
                 }
                 return mb_convert_encoding($utf8, $outputCharset, 'UTF-8');
             },

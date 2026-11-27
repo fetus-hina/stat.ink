@@ -183,12 +183,12 @@ final class BattleFilterWidget extends Widget
         $list = (fn () => array_merge(
             ['' => Yii::t('app-map', 'Any Stage')],
             (function () {
-                    $ret = [];
-                    foreach (Map::find()->asArray()->all() as $map) {
-                        $ret[$map['key']] = Yii::t('app-map', $map['name']);
-                    }
-                    uasort($ret, strnatcasecmp(...));
-                    return $ret;
+                $ret = [];
+                foreach (Map::find()->asArray()->all() as $map) {
+                    $ret[$map['key']] = Yii::t('app-map', $map['name']);
+                }
+                uasort($ret, strnatcasecmp(...));
+                return $ret;
             })(),
         ))();
         return $form->field($this->filter, 'map')->dropDownList($list)->label(false);

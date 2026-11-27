@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
+use Override;
 use Yii;
 use yii\base\BaseObject;
 use yii\helpers\FileHelper;
@@ -28,6 +29,7 @@ class ImageOptimizeJob extends BaseObject implements JobInterface
     public ?string $inPath = null;
     public ?string $outPath = null;
 
+    #[Override]
     public function execute($queue)
     {
         $inPath = $this->inPath;
