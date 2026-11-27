@@ -8,6 +8,7 @@
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\DateTimeLocal;
 use app\components\helpers\Resource;
 use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
@@ -24,7 +25,6 @@ use app\models\User;
 use app\models\UserWeapon;
 use app\models\Weapon;
 use app\models\WeaponType;
-use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\db\Query;
@@ -407,13 +407,9 @@ final class BattleFilterWidget extends Widget
     protected function drawTermPeriod(ActiveForm $form): string
     {
         $divId = $this->getId() . '-term';
-        BootstrapDateTimePickerAsset::register($this->view);
         $this->view->registerCss("#{$divId}{margin-left:5%}");
         $this->view->registerJs(implode('', [
             '(function($){',
-            "\$('#{$divId} input').datetimepicker({",
-            "format: 'YYYY-MM-DD HH:mm:ss'",
-            '});',
             "\$('#filter-term').change(function(){",
             "if($(this).val()==='term'){",
             "\$('#{$divId}').show();",
@@ -431,13 +427,19 @@ final class BattleFilterWidget extends Widget
                         'app-filter',
                         '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>',
                     ),
-                ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
+                ])->input('datetime-local', [
+                    'step' => 1,
+                    'value' => DateTimeLocal::toInputValue($this->filter->term_from),
+                ])->label(false),
                 $form->field($this->filter, 'term_to', [
                     'inputTemplate' => Yii::t(
                         'app-filter',
                         '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>',
                     ),
-                ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
+                ])->input('datetime-local', [
+                    'step' => 1,
+                    'value' => DateTimeLocal::toInputValue($this->filter->term_to),
+                ])->label(false),
             ]),
             ['id' => $divId],
         );

@@ -12,8 +12,6 @@ namespace app\assets;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotResizeAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
-use statink\yii2\momentjs\MomentAsset;
-use statink\yii2\momentjs\MomentTimezoneAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
@@ -32,7 +30,6 @@ class LeaguePowerHistoryAsset extends AssetBundle
         FlotResizeAsset::class,
         FlotTimeAsset::class,
         JqueryAsset::class,
-        MomentAsset::class,
-        MomentTimezoneAsset::class,
+        LuxonAsset::class,
     ];
 }

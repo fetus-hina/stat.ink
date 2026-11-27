@@ -10,6 +10,7 @@ namespace app\models;
 use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\DateTimeLocal;
 use app\components\helpers\TypeHelper;
 use yii\base\Model;
 use yii\db\ActiveRecord;
@@ -166,6 +167,7 @@ class BattleFilterForm extends Model
                     ),
                 ),
             ],
+            [['term_from', 'term_to'], 'filter', 'filter' => DateTimeLocal::toFormValue(...)],
             [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
             [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],
             [['id_from', 'id_to'], 'integer', 'min' => 1],

@@ -8,7 +8,6 @@
 declare(strict_types=1);
 
 use app\components\web\AssetManager;
-use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use jp3cki\yii2\flot\BasePluginAsset;
 use jp3cki\yii2\flot\ExcanvasAsset;
 use jp3cki\yii2\flot\FlotAsset;
@@ -27,14 +26,9 @@ use jp3cki\yii2\flot\FlotSymbolAsset;
 use jp3cki\yii2\flot\FlotThresholdAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
 use jp3cki\yii2\jqueryColor\JqueryColorAsset;
-use jp3cki\yii2\momentjs\MomentJsAsset;
-use jp3cki\yii2\momentjs\MomentJsLocaleAsset;
-use jp3cki\yii2\momentjs\MomentJsTimeZoneAsset;
 use statink\yii2\calHeatmap\PopperAsset;
 use statink\yii2\ipBadge\assets\Audiowide;
 use statink\yii2\jdenticon\JdenticonAsset;
-use statink\yii2\momentjs\MomentAsset;
-use statink\yii2\momentjs\MomentTimezoneAsset;
 use statink\yii2\sortableTable\JqueryStupidTableAsset;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
@@ -47,9 +41,6 @@ use yii\widgets\PjaxAsset;
 return [
     'class' => AssetManager::class,
     'bundles' => [
-        BootstrapDateTimePickerAsset::class => [
-            'sourcePath' => '@node/eonasdan-bootstrap-datetimepicker/build',
-        ],
         BasePluginAsset::class => [
             'sourcePath' => '@node/flot',
         ],
@@ -104,15 +95,6 @@ return [
         JqueryColorAsset::class => [
             'sourcePath' => '@node/jquery-color/dist',
         ],
-        MomentJsAsset::class => [
-            'sourcePath' => '@node/moment/min',
-        ],
-        MomentJsLocaleAsset::class => [
-            'sourcePath' => '@node/moment/locale',
-        ],
-        MomentJsTimeZoneAsset::class => [
-            'sourcePath' => '@node/moment-timezone/builds',
-        ],
         PopperAsset::class => [
             'sourcePath' => '@node/@popperjs/core/dist/umd',
         ],
@@ -156,12 +138,6 @@ return [
         ],
         PjaxAsset::class => [
             'sourcePath' => '@node/yii2-pjax',
-        ],
-        MomentAsset::class => [
-            'sourcePath' => '@node/moment/min',
-        ],
-        MomentTimezoneAsset::class => [
-            'sourcePath' => '@node/moment-timezone/builds',
         ],
     ],
 ];

@@ -14,6 +14,7 @@ use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\DateTimeLocal;
 use app\components\helpers\TypeHelper;
 use yii\base\Model;
 use yii\db\ActiveRecord;
@@ -246,6 +247,7 @@ class Battle2FilterForm extends Model
                     ),
                 ),
             ],
+            [['term_from', 'term_to'], 'filter', 'filter' => DateTimeLocal::toFormValue(...)],
             [['term_from', 'term_to'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],
             [['id_from', 'id_to'], 'integer', 'min' => 1],
