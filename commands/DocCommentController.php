@@ -127,12 +127,14 @@ final class DocCommentController extends Controller
         $regexDocComment = preg_quote('/**', '/') . '.*?' . preg_quote('*/', '/') . '\n*';
         $regex = "/^({$regexPhpOpenTag})(?:{$regexDocComment})?/s";
 
-        $newFile = preg_replace_callback(
-            $regex,
-            fn (array $match): string => rtrim($match[1]) . "\n\n{$docComment}\n\n",
-            $file,
-            1,
-        ) ?? throw new RuntimeException(preg_last_error_msg());
+        $newFile = rtrim(
+            preg_replace_callback(
+                $regex,
+                fn (array $match): string => rtrim($match[1]) . "\n\n{$docComment}\n\n",
+                $file,
+                1,
+            ) ?? throw new RuntimeException(preg_last_error_msg()),
+        ) . "\n";
         if ($file === $newFile) {
             echo Console::ansiFormat($relPath, [Console::FG_GREY]) . "\n";
             return;
@@ -147,7 +149,7 @@ final class DocCommentController extends Controller
         );
         echo $differ->diff($file, $newFile) . "\n";
 
-        file_put_contents($path, rtrim($newFile) . "\n");
+        file_put_contents($path, $newFile);
     }
 
     private function makeDocComment(string $path): string

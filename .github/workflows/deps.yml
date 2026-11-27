@@ -72,6 +72,7 @@ jobs:
           git add \
             ./composer.json \
             ./composer.lock \
+            ./patches.lock.json \
             ./package.json \
             ./package-lock.json \
             deploy/composer.json \
