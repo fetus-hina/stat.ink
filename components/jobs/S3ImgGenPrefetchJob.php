@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
+use Override;
 use Yii;
 use app\models\Battle3;
 use app\models\Salmon3;
@@ -39,6 +40,7 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
      * @inheritdoc
      * @param Queue $queue
      */
+    #[Override]
     public function execute($queue)
     {
         $item = $this->findItem($this->type, $this->uuid);

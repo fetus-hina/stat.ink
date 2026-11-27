@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
+use Override;
 use Yii;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\SalmonExportJson3Helper;
@@ -27,6 +28,7 @@ final class SalmonExportJson3Job extends BaseObject implements RetryableJobInter
     /**
      * @inheritdoc
      */
+    #[Override]
     public function execute($queue)
     {
         $userModel = User::find()
@@ -67,6 +69,7 @@ final class SalmonExportJson3Job extends BaseObject implements RetryableJobInter
      * is restarted on deployment. The export saves its progress every 200 jobs,
      * so a retried job continues from where it stopped.
      */
+    #[Override]
     public function getTtr(): int
     {
         return 3600;
@@ -75,6 +78,7 @@ final class SalmonExportJson3Job extends BaseObject implements RetryableJobInter
     /**
      * @inheritdoc
      */
+    #[Override]
     public function canRetry($attempt, $error): bool
     {
         return $attempt < 10;

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\jobs;
 
 use Generator;
+use Override;
 use Throwable;
 use Yii;
 use app\models\Battle;
@@ -30,6 +31,7 @@ class SlackJob extends BaseObject implements JobInterface
     public int|null $version = null;
     public int|null $battle = null;
 
+    #[Override]
     public function execute($queue)
     {
         if (isset($this->hostInfo)) {
