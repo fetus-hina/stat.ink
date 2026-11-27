@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "174f102b252804f4bde3fa98e1e507b9",
+    "content-hash": "a482786f1a459dec02b5a68fd38abd09",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -920,52 +920,6 @@
             },
             "time": "2026-11-13T19:40:21+00:00",
             "published-time": "2026-11-13T19:46:05+00:00"
-        },
-        {
-            "name": "jp3cki/mb_str_replace",
-            "version": "4.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fetus-hina/mb_str_replace.git",
-                "reference": "2da85ced60f7067d2ef22b688b6dd7eec85200f7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/mb_str_replace/zipball/2da85ced60f7067d2ef22b688b6dd7eec85200f7",
-                "reference": "2da85ced60f7067d2ef22b688b6dd7eec85200f7",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.* || 5.*",
-                "squizlabs/php_codesniffer": "2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/mb_str_replace.function.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "The mb_str_replace() implementation.",
-            "support": {
-                "issues": "https://github.com/fetus-hina/mb_str_replace/issues",
-                "source": "https://github.com/fetus-hina/mb_str_replace/tree/v4.0.2"
-            },
-            "time": "2016-02-14T17:28:38+00:00",
-            "published-time": "2016-02-14T17:29:00+00:00"
         },
         {
             "name": "jp3cki/uuid",
