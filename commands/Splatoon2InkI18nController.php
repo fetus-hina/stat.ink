@@ -139,6 +139,7 @@ class Splatoon2InkI18nController extends Controller
             ->setOptions([
                 'timeout' => 15,
                 'userAgent' => 'statink (+https://stat.ink/)',
+                'followLocation' => true,
                 'maxRedirects' => 5,
             ])
             ->setMethod('get')

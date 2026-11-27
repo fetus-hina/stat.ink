@@ -529,6 +529,7 @@ final class DepsController extends Controller
                 ->createRequest()
                 ->setOptions([
                     'timeout' => self::HTTP_TIMEOUT,
+                    'followLocation' => true,
                     'maxRedirects' => 5,
                     'userAgent' => 'stat.ink-deps-summarizer',
                 ])
@@ -579,6 +580,7 @@ final class DepsController extends Controller
                 ->createRequest()
                 ->setOptions([
                     'timeout' => self::HTTP_TIMEOUT,
+                    'followLocation' => true,
                     'maxRedirects' => 5,
                     'userAgent' => 'stat.ink-deps-summarizer',
                 ])

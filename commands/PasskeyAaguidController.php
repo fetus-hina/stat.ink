@@ -85,6 +85,7 @@ final class PasskeyAaguidController extends Controller
                         'stat.ink/%s (+https://github.com/fetus-hina/stat.ink)',
                         Yii::$app->version,
                     ),
+                    'followLocation' => true,
                     'maxRedirects' => 5,
                 ])
                 ->setMethod('get')

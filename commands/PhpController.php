@@ -81,6 +81,10 @@ final class PhpController extends Controller
 
         $response = $client
             ->createRequest()
+            ->setOptions([
+                'followLocation' => true,
+                'maxRedirects' => 5,
+            ])
             ->setMethod('GET')
             ->setUrl(vsprintf('https://www.php.net/ChangeLog-%d.php', [
                 intval($series, 10),
