@@ -33,7 +33,7 @@ jobs:
           config.max_model_tokens: '262144'
           config.model: openai/preview/GLM-5.3-Flash
           config.output_run_details: 'true'
-          config.repo_context_files: '["CLAUDE.md"]'
+          config.repo_context_files: '["AGENTS.md"]'
           config.response_language: ja-JP
           github_action_config.auto_describe: 'true'
           github_action_config.auto_improve: 'true'
