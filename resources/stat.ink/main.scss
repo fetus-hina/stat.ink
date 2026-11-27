@@ -49,6 +49,11 @@ main {
   border-radius: 0 !important;
 }
 
+// datetime-local は内容に合わせた固定幅を持つため、親要素からはみ出さないようにする
+[type='datetime-local'] {
+  max-width: 100%;
+}
+
 // フッター
 footer {
   background-color: #f5f5f5;
