@@ -11,13 +11,19 @@ namespace app\components\helpers;
 
 use function array_keys;
 use function array_merge;
+use function array_pad;
 use function array_unique;
+use function count;
+use function explode;
+use function implode;
 use function is_array;
 use function is_string;
 use function ksort;
+use function max;
 use function preg_match;
 use function strcmp;
 use function usort;
+use function version_compare;
 
 final class DepsLockfileDiff
 {
@@ -33,6 +39,57 @@ final class DepsLockfileDiff
             return $m[1] . '/' . $m[2];
         }
         return null;
+    }
+
+    /**
+     * Whether a version change from `$oldVersion` to `$newVersion` is a downgrade.
+     *
+     * Returns `false` when either side is missing (package added/removed) or is not a
+     * numeric version (e.g. `dev-master`, `2.x-dev`), since no ordering can be inferred.
+     * A leading `v`, build metadata (`+...`) and missing trailing components (`1.0` vs
+     * `1.0.0`) are ignored.
+     */
+    public static function isDowngrade(?string $oldVersion, ?string $newVersion): bool
+    {
+        $old = self::parseVersion($oldVersion);
+        $new = self::parseVersion($newVersion);
+        if ($old === null || $new === null) {
+            return false;
+        }
+
+        $length = max(count($old['core']), count($new['core']));
+        $oldCore = array_pad($old['core'], $length, '0');
+        $newCore = array_pad($new['core'], $length, '0');
+
+        return version_compare(
+            implode('.', $newCore) . $new['suffix'],
+            implode('.', $oldCore) . $old['suffix'],
+            '<',
+        );
+    }
+
+    /**
+     * @return array{core: non-empty-list<string>, suffix: string}|null
+     */
+    private static function parseVersion(?string $version): ?array
+    {
+        if ($version === null) {
+            return null;
+        }
+
+        // Branch aliases such as `2.x-dev` have no comparable position
+        if (preg_match('/(?:^|[.-])x(?:[.-]|$)/i', $version) === 1) {
+            return null;
+        }
+
+        if (preg_match('/^v?(\d+(?:\.\d+)*)((?:[-.][0-9A-Za-z.-]+)?)(?:\+.*)?$/i', $version, $m) !== 1) {
+            return null;
+        }
+
+        return [
+            'core' => explode('.', $m[1]),
+            'suffix' => $m[2],
+        ];
     }
 
     /**

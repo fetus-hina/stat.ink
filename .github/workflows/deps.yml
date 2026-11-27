@@ -86,6 +86,14 @@ jobs:
             echo "changed=1" >> $GITHUB_ENV
           fi
       -
+        # A security fix still in the cooldown period can make "composer update"
+        # fall back to an older release; never turn such a result into a PR
+        name: 'Check for downgrades'
+        if: "${{ env.changed == '1' }}"
+        run: |
+          set -o pipefail
+          ./yii deps/check-downgrades | tee -a "$GITHUB_STEP_SUMMARY"
+      -
         name: 'Generate PR body'
         if: "${{ env.changed == '1' }}"
         run: |

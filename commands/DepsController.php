@@ -49,6 +49,7 @@ use function substr;
 use function sys_get_temp_dir;
 use function trim;
 use function vfprintf;
+use function vsprintf;
 
 use const STDERR;
 
@@ -119,6 +120,46 @@ final class DepsController extends Controller
 
         echo $this->assembleBody($body, $auditSection);
         return ExitCode::OK;
+    }
+
+    /**
+     * Fail when any lock file in the working tree pins an older version than HEAD.
+     *
+     * A full `composer update` re-evaluates every package, so when a fixed release is
+     * still in the cooldown period while the locked version is blocked by a security
+     * advisory, Composer silently falls back to an older release (and drags its
+     * dependents down with it). This check stops such updates from becoming a PR.
+     */
+    public function actionCheckDowngrades(): int
+    {
+        $lockfiles = [
+            'composer.lock' => $this->collectComposerChanges(...),
+            'deploy/composer.lock' => $this->collectComposerChanges(...),
+            'package-lock.json' => $this->collectNpmChanges(...),
+        ];
+
+        $lines = [];
+        foreach ($lockfiles as $path => $collector) {
+            foreach ($collector($path) as $change) {
+                if (DepsLockfileDiff::isDowngrade($change['oldVersion'], $change['newVersion'])) {
+                    $lines[] = vsprintf('- `%s` (%s): %s -> %s', [
+                        $change['name'],
+                        $path,
+                        (string)$change['oldVersion'],
+                        (string)$change['newVersion'],
+                    ]);
+                }
+            }
+        }
+
+        if (!$lines) {
+            echo "No downgrades detected.\n";
+            return ExitCode::OK;
+        }
+
+        echo "## Downgrades detected\n\n";
+        echo implode("\n", $lines) . "\n";
+        return ExitCode::UNSPECIFIED_ERROR;
     }
 
     private function assembleBody(?string $summary, string $auditSection): string

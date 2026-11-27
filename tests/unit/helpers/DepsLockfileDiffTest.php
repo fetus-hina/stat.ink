@@ -174,4 +174,44 @@ final class DepsLockfileDiffTest extends Unit
         $this->assertSame('1.0.0', $changes[0]['oldVersion']);
         $this->assertSame('1.1.0', $changes[0]['newVersion']);
     }
+
+    public function testIsDowngradeDetectsLowerVersion(): void
+    {
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('v7.4.22', 'v6.4.51'));
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('8.1.11', '8.0.15'));
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('1.0.10', '1.0.9'));
+    }
+
+    public function testIsDowngradeReturnsFalseForUpgradeOrSameVersion(): void
+    {
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('v7.4.22', 'v7.4.24'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('1.0.9', '1.0.10'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('1.0.0', '1.0.0'));
+    }
+
+    public function testIsDowngradeIgnoresPrefixAndMissingParts(): void
+    {
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('1.0', 'v1.0.0'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('v1.0.0', '1.0'));
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('2.0', '1.9.9'));
+    }
+
+    public function testIsDowngradeHandlesPrereleases(): void
+    {
+        $this->assertTrue(DepsLockfileDiff::isDowngrade('2.0.0', '2.0.0-rc.1'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('2.0.0-rc.1', '2.0.0'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('2.0.0-beta.1', '2.0.0-rc.1'));
+    }
+
+    public function testIsDowngradeReturnsFalseForAddedOrRemovedPackage(): void
+    {
+        $this->assertFalse(DepsLockfileDiff::isDowngrade(null, '1.0.0'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('1.0.0', null));
+    }
+
+    public function testIsDowngradeReturnsFalseForNonNumericVersions(): void
+    {
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('dev-master', '1.0.0'));
+        $this->assertFalse(DepsLockfileDiff::isDowngrade('2.0.0', '2.x-dev'));
+    }
 }
