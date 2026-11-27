@@ -178,7 +178,9 @@
       }
     },
     "soak-time-hours": 72,
-    "soak-time-whitelist": []
+    "soak-time-whitelist": [
+      "symfony/mailer"
+    ]
   },
   "scripts": {
     "post-install-cmd": [
